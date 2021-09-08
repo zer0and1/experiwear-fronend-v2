@@ -21,17 +21,8 @@ const CalendarIcon = ({
 
   return (
     <SvgIcon viewBox={viewBox || '0 0 18 22'} {...rest} className={clsx(classes.root, className)}>
-      <g id="Welcome" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-        <g id="Fanband-Hawks-Dashboard" transform="translate(-37.000000, -583.000000)" stroke={color} strokeWidth="2">
-          <g id="Apps" transform="translate(35.055556, 376.025907)">
-            <g id="calendar" transform="translate(2.944444, 208.264249)">
-              <rect id="Rectangle" x="0" y="2.11398964" width="16" height="16.9119171" rx="2"></rect>
-              <line x1="11.5" y1="-1.19546984e-13" x2="11.5" y2="4.22797927" id="Path"></line>
-              <line x1="4.5" y1="-1.19546984e-13" x2="4.5" y2="4.22797927" id="Path"></line>
-              <line x1="0" y1="7.92746114" x2="16" y2="7.92746114" id="Path"></line>
-            </g>
-          </g>
-        </g>
+      <g transform="translate(0 -1)" fill="none" fill-rule="evenodd" stroke={color}>
+        <path d="M7.2 2.6v-.8a.8.8 0 1 1 1.6 0v.8h2.4v-.8a.8.8 0 1 1 1.6 0v.8h.8A2.4 2.4 0 0 1 16 5v8a2.4 2.4 0 0 1-2.4 2.4H2.4A2.4 2.4 0 0 1 0 13V5a2.4 2.4 0 0 1 2.4-2.4h.8v-.8a.8.8 0 1 1 1.6 0v.8h2.4zm0 1.6H4.8V5a.8.8 0 1 1-1.6 0v-.8h-.8a.8.8 0 0 0-.8.8v8a.8.8 0 0 0 .8.8h11.2a.8.8 0 0 0 .8-.8V5a.8.8 0 0 0-.8-.8h-.8V5a.8.8 0 1 1-1.6 0v-.8H8.8V5a.8.8 0 1 1-1.6 0v-.8zM2.4 7.4H4V9H2.4V7.4zm0 3.2H4v1.6H2.4v-1.6zm9.6 0h1.6v1.6H12v-1.6zm0-3.2h1.6V9H12V7.4zm-6.4 0h1.6V9H5.6V7.4zm3.2 0h1.6V9H8.8V7.4zm0 3.2h1.6v1.6H8.8v-1.6zm-3.2 0h1.6v1.6H5.6v-1.6z" fill="#000" fill-rule="nonzero" />
       </g>
     </SvgIcon>
   )

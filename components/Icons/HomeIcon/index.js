@@ -20,16 +20,9 @@ const HomeIcon = ({
   const color = isActive ? '#01a1c3' : '#606060';
 
   return (
-    <SvgIcon viewBox={viewBox || '0 0 16 19'} {...rest} className={clsx(classes.root, className)}>
-      <g id="Welcome" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-        <g id="Fanband-Hawks-Dashboard" transform="translate(-36.000000, -131.000000)" stroke={color} strokeWidth="2">
-          <g id="Dashboard" transform="translate(24.000000, 123.098361)">
-            <g id="home" transform="translate(13.000000, 9.442623)">
-              <path d="M0,5.71220401 L7,0 L14,5.71220401 L14,14.6885246 C14,15.5898855 13.3035541,16.3205829 12.4444444,16.3205829 L1.55555556,16.3205829 C0.696445945,16.3205829 0,15.5898855 0,14.6885246 L0,5.71220401 Z" id="Path"></path>
-              <polyline id="Path" points="4.66666667 16.3205829 4.66666667 8.16029144 9.33333333 8.16029144 9.33333333 16.3205829"></polyline>
-            </g>
-          </g>
-        </g>
+    <SvgIcon viewBox={viewBox || '0 0 16 16'} {...rest} className={clsx(classes.root, className)}>
+     <g transform="translate(-39 -178)" fill="none" fill-rule="evenodd" stroke={color}>
+        <path d="M53.4 192.373v-8.841l-6.4-3.905-6.4 3.905v8.841h3.2v-2.237c0-1.797 1.433-3.254 3.2-3.254 1.767 0 3.2 1.457 3.2 3.254v2.237h3.2zM48.6 194v-3.864c0-.899-.716-1.627-1.6-1.627-.884 0-1.6.728-1.6 1.627V194h-4.8c-.884 0-1.6-.728-1.6-1.627v-8.841c0-.572.295-1.101.777-1.395l6.4-3.905c.506-.31 1.14-.31 1.646 0l6.4 3.905c.482.294.777.823.777 1.395v8.841c0 .899-.716 1.627-1.6 1.627h-4.8z" fill="#000" fill-rule="nonzero" />
       </g>
     </SvgIcon>
   )
