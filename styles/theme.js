@@ -34,25 +34,65 @@ const theme = responsiveFontSizes(createMuiTheme({
       root: {
         padding: 32
       }
+    },
+    MuiPaper: {
+      root: {
+        border: '1px solid #e0e1f2 !important',
+        borderRadius: '20px !important',
+        boxShadow: 'none !important',
+      },
+    },
+    MuiInputBase: {
+      input: {        
+        '&:-webkit-autofill': {
+          boxShadow: '0 0 0 30px white inset !important;',
+        },
+      },
+    },
+    MuiTextField: {
+      root: {
+        '& label, & label.Mui-focused': {
+          color: '#d5d5dc',
+        },
+        '& .MuiInput-underline::before': {
+          borderBottomColor: '#d5d5dc',
+        },
+      },
+    },
+    MuiButton: {
+      root: {
+        textTransform: 'none',
+        fontSize: 16,
+      }
+    },
+    MuiCheckbox: {
+      colorPrimary: {
+        color: '#01a1c3',
+        '&.Mui-checked': {
+          color: '#01a1c3',
+        }
+      },
+    },
+    MuiFormControlLabel: {
+      label: {
+        fontSize: 14,
+        color: '#696974',
+        letterSpacing: 0.1,
+        userSelect: 'none'
+      }
     }
   },
   palette: {
     primary: {
-      light: '#4791db',
-      main: '#000000',
-      dark: '#115293',
+      main: '#00748c',
       contrastText: '#ffffff'
     },
     secondary: {
-      light: '#555e6c',
-      main: '#587489',
-      dark: '#2c3b46',
+      main: '#f24024',
       contrastText: '#ffffff'
     },
     danger: {
-      light: '#c944dd',
-      main: '#df0026',
-      dark: '#b20000',
+      main: '#f24024',
       contrastText: '#ffffff'
     },
     background: {
@@ -79,12 +119,17 @@ const theme = responsiveFontSizes(createMuiTheme({
       orange: '#da532c',
       white: '#ffffff',
       pink: '#d808dd',
-      border: '#d6d6d6'
+      border: '#d6d6d6',
+      ocean: '#00748c',
+      score: '#f24024',
+      boxBlue: "#01a1c3",
+      textGrey: '#d5d5dc',
+      lineGrey: '#e2e2ea',
     },
     layout: {
       topAppBarHeight: 80,
       drawerWidth: 280
-    }
+    },
   }
 }));
 

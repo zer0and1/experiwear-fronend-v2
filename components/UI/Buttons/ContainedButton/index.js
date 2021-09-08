@@ -16,6 +16,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 3),
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(0, 2),
+    },
+    '&:hover': {
+      backgroundColor: theme.custom.palette[props.color],
+      opacity: 0.8,
     }
   })
 }));
