@@ -7,47 +7,76 @@ import CheckSquareIcon from 'components/Icons/CheckSquareIcon'
 import DealIcon from 'components/Icons/DealIcon'
 import CalendarIcon from 'components/Icons/CalendarIcon'
 import AccelerometerIcon from 'components/Icons/AccelerometerIcon'
+import StatsIcon from 'components/Icons/StatsIcon';
+import AlertIcon from 'components/Icons/AlertIcon'
 
-const HOME_MENU = {
-  ICON: HomeIcon,
-  HREF: LINKS.HOME.HREF,
-  TITLE: LINKS.HOME.TITLE
-}
-
-const SECONDARY_SIDEBAR_MENU = [
+export const OVERVIEW_ITEMS = [
   {
-    ICON: MailIcon,
-    HREF: LINKS.NEWS.HREF,
-    TITLE: LINKS.NEWS.TITLE
+    icon: HomeIcon,
+    href: LINKS.HOME.HREF,
+    title: LINKS.HOME.TITLE
   },
   {
-    ICON: MessageSquareIcon,
-    HREF: LINKS.SURVEY.HREF,
-    TITLE: LINKS.SURVEY.TITLE
-  },
-  {
-    ICON: CheckSquareIcon,
-    HREF: LINKS.SCORE.HREF,
-    TITLE: LINKS.SCORE.TITLE
-  },
-  {
-    ICON: DealIcon,
-    HREF: LINKS.PROMO.HREF,
-    TITLE: LINKS.PROMO.TITLE
-  },
-  {
-    ICON: CalendarIcon,
-    HREF: LINKS.SCHEDULE.HREF,
-    TITLE: LINKS.SCHEDULE.TITLE
-  },
-  {
-    ICON: AccelerometerIcon,
-    HREF: LINKS.ACCELEROMETER.HREF,
-    TITLE: LINKS.ACCELEROMETER.TITLE
-  },
+    icon: StatsIcon,
+    href: LINKS.STATS.HREF,
+    title: LINKS.STATS.TITLE,
+  }
 ]
 
-export {
-  HOME_MENU,
-  SECONDARY_SIDEBAR_MENU
-};
+export const ALERT_ACTIONS_ITEMS = [
+  {
+    icon: MailIcon,
+    href: LINKS.NEWS.HREF,
+    title: LINKS.NEWS.TITLE
+  },
+  {
+    icon: MessageSquareIcon,
+    href: LINKS.SURVEY.HREF,
+    title: LINKS.SURVEY.TITLE
+  },
+  {
+    icon: CheckSquareIcon,
+    href: LINKS.SCORE.HREF,
+    title: LINKS.SCORE.TITLE
+  },
+  {
+    icon: DealIcon,
+    href: LINKS.PROMO.HREF,
+    title: LINKS.PROMO.TITLE
+  },
+  {
+    icon: CalendarIcon,
+    href: LINKS.SCHEDULE.HREF,
+    title: LINKS.SCHEDULE.TITLE
+  },
+  {
+    icon: AccelerometerIcon,
+    href: LINKS.ACCELEROMETER.HREF,
+    title: LINKS.ACCELEROMETER.TITLE
+  },
+];
+
+export const SAVED_ALERTS_ITEMS = [
+  {
+    icon: AlertIcon,
+    href: LINKS.SAVED_ALERTS.HREF,
+    title: LINKS.SAVED_ALERTS.TITLE,
+  },
+];
+
+export const SIDEBAR_GROUPS = [
+  {
+    title: 'Overview',
+    items: OVERVIEW_ITEMS,
+  },
+  {
+    title: 'Alert actions',
+    items: ALERT_ACTIONS_ITEMS,
+  },
+  {
+    title: 'Saved alerts',
+    items: SAVED_ALERTS_ITEMS,
+  }
+];
+
+export default SIDEBAR_GROUPS;
