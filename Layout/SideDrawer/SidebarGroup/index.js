@@ -9,6 +9,8 @@ const useStyles = makeStyles(theme => ({
   header: {
     padding: theme.spacing(1, 0.5),
     color: theme.custom.palette.lightGrey
+  },
+  menuIcon: {
   }
 }));
 
