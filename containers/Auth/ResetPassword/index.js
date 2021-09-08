@@ -89,7 +89,6 @@ const ResetPassword = () => {
           variant="contained"
           fullWidth
           className={authClasses.button}
-          href={LINKS.SIGN_IN.HREF}
         >
           Reset Password
         </Button>
@@ -98,7 +97,7 @@ const ResetPassword = () => {
           variant="contained"
           fullWidth
           className={authClasses.button}
-          onClick={resetHandler}
+          href={LINKS.SIGN_IN.HREF}
         >
           Cancel
         </Button>
