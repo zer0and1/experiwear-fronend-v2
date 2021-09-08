@@ -1,5 +1,5 @@
 
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,8 +17,8 @@ import {
 } from 'utils/constants/validations'
 import LINKS from 'utils/constants/links'
 import MESSAGES from 'utils/constants/messages'
-import { InputAdornment, Checkbox, FormControlLabel, Box, Button } from '@material-ui/core'
-import { EmailOutlined, LockOutlined } from '@material-ui/icons'
+import { InputAdornment, Checkbox, FormControlLabel, Box, Button, IconButton } from '@material-ui/core'
+import { EmailOutlined, LockOpenOutlined, LockOutlined } from '@material-ui/icons'
 import MagicTextField from 'components/UI/MagicTextField'
 
 const schema = yup.object().shape({
@@ -30,6 +30,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const authClasses = authPageStyles();
   const { changeLoadingStatus } = useLoading();
+  const [showPassword, setShowPassword] = useState(false);
 
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema)
@@ -61,6 +62,10 @@ const SignIn = () => {
     })
   }, [reset]);
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <AuthWrapper title='Log In to Your Account'>
       <form
@@ -85,7 +90,7 @@ const SignIn = () => {
         <Controller
           as={<MagicTextField />}
           name='password'
-          type='password'
+          type={showPassword ? 'text' : 'password'}
           label='Password'
           error={errors.password?.message}
           className={authClasses.input}
@@ -93,7 +98,18 @@ const SignIn = () => {
           fullWidth
           defaultValue=''
           InputProps={{
-            endAdornment: <InputAdornment position="end"><LockOutlined color="disabled" /></InputAdornment>,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleShowPassword}
+                  onMouseDown={e => e.preventDefault()}
+                  style={{ margin: -12 }}
+                >
+                  {showPassword ? <LockOpenOutlined color="disabled" /> : <LockOutlined color="disabled" />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
         />
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%" mb={3}>
