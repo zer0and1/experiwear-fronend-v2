@@ -5,6 +5,7 @@ const initialState = {
   pathTokens: [
     { path: '', label: 'Experiwear' },
     { path: '', label: 'Home' },
+    { path: '', label: 'Jun 18, 2021, 2:00 AM'},
   ],
 };
 

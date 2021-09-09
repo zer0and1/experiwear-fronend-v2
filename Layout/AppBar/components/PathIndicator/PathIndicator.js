@@ -10,13 +10,13 @@ const useStyles = makeStyles(theme => ({
     color: '#79869f',
     fontSize: 12,
     letterSpacing: 0.36,
+    cursor: 'pointer',
   },
   lastToken: {
     fontFamily: 'SFProDisplay-BlackItalic',
     fontSize: theme.spacing(3),
     color: '#0f3f62',
     letterSpacing: 0.72,
-    textTransform: 'uppercase',
   },
 }));
 
