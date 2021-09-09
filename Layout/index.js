@@ -8,17 +8,13 @@ import { Grid } from '@material-ui/core'
 import MagicLoading from 'components/MagicLoading'
 import TopAppBar from './TopAppBar'
 import SideDrawer from './SideDrawer'
-import { AUTH_OPACITY_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    backgroundImage: `url(${AUTH_OPACITY_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundColor: '#f7fafc',
   },
   container: {
     minHeight: '100vh',
@@ -60,6 +56,12 @@ const Layout = ({
           <div className={clsx(classes.container, {
             [classes.containerShift]: !sideDrawer,
           })}>
+            <Grid container>
+              <Grid item xs={4}>
+                
+              </Grid>
+            </Grid>
+
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TopAppBar />
