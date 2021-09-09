@@ -4,24 +4,25 @@ import {
   responsiveFontSizes
 } from '@material-ui/core/styles'
 
-const montserrat = {
-  fontFamily: 'Montserrat',
-  fontStyle: 'normal',
-  fontDisplay: 'swap',
-  fontWeight: 400,
-  src: `
-    local('Montserrat'),
-    url('/assets/fonts/Montserrat.woff') format('woff')`
-};
+const fonts = [
+  {
+    fontFamily: 'SFProText-Regular',
+    src: `local('SFProText-Regular'), url('/assets/fonts/SFProText-Regular.woff') format('woff')`
+  },
+  {
+    fontFamily: 'SFProDisplay-BlackItalic',
+    src: `local('SFProDisplay-BlackItalic'), url('/assets/fonts/SFProDisplay-BlackItalic.ttf') format('truetype')`
+  },
+];
 
 const theme = responsiveFontSizes(createMuiTheme({
   typography: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'SFProText-Regular',
   },
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        '@font-face': [montserrat]
+        '@font-face': fonts,
       }
     },
     MuiCard: {
@@ -43,7 +44,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       },
     },
     MuiInputBase: {
-      input: {        
+      input: {
         '&:-webkit-autofill': {
           boxShadow: '0 0 0 30px white inset !important;',
         },

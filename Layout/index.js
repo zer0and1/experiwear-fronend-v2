@@ -8,6 +8,7 @@ import { Grid } from '@material-ui/core'
 import MagicLoading from 'components/MagicLoading'
 import TopAppBar from './TopAppBar'
 import SideDrawer from './SideDrawer'
+import AppBar from './AppBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +58,8 @@ const Layout = ({
             [classes.containerShift]: !sideDrawer,
           })}>
             <Grid container>
-              <Grid item xs={4}>
-                
+              <Grid item xs={12}>
+                <AppBar />
               </Grid>
             </Grid>
 

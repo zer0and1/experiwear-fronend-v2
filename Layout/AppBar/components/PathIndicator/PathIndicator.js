@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
 import { Box, Breadcrumbs, Link, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -8,10 +7,16 @@ const useStyles = makeStyles(theme => ({
 
   },
   token: {
-
+    color: '#79869f',
+    fontSize: 12,
+    letterSpacing: 0.36,
   },
   lastToken: {
-
+    fontFamily: 'SFProDisplay-BlackItalic',
+    fontSize: theme.spacing(3),
+    color: '#0f3f62',
+    letterSpacing: 0.72,
+    textTransform: 'uppercase',
   },
 }));
 
@@ -28,7 +33,7 @@ const PathIndicator = () => {
 
       <Breadcrumbs>
         {pathTokens.map(token => (
-          <Link color="inherit" to={token.path} component={RouterLink} className={classes.token}>
+          <Link key={token.path} color="inherit" to={token.path} className={classes.token}>
             {token.label}
           </Link>
         ))}

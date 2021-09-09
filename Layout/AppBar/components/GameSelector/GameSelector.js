@@ -9,7 +9,7 @@ const GameSelector = () => {
   return (
     <Select>
       {games.map(item =>
-        <MenuItem>
+        <MenuItem key={item.id}>
           <Typography color='textSecondary'>
             {getEnglishDateWithTime(item.date)}
           </Typography>

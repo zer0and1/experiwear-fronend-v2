@@ -2,7 +2,10 @@
 import * as TYPES from 'actions/types'
 
 const initialState = {
-  pathTokens: [],
+  pathTokens: [
+    { path: '', label: 'Experiwear' },
+    { path: '', label: 'Home' },
+  ],
 };
 
 export default function auxReducer(state = initialState, action) {
