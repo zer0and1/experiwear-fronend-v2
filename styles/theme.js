@@ -7,7 +7,15 @@ import {
 const fonts = [
   {
     fontFamily: 'SFProText-Regular',
-    src: `local('SFProText-Regular'), url('/assets/fonts/SFProText-Regular.woff') format('woff')`
+    src: `local('SFProText-Regular'), url('/assets/fonts/SFProText-Regular.ttf') format('truetype')`
+  },
+  {
+    fontFamily: 'SFProText-Medium',
+    src: `local('SFProText-Medium'), url('/assets/fonts/SFProText-Medium.ttf') format('truetype')`
+  },
+  {
+    fontFamily: 'SFUIText-Regular',
+    src: `local('SFUIText-Regular'), url('/assets/fonts/SFUIText-Regular.ttf') format('truetype')`
   },
   {
     fontFamily: 'SFProDisplay-BlackItalic',
@@ -121,11 +129,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       white: '#ffffff',
       pink: '#d808dd',
       border: '#d6d6d6',
-      ocean: '#00748c',
-      score: '#f24024',
-      boxBlue: "#01a1c3",
-      textGrey: '#d5d5dc',
-      lineGrey: '#e2e2ea',
+      textGrey: '#959caf',
     },
     layout: {
       topAppBarHeight: 80,

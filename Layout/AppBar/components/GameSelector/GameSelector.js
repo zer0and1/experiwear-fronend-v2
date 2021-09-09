@@ -13,20 +13,29 @@ const useStyles = makeStyles(theme => ({
       border: 'none',
     },
     '& .MuiSelect-selectMenu': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
+      fontFamily: 'SFUIText-Regular',
+      fontSize: 14,
+      color: theme.custom.palette.textGrey,
     },
     '& .MuiSelect-select:focus': {
       backgroundColor: 'unset',
     }
+  },
+  menuItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    fontFamily: 'SFProText-Medium',
+    fontSize: 14,
+    fontWeight: 500,
+    color: '#000',
   },
 }));
 
 const GameSelector = () => {
   const classes = useStyles();
   const { results: games = [] } = useSelector(state => state.games);
-  const [selectedGame, setSelectedGame] = useState(null);
+  const [selectedGame, setSelectedGame] = useState('');
 
   return (
     <Select
@@ -36,24 +45,25 @@ const GameSelector = () => {
       value={selectedGame}
       onChange={e => setSelectedGame(e.target.value)}
     >
-      <MenuItem value={null} disabled>
+      <MenuItem value="" disabled>
         Select Gameday
       </MenuItem>
       {games.map(item =>
         <MenuItem key={item.id} value={item.id}>
-          
-          <TeamLogo team={item.visitorTeam.abbreviation} />
-          <Typography>
-            {item.visitorTeam.name}
-          </Typography>
-          <Box px={1} color="#01a1c3">@</Box>
-          <TeamLogo team={item.homeTeam.abbreviation} />
-          <Typography>
-            {item.homeTeam.name}
-          </Typography>
-          <Typography color='textSecondary'>
-            &nbsp;({getEnglishDateWithTime(item.date)})
-          </Typography>
+          <Box className={classes.menuItem}>
+            <TeamLogo team={item.visitorTeam.abbreviation} />
+            <Box>
+              {item.visitorTeam.name}
+            </Box>
+            <Box px={1} color="#01a1c3">@</Box>
+            <TeamLogo team={item.homeTeam.abbreviation} />
+            <Box>
+              {item.homeTeam.name}
+            </Box>
+            <Box color='textSecondary'>
+              &nbsp;({getEnglishDateWithTime(item.date)})
+            </Box>
+          </Box>
         </MenuItem>
       )}
     </Select>
