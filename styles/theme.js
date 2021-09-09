@@ -10,6 +10,10 @@ const fonts = [
     src: `local('SFProText-Regular'), url('/assets/fonts/SFProText-Regular.ttf') format('truetype')`
   },
   {
+    fontFamily: 'SFProText-Bold',
+    src: `local('SFProText-Bold'), url('/assets/fonts/SFProText-Bold.ttf') format('truetype')`
+  },
+  {
     fontFamily: 'SFProText-Medium',
     src: `local('SFProText-Medium'), url('/assets/fonts/SFProText-Medium.ttf') format('truetype')`
   },

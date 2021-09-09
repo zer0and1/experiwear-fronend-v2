@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     minHeight: '100vh',
-    padding: theme.spacing(3, 4),
+    padding: theme.spacing(7, 5, 5, 5),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -49,28 +49,14 @@ const Layout = ({
     isAuthenticated
       ? (
         <main className={classes.root}>
-          {
-            loadingStatus &&
-            <MagicLoading loading={loadingStatus} />
-          }
+          {loadingStatus && <MagicLoading loading={loadingStatus} />}
           <SideDrawer />
-          <div className={clsx(classes.container, {
-            [classes.containerShift]: !sideDrawer,
-          })}>
-            <Grid container>
-              <Grid item xs={12}>
-                <AppBar />
-              </Grid>
-            </Grid>
-
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TopAppBar />
-              </Grid>
-              <Grid item xs={12}>
-                {children}
-              </Grid>
-            </Grid>
+          <div
+            className={clsx(classes.container, {
+              [classes.containerShift]: !sideDrawer,
+            })}
+          >
+            <AppBar />
           </div>
         </main>
       ) : (

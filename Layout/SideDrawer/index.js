@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
     boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.17)',
-    padding: theme.spacing(5.5, 3),
+    padding: theme.spacing(7, 0, 0, 3),
     borderRadius: '0 !important',
   },
   logo: {
