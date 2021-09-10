@@ -1,10 +1,9 @@
 
 import { memo } from 'react'
 import { useSelector } from 'react-redux'
-import { Typography, Paper } from '@material-ui/core'
+import { Typography, Paper, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import Logo from 'components/Logo'
 import BandLogo from 'components/BandLogo'
 import MagicLoading from 'components/MagicLoading'
 import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
@@ -14,36 +13,43 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh'
+    backgroundColor: '#f7fafc',
+    minHeight: '100vh',
+    padding: theme.spacing(0, 4),
   },
   container: {
+    width: '100%',
+    maxWidth: 1170,
+    minHeight: 649,
+    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '50% 100%',
+    backgroundPosition: 'left',
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+      background: 'none',
+    }
+  },
+  formSection: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: 752,
-    margin: theme.spacing(3),
-    padding: theme.spacing(2.5, 16.5),
-    borderRadius: theme.spacing(1),
-    backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(2)
+    alignItems: 'flex-start',
+    padding: theme.spacing(6, 6),
+  },
+  imgSection: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     }
   },
   bandLogo: {
-    margin: theme.spacing(4, 0)
   },
   logo: {
     marginTop: theme.spacing(4)
   },
   title: {
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: theme.spacing(4)
+    margin: theme.spacing(4, 0)
   }
 }));
 
@@ -52,16 +58,21 @@ const authPageStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '100%',
   },
   input: {
-    marginBottom: theme.spacing(1.5)
+    marginBottom: theme.spacing(4)
   },
   button: {
-    margin: theme.spacing(1)
+    marginBottom: theme.spacing(2.5),
+    borderRadius: theme.spacing(3),
+    height: 50,
   },
   forgotLink: {
-    width: '100%',
-    textAlign: 'end'
+    color: '#d8d8d8',
+    fontSize: 14,
+    cursor: 'pointer',
+    textDecoration: 'none',
   },
   emailLabel: {
     fontSize: 14,
@@ -85,15 +96,20 @@ const AuthWrapper = ({
         <MagicLoading loading={loadingStatus} />
       }
       <Paper className={classes.container}>
-        <BandLogo className={classes.bandLogo} />
-        <Typography
-          color='textPrimary'
-          className={classes.title}
-        >
-          {title}
-        </Typography>
-        {children}
-        <Logo className={classes.logo} />
+        <Grid container>
+          <Grid item md={6} className={classes.imgSection} />
+          <Grid item xs={12} md={6} className={classes.formSection}>
+            <BandLogo className={classes.bandLogo} />
+            <Typography
+              color='textPrimary'
+              className={classes.title}
+            >
+              {title}
+            </Typography>
+            {children}
+          </Grid>
+        </Grid>
+
       </Paper>
     </div>
   )

@@ -8,21 +8,18 @@ import { Grid } from '@material-ui/core'
 import MagicLoading from 'components/MagicLoading'
 import TopAppBar from './TopAppBar'
 import SideDrawer from './SideDrawer'
-import { AUTH_OPACITY_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
+import AppBar from './AppBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    backgroundImage: `url(${AUTH_OPACITY_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundColor: '#f7fafc',
   },
   container: {
     minHeight: '100vh',
-    padding: theme.spacing(3, 4),
+    padding: theme.spacing(7, 5, 5, 5),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -52,22 +49,14 @@ const Layout = ({
     isAuthenticated
       ? (
         <main className={classes.root}>
-          {
-            loadingStatus &&
-            <MagicLoading loading={loadingStatus} />
-          }
+          {loadingStatus && <MagicLoading loading={loadingStatus} />}
           <SideDrawer />
-          <div className={clsx(classes.container, {
-            [classes.containerShift]: !sideDrawer,
-          })}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TopAppBar />
-              </Grid>
-              <Grid item xs={12}>
-                {children}
-              </Grid>
-            </Grid>
+          <div
+            className={clsx(classes.container, {
+              [classes.containerShift]: !sideDrawer,
+            })}
+          >
+            <AppBar />
           </div>
         </main>
       ) : (

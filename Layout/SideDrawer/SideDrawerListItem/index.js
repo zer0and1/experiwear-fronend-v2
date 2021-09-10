@@ -40,7 +40,7 @@ const SideDrawerListItem = ({
     router.push(menu.HREF)
     dispatch(setSideDrawer(false));
 
-  }, [menu, router]);
+  }, [menu, router, dispatch]);
 
   const selected = useMemo(() => router.pathname === menu.HREF, [router, menu]);
 

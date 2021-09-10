@@ -16,6 +16,10 @@ const LINKS = Object.freeze({
     TITLE: 'Home',
     HREF: '/'
   },
+  STATS: {
+    TITLE: 'Stats',
+    HREF: '/stats',
+  },
   NEWS: {
     TITLE: 'News',
     HREF: '/news'
@@ -43,7 +47,11 @@ const LINKS = Object.freeze({
   ACCELEROMETER: {
     TITLE: 'Accelerometer',
     HREF: '/accelerometer'
-  }
+  },
+  SAVED_ALERTS: {
+    TITLE: 'Saved alerts',
+    HREF: '/saved-alerts'
+  } 
 });
 
 export default LINKS;

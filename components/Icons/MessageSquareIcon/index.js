@@ -17,18 +17,12 @@ const MessageSquareIcon = ({
   ...rest
 }) => {
   const classes = useStyles();
-  const color = isActive ? '#01a1c3' : '#606060';
+  const color = isActive ? '#01a1c3' : '#9ea3ba';
 
   return (
     <SvgIcon viewBox={viewBox || '0 0 18 20'} {...rest} className={clsx(classes.root, className)}>
-      <g id="Welcome" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-        <g id="Fanband-Hawks-Dashboard" transform="translate(-37.000000, -462.000000)" stroke={color} strokeWidth="2">
-          <g id="Apps" transform="translate(35.055556, 376.025907)">
-            <g id="message-square" transform="translate(2.944444, 87.647668)">
-              <path d="M16,11.2746114 C16,12.3124107 15.2040618,13.1537133 14.2222222,13.1537133 L3.55555556,13.1537133 L0,16.9119171 L0,1.8791019 C0,0.841302577 0.795938223,0 1.77777778,0 L14.2222222,0 C15.2040618,0 16,0.841302577 16,1.8791019 L16,11.2746114 Z" id="Path"></path>
-            </g>
-          </g>
-        </g>
+      <g transform="translate(0 -1)" fill="none" stroke="none">
+        <path d="M4.815 14.362c2.143-1.97 2.406-2.125 3.035-2.188 2.841-.282 4.95-2.366 4.95-4.77 0-2.609-2.468-4.803-5.6-4.803-3.132 0-5.6 2.195-5.6 4.802 0 1.515.94 3.014 2.443 3.966.627.396.767.893.753 1.422-.001.04-.004.08-.007.12.017.264.025.736.026 1.452v-.001zm3.192-.595c-.148.015-1.3 1.021-3.456 3.02a.8.8 0 0 1-1.344-.594c.016-1.89.009-2.967-.019-3.232-.014-.139.026-.224 0-.24C1.366 11.57 0 9.62 0 7.404 0 3.867 3.224 1 7.2 1s7.2 2.867 7.2 6.403c0 3.294-2.796 6.007-6.392 6.364z" fill={color} fill-rule="nonzero" />
       </g>
     </SvgIcon>
   )

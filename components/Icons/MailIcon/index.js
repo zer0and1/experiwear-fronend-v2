@@ -17,19 +17,12 @@ const MailIcon = ({
   ...rest
 }) => {
   const classes = useStyles();
-  const color = isActive ? '#01a1c3' : '#606060';
+  const color = isActive ? '#01a1c3' : '#9ea3ba';
 
   return (
     <SvgIcon viewBox={viewBox || '0 0 18 17'} {...rest} className={clsx(classes.root, className)}>
-      <g id="Welcome" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-        <g id="Fanband-Hawks-Dashboard" transform="translate(-36.000000, -422.000000)" stroke={color} strokeWidth="2">
-          <g id="Apps" transform="translate(35.055556, 376.025907)">
-            <g id="mail" transform="translate(1.944444, 47.481865)">
-              <path d="M1.6,0 L14.4,0 C15.28,0 16,0.761036269 16,1.69119171 L16,11.838342 C16,12.7684974 15.28,13.5295337 14.4,13.5295337 L1.6,13.5295337 C0.72,13.5295337 0,12.7684974 0,11.838342 L0,1.69119171 C0,0.761036269 0.72,0 1.6,0 Z" id="Path"></path>
-              <polyline id="Path" points="16 1.69119171 8 6.38894646 0 1.69119171"></polyline>
-            </g>
-          </g>
-        </g>
+      <g transform="translate(0 -1)" fill="none" stroke="none">
+        <path d="m1.862 6.456 5.614 5.003a.8.8 0 0 0 1.064 0l5.607-4.997-5.71-3.732a.8.8 0 0 0-.875 0l-5.7 3.726zm12.538.172V8.38l-4.795 4.273a2.4 2.4 0 0 1-3.194 0L1.6 8.365V6.628v8.734h12.8V6.628zM.725 5.288l5.962-3.897a2.4 2.4 0 0 1 2.626 0l5.962 3.897c.452.296.725.8.725 1.34v8.734a1.6 1.6 0 0 1-1.6 1.6H1.6a1.6 1.6 0 0 1-1.6-1.6V6.628a1.6 1.6 0 0 1 .725-1.34z" fill={color} fill-rule="nonzero" />
       </g>
     </SvgIcon>
   )

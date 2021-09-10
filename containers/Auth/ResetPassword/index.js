@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import * as authAPI from 'services/api-auth'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/MagicTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import useLoading from 'utils/hooks/useLoading'
@@ -16,7 +15,7 @@ import {
   CONFIRM_PASSWORD_VALID
 } from 'utils/constants/validations'
 import LINKS from 'utils/constants/links'
-import { Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 
 const schema = yup.object().shape({
   password: PASSWORD_VALID,
@@ -84,21 +83,24 @@ const ResetPassword = () => {
           control={control}
           defaultValue=''
         />
-        <div>
-          <ContainedButton
-            color='red'
-            className={authClasses.button}
-            href={LINKS.SIGN_IN.HREF}
-          >
-            Cancel
-          </ContainedButton>
-          <ContainedButton
-            type='submit'
-            className={authClasses.button}
-          >
-            Reset Password
-          </ContainedButton>
-        </div>
+        <Button
+          type='submit'
+          color='primary'
+          variant="contained"
+          fullWidth
+          className={authClasses.button}
+        >
+          Reset Password
+        </Button>
+        <Button
+          color='secondary'
+          variant="contained"
+          fullWidth
+          className={authClasses.button}
+          href={LINKS.SIGN_IN.HREF}
+        >
+          Cancel
+        </Button>
       </form>
     </AuthWrapper>
   )

@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Typography,
-  OutlinedInput
+  TextField
 } from '@material-ui/core'
 import clsx from 'clsx'
 
@@ -17,9 +17,6 @@ const useStyles = makeStyles(theme => ({
   },
   textField: {
     width: '100%',
-    border: `1px solid ${theme.custom.palette.border}`,
-    borderRadius: theme.spacing(1),
-    backgroundColor: theme.palette.background.border
   },
   input: {
     color: theme.custom.palette.lightBlack,
@@ -74,31 +71,16 @@ const MagicTextField = React.forwardRef(({
 
   return (
     <div className={clsx(classes.root, className)}>
-      {
-        !!label &&
-        <Typography
-          color='textSecondary'
-          className={classes.label}
-        >
-          {label}:
-        </Typography>
-      }
       <div className={classes.container}>
-        <OutlinedInput
+        <TextField
           inputRef={ref}
-          variant='outlined'
           type={type}
+          label={label}
           error={!!error}
           className={clsx(
             'form-control form-control-lg',
             classes.textField
           )}
-          classes={{
-            input: classes.input,
-            error: classes.errorInput,
-            notchedOutline: classes.notchedOutline,
-            multiline: classes.multiline
-          }}
           {...rest}
         />
         {

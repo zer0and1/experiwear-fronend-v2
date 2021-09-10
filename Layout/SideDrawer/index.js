@@ -6,12 +6,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 
 import Logo from 'components/Logo'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import Gameday from './Gameday'
-import SideDrawerList from './SideDrawerList'
-import SideDrawerListItem from './SideDrawerListItem'
-import { HOME_MENU } from 'utils/constants/sidebar-menu'
-import LINKS from 'utils/constants/links'
+import SidebarGroup from './SidebarGroup'
+import SIDEBAR_GROUPS from 'utils/constants/sidebar-menu'
 import { Close } from "@material-ui/icons";
 import { setSideDrawer } from "actions/sidebar";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -36,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
     boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.17)',
-    padding: theme.spacing(5.5, 3)
+    padding: theme.spacing(7, 0, 0, 3),
+    borderRadius: '0 !important',
   },
   logo: {
     paddingBottom: theme.spacing(5.5)
@@ -61,35 +58,24 @@ const SideDrawer = () => {
   }, [dispatch]);
 
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
-  // if ( matches === false && sideDrawer === false ) {
-  //   // dispatch(setSideDrawer(true));
-  //   sideDrawer = true;
-  // }
 
   return (
-      <Drawer
-        open={matches ? sideDrawer : true}
-        anchor='left'
-        variant='persistent'
-        className={classes.drawer}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerBtn} onClick={sideDrawerHandler}>
-          <Close />
-        </div>
-        <Logo className={classes.logo} />
-        <SideDrawerListItem menu={HOME_MENU} />
-        <Gameday />
-        <SideDrawerList />
-        <ContainedButton
-          color='blue'
-          href={LINKS.CANNED.HREF}
-        >
-          Saved Alerts
-        </ContainedButton>
-      </Drawer>
+    <Drawer
+      open={matches ? sideDrawer : true}
+      anchor='left'
+      variant='persistent'
+      className={classes.drawer}
+      classes={{
+        paper: classes.drawerPaper
+      }}
+    >
+      <div className={classes.drawerBtn} onClick={sideDrawerHandler}>
+        <Close />
+      </div>
+      <Logo className={classes.logo} />
+
+      {SIDEBAR_GROUPS.map(({ title, items }) => <SidebarGroup key={title} title={title} items={items} />)}
+    </Drawer>
   );
 };
 
