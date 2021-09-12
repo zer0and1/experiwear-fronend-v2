@@ -137,7 +137,7 @@ const theme = responsiveFontSizes(createMuiTheme({
     },
     layout: {
       topAppBarHeight: 80,
-      drawerWidth: 280
+      drawerWidth: 210,
     },
   }
 }));

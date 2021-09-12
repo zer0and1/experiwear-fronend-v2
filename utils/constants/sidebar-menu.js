@@ -13,12 +13,12 @@ import AlertIcon from 'components/Icons/AlertIcon'
 export const OVERVIEW_ITEMS = [
   {
     icon: HomeIcon,
-    href: LINKS.HOME.HREF,
+    path: LINKS.HOME.HREF,
     title: LINKS.HOME.TITLE
   },
   {
     icon: StatsIcon,
-    href: LINKS.STATS.HREF,
+    path: LINKS.STATS.HREF,
     title: LINKS.STATS.TITLE,
   }
 ]
@@ -26,32 +26,32 @@ export const OVERVIEW_ITEMS = [
 export const ALERT_ACTIONS_ITEMS = [
   {
     icon: MailIcon,
-    href: LINKS.NEWS.HREF,
+    path: LINKS.NEWS.HREF,
     title: LINKS.NEWS.TITLE
   },
   {
     icon: MessageSquareIcon,
-    href: LINKS.SURVEY.HREF,
+    path: LINKS.SURVEY.HREF,
     title: LINKS.SURVEY.TITLE
   },
   {
     icon: CheckSquareIcon,
-    href: LINKS.SCORE.HREF,
+    path: LINKS.SCORE.HREF,
     title: LINKS.SCORE.TITLE
   },
   {
     icon: DealIcon,
-    href: LINKS.PROMO.HREF,
+    path: LINKS.PROMO.HREF,
     title: LINKS.PROMO.TITLE
   },
   {
     icon: CalendarIcon,
-    href: LINKS.SCHEDULE.HREF,
+    path: LINKS.SCHEDULE.HREF,
     title: LINKS.SCHEDULE.TITLE
   },
   {
     icon: AccelerometerIcon,
-    href: LINKS.ACCELEROMETER.HREF,
+    path: LINKS.ACCELEROMETER.HREF,
     title: LINKS.ACCELEROMETER.TITLE
   },
 ];
@@ -59,7 +59,7 @@ export const ALERT_ACTIONS_ITEMS = [
 export const SAVED_ALERTS_ITEMS = [
   {
     icon: AlertIcon,
-    href: LINKS.SAVED_ALERTS.HREF,
+    path: LINKS.SAVED_ALERTS.HREF,
     title: LINKS.SAVED_ALERTS.TITLE,
   },
 ];

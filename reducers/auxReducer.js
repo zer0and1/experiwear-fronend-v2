@@ -1,10 +1,11 @@
 
 import * as TYPES from 'actions/types'
+import LINKS from 'utils/constants/links';
 
 const initialState = {
   pathTokens: [
-    { path: '', label: 'Experiwear' },
-    { path: '', label: 'Home' },
+    { path: '/', label: 'Experiwear' },
+    { path: LINKS.HOME.HREF, label: 'Home' },
     { path: '', label: 'Jun 18, 2021, 2:00 AM'},
   ],
 };

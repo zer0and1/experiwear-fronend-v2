@@ -3,10 +3,8 @@ import { memo } from 'react'
 import clsx from 'clsx';
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
 
 import MagicLoading from 'components/MagicLoading'
-import TopAppBar from './TopAppBar'
 import SideDrawer from './SideDrawer'
 import AppBar from './AppBar';
 

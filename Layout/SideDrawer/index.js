@@ -33,10 +33,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
     boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.17)',
     padding: theme.spacing(7, 0, 0, 3),
-    borderRadius: '0 !important',
+    border: 'none !important',
   },
   logo: {
-    paddingBottom: theme.spacing(5.5)
+    marginBottom: theme.spacing(2),
   },
   drawerBtn: {
     display: 'none',
