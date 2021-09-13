@@ -136,8 +136,8 @@ const theme = responsiveFontSizes(createMuiTheme({
       textGrey: '#959caf',
     },
     layout: {
-      topAppBarHeight: 80,
-      drawerWidth: 210,
+      sideMenu: 210,
+      sideBar: 420,
     },
   }
 }));

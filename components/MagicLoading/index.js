@@ -3,6 +3,7 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import LoadingSpinner from './LoadingSpinner'
+import { Backdrop } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: props => ({
@@ -24,12 +25,9 @@ const MagicLoading = ({
   const classes = useStyles({ height });
 
   return (
-    <div className={classes.root}>
-      <LoadingSpinner
-        loading={loading}
-        size={size}
-      />
-    </div>
+    <Backdrop className={classes.root} open={loading}>
+      <LoadingSpinner size={size} />
+    </Backdrop>
   );
 };
 

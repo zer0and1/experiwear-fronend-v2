@@ -11,18 +11,14 @@ const defaultOptions = {
   },
 };
 
-const LoadingSpinner = ({ loading, size = 100 || size, ...rest }) => {
-  if (!loading)
-    return null;
-  return (
-    <ReactLottie
-      isStopped={false}
-      isPaused={false}
-      options={defaultOptions}
-      style={{ width: size, height: size }}
-      {...rest}
-    />
-  );
-};
+const LoadingSpinner = ({ loading, size = 100 || size, ...rest }) => (
+  <ReactLottie
+    isStopped={false}
+    isPaused={false}
+    options={defaultOptions}
+    style={{ width: size, height: size }}
+    {...rest}
+  />
+);
 
 export default memo(LoadingSpinner);
