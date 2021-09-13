@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
-    }
+      marginRight: 0,
+    },
   },
 }));
 
