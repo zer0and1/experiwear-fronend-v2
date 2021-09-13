@@ -1,4 +1,4 @@
-import { Box, makeStyles, MenuItem, Select, Typography } from "@material-ui/core";
+import { Box, makeStyles, MenuItem, Select } from "@material-ui/core";
 import TeamLogo from "parts/TeamLogo";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import { getEnglishDateWithTime } from "utils/helpers/time";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: 320,
+    minWidth: 387,
     height: 48,
     backgroundColor: '#fff',
     '& .MuiOutlinedInput-notchedOutline': {
