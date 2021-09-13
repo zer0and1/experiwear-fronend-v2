@@ -1,15 +1,13 @@
 import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Close } from "@material-ui/icons";
-import Drawer from '@material-ui/core/Drawer'
+import { Drawer, useMediaQuery } from '@material-ui/core'
 
 import { SubMenu } from './components'
 import Logo from 'components/Logo'
 import SIDEBAR_GROUPS from 'utils/constants/sidebar-menu'
-import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  drawer: {
+  root: {
     position: 'relative',
     [theme.breakpoints.down('sm')]: {
       width: '100%'
@@ -17,14 +15,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       visible: 'visible',
     },
-    width: theme.custom.layout.drawerWidth,
+    width: theme.custom.layout.sideMenu,
     flexShrink: 0,
   },
-  drawerPaper: {
+  paper: {
     [theme.breakpoints.down('sm')]: {
       width: '100%'
     },
-    width: theme.custom.layout.drawerWidth,
+    width: theme.custom.layout.sideMenu,
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
     boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.17)',
@@ -34,15 +32,6 @@ const useStyles = makeStyles(theme => ({
   logo: {
     marginBottom: theme.spacing(2),
   },
-  drawerBtn: {
-    display: 'none',
-    [theme.breakpoints.down('sm')]: {
-      position: 'absolute',
-      top: theme.spacing(1),
-      right: theme.spacing(1),
-      display: 'block',
-    },
-  }
 }));
 
 const SideMenu = () => {
@@ -54,16 +43,12 @@ const SideMenu = () => {
       open={!matches}
       anchor='left'
       variant='persistent'
-      className={classes.drawer}
+      className={classes.root}
       classes={{
-        paper: classes.drawerPaper
+        paper: classes.paper
       }}
     >
-      <div className={classes.drawerBtn}>
-        <Close />
-      </div>
       <Logo className={classes.logo} />
-
       {SIDEBAR_GROUPS.map(({ title, items }) => <SubMenu key={title} title={title} items={items} />)}
     </Drawer>
   );

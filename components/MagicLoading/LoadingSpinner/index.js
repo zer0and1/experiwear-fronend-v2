@@ -11,7 +11,7 @@ const defaultOptions = {
   },
 };
 
-const LoadingSpinner = ({ loading, size = 100 || size, ...rest }) => (
+const LoadingSpinner = ({ size = 100, ...rest }) => (
   <ReactLottie
     isStopped={false}
     isPaused={false}

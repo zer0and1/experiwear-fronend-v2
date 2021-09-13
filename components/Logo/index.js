@@ -17,21 +17,14 @@ const useStyles = makeStyles(() => ({
   })
 }));
 
-const Logo = ({
-  width = 166,
-  className,
-  ...rest
-}) => {
+const Logo = ({ width = 137, className, ...rest }) => {
   const classes = useStyles({ width });
 
   return (
     <a aria-label='logo' href={COMMON_CONSTANTS.EXPERIWEAR_URL} target='_blank' rel='noreferrer'>
       <picture className={clsx(classes.picture, className)} {...rest}>
         <source srcSet={LOGO_IMAGE_PATH} />
-        <img
-          className={classes.img}
-          src={LOGO_IMAGE_PATH}
-          alt='logo' />
+        <img className={classes.img} src={LOGO_IMAGE_PATH} alt='logo' />
       </picture>
     </a>
   )
