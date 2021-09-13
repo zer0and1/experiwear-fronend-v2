@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 
 import MagicLoading from 'components/MagicLoading'
-import SideDrawer from './SideDrawer'
+import SideDrawer from './SideMenu'
 import AppBar from './AppBar';
 
 const useStyles = makeStyles((theme) => ({

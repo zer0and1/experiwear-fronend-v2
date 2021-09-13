@@ -9,6 +9,7 @@ import { LOGO_IMAGE_PATH } from 'utils/constants/image-paths'
 const useStyles = makeStyles(() => ({
   picture: {
     display: 'flex',
+    justifyContent: 'center',
   },
   img: props => ({
     width: props.width,
