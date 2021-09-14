@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   root: {
   },
   header: {
-    fontFamily: 'SFProText-Bold',
+    fontFamily: theme.custom.fonts.SFProTextBold,
     fontSize: 14,
     color: '#333',
     padding: theme.spacing(1, 3.5),
@@ -18,14 +18,14 @@ const useStyles = makeStyles(theme => ({
     minWidth: 35,
   },
   item: {
-    fontFamily: 'SFProText-Regular',
+    fontFamily: theme.custom.fonts.SFProTextRegular,
     fontSize: 14,
     color: '#000',
     paddingLeft: theme.spacing(4),
   },
   selectedItem: {
     '& .MuiTypography-root': {
-      fontFamily: 'SFProText-Medium',
+      fontFamily: theme.custom.fonts.SFProTextMedium,
     },
     backgroundColor: '#f7fafc',
   },

@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
   },
   username: {
-    fontFamily: 'SFProText-Medium',
+    fontFamily: theme.custom.fonts.SFProTextMedium,
     fontSize: 16,
     fontWeight: 500,
     color: '#0f3f62',

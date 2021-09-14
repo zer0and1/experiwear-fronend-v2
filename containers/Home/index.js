@@ -4,15 +4,16 @@ import { useDispatch } from 'react-redux'
 import { Grid } from '@material-ui/core'
 
 import { getNotifications } from 'actions/getNotifications'
-import AlertCarousel from './AlertCarousel'
-import OnlineBand from './OnlineBand'
-import OfflineBand from './OfflineBand'
-import CurrentGame from './CurrentGame'
-import CreateBandAlert from './CreateBandAlert'
-import ActivityTimeline from './ActivityTimeline'
-import LatestSurvey from './LatestSurvey'
-import OnlineFanband from './OnlineFanband'
-import LatestAlert from './LatestAlert'
+// import AlertCarousel from './AlertCarousel'
+// import OnlineBand from './OnlineBand'
+// import OfflineBand from './OfflineBand'
+// import CurrentGame from './CurrentGame'
+// import CreateBandAlert from './CreateBandAlert'
+// import ActivityTimeline from './ActivityTimeline'
+// import LatestSurvey from './LatestSurvey'
+// import OnlineFanband from './OnlineFanband'
+// import LatestAlert from './LatestAlert'
+import { Calendar } from 'components'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,10 @@ const Home = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12}>
+        <Calendar />
+      </Grid>
+      {/* <Grid item xs={12} lg={6}>
         <AlertCarousel />
       </Grid>
       <Grid item xs={12} lg={3}>
@@ -49,7 +53,7 @@ const Home = () => {
       </Grid>
       <Grid item xs={12} lg={4}>
         <ActivityTimeline />
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }

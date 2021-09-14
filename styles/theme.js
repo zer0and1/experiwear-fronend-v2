@@ -98,18 +98,22 @@ const theme = responsiveFontSizes(createMuiTheme({
   palette: {
     primary: {
       main: '#00748c',
-      contrastText: '#ffffff'
+      contrastText: '#fff'
     },
     secondary: {
       main: '#f24024',
-      contrastText: '#ffffff'
+      contrastText: '#fff'
+    },
+    info: {
+      main: '#01a1c3',
+      contrastText: '#fff',
     },
     danger: {
       main: '#f24024',
-      contrastText: '#ffffff'
+      contrastText: '#fff'
     },
     background: {
-      default: '#ffffff',
+      default: '#fff',
       primary: '#f6f6f6',
       secondary: '#000000'
     },
@@ -130,7 +134,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       lightGrey: '#999999',
       darkGrey: '#14161f',
       orange: '#da532c',
-      white: '#ffffff',
+      white: '#fff',
       pink: '#d808dd',
       border: '#d6d6d6',
       textGrey: '#959caf',
@@ -139,6 +143,13 @@ const theme = responsiveFontSizes(createMuiTheme({
       sideMenu: 210,
       sideBar: 420,
     },
+    fonts: {
+      SFProTextRegular: 'SFProText-Regular',
+      SFProTextMedium: 'SFProText-Medium',
+      SFProTextBold: 'SFProText-Bold',
+      SFUITextRegular: 'SFUIText-Regular',
+      SFProDisplayBlackItalic: 'SFProDisplay-BlackItalic',
+    }
   }
 }));
 

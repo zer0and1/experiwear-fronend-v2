@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
       border: 'none',
     },
     '& .MuiSelect-selectMenu': {
-      fontFamily: 'SFUIText-Regular',
+      fontFamily: theme.custom.fonts.SFUITextRegular,
       fontSize: 14,
       color: theme.custom.palette.textGrey,
     },
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    fontFamily: 'SFProText-Medium',
+    fontFamily: theme.custom.fonts.SFProTextMedium,
     fontSize: 14,
     fontWeight: 500,
     color: '#000',

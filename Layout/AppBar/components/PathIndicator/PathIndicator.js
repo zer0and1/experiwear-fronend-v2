@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
   },
   lastToken: {
-    fontFamily: 'SFProDisplay-BlackItalic',
+    fontFamily: theme.custom.fonts.SFProDisplayBlackItalic,
     fontSize: theme.spacing(3),
     color: '#0f3f62',
     letterSpacing: 0.72,
