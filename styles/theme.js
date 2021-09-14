@@ -121,6 +121,18 @@ const theme = responsiveFontSizes(createMuiTheme({
       primary: '#161616',
       secondary: '#2c2c2c'
     },
+    news: {
+      main: '#01a1c3'
+    },
+    survey: {
+      main: '#ffc659'
+    },
+    score: {
+      main: '#f24024'
+    },
+    promo: {
+      main: '#825dde'
+    },
   },
   custom: {
     palette: {

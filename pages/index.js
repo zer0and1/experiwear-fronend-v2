@@ -1,11 +1,15 @@
-
-import Home from 'containers/Home'
 import Layout from 'Layout'
+import { Card, CardContent } from '@material-ui/core'
+import { Calendar } from 'components'
 
 export default function HomePage() {
   return (
     <Layout>
-      <Home />
+      <Card>
+        <CardContent>
+          <Calendar />
+        </CardContent>
+      </Card>
     </Layout>
   )
-}
+};
