@@ -32,7 +32,8 @@ const INITIAL_STATE = Object.freeze({
   },
   latest: {},
   latestSurvey: {},
-  latestNews: []
+  latestNews: [],
+  selectedDate: new Date(),
 });
 
 const notificationsReducer = (state = INITIAL_STATE, action) => {

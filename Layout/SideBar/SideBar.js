@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, useMediaQuery } from '@material-ui/core';
-import { CurrentGame, UserAccount } from './components';
+import { CurrentGame, Timeline, UserAccount } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +30,7 @@ const SideBar = () => {
     >
       <UserAccount />
       <CurrentGame />
+      <Timeline />
     </Drawer>
   );
 };
