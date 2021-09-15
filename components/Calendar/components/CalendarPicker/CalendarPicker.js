@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
     minWidth: 147,
     textAlign: 'center',
   },
-}))
+}));
+
 const CalendarPicker = ({ year, month, onChange }) => {
   const classes = useStyles();
 

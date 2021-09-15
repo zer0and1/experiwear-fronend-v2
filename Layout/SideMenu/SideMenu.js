@@ -1,10 +1,13 @@
 import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Drawer, useMediaQuery } from '@material-ui/core'
+import { Button, Drawer, useMediaQuery } from '@material-ui/core'
 
 import { SubMenu } from './components'
 import Logo from 'components/Logo'
 import SIDEBAR_GROUPS from 'utils/constants/sidebar-menu'
+import LogoutIcon from 'components/Icons/LogoutIcon'
+import { useDispatch } from 'react-redux'
+import { logoutUser } from 'actions/auth'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,12 +35,26 @@ const useStyles = makeStyles(theme => ({
   logo: {
     marginBottom: theme.spacing(2),
   },
+  logoutButton: {
+    marginTop: 'auto',
+    marginBottom: theme.spacing(10),
+    paddingLeft: theme.spacing(5),
+    justifyContent: 'flex-start',
+    '& .MuiButton-startIcon': {
+      marginRight: 20,
+    },
+  },
 }));
 
 const SideMenu = () => {
   const classes = useStyles();
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+  
   return (
     <Drawer
       open={!matches}
@@ -50,6 +67,13 @@ const SideMenu = () => {
     >
       <Logo className={classes.logo} />
       {SIDEBAR_GROUPS.map(({ title, items }) => <SubMenu key={title} title={title} items={items} />)}
+      <Button
+        startIcon={<LogoutIcon />}
+        className={classes.logoutButton}
+        onClick={handleLogout}
+      >
+        Log out
+      </Button>
     </Drawer>
   );
 };

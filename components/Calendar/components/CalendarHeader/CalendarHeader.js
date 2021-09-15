@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import { DEFAULT_WEEKDAYS } from "components/Calendar/constants";
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CalendarHeader = ({ weekdays = DEFAULT_WEEKDAYS }) => {
+const CalendarHeader = ({ weekdays = moment.weekdays(true) }) => {
   const classes = useStyles();
 
   return (
