@@ -7,7 +7,6 @@ import { getNotifications } from 'actions/getNotifications'
 import AlertCarousel from './AlertCarousel'
 import OnlineBand from './OnlineBand'
 import OfflineBand from './OfflineBand'
-import CurrentGame from './CurrentGame'
 import CreateBandAlert from './CreateBandAlert'
 import ActivityTimeline from './ActivityTimeline'
 import LatestSurvey from './LatestSurvey'
@@ -31,9 +30,6 @@ const Home = () => {
       </Grid>
       <Grid item xs={12} lg={3}>
         <OfflineBand />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <CurrentGame />
       </Grid>
       <Grid item xs={12} lg={4}>
         <OnlineFanband />

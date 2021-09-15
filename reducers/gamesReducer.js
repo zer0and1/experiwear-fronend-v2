@@ -3,7 +3,7 @@ import * as TYPES from 'actions/types'
 
 const INITIAL_STATE = Object.freeze({
   results: [],
-  select: {},
+  select: null,
   closestUpcoming: {}
 });
 

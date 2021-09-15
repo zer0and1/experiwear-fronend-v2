@@ -22,7 +22,7 @@ const defaultCellData = {
   '2021-09-23': { news: true, survey: true, score: true, promo: false },
 };
 
-const Calendar = ({ value = new Date(), onChange, cellData = defaultCellData }) => {
+const Calendar = ({ value = new Date(), cellData = defaultCellData }) => {
   const classes = useStyles();
   const [year, setYear] = useState(parseInt(moment(value).format('YYYY')));
   const [month, setMonth] = useState(parseInt(moment(value).format('MM')));

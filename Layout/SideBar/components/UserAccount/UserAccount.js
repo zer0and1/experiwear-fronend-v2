@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: theme.spacing(8),
   },
   avatar: {
     width: theme.spacing(4.5),
