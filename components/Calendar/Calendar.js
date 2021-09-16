@@ -22,7 +22,7 @@ const defaultCellData = {
   '2021-09-23': { news: true, survey: true, score: true, promo: false },
 };
 
-const Calendar = ({ value = new Date(), cellData = defaultCellData }) => {
+const Calendar = ({ value = new Date(), cellData = defaultCellData, onChange = () => {} }) => {
   const classes = useStyles();
   const [year, setYear] = useState(parseInt(moment(value).format('YYYY')));
   const [month, setMonth] = useState(parseInt(moment(value).format('MM')));
@@ -37,7 +37,13 @@ const Calendar = ({ value = new Date(), cellData = defaultCellData }) => {
       <CalendarPicker year={year} month={month} onChange={handlePickerChange} />
       <table className={classes.table}>
         <CalendarHeader />
-        <CalendarBody year={year} month={month} date={value} cellData={cellData} />
+        <CalendarBody
+          year={year}
+          month={month}
+          date={value}
+          cellData={cellData}
+          onChange={onChange}
+        />
       </table>
     </Box>
   );

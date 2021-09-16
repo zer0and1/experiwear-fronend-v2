@@ -58,6 +58,8 @@ const notificationsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, latestSurvey: action.payload };
     case TYPES.SET_LATEST_NEWS_NOTIFICATIONS:
       return { ...state, latestNews: action.payload };
+    case TYPES.SELECT_DATE:
+      return { ...state, selectedDate: action.payload };
     default:
       return state;
   }

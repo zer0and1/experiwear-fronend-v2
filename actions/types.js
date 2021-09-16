@@ -25,3 +25,4 @@ export const SET_ACC_DATA = 'SET_ACC_DATA';
 
 export const SET_SIDE_DRAWER = 'SET_SIDE_DRAWER';
 export const SET_PATH_TOKENS = 'SET_PATH_TOKENS';
+export const SELECT_DATE = 'SELECT_DATE';

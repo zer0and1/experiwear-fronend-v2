@@ -4,11 +4,11 @@ import moment from "moment";
 import CalendarCell from "../CalendarCell";
 
 
-const CalendarBody = ({ year, month, date, cellData = {} }) => {
+const CalendarBody = ({ year, month, date, cellData = {}, onChange }) => {
   const layoutDays = useMemo(() => layoutDaysOfMonth(year, month), [year, month]);
 
   const handleDaySelect = (day) => {
-    console.log(year, month, day);
+    onChange(moment(`${year}-${month}-${day}`).toDate());
   };
 
   return (

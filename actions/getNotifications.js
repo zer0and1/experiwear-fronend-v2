@@ -19,7 +19,7 @@ const getActionType = (type) => {
   }
 }
 
-const getNotifications = (type = '', take = PAGE_COUNT) => async (dispatch) => {
+export const getNotifications = (type = '', take = PAGE_COUNT) => async (dispatch) => {
   try {
     let params = {};
     if (!!type) {
@@ -44,7 +44,7 @@ const getNotifications = (type = '', take = PAGE_COUNT) => async (dispatch) => {
   }
 };
 
-const getMoreNotifications = (type) => async (dispatch, getState) => {
+export const getMoreNotifications = (type) => async (dispatch, getState) => {
   try {
     const { notifications } = getState();
     const { results: preResults = [] } = notifications[type]
@@ -72,7 +72,7 @@ const getMoreNotifications = (type) => async (dispatch, getState) => {
   }
 };
 
-const setNotifications = (type = '', results = []) => async (dispatch, getState) => {
+export const setNotifications = (type = '', results = []) => async (dispatch, getState) => {
   try {
     const { notifications } = getState();
     const { total = 0 } = notifications[type]
@@ -89,8 +89,7 @@ const setNotifications = (type = '', results = []) => async (dispatch, getState)
   }
 };
 
-export {
-  getNotifications,
-  getMoreNotifications,
-  setNotifications
-}
+export const selectDate = (date) => ({
+  type: TYPES.SELECT_DATE,
+  payload: date,
+});
