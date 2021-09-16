@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 const SubMenu = ({ title, items }) => {
   const classes = useStyles();
-  const mainPath = useSelector(state => state.aux.pathTokens?.[1].path);
+  const mainPath = useSelector(state => state.aux.pathTokens?.[1]?.path);
   const router = useRouter();
 
   const handleItemClick = (e, path) => {

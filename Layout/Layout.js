@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     minHeight: '100vh',
-    padding: theme.spacing(7, 5, 5, 5),
+    padding: theme.spacing(7, 5, 1, 5),
     marginLeft: theme.custom.layout.sideMenu,
     marginRight: theme.custom.layout.sideBar,
     transition: theme.transitions.create('margin', {
