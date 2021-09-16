@@ -8,7 +8,7 @@ const CalendarBody = ({ year, month, date, cellData = {}, onChange }) => {
   const layoutDays = useMemo(() => layoutDaysOfMonth(year, month), [year, month]);
 
   const handleDaySelect = (day) => {
-    onChange(moment(`${year}-${month}-${day}`).toDate());
+    onChange(new Date(year, month - 1, day));
   };
 
   return (
@@ -19,8 +19,8 @@ const CalendarBody = ({ year, month, date, cellData = {}, onChange }) => {
             <CalendarCell
               day={day}
               key={idx}
-              data={cellData?.[moment(`${year}-${month}-${day}`).format('YYYY-MM-DD')]}
-              selected={moment(`${year}-${month}-${day}`).isSame(moment(date), 'day')}
+              data={cellData?.[moment(new Date(year, month - 1, day)).format('YYYY-MM-DD')]}
+              selected={moment(new Date(year, month - 1, day)).isSame(moment(date), 'day')}
               onSelect={handleDaySelect}
             />
           ))}

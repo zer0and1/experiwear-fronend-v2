@@ -1,7 +1,10 @@
 import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, useMediaQuery } from '@material-ui/core';
-import { CurrentGame, Timeline, UserAccount } from './components';
+import { CurrentGame, UserAccount } from './components';
+import { Timeline } from 'components';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +22,13 @@ const useStyles = makeStyles(theme => ({
 const SideBar = () => {
   const classes = useStyles();
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const { selectedDate, notifications } = useSelector(({ notifications }) => {
+    const { selectedDate, all: { results } } = notifications;
+    return {
+      selectedDate,
+      notifications: results.filter(n => moment(n.createdAt).isSame(moment(selectedDate), 'day')),
+    };
+  });
 
   return (
     <Drawer
@@ -30,7 +40,7 @@ const SideBar = () => {
     >
       <UserAccount />
       <CurrentGame />
-      <Timeline />
+      <Timeline date={selectedDate} slots={notifications} />
     </Drawer>
   );
 };

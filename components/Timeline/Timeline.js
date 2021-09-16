@@ -1,8 +1,7 @@
+import { useEffect, useMemo, useState } from "react";
 import { makeStyles } from "@material-ui/core";
-import { useSelector } from "react-redux";
 import { LineSlot, TimelineGrid, TimelineSlot } from "./components";
 import moment from 'moment';
-import { useMemo } from "react";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,21 +21,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Timeline = () => {
+const Timeline = ({ date, slots = [] }) => {
   const classes = useStyles();
-  const { selectedDate, notifications } = useSelector(({ notifications }) => {
-    const { selectedDate, all: { results } } = notifications;
-    return {
-      selectedDate,
-      notifications: results.filter(n => moment(n.createdAt).isSame(moment(selectedDate), 'year')).slice(0, 5)
-    };
-  });
-  const checkToday = useMemo(() => moment().isSame(moment(selectedDate), 'day'), [selectedDate]);
+  const checkToday = useMemo(() => moment().isSame(moment(date), 'day'), [date]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const loopId = setInterval(() => setCurrentTime(new Date()), 60000);
+    return () => clearInterval(loopId);
+  }, []);
 
   return (
     <div className={classes.root}>
       <TimelineGrid />
-      {notifications.map(({ id, type, title, createdAt }) =>
+      {slots.map(({ id, type, title, createdAt }) =>
         <TimelineSlot
           key={id}
           type={type}
@@ -44,7 +42,7 @@ const Timeline = () => {
           time={createdAt}
         />
       )}
-      {checkToday && <LineSlot time={new Date()} />}
+      {checkToday && <LineSlot time={currentTime} />}
     </div>
   )
 };

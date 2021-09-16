@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: 72,
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   slotLabel: {
@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     color: '#787d93',
     width: 32,
     marginRight: 23,
+    marginTop: -7,
   },
   slotLine: {
     width: 'calc(100% - 55px)',

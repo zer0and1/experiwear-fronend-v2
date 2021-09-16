@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.info.main,
     color: '#fff',
     '&:hover': {
-      color: '#333',
+      backgroundColor: theme.palette.info.main,
     },
   },
   infoSection: {

@@ -6,7 +6,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing(2.5),
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(4),
+  },
+  picker: {
+    display: 'flex',
+    alignItems: 'center',
   },
   arrowButton: {
     margin: -12,
@@ -23,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CalendarPicker = ({ year, month, onChange }) => {
+const CalendarPicker = ({ year, month, onChange, actions }) => {
   const classes = useStyles();
 
   const handleArrowBackClick = () => {
@@ -44,15 +49,20 @@ const CalendarPicker = ({ year, month, onChange }) => {
 
   return (
     <Box className={classes.root}>
-      <IconButton className={classes.arrowButton} onClick={handleArrowBackClick}>
-        <ArrowBackIosOutlined />
-      </IconButton>
-      <Box className={classes.label}>
-        {`${moment.months(month - 1)} ${year}`}
+      <Box className={classes.picker}>
+        <IconButton className={classes.arrowButton} onClick={handleArrowBackClick}>
+          <ArrowBackIosOutlined />
+        </IconButton>
+        <Box className={classes.label}>
+          {`${moment.months(month - 1)} ${year}`}
+        </Box>
+        <IconButton className={classes.arrowButton} onClick={handleArrowForwardClick}>
+          <ArrowForwardIosOutlined />
+        </IconButton>
       </Box>
-      <IconButton className={classes.arrowButton} onClick={handleArrowForwardClick}>
-        <ArrowForwardIosOutlined />
-      </IconButton>
+      <Box className={classes.actions}>
+        {actions}
+      </Box>
     </Box>
   )
 };

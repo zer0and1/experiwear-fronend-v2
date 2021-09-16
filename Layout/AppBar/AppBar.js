@@ -7,6 +7,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(6),
   },
+  mark: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
 }));
 
 const AppBar = () => {
@@ -17,7 +22,7 @@ const AppBar = () => {
       <Grid item>
         <PathIndicator />
       </Grid>
-      <Grid item>
+      <Grid item className={classes.mark}>
         <img src={TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH} width={38} height={40} />
       </Grid>
       <Grid item>
