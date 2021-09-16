@@ -11,8 +11,9 @@ export const getGames = (refresh = false) => async (dispatch, getState) => {
       return
     }
 
-    const { results: games = [] } = await gameAPI.getGames();
-
+    const { results: allGames } = await gameAPI.getGames();
+    const games = allGames.filter(g => [g.homeTeam.name, g.visitorTeam.name].includes('Hawks'));
+    
     const playGame = games.find((item) => item.statusGame === GAME_STATUS.IN_PLAY)
     let closestUpcomingGame = {};
     if (!isEmpty(playGame)) {
