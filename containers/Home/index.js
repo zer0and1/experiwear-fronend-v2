@@ -1,17 +1,9 @@
 
-import { memo, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Grid } from '@material-ui/core'
-
-import { getNotifications } from 'actions/getNotifications'
-import AlertCarousel from './AlertCarousel'
-import OnlineBand from './OnlineBand'
-import OfflineBand from './OfflineBand'
-import CreateBandAlert from './CreateBandAlert'
-import ActivityTimeline from './ActivityTimeline'
-import LatestSurvey from './LatestSurvey'
-import OnlineFanband from './OnlineFanband'
-import LatestAlert from './LatestAlert'
+import { memo, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getNotifications } from 'actions/getNotifications';
+import { Card, CardContent } from '@material-ui/core';
+import { Calendar } from 'components';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,32 +13,11 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} lg={6}>
-        <AlertCarousel />
-      </Grid>
-      <Grid item xs={12} lg={3}>
-        <OnlineBand />
-      </Grid>
-      <Grid item xs={12} lg={3}>
-        <OfflineBand />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <OnlineFanband />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <CreateBandAlert />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <LatestAlert />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <LatestSurvey />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <ActivityTimeline />
-      </Grid>
-    </Grid>
+    <Card>
+      <CardContent>
+        <Calendar />
+      </CardContent>
+    </Card>
   )
 }
 
