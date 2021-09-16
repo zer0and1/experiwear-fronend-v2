@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TimelineSlot = ({ type, time, title, period = 45 }) => {
-  const hour = useMemo(() => parseInt(moment(time).format('hh')), [time]);
+  const hour = useMemo(() => parseInt(moment(time).format('HH')), [time]);
   const minute = useMemo(() => parseInt(moment(time).format('mm')), [time]);
   const top = useMemo(() => Math.round(72 * (hour + minute / 60)), [hour, minute]);
   const height = useMemo(() => Math.round(72 * period / 60), [period]);

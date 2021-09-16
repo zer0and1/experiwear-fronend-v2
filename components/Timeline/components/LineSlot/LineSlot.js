@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LineSlot = ({ time }) => {
-  const hour = useMemo(() => parseInt(moment(time).format('hh')), [time]);
+  const hour = useMemo(() => parseInt(moment(time).format('HH')), [time]);
   const minute = useMemo(() => parseInt(moment(time).format('mm')), [time]);
   const top = useMemo(() => Math.round(72 * (hour + minute / 60) - 4), [hour, minute]);
   const classes = useStyles({ top });
