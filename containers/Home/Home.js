@@ -53,7 +53,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getNotifications());
-    dispatch(setPathTokens([{ path: LINKS.HOME.HREF, label: LINKS.HOME.TITLE }]));
+    dispatch(setPathTokens([{ label: LINKS.HOME.TITLE }]));
   }, [dispatch])
 
   return (
