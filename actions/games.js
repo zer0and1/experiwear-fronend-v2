@@ -4,7 +4,7 @@ import * as gameAPI from 'services/api-game'
 import { isEmpty } from 'utils/helpers/utility'
 import GAME_STATUS from 'utils/constants/game-status'
 
-const getGames = (refresh = false) => async (dispatch, getState) => {
+export const getGames = (refresh = false) => async (dispatch, getState) => {
   try {
     const { games: { results } } = getState();
     if (!refresh && !isEmpty(results)) {
@@ -38,30 +38,29 @@ const getGames = (refresh = false) => async (dispatch, getState) => {
   }
 };
 
-const setGames = games => {
+export const setGames = games => {
   return {
     type: TYPES.FETCH_GAMES,
     payload: games
   };
 };
 
-const setSelectGame = game => {
+export const setSelectGame = game => {
   return {
     type: TYPES.SET_SELECT_GAME,
     payload: game
   };
 };
 
-const setClosestUpcomingGame = game => {
+export const setClosestUpcomingGame = game => {
   return {
     type: TYPES.SET_CLOSEST_UPCOMING_GAME,
     payload: game
   };
 };
 
-export {
-  getGames,
-  setGames,
-  setSelectGame,
-  setClosestUpcomingGame
-}
+export const selectGame = (game) => ({
+  type: TYPES.SELECT_GAME,
+  payload: game,
+});
+

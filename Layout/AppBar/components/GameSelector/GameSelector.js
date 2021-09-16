@@ -1,7 +1,8 @@
 import { Box, makeStyles, MenuItem, Select } from "@material-ui/core";
+import { selectGame } from "actions/games";
 import TeamLogo from "parts/TeamLogo";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getEnglishDateWithTime } from "utils/helpers/time";
 
 const useStyles = makeStyles(theme => ({
@@ -34,8 +35,13 @@ const useStyles = makeStyles(theme => ({
 
 const GameSelector = () => {
   const classes = useStyles();
-  const { results: games = [] } = useSelector(state => state.games);
-  const [selectedGame, setSelectedGame] = useState('');
+  const dispatch = useDispatch();
+  const { results, selectedGame } = useSelector(state => state.games);
+  const games = useMemo(() => results.filter(g => [g.homeTeam.name, g.visitorTeam.name].includes('Hawks')), [results]);
+  
+  const handleGameSelect = (e) => {
+    dispatch(selectGame(e.target.value));
+  };
 
   return (
     <Select
@@ -43,7 +49,7 @@ const GameSelector = () => {
       displayEmpty
       className={classes.root}
       value={selectedGame}
-      onChange={e => setSelectedGame(e.target.value)}
+      onChange={handleGameSelect}
     >
       <MenuItem value="" disabled>
         Select Gameday
