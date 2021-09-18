@@ -27,11 +27,12 @@ const Home = () => {
   const classes = useStyles();
   const router = useRouter();
   const { selectedGame } = useSelector(state => state.games);
-  const { selectedDate, notifications } = useSelector(({ notifications }) => {
+  const { selectedDate, slots, notifications } = useSelector(({ notifications }) => {
     const { selectedDate, all: { results } } = notifications;
     return {
       selectedDate,
-      notifications: results.filter(n => moment(n.createdAt).isSame(moment(selectedDate), 'day')),
+      notifications: results,
+      slots: results.filter(n => moment(n.createdAt).isSame(moment(selectedDate), 'day')),
     };
   });
 
@@ -69,7 +70,7 @@ const Home = () => {
       <Card>
         <CardContent>
           {selectedGame ? (
-            <Timeline detailView={true} slots={notifications} />
+            <Timeline detailView={true} slots={slots} />
           ) : (
             <Calendar
               value={selectedDate}
