@@ -22,6 +22,10 @@ const fonts = [
     src: `local('SFUIText-Regular'), url('/assets/fonts/SFUIText-Regular.ttf') format('truetype')`
   },
   {
+    fontFamily: 'SFUIText-Medium',
+    src: `local('SFUIText-Medium'), url('/assets/fonts/SFUIText-Medium.ttf') format('truetype')`
+  },
+  {
     fontFamily: 'SFProDisplay-BlackItalic',
     src: `local('SFProDisplay-BlackItalic'), url('/assets/fonts/SFProDisplay-BlackItalic.ttf') format('truetype')`
   },
@@ -160,6 +164,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       SFProTextMedium: 'SFProText-Medium',
       SFProTextBold: 'SFProText-Bold',
       SFUITextRegular: 'SFUIText-Regular',
+      SFUITextMedium: 'SFUIText-Medium',
       SFProDisplayBlackItalic: 'SFProDisplay-BlackItalic',
     }
   }

@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { makeStyles } from "@material-ui/core";
-import { LineSlot, TimelineGrid, TimelineSlot } from "./components";
+import { LineSlot, TimelineGrid, TimelineSlot, TimelineSlotDetailed } from "./components";
 import moment from 'moment';
+import { conv2time } from "./helpers";
+import { TIMELINE_OPTIONS_DETAIL, TIMELINE_OPTIONS_NORMAL } from "./constants";
 
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%',
+    minHeight: 500,
     overflowY: 'auto',
     position: 'relative',
     '&::-webkit-scrollbar': {
@@ -19,12 +22,45 @@ const useStyles = makeStyles(() => ({
       borderRadius: 4,
     },
   },
+  slotContainer: {
+    position: 'absolute',
+    left: props => props.detailView ? 45 : 0,
+    width: props => props.detailView ? 'calc(100% - 146px - 45px)' : '100%',
+    height: '100%',
+  },
 }));
 
-const Timeline = ({ date, slots = [] }) => {
-  const classes = useStyles();
+const Timeline = ({ date = null, slots = [], detailView = false }) => {
+  const classes = useStyles({ detailView });
   const checkToday = useMemo(() => moment().isSame(moment(date), 'day'), [date]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const options = useMemo(() => detailView ? TIMELINE_OPTIONS_DETAIL : TIMELINE_OPTIONS_NORMAL, [detailView]);
+  const SlotComponent = useMemo(() => detailView ? TimelineSlotDetailed : TimelineSlot, [detailView]);
+
+  const beginTime = useMemo(() => {
+    if (slots.length === 0) {
+      return conv2time(currentTime).subtract(3, 'hours').minutes(0);
+    } else {
+      const minTime = moment.min(slots.map(s => conv2time(s.createdAt)));
+      const mins = minTime.minutes() - minTime.minutes() % options.unit;
+      return minTime.minutes(mins);
+    }
+  }, [slots, currentTime, options]);
+
+  const endTime = useMemo(() => {
+    if (slots.length === 0) {
+      return conv2time(currentTime).add(3, 'hours').minutes(0);
+    } else {
+      const maxTime = moment.max(slots.map(s => conv2time(s.createdAt)));
+
+      if (maxTime.hours() === 23) {
+        const mins = maxTime.minutes() - maxTime.minutes() % options.unit;
+        return maxTime.minutes(mins);
+      } else {
+        return maxTime.add(options.unit, 'minutes').minutes(0);
+      }
+    }
+  }, [slots, currentTime, options]);
 
   useEffect(() => {
     const loopId = setInterval(() => setCurrentTime(new Date()), 60000);
@@ -33,16 +69,30 @@ const Timeline = ({ date, slots = [] }) => {
 
   return (
     <div className={classes.root}>
-      <TimelineGrid />
-      {slots.map(({ id, type, title, createdAt }) =>
-        <TimelineSlot
-          key={id}
-          type={type}
-          title={title}
-          time={createdAt}
-        />
-      )}
-      {checkToday && <LineSlot time={currentTime} />}
+      <TimelineGrid
+        offset={options.offset}
+        step={options.step}
+        unit={options.unit}
+        beginTime={beginTime}
+        endTime={endTime}
+        detailView={detailView}
+      />
+      <div className={classes.slotContainer}>
+        {slots.map(({ id, type, title, createdAt, imageUrl }) =>
+          <SlotComponent
+            key={id}
+            type={type}
+            title={title}
+            datetime={createdAt}
+            imageUrl={imageUrl}
+            offsetTime={beginTime}
+            offset={options.offset}
+            unit={options.unit}
+            step={options.step}
+          />
+        )}
+      </div>
+      {!detailView && checkToday && <LineSlot time={currentTime} />}
     </div>
   )
 };

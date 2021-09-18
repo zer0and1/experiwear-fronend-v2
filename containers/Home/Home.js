@@ -3,7 +3,7 @@ import { memo, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotifications, selectDate } from 'actions/getNotifications';
 import { Button, Card, CardContent, makeStyles } from '@material-ui/core';
-import { Calendar } from 'components';
+import { Calendar, Timeline } from 'components';
 import _ from 'lodash';
 import moment from 'moment';
 import { Add } from '@material-ui/icons';
@@ -26,7 +26,15 @@ const Home = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
-  const { selectedDate, all: { results: notifications } } = useSelector(state => state.notifications);
+  const { selectedGame } = useSelector(state => state.games);
+  const { selectedDate, notifications } = useSelector(({ notifications }) => {
+    const { selectedDate, all: { results } } = notifications;
+    return {
+      selectedDate,
+      notifications: results.filter(n => moment(n.createdAt).isSame(moment(selectedDate), 'day')),
+    };
+  });
+
   const calendarCellData = useMemo(() => {
     const grouped = _.groupBy(notifications.map(n => ({
       ...n,
@@ -48,7 +56,7 @@ const Home = () => {
   };
 
   const handleCreateNewsAlert = () => {
-    router.push(LINKS.NEWS.HREF)
+    router.push(LINKS.NEWS.HREF);
   };
 
   useEffect(() => {
@@ -57,26 +65,33 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <Card>
-      <CardContent>
-        <Calendar
-          value={selectedDate}
-          cellData={calendarCellData}
-          actions={
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<Add />}
-              className={classes.newAlertButton}
-              onClick={handleCreateNewsAlert}
-            >
-              News Alert
-            </Button>
-          }
-          onChange={handleDateChange}
-        />
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardContent>
+          {selectedGame ? (
+            <Timeline detailView={true} slots={notifications} />
+          ) : (
+            <Calendar
+              value={selectedDate}
+              cellData={calendarCellData}
+              actions={
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<Add />}
+                  className={classes.newAlertButton}
+                  onClick={handleCreateNewsAlert}
+                >
+                  News Alert
+                </Button>
+              }
+              onChange={handleDateChange}
+            />
+          )}
+
+        </CardContent>
+      </Card>
+    </>
   )
 }
 
