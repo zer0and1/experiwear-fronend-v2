@@ -39,7 +39,12 @@ const Timeline = ({ date = null, slots = [], detailView = false }) => {
 
   const beginTime = useMemo(() => {
     if (slots.length === 0) {
-      return conv2time(currentTime).subtract(3, 'hours').minutes(0);
+      const ctime = conv2time(currentTime);
+      if (ctime.hours() < 3) {
+        return ctime.minutes(0);
+      } else {
+        return ctime.subtract(3, 'hours').minutes(0);
+      }
     } else {
       const minTime = moment.min(slots.map(s => conv2time(s.createdAt)));
       const mins = minTime.minutes() - minTime.minutes() % options.unit;
@@ -49,16 +54,17 @@ const Timeline = ({ date = null, slots = [], detailView = false }) => {
 
   const endTime = useMemo(() => {
     if (slots.length === 0) {
-      return conv2time(currentTime).add(3, 'hours').minutes(0);
+      const ctime = conv2time(currentTime);
+      const boundMax = 60 - 60 % options.unit;
+      if (ctime.hours() > 20) {
+        return ctime.minutes(boundMax);
+      } else {
+        return ctime.add(3, 'hours').minutes(boundMax);
+      }
     } else {
       const maxTime = moment.max(slots.map(s => conv2time(s.createdAt)));
-
-      if (maxTime.hours() === 23) {
-        const mins = maxTime.minutes() - maxTime.minutes() % options.unit;
-        return maxTime.minutes(mins);
-      } else {
-        return maxTime.add(options.unit, 'minutes').minutes(0);
-      }
+      const mins = maxTime.minutes() - maxTime.minutes() % options.unit;
+      return maxTime.minutes(mins);
     }
   }, [slots, currentTime, options]);
 

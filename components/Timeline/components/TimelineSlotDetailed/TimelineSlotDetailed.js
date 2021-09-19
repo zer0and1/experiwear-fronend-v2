@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     padding: 6,
   },
   image:  {
-    backgroundImage: props => `url(https://hawks-dev.api.experiwear.com/notifications/3579eeb8.jpg)`,
+    backgroundImage: props => `url(${props.imageUrl})`,
     backgroundSize: 'cover',
     width: 46,
     height: 46,
@@ -55,7 +55,7 @@ const TimelineSlotDetailed = ({ type, datetime, title, imageUrl = null, offsetTi
       return time.minutes() + time.hours() * 60;
     }
   }, [datetime, offsetTime]);
-  const top = useMemo(() => Math.floor(step * Math.floor(minutes / unit) + offset), [minutes, unit, offset]);
+  const top = useMemo(() => Math.floor(step * Math.floor(minutes / unit) + offset), [minutes, unit, offset, step]);
   const left = useMemo(() => Math.floor(100 * (minutes % unit) / unit), [minutes, unit]);
   const classes = useStyles({ type, top, left, imageUrl });
 

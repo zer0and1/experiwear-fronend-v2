@@ -13,7 +13,14 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Calendar = ({ value = new Date(), cellData = {}, actions, onChange = () => {} }) => {
+const Calendar = ({
+  value = new Date(),
+  cellData = {},
+  actions = null,
+  onChange = () => { },
+  minimized = false,
+  ...boxProps
+}) => {
   const classes = useStyles();
   const [year, setYear] = useState(parseInt(moment(value).format('YYYY')));
   const [month, setMonth] = useState(parseInt(moment(value).format('MM')));
@@ -24,15 +31,22 @@ const Calendar = ({ value = new Date(), cellData = {}, actions, onChange = () =>
   };
 
   return (
-    <Box className={classes.root}>
-      <CalendarPicker year={year} month={month} actions={actions} onChange={handlePickerChange} />
+    <Box className={classes.root} {...boxProps}>
+      <CalendarPicker
+        year={year}
+        month={month}
+        actions={actions}
+        minimized={minimized}
+        onChange={handlePickerChange}
+      />
       <table className={classes.table}>
-        <CalendarHeader />
+        <CalendarHeader minimized={minimized} />
         <CalendarBody
           year={year}
           month={month}
           date={value}
           cellData={cellData}
+          minimized={minimized}
           onChange={onChange}
         />
       </table>

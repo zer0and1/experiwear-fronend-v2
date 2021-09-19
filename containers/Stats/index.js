@@ -1,7 +1,7 @@
 
 import { memo, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNotifications, selectDate } from 'actions/getNotifications';
+import { getNotifications, setSelectedDate } from 'actions/getNotifications';
 import { Button, Card, CardContent, makeStyles } from '@material-ui/core';
 import { Calendar } from 'components';
 import _ from 'lodash';
@@ -43,7 +43,7 @@ const Home = () => {
   }, [notifications]);
 
   const handleDateChange = (date) => {
-    dispatch(selectDate(date));
+    dispatch(setSelectedDate(date));
   };
 
   const handleCreateNewsAlert = () => {

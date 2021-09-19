@@ -9,27 +9,36 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     marginBottom: theme.spacing(4),
   },
-  picker: {
+  picker: ({ minimized }) => ({
     display: 'flex',
     alignItems: 'center',
-  },
-  arrowButton: {
-    margin: -12,
-  },
-  label: {
-    fontFamily: theme.custom.fonts.SFProDisplayBlackItalic,
-    fontSize: 16,
-    fontWeight: 900,
-    color: theme.palette.info.main,
-    letterSpacing: 0.48,
+    width: minimized ? '100%' : 'unset',
+  }),
+  arrowLeftButton: ({ minimized }) => ({
+    margin: minimized ? '-12px -12px -12px auto' : -12,
+    order: minimized ? 1 : 0,
+    fontSize: minimized ? '1rem' : '1.5rem',
+  }),
+  arrowRightButton: ({ minimized }) => ({
+    margin: minimized ? '-12px 8px -12px 12px' : -12,
+    order: 2,
+    fontSize: minimized ? '1rem' : '1.5rem',
+  }),
+  label: ({ minimized }) => ({
+    order: minimized ? 0 : 1,
+    fontFamily: theme.custom.fonts[minimized ? 'SFProTextRegular' : 'SFProDisplayBlackItalic'],
+    fontSize: minimized ? 12 : 16,
+    fontWeight: minimized ? 'normal' : 900,
+    color: minimized ? '#333' : theme.palette.info.main,
+    letterSpacing: minimized ? 'normal' : 0.48,
     padding: theme.spacing(0, 0.5),
     minWidth: 147,
-    textAlign: 'center',
-  },
+    textAlign: minimized ? 'left' : 'center',
+  }),
 }));
 
-const CalendarPicker = ({ year, month, onChange, actions }) => {
-  const classes = useStyles();
+const CalendarPicker = ({ year, month, onChange, actions, minimized }) => {
+  const classes = useStyles({ minimized });
 
   const handleArrowBackClick = () => {
     if (month === 1) {
@@ -50,19 +59,21 @@ const CalendarPicker = ({ year, month, onChange, actions }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.picker}>
-        <IconButton className={classes.arrowButton} onClick={handleArrowBackClick}>
-          <ArrowBackIosOutlined />
+        <IconButton className={classes.arrowLeftButton} onClick={handleArrowBackClick}>
+          <ArrowBackIosOutlined fontSize="inherit" />
         </IconButton>
         <Box className={classes.label}>
           {`${moment.months(month - 1)} ${year}`}
         </Box>
-        <IconButton className={classes.arrowButton} onClick={handleArrowForwardClick}>
-          <ArrowForwardIosOutlined />
+        <IconButton className={classes.arrowRightButton} onClick={handleArrowForwardClick}>
+          <ArrowForwardIosOutlined fontSize="inherit" />
         </IconButton>
       </Box>
-      <Box className={classes.actions}>
-        {actions}
-      </Box>
+      {actions && (
+        <Box className={classes.actions}>
+          {actions}
+        </Box>
+      )}
     </Box>
   )
 };

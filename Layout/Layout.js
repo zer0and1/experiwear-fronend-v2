@@ -33,9 +33,12 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 0,
     },
   },
+  content: {
+    height: 'calc(100vh - 196px)',
+  },
 }));
 
-const Layout = ({ children }) => {
+const Layout = ({ children, sidebar }) => {
   const classes = useStyles();
   const { loadingStatus } = useSelector(state => state.loading);
 
@@ -43,11 +46,17 @@ const Layout = ({ children }) => {
     <main className={classes.root}>
       <MagicLoading loading={loadingStatus} />
       <SideMenu />
+      
       <div className={classes.container}>
         <AppBar />
-        {children}
+        <div className={classes.content}>
+          {children}
+        </div>
       </div>
-      <SideBar />
+
+      <SideBar>
+        {sidebar}
+      </SideBar>
     </main>
   );
 };

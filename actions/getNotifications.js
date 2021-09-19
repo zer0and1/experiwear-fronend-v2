@@ -89,7 +89,7 @@ export const setNotifications = (type = '', results = []) => async (dispatch, ge
   }
 };
 
-export const selectDate = (date) => ({
+export const setSelectedDate = (date) => ({
   type: TYPES.SELECT_DATE,
   payload: date,
 });

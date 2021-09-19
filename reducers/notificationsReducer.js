@@ -1,5 +1,7 @@
 
 import * as TYPES from 'actions/types'
+import moment from 'moment';
+import _ from 'lodash';
 
 const INITIAL_STATE = Object.freeze({
   all: {
@@ -34,12 +36,25 @@ const INITIAL_STATE = Object.freeze({
   latestSurvey: {},
   latestNews: [],
   selectedDate: new Date(),
+  alertStatus: {},
 });
 
 const notificationsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.SET_ALL_NOTIFICATIONS:
-      return { ...state, all: action.payload };
+      const grouped = _.groupBy(action.payload.results.map(n => ({
+        ...n,
+        date: moment(n.createdAt).format('YYYY-MM-DD')
+      })), 'date');
+
+      for (let date in grouped) {
+        grouped[date] = grouped[date].reduce((acc, n) => ({
+          ...acc,
+          [n.type]: true,
+        }), {});
+      }
+
+      return { ...state, all: action.payload, alertStatus: grouped };
     case TYPES.SET_NEWS_NOTIFICATIONS:
       return { ...state, news: action.payload };
     case TYPES.SET_SURVEY_NOTIFICATIONS:

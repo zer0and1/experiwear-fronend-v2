@@ -1,8 +1,10 @@
 import { Box, makeStyles, MenuItem, Select } from "@material-ui/core";
-import { selectGame } from "actions/games";
+import { setSelectedGame } from "actions/games";
 import { useDispatch, useSelector } from "react-redux";
 import { getEnglishDateWithTime } from "utils/helpers/time";
 import TeamLogo from "parts/TeamLogo";
+import LINKS from "utils/constants/links";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,10 +37,20 @@ const useStyles = makeStyles(theme => ({
 const GameSelector = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const router = useRouter();
   const { results: games = [], selectedGame } = useSelector(state => state.games);
-  
+  const { pathTokens } = useSelector(state => state.aux);
+
   const handleGameSelect = (e) => {
-    dispatch(selectGame(e.target.value));
+    dispatch(setSelectedGame(e.target.value));
+
+    switch (pathTokens[1].path) {
+      case LINKS.HOME.HREF:
+        router.push(LINKS.SELECTED_GAME.HREF);
+        break;
+      default:
+        break;
+    }
   };
 
   return (

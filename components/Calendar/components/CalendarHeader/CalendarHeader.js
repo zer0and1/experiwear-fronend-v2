@@ -1,18 +1,19 @@
 import { makeStyles } from "@material-ui/core";
 import moment from 'moment';
+import { useMemo } from "react";
 
 const useStyles = makeStyles(theme => ({
-  cell: {
-    fontFamily: theme.custom.fonts.SFProTextRegular,
-    fontSize: 14,
+  cell: ({ minimized }) => ({
+    fontFamily: theme.custom.fonts[minimized ? 'SFUITextMedium' : 'SFProTextRegular'],
+    fontSize: minimized ? 13 : 14,
     color: '#989db3',
     textAlign: 'center',
-  },
+  }),
 }));
 
-const CalendarHeader = ({ weekdays = moment.weekdays(true) }) => {
-  const classes = useStyles();
-
+const CalendarHeader = ({ minimized }) => {
+  const classes = useStyles({ minimized });
+  const weekdays = useMemo(() => minimized ? moment.weekdaysMin(true) : moment.weekdays(true), [minimized]);
   return (
     <thead>
       <tr>

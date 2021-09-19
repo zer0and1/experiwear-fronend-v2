@@ -40,7 +40,7 @@ const TimelineGrid = ({ offset, step, unit, beginTime, endTime, detailView }) =>
   const period = useMemo(() => moment(endTime).diff(moment(beginTime), 'minutes', true), [beginTime, endTime]);
   const labels = useMemo(() => Array.from({ length: period / unit + 1 }).map((_, idx) =>
     moment(beginTime).add(idx * unit, 'minutes').format('HH:mm')
-  ), [beginTime, period]);
+  ), [beginTime, period, unit]);
 
   return (
     <div className={classes.root}>

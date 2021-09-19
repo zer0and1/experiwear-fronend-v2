@@ -16,6 +16,10 @@ const LINKS = Object.freeze({
     TITLE: 'Home',
     HREF: '/'
   },
+  SELECTED_GAME: {
+    TITLE: 'Selected Game',
+    HREF: '/selected-game',
+  },
   STATS: {
     TITLE: 'Stats',
     HREF: '/stats',

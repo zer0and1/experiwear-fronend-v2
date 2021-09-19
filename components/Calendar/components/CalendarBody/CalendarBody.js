@@ -4,7 +4,7 @@ import moment from "moment";
 import CalendarCell from "../CalendarCell";
 
 
-const CalendarBody = ({ year, month, date, cellData = {}, onChange }) => {
+const CalendarBody = ({ year, month, date, cellData = {}, onChange, minimized }) => {
   const layoutDays = useMemo(() => layoutDaysOfMonth(year, month), [year, month]);
 
   const handleDaySelect = (day) => {
@@ -22,6 +22,7 @@ const CalendarBody = ({ year, month, date, cellData = {}, onChange }) => {
               data={cellData?.[moment(new Date(year, month - 1, day)).format('YYYY-MM-DD')]}
               selected={moment(new Date(year, month - 1, day)).isSame(moment(date), 'day')}
               onSelect={handleDaySelect}
+              minimized={minimized}
             />
           ))}
         </tr>

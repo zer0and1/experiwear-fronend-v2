@@ -45,7 +45,7 @@ const TimelineSlot = ({ type, datetime, title, offsetTime = null, offset = 0, un
       return time.minutes() + time.hours() * 60;
     }
   }, [datetime, offsetTime]);
-  const top = useMemo(() => Math.floor(step * (minutes / unit) + offset), [minutes, unit, offset]);
+  const top = useMemo(() => Math.floor(step * (minutes / unit) + offset), [minutes, unit, offset, step]);
   const classes = useStyles({ type, top });
 
   return (

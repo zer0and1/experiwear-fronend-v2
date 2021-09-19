@@ -60,7 +60,7 @@ export const setClosestUpcomingGame = game => {
   };
 };
 
-export const selectGame = (game) => ({
+export const setSelectedGame = (game) => ({
   type: TYPES.SELECT_GAME,
   payload: game,
 });
