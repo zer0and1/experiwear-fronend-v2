@@ -27,8 +27,10 @@ const SelectedGame = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
-  const { selectedDate, all: { results: notifications } } = useSelector(state => state.notifications);
-  const slots = useMemo(() => notifications.filter(n => moment(n.createdAt).isSame(moment(selectedDate), 'day')), [notifications, selectedDate]);
+  const { selectedDate, all: { results: notifications }, alertsToShow } = useSelector(state => state.notifications);
+  const slots = useMemo(() => notifications.filter(
+    n => moment(n.createdAt).isSame(moment(selectedDate), 'day') && alertsToShow[n.type]
+  ), [notifications, selectedDate, alertsToShow]);
 
   const handleCreateNewsAlert = () => {
     router.push(LINKS.NEWS.HREF);

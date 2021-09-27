@@ -37,6 +37,12 @@ const INITIAL_STATE = Object.freeze({
   latestNews: [],
   selectedDate: new Date(),
   alertStatus: {},
+  alertsToShow: {
+    news: true,
+    survey: true,
+    score: true,
+    promo: true,
+  },
 });
 
 const notificationsReducer = (state = INITIAL_STATE, action) => {
@@ -75,6 +81,10 @@ const notificationsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, latestNews: action.payload };
     case TYPES.SELECT_DATE:
       return { ...state, selectedDate: action.payload };
+    case TYPES.SET_ALERT_TO_SHOW:
+      const {alert, visibility} = action.payload;
+      const { alertsToShow } = state;
+      return { ...state, alertsToShow: { ...alertsToShow, [alert]: visibility } };
     default:
       return state;
   }

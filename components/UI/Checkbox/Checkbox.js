@@ -23,7 +23,7 @@ const CheckBox = (props) => {
 
   return (
     <FormControlLabel
-      control={<Checkbox {...props} classes={{ root: classes.checkbox }} />}
+      control={<Checkbox {...props} classes={{ root: classes.checkbox }} color="default" />}
       label={props.label}
       classes={{ label: classes.label }}
     />

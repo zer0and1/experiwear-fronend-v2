@@ -27,4 +27,6 @@ export const SET_SIDE_DRAWER = 'SET_SIDE_DRAWER';
 export const SET_PATH_TOKENS = 'SET_PATH_TOKENS';
 export const SELECT_DATE = 'SELECT_DATE';
 export const SELECT_GAME = 'SELECT_GAME';
+export const SET_ALERT_TO_SHOW = 'SET_ALERT_TO_SHOW';
+
 

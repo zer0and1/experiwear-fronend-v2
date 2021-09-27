@@ -93,3 +93,8 @@ export const setSelectedDate = (date) => ({
   type: TYPES.SELECT_DATE,
   payload: date,
 });
+
+export const setAlertToShow = (alert, visibility) => ({
+  type: TYPES.SET_ALERT_TO_SHOW,
+  payload: { alert, visibility },
+});

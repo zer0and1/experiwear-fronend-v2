@@ -1,18 +1,22 @@
 import { Fragment, useEffect } from 'react';
 import { Calendar, Checkbox, Title } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedDate } from 'actions/getNotifications';
+import { setAlertToShow, setSelectedDate } from 'actions/getNotifications';
 import { useRouter } from 'next/router';
 import LINKS from 'utils/constants/links';
 
 const HomeSidebar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { selectedDate, alertStatus: cellData } = useSelector(state => state.notifications);
+  const { selectedDate, alertStatus: cellData, alertsToShow } = useSelector(state => state.notifications);
   const { selectedGame } = useSelector(state => state.games);
 
   const handleDateChange = (date) => {
     dispatch(setSelectedDate(date));
+  };
+
+  const handleVisibilityChange = (e) => {
+    dispatch(setAlertToShow(e.target.name, e.target.checked));
   };
 
   useEffect(() => {
@@ -34,10 +38,34 @@ const HomeSidebar = () => {
       <Title mb={3}>
         Alerts to show
       </Title>
-      <Checkbox label="News" color="news" />
-      <Checkbox label="Survey" color="survey" />
-      <Checkbox label="Score" color="score" />
-      <Checkbox label="Promo" color="promo" />
+      <Checkbox
+        label="News"
+        color="news"
+        name="news"
+        checked={alertsToShow.news}
+        onChange={handleVisibilityChange}
+      />
+      <Checkbox
+        label="Survey"
+        color="survey"
+        name="survey"
+        checked={alertsToShow.survey}
+        onChange={handleVisibilityChange}
+      />
+      <Checkbox
+        label="Score"
+        color="score"
+        name="score"
+        checked={alertsToShow.score}
+        onChange={handleVisibilityChange}
+      />
+      <Checkbox
+        label="Promo"
+        color="promo"
+        name="promo"
+        checked={alertsToShow.promo}
+        onChange={handleVisibilityChange}
+      />
     </Fragment>
   );
 };
