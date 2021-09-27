@@ -32,7 +32,7 @@ export const getGames = (refresh = false) => async (dispatch, getState) => {
     }
 
     await dispatch(setGames(games));
-    dispatch(setSelectGame(closestUpcomingGame));
+    dispatch(setSelectedGame(closestUpcomingGame));
     dispatch(setClosestUpcomingGame(closestUpcomingGame));
   } catch (error) {
     console.log('[getGames] error => ', error);
@@ -46,9 +46,9 @@ export const setGames = games => {
   };
 };
 
-export const setSelectGame = game => {
+export const setSelectedGame = game => {
   return {
-    type: TYPES.SET_SELECT_GAME,
+    type: TYPES.SET_SELECTED_GAME,
     payload: game
   };
 };
@@ -59,9 +59,3 @@ export const setClosestUpcomingGame = game => {
     payload: game
   };
 };
-
-export const setSelectedGame = (game) => ({
-  type: TYPES.SELECT_GAME,
-  payload: game,
-});
-

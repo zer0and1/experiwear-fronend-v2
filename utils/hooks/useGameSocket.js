@@ -2,7 +2,7 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setGames, setSelectGame, setClosestUpcomingGame } from 'actions/games'
+import { setGames, setSelectedGame, setClosestUpcomingGame } from 'actions/games'
 import useSocket from 'utils/hooks/useSocket'
 import WS_EVENTS from 'utils/constants/socket'
 
@@ -19,7 +19,7 @@ const useGameSocket = () => {
       dispatch(setGames(newGames))
 
       if (select.id === game.id) {
-        dispatch(setSelectGame(game))
+        dispatch(setSelectedGame(game))
       }
 
       dispatch(setClosestUpcomingGame(game))

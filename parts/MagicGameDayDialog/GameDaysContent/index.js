@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import clsx from 'clsx'
 
-import { setSelectGame } from 'actions/games'
+import { setSelectedGame } from 'actions/games'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import TeamLogo from 'parts/TeamLogo'
 import { getEnglishDateWithTime } from 'utils/helpers/time'
@@ -101,7 +101,7 @@ const GameDaysContent = ({
   }, [selectRef]);
 
   const selectHandler = useCallback((item) => () => {
-    dispatch(setSelectGame(item))
+    dispatch(setSelectedGame(item))
   }, [dispatch])
 
   const goHandler = useCallback(() => {

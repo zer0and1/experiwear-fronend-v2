@@ -42,7 +42,7 @@ const GameSelector = () => {
   const { pathTokens } = useSelector(state => state.aux);
 
   const handleGameSelect = (e) => {
-    dispatch(setSelectedGame(e.target.value));
+    dispatch(setSelectedGame(games.find(g => g.id === e.target.value)));
 
     switch (pathTokens[1].path) {
       case LINKS.HOME.HREF:
@@ -58,7 +58,7 @@ const GameSelector = () => {
       variant="outlined"
       displayEmpty
       className={classes.root}
-      value={selectedGame}
+      value={selectedGame?.id || ''}
       onChange={handleGameSelect}
     >
       <MenuItem value="" disabled>

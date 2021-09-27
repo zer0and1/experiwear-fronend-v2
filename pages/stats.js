@@ -1,11 +1,11 @@
 import Layout from 'Layout';
 import Stats from 'containers/Stats';
-import { HomeSidebar } from 'sidebars';
+import { ActivityTimeline } from 'sidebars';
 
 export default function HomePage() {
 
   return (
-    <Layout sidebar={<HomeSidebar />}>
+    <Layout sidebar={<ActivityTimeline />}>
       <Stats />
     </Layout>
   )

@@ -14,8 +14,16 @@ const fonts = [
     src: `local('SFProText-Bold'), url('/assets/fonts/SFProText-Bold.ttf') format('truetype')`
   },
   {
+    fontFamily: 'SFProText-Semibold',
+    src: `local('SFProText-Semibold'), url('/assets/fonts/SFProText-Semibold.ttf') format('truetype')`
+  },
+  {
     fontFamily: 'SFProText-Medium',
     src: `local('SFProText-Medium'), url('/assets/fonts/SFProText-Medium.ttf') format('truetype')`
+  },
+  {
+    fontFamily: 'SFProText-Light',
+    src: `local('SFProText-Light'), url('/assets/fonts/SFProText-Light.ttf') format('truetype')`
   },
   {
     fontFamily: 'SFUIText-Regular',
@@ -100,7 +108,7 @@ const theme = responsiveFontSizes(createMuiTheme({
     },
     MuiCardHeader: {
       root: {
-        padding: '32px 24px',
+        padding: '32px 24px 0px 24px',
       },
       title: {
         fontFamily: 'SFProDisplay-BlackItalic',
@@ -176,6 +184,8 @@ const theme = responsiveFontSizes(createMuiTheme({
       SFProTextRegular: 'SFProText-Regular',
       SFProTextMedium: 'SFProText-Medium',
       SFProTextBold: 'SFProText-Bold',
+      SFProTextSemibold: 'SFProText-Semibold',
+      SFProTextLight: 'SFProText-Light',
       SFUITextRegular: 'SFUIText-Regular',
       SFUITextMedium: 'SFUIText-Medium',
       SFProDisplayBlackItalic: 'SFProDisplay-BlackItalic',

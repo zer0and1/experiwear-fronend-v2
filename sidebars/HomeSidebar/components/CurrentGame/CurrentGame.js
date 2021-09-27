@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CurrentGame = () => {
   const classes = useStyles();
-  const selectedGame = useSelector(state => state.games.select);
+  const selectedGame = useSelector(state => state.games.selectedGame);
 
   return selectedGame && (
     <div className={classes.root}>

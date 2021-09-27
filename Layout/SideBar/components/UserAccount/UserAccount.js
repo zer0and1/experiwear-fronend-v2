@@ -85,19 +85,17 @@ const UserAccount = () => {
         sx={{ p: 16 }}
         classes={{ paper: classes.menu }}
       >
-        {latestNotifications.map((n, idx) => (
-          <>
-            <MenuItem className={classes.item} key={n.id}>
-              <img className={classes.image} src={n.imageUrl} />
-              <div className={classes.content}>
-                {n.body}
-              </div>
-            </MenuItem>
-            {(idx < latestNotifications.length - 1) && (
-              <Divider style={{ margin: 8 }} />
-            )}
-          </>
-        ))}
+        {latestNotifications.map((n, idx) => [
+          <MenuItem className={classes.item} key={n.id}>
+            <img className={classes.image} src={n.imageUrl} />
+            <div className={classes.content}>
+              {n.body}
+            </div>
+          </MenuItem>,
+          (idx < latestNotifications.length - 1) && (
+            <Divider style={{ margin: 8 }} />
+          )
+        ])}
       </Menu>
     </div>
   )
