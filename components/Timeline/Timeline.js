@@ -98,7 +98,15 @@ const Timeline = ({ date = null, slots = [], detailView = false }) => {
           />
         )}
       </div>
-      {!detailView && checkToday && <LineSlot time={currentTime} />}
+      {!detailView && checkToday && (
+        <LineSlot
+          time={currentTime}
+          offsetTime={beginTime}
+          offset={options.offset}
+          unit={options.unit}
+          step={options.step}
+        />
+      )}
     </div>
   )
 };

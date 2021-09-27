@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core";
-import moment from 'moment';
 import { useMemo } from "react";
+import { makeStyles } from "@material-ui/core";
+import { conv2time } from "components/Timeline/helpers";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,10 +26,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LineSlot = ({ time }) => {
-  const hour = useMemo(() => parseInt(moment(time).format('HH')), [time]);
-  const minute = useMemo(() => parseInt(moment(time).format('mm')), [time]);
-  const top = useMemo(() => Math.round(72 * (hour + minute / 60) - 4), [hour, minute]);
+const LineSlot = ({ datetime, offsetTime = null, offset = 0, unit = 60, step = 72 }) => {
+  const minutes = useMemo(() => {
+    const time = conv2time(datetime);
+    if (offsetTime) {
+      return time.diff(conv2time(offsetTime), 'minutes', true);
+    } else {
+      return time.minutes() + time.hours() * 60;
+    }
+  }, [datetime, offsetTime]);
+  const top = useMemo(() => Math.floor(step * (minutes / unit) + offset), [minutes, unit, offset, step]);
   const classes = useStyles({ top });
 
   return (
