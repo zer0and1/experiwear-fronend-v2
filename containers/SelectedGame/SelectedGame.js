@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   cardContent: {
-    height: '100%',
   },
 }));
 

@@ -97,6 +97,19 @@ const theme = responsiveFontSizes(createMuiTheme({
         letterSpacing: 0.1,
         userSelect: 'none'
       }
+    },
+    MuiCardHeader: {
+      root: {
+        padding: '48px 28px 32px 20px',
+      },
+      title: {
+        fontFamily: 'SFProDisplay-BlackItalic',
+        fontSize: 16,
+        fontWeight: 900,
+        letterSpacing: 0.48,
+        color: '#01a1c3',
+        textTransform: 'uppercase',
+      },
     }
   },
   palette: {
