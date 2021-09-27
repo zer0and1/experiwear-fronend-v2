@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Doughnut } from 'react-chartjs-2'
 
 import MagicGameDayDialog from 'parts/MagicGameDayDialog'
-import HomeCardWrapper from '../Shared/HomeCardWrapper'
+import HomeCardWrapper from '../HomeCardWrapper'
 import getPercent from 'utils/helpers/getPercent'
 
 const useStyles = makeStyles((theme) => ({

@@ -100,7 +100,7 @@ const theme = responsiveFontSizes(createMuiTheme({
     },
     MuiCardHeader: {
       root: {
-        padding: '48px 28px 32px 20px',
+        padding: '32px 24px',
       },
       title: {
         fontFamily: 'SFProDisplay-BlackItalic',

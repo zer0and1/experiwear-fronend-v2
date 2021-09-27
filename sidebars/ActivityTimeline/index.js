@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import HomeCardWrapper from '../Shared/HomeCardWrapper'
 import getAlertIcon from 'utils/helpers/getAlertIcon'
 import { getEnglishDateWithTime } from 'utils/helpers/time'
 
@@ -51,7 +50,7 @@ const ActivityTimeline = () => {
   const { all: { results } } = useSelector(state => state.notifications)
 
   return (
-    <HomeCardWrapper title='Activity Timeline'>
+    <div>
       <div className={classes.container}>
         {results.map((item, index) => {
           const alertInfo = getAlertIcon(item.type)
@@ -73,7 +72,7 @@ const ActivityTimeline = () => {
           )
         })}
       </div>
-    </HomeCardWrapper>
+    </div>
   );
 };
 
