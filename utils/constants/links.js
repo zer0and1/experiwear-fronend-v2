@@ -24,6 +24,10 @@ const LINKS = Object.freeze({
     TITLE: 'Stats',
     HREF: '/stats',
   },
+  STATS_FANBANDS: {
+    TITLE: 'Fanbands',
+    HREF: '/stats/fanbands',
+  },
   NEWS: {
     TITLE: 'News',
     HREF: '/news'
