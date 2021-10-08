@@ -1,4 +1,4 @@
-import Layout from 'Layout';
+import { Layout } from 'components';
 import Stats from 'containers/Stats';
 import { ActivityTimeline } from 'sidebars';
 

@@ -30,7 +30,7 @@ const PathIndicator = () => {
   const classes = useStyles();
   const router = useRouter();
   const pathTokens = useSelector(state => state.aux.pathTokens);
-  const lastTokenLabel = useMemo(() => pathTokens.length && pathTokens[pathTokens.length - 1].label, [pathTokens]);
+  const lastTokenLabel = useMemo(() => pathTokens.length ? pathTokens[pathTokens.length - 1].label : '', [pathTokens]);
 
   const handleTokenClick = (path) => {
     if (path) {

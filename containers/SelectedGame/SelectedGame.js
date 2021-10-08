@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   cardContent: {
+    height: 'calc(100% - 60px)',
   },
 }));
 

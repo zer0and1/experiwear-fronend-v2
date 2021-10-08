@@ -1,4 +1,4 @@
-import Layout from 'Layout';
+import { Layout } from 'components';
 import SelectedGame from 'containers/SelectedGame';
 import { SelectedGameSidebar } from 'sidebars';
 

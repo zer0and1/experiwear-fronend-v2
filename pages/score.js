@@ -1,6 +1,6 @@
 
 import Score from 'containers/Score'
-import Layout from 'Layout'
+import { Layout } from 'components'
 
 export default function ScorePage() {
   return (

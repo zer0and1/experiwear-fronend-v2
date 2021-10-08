@@ -1,6 +1,6 @@
 
 import Survey from 'containers/Survey'
-import Layout from 'Layout'
+import { Layout } from 'components'
 
 export default function SurveyPage() {
   return (

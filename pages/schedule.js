@@ -1,5 +1,5 @@
 import Schedule from 'containers/Schedule'
-import Layout from 'Layout'
+import { Layout } from 'components'
 
 export default function SchedulePage() {
   return (

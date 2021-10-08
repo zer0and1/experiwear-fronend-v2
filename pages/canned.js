@@ -1,5 +1,5 @@
 import Canned from 'containers/Canned'
-import Layout from 'Layout'
+import { Layout } from 'components'
 
 export default function CannedPage() {
   return (

@@ -1,5 +1,5 @@
 import Accelerometer from 'containers/Accelerometer'
-import Layout from 'Layout'
+import { Layout } from 'components'
 
 export default function AccelerometerPage() {
   return (

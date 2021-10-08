@@ -1,4 +1,4 @@
-import Layout from 'Layout';
+import { Layout } from 'components';
 import Fanbands from 'containers/Fanbands';
 import { ActivityTimeline } from 'sidebars';
 
