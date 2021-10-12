@@ -8,12 +8,10 @@ import * as yup from 'yup'
 
 import * as notificationsAPI from 'services/api-notifications'
 import { getNotifications } from 'actions/getNotifications'
-import MagicTextField from 'components/UI/MagicTextField'
-import MagicImageField from 'components/UI/MagicImageField'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations'
 import { getEnglishDateWithTime } from 'utils/helpers/time'
-import { AlertField, FormButton } from 'components'
+import { AlertField, FormButton, MagicImageField, MagicTextField } from 'components'
 import { useLoading, usePathIndicator } from 'utils/hooks'
 import { ALERT_TYPES, LINKS } from 'utils/constants'
 

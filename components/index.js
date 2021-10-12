@@ -6,3 +6,4 @@ export { default as AlertField } from './AlertField';
 export { default as BandLogo } from './BandLogo';
 export { default as Logo } from './Logo';
 export * from './UI';
+export * from './styled-components';
