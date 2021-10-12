@@ -1,4 +1,4 @@
-import { withStyles, styled, Slider, Typography } from "@material-ui/core";
+import { withStyles, Slider, Typography } from "@material-ui/core";
 
 export const HeaderText = withStyles(theme => ({
   root: {

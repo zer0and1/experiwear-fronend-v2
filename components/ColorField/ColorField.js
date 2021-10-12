@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     height: 35,
     '&:hover': {
-      backgroundColor: fade(color, 1.6),
+      backgroundColor: fade(color, 0.6),
     },
   }),
 }));
