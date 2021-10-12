@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { Checkbox, ColorField, FormButton, HeaderText, SubHeaderText, Title } from 'components';
+import { Checkbox, ColorField, FormButton, HeaderText, SubHeaderText, PrettoSlider, Title } from 'components';
 import { useCallback, useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
@@ -103,7 +103,10 @@ const SettingDialog = ({ open, onClose }) => {
             </Grid>
 
             <HeaderText>Vibration</HeaderText>
+
             <SubHeaderText>Duration</SubHeaderText>
+            <PrettoSlider marks={[{ value: 0, label: '1s' }, { value: 100, label: '20s' }]} />
+
             <SubHeaderText>Style</SubHeaderText>
             <Box mb={2}>
               <Checkbox label="Quick bursts" color="info" name="quickBursts" checked={alertSettings.quickBursts} onChange={handleFieldChange} />
