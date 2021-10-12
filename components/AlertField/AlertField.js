@@ -1,6 +1,8 @@
 import { Box, IconButton, makeStyles, Typography } from "@material-ui/core";
 import { OpenInNew } from "@material-ui/icons";
 import clsx from "clsx";
+import { useCallback, useState } from "react";
+import { SettingDialog } from "./components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,16 +30,21 @@ const useStyles = makeStyles(theme => ({
 
 const AlertField = ({ label = 'Alert Parameters', className, ...boxProps }) => {
   const classes = useStyles();
+  const [settingToggled, toggleSetting] = useState(false);
 
+  const handleSettingClose = useCallback(() => toggleSetting(false), []);
+  const handleToggleSetting = useCallback(() => toggleSetting(true), []);
+  
   return (
     <Box className={clsx(classes.root, className)} {...boxProps}>
       <Box>
         <Typography className={classes.label}>{label}</Typography>
         <Typography className={classes.value}>Default</Typography>
       </Box>
-      <IconButton className={classes.button}>
+      <IconButton className={classes.button} onClick={handleToggleSetting}>
         <OpenInNew />
       </IconButton>
+      <SettingDialog open={settingToggled} onClose={handleSettingClose} />
     </Box>
   )
 };
