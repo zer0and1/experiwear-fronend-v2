@@ -71,6 +71,8 @@ const SideMenu = () => {
         startIcon={<LogoutIcon />}
         className={classes.logoutButton}
         onClick={handleLogout}
+        variant="text"
+        color="default"
       >
         Log out
       </Button>

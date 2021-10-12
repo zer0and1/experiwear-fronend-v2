@@ -7,14 +7,7 @@ const useFormStyles = makeStyles(theme => ({
     flexDirection: 'column',
   },
   input: {
-    marginBottom: theme.spacing(1.5)
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  button: {
-    margin: theme.spacing(1)
+    marginBottom: theme.spacing(4)
   },
 }));
 

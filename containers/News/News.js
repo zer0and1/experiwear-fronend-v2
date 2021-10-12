@@ -1,6 +1,7 @@
 import { memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Card, CardContent } from '@material-ui/core'
+import { Card, CardContent, CardHeader } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -9,29 +10,38 @@ import * as notificationsAPI from 'services/api-notifications'
 import { getNotifications } from 'actions/getNotifications'
 import MagicTextField from 'components/UI/MagicTextField'
 import MagicImageField from 'components/UI/MagicImageField'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import MagicCardHeader from 'parts/Card/MagicCardHeader'
-import useLoading from 'utils/hooks/useLoading'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations'
 import { ALERT_TYPES } from 'utils/constants/alert-types'
-import useFormStyles from 'styles/useFormStyles'
 import { getEnglishDateWithTime } from 'utils/helpers/time'
-import { isEmpty } from 'utils/helpers/utility'
+import { AlertField, FormButton } from 'components'
+import { useLoading } from 'utils/hooks'
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
   body: STRING_VALID
 });
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: 800,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  input: {
+    marginBottom: theme.spacing(4)
+  },
+}));
+
 const News = () => {
-  const classes = useFormStyles();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { changeLoadingStatus } = useLoading();
 
   const { news: { results } } = useSelector(state => state.notifications)
-  const [file, setFile] = useState(null);
-  const [fileBuffer, setFileBuffer] = useState('');
+  const [images, setImages] = useState([]);
 
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema)
@@ -44,8 +54,8 @@ const News = () => {
       formData.append('title', data.title);
       formData.append('body', data.body);
       formData.append('type', ALERT_TYPES.NEWS.VALUE);
-      if (!isEmpty(file)) {
-        formData.append('file', file);
+      if (images.length) {
+        formData.append('file', images[0].file);
       }
       const { message } = await notificationsAPI.createNotification(formData);
       showSuccessToast(message)
@@ -61,21 +71,17 @@ const News = () => {
   };
 
   const initData = () => {
-    setFile(null)
-    setFileBuffer('');
+    setImages([]);
     reset({
       title: '',
       body: ''
-    })
-  }
+    });
+  };
 
   return (
-    <Card>
+    <Card className={classes.root}>
+      <CardHeader title="Create News Alert" subheader={getEnglishDateWithTime(new Date())} />
       <CardContent>
-        <MagicCardHeader
-          title='Create News Alert'
-          subTitle={getEnglishDateWithTime(new Date())}
-        />
         <form
           noValidate
           className={classes.form}
@@ -104,21 +110,15 @@ const News = () => {
             defaultValue=''
           />
           <MagicImageField
-            label='Select Image'
-            labelWidth={200}
-            file={file}
-            setFile={setFile}
-            fileBuffer={fileBuffer}
-            setFileBuffer={setFileBuffer}
+            label='Image'
+            images={images}
+            onChange={(imgList) => setImages(imgList)}
+            width={350}
           />
-          <div className={classes.buttonContainer}>
-            <ContainedButton
-              type='submit'
-              className={classes.button}
-            >
-              Send
-            </ContainedButton>
-          </div>
+          <AlertField label="Alert Parameters" width={350} />
+          <FormButton type="submit">
+            Send
+          </FormButton>
         </form>
       </CardContent>
     </Card>

@@ -1,118 +1,101 @@
 
 import React, { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Button } from '@material-ui/core'
-import { useDropzone } from 'react-dropzone'
+import { Box, Typography } from '@material-ui/core'
+import ImageUploading from "react-images-uploading";
 import clsx from 'clsx'
-
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginBottom: theme.spacing(2),
+  },
+  label: {
+    color: '#d5d5dc',
+    fontFamiliy: theme.custom.fonts.SFUITextRegular,
+    fontSize: 12,
+    marginBottom: theme.spacing(1),
+  },
+  uploadZone: {
     display: 'flex',
-    width: '100%'
-  },
-  container: {
-    width: '100%'
-  },
-  label: (props) => ({
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: props => props.width,
+    height: props => props.height,
+    borderRadius: 14,
+    border: 'dashed 2px #eaeef4',
+    fontFamily: theme.custom.fonts.SFProTextBold,
     fontSize: 16,
-    width: props.labelWidth,
-    textAlign: 'end',
-    paddingRight: theme.spacing(1),
-    margin: theme.spacing(0.5, 0)
-  }),
-  buttonContainer: {
-    display: 'flex',
-    alignItems: 'center'
+    color: '#74809d',
+    padding: 50,
   },
-  button: {
-    borderRadius: theme.spacing(1),
-    backgroundColor: theme.palette.background.primary
+  browse: {
+    color: theme.palette.info.main,
   },
-  fileName: {
-    marginLeft: theme.spacing(2)
+  dragging: {
+
   },
-  image: {
-    width: 200,
-    height: 200,
-    objectFit: 'cover',
-    borderRadius: 2,
-    border: `1px solid ${theme.custom.palette.lightGrey}`,
-    margin: theme.spacing(1, 0)
+  previewZone: {
+    width: props => props.width,
+    height: props => props.height,
   },
-  error: {
-    fontSize: 14
+  previewImage: {
+    width: 'auto',
+    height: props => props.height,
   },
 }));
 
 const MagicImageField = ({
   label,
-  labelWidth = 150,
-  error,
-  file,
-  setFile,
-  fileBuffer,
-  setFileBuffer,
   className,
+  dataURLKey = "data_url",
+  images,
+  onChange,
+  width = 350,
+  height = 160,
+  ...boxProps
 }) => {
-  const classes = useStyles({ labelWidth });
-
-  const onDrop = async (acceptedFiles) => {
-    if (!Array.isArray(acceptedFiles) || acceptedFiles.length <= 0) return;
-    const file = acceptedFiles[0];
-    setFile(file)
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      setFileBuffer(reader.result);
-    });
-    reader.readAsDataURL(file);
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' })
+  const classes = useStyles({ width, height });
 
   return (
-    <div className={clsx(classes.root, className)}>
-      {
-        !!label &&
-        <Typography
-          color='textSecondary'
-          className={classes.label}
-        >
-          {label}:
-        </Typography>
-      }
-      <div className={classes.container}  >
-        <div className={classes.buttonContainer}>
-          <Button
-            {...getRootProps()}
-            variant='outlined'
-            className={classes.button}
-          >
-            <input {...getInputProps()} />
-            Choose File
-          </Button>
-          <Typography className={classes.fileName}>
-            {file?.name || 'No file chosen'}
-          </Typography>
-        </div>
-        <img
-          alt='upload-image'
-          src={fileBuffer || IMAGE_PLACEHOLDER_IMAGE_PATH}
-          className={classes.image}
-        />
-        {
-          error && !fileBuffer &&
-          <Typography
-            color='error'
-            variant='subtitle2'
-            className={classes.error}
-          >
-            Please select image
-          </Typography>
-        }
-      </div>
-    </div>
+    <Box className={clsx(classes.root, className)} {...boxProps}>
+      <Typography className={classes.label}>
+        {label}
+      </Typography>
+      <ImageUploading
+        value={images}
+        onChange={onChange}
+        dataURLKey={dataURLKey}
+      >
+        {({
+          imageList,
+          onImageUpload,
+          onImageUpdate,
+          isDragging,
+          dragProps
+        }) => (
+          // write your building UI
+          <div className={classes.root}>
+            {imageList.length ? imageList.map((image, index) => (
+              <div key={index} className={classes.previewZone} onClick={() => onImageUpdate(index)}>
+                <img src={image[dataURLKey]} className={classes.previewImage} />
+              </div>
+            )) : (
+              <div
+                className={clsx(classes.uploadZone, { [classes.dragging]: isDragging })}
+                onClick={onImageUpload}
+                {...dragProps}
+              >
+                {isDragging ? (
+                  <span>Drop file here.</span>
+                ) : (
+                  <span>Drag a file here of<span className={classes.browse}>&nbsp;browse&nbsp;</span>for a file to upload.</span>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </ImageUploading>
+    </Box>
   );
 };
 

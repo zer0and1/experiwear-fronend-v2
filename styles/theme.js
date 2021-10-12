@@ -108,9 +108,10 @@ const theme = responsiveFontSizes(createMuiTheme({
     },
     MuiCardHeader: {
       root: {
-        padding: '32px 24px 0px 24px',
+        padding: '48px 25px 0px 25px',
       },
       title: {
+        display: 'inline-block',
         fontFamily: 'SFProDisplay-BlackItalic',
         fontSize: 16,
         fontWeight: 900,
@@ -118,7 +119,22 @@ const theme = responsiveFontSizes(createMuiTheme({
         color: '#01a1c3',
         textTransform: 'uppercase',
       },
+      subheader: {
+        display: 'inline-block',
+        float: 'right',
+        color: '#9ea3ba',
+        fontFamily: 'SFProText-Regular',
+        fontSize: 14,
+        letterSpacing: 0.42,
+      }
     }
+  },
+  props: {
+    MuiButton: {
+      variant: 'contained',
+      color: 'primary',
+      fullWidth: true,
+    },
   },
   palette: {
     primary: {
