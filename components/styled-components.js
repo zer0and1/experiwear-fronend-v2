@@ -7,7 +7,7 @@ export const HeaderText = withStyles(theme => ({
     color: '#000',
     letterSpacing: 0.42,
     textTransform: 'uppercase',
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
 }))(Typography);
 
