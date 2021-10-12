@@ -12,10 +12,10 @@ import MagicTextField from 'components/UI/MagicTextField'
 import MagicImageField from 'components/UI/MagicImageField'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations'
-import { ALERT_TYPES } from 'utils/constants/alert-types'
 import { getEnglishDateWithTime } from 'utils/helpers/time'
 import { AlertField, FormButton } from 'components'
-import { useLoading } from 'utils/hooks'
+import { useLoading, usePathIndicator } from 'utils/hooks'
+import { ALERT_TYPES, LINKS } from 'utils/constants'
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -77,6 +77,8 @@ const News = () => {
       body: ''
     });
   };
+
+  usePathIndicator({ path: LINKS.NEWS.HREF, label: LINKS.NEWS.TITLE });
 
   return (
     <Card className={classes.root}>
