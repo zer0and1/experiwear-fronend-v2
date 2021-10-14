@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid } from '@material-ui/core';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid, RadioGroup } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { Checkbox, ColorField, FormButton, HeaderText, SubHeaderText, PrettoSlider, Title } from 'components';
+import { ColorField, FormButton, HeaderText, SubHeaderText, PrettoSlider, Title, FanbandTerminal, ExpRadio } from 'components';
 import { useCallback, useState } from 'react';
+import { VIBRATION_MARKS } from './constants';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,12 +26,22 @@ const SettingDialog = ({ open, onClose }) => {
     bottomLight1: '#ffdb3c',
     bottomLight2: '#01a1c3',
     bottomLight3: '#825dde',
+    decoration: 'flashing',
+    vibration: 'quick',
+    duration: 9,
   });
 
-  const handleFieldChange = useCallback(e => {
+  const handleFieldChange = useCallback((e) => {
     setAlertSettings(settings => ({
       ...settings,
       [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+    }));
+  }, []);
+
+  const handleDurationChange = useCallback((e, value) => {
+    setAlertSettings(settings => ({
+      ...settings,
+      duration: value,
     }));
   }, []);
 
@@ -44,11 +55,13 @@ const SettingDialog = ({ open, onClose }) => {
       </DialogTitle>
       <DialogContent>
         <Grid container>
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <HeaderText>Led Lights</HeaderText>
             <Box mb={2}>
-              <Checkbox label="Flashing" color="info" name="flashing" checked={alertSettings.flashing} onChange={handleFieldChange} />
-              <Checkbox label="Stable" color="info" name="stable" checked={alertSettings.stable} onChange={handleFieldChange} />
+              <RadioGroup row name="decoration" value={alertSettings.decoration} onChange={handleFieldChange}>
+                <ExpRadio label="Flashing" color="info" value="flashing" />
+                <ExpRadio label="Stable" color="info" value="stable" />
+              </RadioGroup>
             </Box>
             <SubHeaderText>Color palette</SubHeaderText>
             <Grid container spacing={2}>
@@ -105,15 +118,26 @@ const SettingDialog = ({ open, onClose }) => {
             <HeaderText>Vibration</HeaderText>
 
             <SubHeaderText>Duration</SubHeaderText>
-            <PrettoSlider marks={[{ value: 0, label: '1s' }, { value: 100, label: '20s' }]} />
+            <PrettoSlider
+              name="duration"
+              min={1}
+              max={20}
+              step={1}
+              marks={VIBRATION_MARKS}
+              value={alertSettings.duration}
+              onChange={handleDurationChange}
+            />
 
             <SubHeaderText>Style</SubHeaderText>
             <Box mb={2}>
-              <Checkbox label="Quick bursts" color="info" name="quickBursts" checked={alertSettings.quickBursts} onChange={handleFieldChange} />
-              <Checkbox label="Long vibrate" color="info" name="longVibrate" checked={alertSettings.longVibrate} onChange={handleFieldChange} />
+              <RadioGroup row name="vibration" value={alertSettings.vibration} onChange={handleFieldChange}>
+                <ExpRadio label="Quick bursts" color="info" value="quick" />
+                <ExpRadio label="Long vibrate" color="info" value="long" />
+              </RadioGroup>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3} container justify="flex-end">
+            <FanbandTerminal {...alertSettings} />
           </Grid>
         </Grid>
       </DialogContent>

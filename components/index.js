@@ -9,3 +9,4 @@ export { default as AlertField } from './AlertField';
 export { default as BandLogo } from './BandLogo';
 export { default as Logo } from './Logo';
 export { default as ColorField } from './ColorField';
+export { default as FanbandTerminal } from './FanbandTerminal';

@@ -22,7 +22,10 @@ export const SubHeaderText = withStyles(theme => ({
   },
 }))(Typography);
 
-export const PrettoSlider = withStyles(() => ({
+export const PrettoSlider = withStyles((theme) => ({
+  root: {
+    color: theme.palette.info.main,
+  },
   track: {
     height: 6,
     borderRadius: 12,
