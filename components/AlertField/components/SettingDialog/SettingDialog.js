@@ -137,7 +137,12 @@ const SettingDialog = ({ open, onClose }) => {
             </Box>
           </Grid>
           <Grid item xs={3} container justify="flex-end">
-            <FanbandTerminal {...alertSettings} />
+            <FanbandTerminal
+              palette={alertSettings}
+              duration={alertSettings.duration}
+            >
+              Fanband
+            </FanbandTerminal>
           </Grid>
         </Grid>
       </DialogContent>
