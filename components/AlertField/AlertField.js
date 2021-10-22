@@ -28,13 +28,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AlertField = ({ label = 'Alert Parameters', className, ...boxProps }) => {
+const AlertField = ({ label = 'Alert Parameters', value, terminalScreen = null, onChange, className, ...boxProps }) => {
   const classes = useStyles();
   const [settingToggled, toggleSetting] = useState(false);
 
   const handleSettingClose = useCallback(() => toggleSetting(false), []);
   const handleToggleSetting = useCallback(() => toggleSetting(true), []);
-  
+
   return (
     <Box className={clsx(classes.root, className)} {...boxProps}>
       <Box>
@@ -44,7 +44,12 @@ const AlertField = ({ label = 'Alert Parameters', className, ...boxProps }) => {
       <IconButton className={classes.button} onClick={handleToggleSetting}>
         <OpenInNew />
       </IconButton>
-      <SettingDialog open={settingToggled} onClose={handleSettingClose} />
+      <SettingDialog
+        open={settingToggled}
+        onClose={handleSettingClose}
+        params={value}
+        onChange={onChange}
+      />
     </Box>
   )
 };

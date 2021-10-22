@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }),
 }));
 
-const ColorButton = ({ label, name = 'color_field', value = '#fff', onChange }) => {
+const ColorField = ({ label, name = 'color_field', value = '#fff', onChange }) => {
   const classes = useStyles({ color: value });
   const [pickerToggled, togglePicker] = useState(false);
   const handleTogglePicker = useCallback(() => togglePicker(true), []);
@@ -45,4 +45,4 @@ const ColorButton = ({ label, name = 'color_field', value = '#fff', onChange }) 
   )
 };
 
-export default ColorButton;
+export default ColorField;

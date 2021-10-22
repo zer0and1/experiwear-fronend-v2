@@ -10,3 +10,7 @@ export const IMAGE_PLACEHOLDER_IMAGE_PATH = '/assets/images/icons/image-placehol
 export const ALERT_IMAGE_PLACEHOLDER_IMAGE_PATH = '/assets/images/icons/alert-image-placeholder.png'
 export const TERMINAL_FRAMEWORK = '/assets/images/terminal/framework.png';
 export const TERMINAL_DISPLAY = '/assets/images/terminal/display.png';
+export const TERMINAL_BATTERY = '/assets/images/terminal/battery.svg';
+export const TERMINAL_LINK = '/assets/images/terminal/link.svg';
+export const TERMINAL_HAWKS = '/assets/images/terminal/hawks.svg';
+export const TERMINAL_ATL = '/assets/images/terminal/ATL.svg';

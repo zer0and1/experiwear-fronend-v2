@@ -1,6 +1,6 @@
-import { memo, useEffect, useRef, useState } from "react";
-import { fade, makeStyles } from "@material-ui/core";
-import { TERMINAL_DISPLAY, TERMINAL_FRAMEWORK } from "utils/constants";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { Box, fade, makeStyles } from "@material-ui/core";
+import { TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH, TERMINAL_ATL, TERMINAL_BATTERY, TERMINAL_DISPLAY, TERMINAL_FRAMEWORK, TERMINAL_HAWKS, TERMINAL_LINK } from "utils/constants";
 import { FLASHING_PATTERN } from "./constants";
 import { quadOut } from "./helper";
 
@@ -29,7 +29,16 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    zIndex: 9999,
+    zIndex: 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    padding: '12px 8px',
+  },
+  hawksIcon: {
+    height: 50,
+    marginBottom: 8,
   },
   clipPathSvg: {
     width: 0,
@@ -62,18 +71,18 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const FanbandTerminal = ({ duration, palette, children }) => {
+const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, mounted = false, children }) => {
   const [, setFlash] = useState({ counter: 0, intervalId: 0, timeoutId: 0, prevState: [0, 1, 1, 1, 1, 1, 1], palette });
   const [lightState, setLightState] = useState({ timer: 0 });
   const classes = useStyles({ ...lightState, duration });
   const rootRef = useRef(null);
 
-  const flashLight = () => setFlash(({ counter, intervalId, prevState: [, pt1, pt2, pt3, pb1, pb2, pb3], palette }) => {
+  const flashLight = useCallback(() => setFlash(({ counter, intervalId, prevState: [, pt1, pt2, pt3, pb1, pb2, pb3], palette }) => {
     clearInterval(intervalId);
-    setLightState(state => ({ ...state, timer: 0 }))
 
+    setLightState(state => ({ ...state, timer: 0 }));
     const [period, top1, top2, top3, bottom1, bottom2, bottom3] = FLASHING_PATTERN[counter];
-    const miniStep = 20;
+    const miniStep = 50;
     const newIntervalId = setInterval(() => {
       setLightState(({ timer }) => ({
         tColor1: fade(palette.topLight1, pt1 - (pt1 - top1) * quadOut(timer / period)),
@@ -87,19 +96,20 @@ const FanbandTerminal = ({ duration, palette, children }) => {
     }, miniStep);
 
     const timeoutId = setTimeout(flashLight, period);
+    const newCounter = counter === FLASHING_PATTERN.length - 1 ? 0 : counter + 1;
 
     return {
-      counter: counter === FLASHING_PATTERN.length - 1 ? 0 : counter + 1,
+      counter: newCounter,
       intervalId: newIntervalId,
       prevState: FLASHING_PATTERN[counter],
       timeoutId,
       palette,
     }
-  });
+  }), []);
 
   useEffect(() => {
     setFlash(state => {
-      if (!state.timeoutId) {
+      if (!state.timeoutId && decoration) {
         flashLight();
       }
       return state;
@@ -112,21 +122,48 @@ const FanbandTerminal = ({ duration, palette, children }) => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => setFlash(state => ({ ...state, palette })), [palette]);
+  useEffect(() => {
+    if (decoration) {
+      setFlash(state => {
+        clearInterval(state.intervalId);
+        return {
+          ...state,
+          palette,
+          timeoutId: 0,
+          counter: 0,
+        };
+      });
+    }
+  }, [palette, decoration]);
 
   useEffect(() => {
-    if (rootRef.current) {
+    if (rootRef.current && decoration) {
       rootRef.current.style.animation = 'none';
       setTimeout(() => rootRef.current.style.animation = '');
     }
-  }, [duration]);
+  }, [duration, decoration]);
 
   return (
     <div className={classes.root} ref={rootRef}>
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
           <div className={classes.display}>
-            {children}
+            {mounted ? (
+              <>
+                <img src={TERMINAL_LINK} height={12} />
+                {children}
+                <img src={TERMINAL_BATTERY} height={12} />
+              </>
+            ) : (
+              <>
+                <Box display="flex" alignItems="center" justifyContent="space-between" flexDirection="column" mt={3} height={70}>
+                  <img src={TERMINAL_ATL} height={40} />
+                  <img src={TERMINAL_HAWKS} height={24} />
+                </Box>
+                <img src={TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH} className={classes.hawksIcon} />
+              </>
+            )}
+
           </div>
           <div className={classes.gradient} />
         </div>

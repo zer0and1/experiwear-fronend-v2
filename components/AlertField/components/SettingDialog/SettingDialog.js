@@ -1,9 +1,9 @@
+import { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid, RadioGroup } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import { ColorField, FormButton, HeaderText, SubHeaderText, PrettoSlider, Title, FanbandTerminal, ExpRadio } from 'components';
-import { useCallback, useState } from 'react';
 import { VIBRATION_MARKS } from './constants';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,33 +17,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SettingDialog = ({ open, onClose }) => {
+const SettingDialog = ({ open, onClose, params, onChange }) => {
   const classes = useStyles();
-  const [alertSettings, setAlertSettings] = useState({
-    topLight1: '#825dde',
-    topLight2: '#9ea3ba',
-    topLight3: '#01a1c3',
-    bottomLight1: '#ffdb3c',
-    bottomLight2: '#01a1c3',
-    bottomLight3: '#825dde',
-    decoration: 'flashing',
-    vibration: 'quick',
-    duration: 9,
-  });
-
-  const handleFieldChange = useCallback((e) => {
-    setAlertSettings(settings => ({
-      ...settings,
-      [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value,
-    }));
-  }, []);
 
   const handleDurationChange = useCallback((e, value) => {
-    setAlertSettings(settings => ({
-      ...settings,
-      duration: value,
-    }));
-  }, []);
+    onChange({ target: { value, name: 'duration', type: 'slider' } });
+  }, [onChange]);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth classes={{ paper: classes.root }}>
@@ -58,7 +37,7 @@ const SettingDialog = ({ open, onClose }) => {
           <Grid item xs={9}>
             <HeaderText>Led Lights</HeaderText>
             <Box mb={2}>
-              <RadioGroup row name="decoration" value={alertSettings.decoration} onChange={handleFieldChange}>
+              <RadioGroup row name="decoration" value={params.decoration} onChange={onChange}>
                 <ExpRadio label="Flashing" color="info" value="flashing" />
                 <ExpRadio label="Stable" color="info" value="stable" />
               </RadioGroup>
@@ -69,48 +48,48 @@ const SettingDialog = ({ open, onClose }) => {
                 <ColorField
                   name="topLight1"
                   label="Top light #1"
-                  value={alertSettings.topLight1}
-                  onChange={handleFieldChange}
+                  value={params.topLight1}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
                   name="topLight2"
                   label="Top light #2"
-                  value={alertSettings.topLight2}
-                  onChange={handleFieldChange}
+                  value={params.topLight2}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
                   name="topLight3"
                   label="Top light #3"
-                  value={alertSettings.topLight3}
-                  onChange={handleFieldChange}
+                  value={params.topLight3}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
                   name="bottomLight1"
                   label="Bottom light #1"
-                  value={alertSettings.bottomLight1}
-                  onChange={handleFieldChange}
+                  value={params.bottomLight1}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
                   name="bottomLight2"
                   label="Bottom light #2"
-                  value={alertSettings.bottomLight2}
-                  onChange={handleFieldChange}
+                  value={params.bottomLight2}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
                   name="bottomLight3"
                   label="Bottom light #3"
-                  value={alertSettings.bottomLight3}
-                  onChange={handleFieldChange}
+                  value={params.bottomLight3}
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>
@@ -124,13 +103,13 @@ const SettingDialog = ({ open, onClose }) => {
               max={20}
               step={1}
               marks={VIBRATION_MARKS}
-              value={alertSettings.duration}
+              value={params.duration}
               onChange={handleDurationChange}
             />
 
             <SubHeaderText>Style</SubHeaderText>
             <Box mb={2}>
-              <RadioGroup row name="vibration" value={alertSettings.vibration} onChange={handleFieldChange}>
+              <RadioGroup row name="vibration" value={params.vibration} onChange={onChange}>
                 <ExpRadio label="Quick bursts" color="info" value="quick" />
                 <ExpRadio label="Long vibrate" color="info" value="long" />
               </RadioGroup>
@@ -138,10 +117,10 @@ const SettingDialog = ({ open, onClose }) => {
           </Grid>
           <Grid item xs={3} container justify="flex-end">
             <FanbandTerminal
-              palette={alertSettings}
-              duration={alertSettings.duration}
+              palette={params}
+              duration={params.duration}
+              decoration={params.decoration}
             >
-              Fanband
             </FanbandTerminal>
           </Grid>
         </Grid>
