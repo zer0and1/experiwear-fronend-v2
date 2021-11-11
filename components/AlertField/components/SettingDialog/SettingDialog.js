@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SettingDialog = ({ open, onClose, params, onChange }) => {
+const SettingDialog = ({ open, onClose, params, onChange, onReset }) => {
   const classes = useStyles();
 
   const handleDurationChange = useCallback((e, value) => {
@@ -35,6 +35,21 @@ const SettingDialog = ({ open, onClose, params, onChange }) => {
       <DialogContent>
         <Grid container>
           <Grid item xs={9}>
+            <SubHeaderText>Duration</SubHeaderText>
+            <Grid container spacing={2}>
+              <Grid item xs={8}>
+                <PrettoSlider
+                  name="duration"
+                  min={1}
+                  max={20}
+                  step={1}
+                  marks={VIBRATION_MARKS}
+                  value={params.duration}
+                  onChange={handleDurationChange}
+                />
+              </Grid>
+            </Grid>
+
             <HeaderText>Led Lights</HeaderText>
             <Box mb={2}>
               <RadioGroup row name="decoration" value={params.decoration} onChange={onChange}>
@@ -96,28 +111,29 @@ const SettingDialog = ({ open, onClose, params, onChange }) => {
 
             <HeaderText>Vibration</HeaderText>
 
-            <SubHeaderText>Duration</SubHeaderText>
-            <PrettoSlider
-              name="duration"
-              min={1}
-              max={20}
-              step={1}
-              marks={VIBRATION_MARKS}
-              value={params.duration}
-              onChange={handleDurationChange}
-            />
+            <SubHeaderText>Intensity</SubHeaderText>
+            <Box mb={2}>
+              <RadioGroup row name="intensity" value={params.intensity} onChange={onChange}>
+                <ExpRadio label="No Vibration" color="info" value="no" />
+                <ExpRadio label="Low" color="info" value="low" />
+                <ExpRadio label="Medium" color="info" value="medium" />
+                <ExpRadio label="High" color="info" value="high" />
+              </RadioGroup>
+            </Box>
 
             <SubHeaderText>Style</SubHeaderText>
             <Box mb={2}>
-              <RadioGroup row name="vibration" value={params.vibration} onChange={onChange}>
-                <ExpRadio label="Quick bursts" color="info" value="quick" />
-                <ExpRadio label="Long vibrate" color="info" value="long" />
+              <RadioGroup row name="style" value={params.style} onChange={onChange}>
+                <ExpRadio label="Quick bursts" color="info" value="0.05" />
+                <ExpRadio label="Long vibrate" color="info" value="0.3" />
               </RadioGroup>
             </Box>
           </Grid>
           <Grid item xs={3} container justify="flex-end">
             <FanbandTerminal
               palette={params}
+              intensity={params.intensity}
+              style={params.style}
               duration={params.duration}
               decoration={params.decoration}
             >
@@ -126,7 +142,7 @@ const SettingDialog = ({ open, onClose, params, onChange }) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <FormButton color="secondary">
+        <FormButton color="secondary" onClick={onReset}>
           Reset to default
         </FormButton>
       </DialogActions>

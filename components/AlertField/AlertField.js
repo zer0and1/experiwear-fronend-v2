@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AlertField = ({ label = 'Alert Parameters', value, terminalScreen = null, onChange, className, ...boxProps }) => {
+const AlertField = ({ label = 'Alert Parameters', value, terminalScreen = null, onChange, onReset, className, ...boxProps }) => {
   const classes = useStyles();
   const [settingToggled, toggleSetting] = useState(false);
 
@@ -49,6 +49,7 @@ const AlertField = ({ label = 'Alert Parameters', value, terminalScreen = null, 
         onClose={handleSettingClose}
         params={value}
         onChange={onChange}
+        onReset={onReset}
       />
     </Box>
   )

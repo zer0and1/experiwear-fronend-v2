@@ -40,6 +40,20 @@ const News = () => {
 
   const { news: { results } } = useSelector(state => state.notifications)
   const [images, setImages] = useState([]);
+
+  const defaultParams = {
+    topLight1: '#825dde',
+    topLight2: '#9ea3ba',
+    topLight3: '#01a1c3',
+    bottomLight1: '#ffdb3c',
+    bottomLight2: '#01a1c3',
+    bottomLight3: '#825dde',
+    decoration: 'flashing',
+    intensity: 'medium',
+    style: '0.3',
+    duration: 9,
+  };
+
   const [alertParams, setAlertParmas] = useState({
     topLight1: '#825dde',
     topLight2: '#9ea3ba',
@@ -48,9 +62,14 @@ const News = () => {
     bottomLight2: '#01a1c3',
     bottomLight3: '#825dde',
     decoration: 'flashing',
-    vibration: 'quick',
+    intensity: 'medium',
+    style: '0.3',
     duration: 9,
   });
+
+  const resetParams = () => {
+    setAlertParmas(defaultParams);
+  }
 
   const handleParamsChange = useCallback(({ target: { name, value } }) => setAlertParmas(params => ({ ...params, [name]: value })), []);
 
@@ -158,6 +177,7 @@ const News = () => {
                 label="Alert Parameters"
                 value={alertParams}
                 onChange={handleParamsChange}
+                onReset={resetParams}
                 width={350}
                 mounted={terminalMounted}
                 terminalScreen={terminalScreen}
