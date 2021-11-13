@@ -6,6 +6,11 @@ const ALERT_TYPES = {
     VALUE: 'news',
     HREF: LINKS.NEWS.HREF
   },
+  QUICKPOLL: {
+    LABEL: 'Quick Poll',
+    VALUE: 'quickpoll',
+    HREF: LINKS.QUICKPOLL.HREF
+  },
   SURVEY: {
     LABEL: 'Survey',
     VALUE: 'survey',
@@ -25,6 +30,7 @@ const ALERT_TYPES = {
 
 const ALERT_TYPES_ARRAY = [
   ALERT_TYPES.NEWS,
+  ALERT_TYPES.QUICKPOLL,
   ALERT_TYPES.SURVEY,
   ALERT_TYPES.SCORE,
   ALERT_TYPES.PROMO,
