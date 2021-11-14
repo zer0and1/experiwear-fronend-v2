@@ -9,7 +9,6 @@ export default function NewsPage() {
       sidebar={
         <>
           <CurrentFanbandStats />
-          <SurveyAlertsSent />
         </>
       }
     >
