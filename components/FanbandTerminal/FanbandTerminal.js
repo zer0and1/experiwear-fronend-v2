@@ -4,6 +4,7 @@ import { TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH, TERMINAL_ATL, TERMINAL_BATTERY, TERMI
 import { FLASHING_PATTERN } from "./constants";
 import { quadOut } from "./helper";
 import _ from 'lodash';
+import { VIB_TYPES, LED_TYPES, VIB_INTENSITIES } from "components/AlertField";
 
 const useStyles = makeStyles(() => ({
 
@@ -53,10 +54,10 @@ const useStyles = makeStyles(() => ({
       radial-gradient(ellipse at top 10% left 80%, ${props.tColor3}, transparent 50%), radial-gradient(ellipse at bottom 10% left 80px, ${props.bColor3}, transparent 50%)`,
   },
   vibrate: {
-    animationDuration: props => `${props.style}s`,
+    animationDuration: props => `${props.vibPeriod}s`,
     animationName: '$vibrate',
     animationTimingFunction: 'ease-in-out',
-    animationIterationCount: props => parseInt(props.duration / props.style),
+    animationIterationCount: props => parseInt(props.duration / props.vibPeriod),
   },
   '@keyframes vibrate': {
     '0%': { transform: 'translate(0.5px, 0.5px) rotate(0deg)' },
@@ -74,11 +75,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FanbandTerminal = ({ params, children = null }) => {
-  const { vibDuration: duration, vibIntensity: intensity, vibStyle: style, ledLight: decoration } = params;
-  const palette = useMemo(() => _.pick(params, ['topLight1', 'topLight2', 'topLight3', 'bottomLight1', 'bottomLight2', 'bottomLight3']), [params]);
+  const { duration, vibrationIntensity: intensity, vibrationType, ledType } = params;
+  const palette = useMemo(() => _.pick(params, ['topColor1', 'topColor2', 'topColor3', 'bottomColor1', 'bottomColor2', 'bottomColor3']), [params]);
   const [, setFlash] = useState({ counter: 0, intervalId: 0, timeoutId: 0, prevState: [0, 1, 1, 1, 1, 1, 1], palette });
   const [lightState, setLightState] = useState({ timer: 0 });
-  const classes = useStyles({ ...lightState, duration, intensity, style, decoration });
+  const vibPeriod = useMemo(() => vibrationType === VIB_TYPES.quickBursts ? 0.05 : 0.12, [vibrationType]);
+  const classes = useStyles({ ...lightState, duration, intensity, vibPeriod, ledType });
   const rootRef = useRef(null);
 
   const flashLight = useCallback(() => setFlash(({ counter, intervalId, prevState: [, pt1, pt2, pt3, pb1, pb2, pb3], palette }) => {
@@ -89,12 +91,12 @@ const FanbandTerminal = ({ params, children = null }) => {
     const miniStep = 50;
     const newIntervalId = setInterval(() => {
       setLightState(({ timer }) => ({
-        tColor1: fade(palette.topLight1, pt1 - (pt1 - top1) * quadOut(timer / period)),
-        tColor2: fade(palette.topLight2, pt2 - (pt2 - top2) * quadOut(timer / period)),
-        tColor3: fade(palette.topLight3, pt3 - (pt3 - top3) * quadOut(timer / period)),
-        bColor1: fade(palette.bottomLight1, pb1 - (pb1 - bottom1) * quadOut(timer / period)),
-        bColor2: fade(palette.bottomLight2, pb2 - (pb2 - bottom2) * quadOut(timer / period)),
-        bColor3: fade(palette.bottomLight3, pb3 - (pb3 - bottom3) * quadOut(timer / period)),
+        tColor1: fade(palette.topColor1, pt1 - (pt1 - top1) * quadOut(timer / period)),
+        tColor2: fade(palette.topColor2, pt2 - (pt2 - top2) * quadOut(timer / period)),
+        tColor3: fade(palette.topColor3, pt3 - (pt3 - top3) * quadOut(timer / period)),
+        bColor1: fade(palette.bottomColor1, pb1 - (pb1 - bottom1) * quadOut(timer / period)),
+        bColor2: fade(palette.bottomColor2, pb2 - (pb2 - bottom2) * quadOut(timer / period)),
+        bColor3: fade(palette.bottomColor3, pb3 - (pb3 - bottom3) * quadOut(timer / period)),
         timer: timer >= period ? 0 : timer + miniStep,
       }));
     }, miniStep);
@@ -114,8 +116,7 @@ const FanbandTerminal = ({ params, children = null }) => {
 
   useEffect(() => {
     setFlash(state => {
-      if (!state.timeoutId && decoration) {
-        console.log('start')
+      if (!state.timeoutId && ledType === LED_TYPES.flashing) {
         flashLight();
       }
       return state;
@@ -129,7 +130,7 @@ const FanbandTerminal = ({ params, children = null }) => {
   }, []);
 
   useEffect(() => {
-    if (decoration) {
+    if (ledType === LED_TYPES.flashing) {
       setFlash(state => {
         clearTimeout(state.timeoutId);
         clearInterval(state.intervalId);
@@ -142,20 +143,32 @@ const FanbandTerminal = ({ params, children = null }) => {
           timeoutId,
         };
       });
+    } else if (ledType === LED_TYPES.stable) {
+      setFlash(state => {
+        clearTimeout(state.timeoutId);
+        clearInterval(state.intervalId);
+
+        return {
+          ...state,
+          palette,
+          timeoutId: 0,
+          intervalId: 0,
+        };
+      });
     }
     // eslint-disable-next-line
-  }, [palette, decoration]);
+  }, [palette, ledType]);
 
   // Restart animation effect whenever observable options are changed
   useEffect(() => {
-    if (rootRef.current && decoration) {
+    if (rootRef.current) {
       rootRef.current.style.animation = 'none';
       setTimeout(() => rootRef.current.style.animation = '');
     }
-  }, [duration, decoration, style]);
+  }, [duration, vibrationType]);
 
   return (
-    <div className={classes.vibrate} ref={rootRef}>
+    <div className={intensity !== VIB_INTENSITIES.no && classes.vibrate} ref={rootRef}>
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
           <div className={classes.display}>

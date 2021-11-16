@@ -4,7 +4,7 @@ import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Box, Gri
 import { ColorField, FormButton, HeaderText, SubHeaderText, PrettoSlider, Title, FanbandTerminal, ExpRadio } from 'components';
 import { VIBRATION_MARKS } from './constants';
 import CloseIcon from '@material-ui/icons/Close';
-import { LED_LIGHTS, VIBRATION_INTENSITIES, VIBRATION_STYLES } from 'components/AlertField';
+import { LED_TYPES, VIB_INTENSITIES, VIB_TYPES } from 'components/AlertField';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,7 +22,7 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
   const classes = useStyles();
 
   const handleDurationChange = useCallback((e, value) => {
-    onChange({ target: { value, name: 'vibDuration', type: 'slider' } });
+    onChange({ target: { value, name: 'duration', type: 'slider' } });
   }, [onChange]);
 
   return (
@@ -40,12 +40,12 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
             <Grid container spacing={2}>
               <Grid item xs={8}>
                 <PrettoSlider
-                  name="vibDuration"
+                  name="duration"
                   min={1}
                   max={20}
                   step={1}
                   marks={VIBRATION_MARKS}
-                  value={params.vibDuration}
+                  value={params.duration}
                   onChange={handleDurationChange}
                 />
               </Grid>
@@ -53,58 +53,58 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
 
             <HeaderText>Led Lights</HeaderText>
             <Box mb={2}>
-              <RadioGroup row name="ledLight" value={params.ledLight} onChange={onChange}>
-                <ExpRadio label="Flashing" color="info" value={LED_LIGHTS.flashing} />
-                <ExpRadio label="Stable" color="info" value={LED_LIGHTS.stable} />
+              <RadioGroup row name="ledType" value={params.ledType} onChange={onChange}>
+                <ExpRadio label="Flashing" color="info" value={LED_TYPES.flashing} />
+                <ExpRadio label="Stable" color="info" value={LED_TYPES.stable} />
               </RadioGroup>
             </Box>
             <SubHeaderText>Color palette</SubHeaderText>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <ColorField
-                  name="topLight1"
+                  name="topColor1"
                   label="Top light #1"
-                  value={params.topLight1}
+                  value={params.topColor1}
                   onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
-                  name="topLight2"
+                  name="topColor2"
                   label="Top light #2"
-                  value={params.topLight2}
+                  value={params.topColor2}
                   onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
-                  name="topLight3"
+                  name="topColor3"
                   label="Top light #3"
-                  value={params.topLight3}
+                  value={params.topColor3}
                   onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
-                  name="bottomLight1"
+                  name="bottomColor1"
                   label="Bottom light #1"
-                  value={params.bottomLight1}
+                  value={params.bottomColor1}
                   onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
-                  name="bottomLight2"
+                  name="bottomColor2"
                   label="Bottom light #2"
-                  value={params.bottomLight2}
+                  value={params.bottomColor2}
                   onChange={onChange}
                 />
               </Grid>
               <Grid item xs={4}>
                 <ColorField
-                  name="bottomLight3"
+                  name="bottomColor3"
                   label="Bottom light #3"
-                  value={params.bottomLight3}
+                  value={params.bottomColor3}
                   onChange={onChange}
                 />
               </Grid>
@@ -114,19 +114,19 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
 
             <SubHeaderText>Intensity</SubHeaderText>
             <Box mb={2}>
-              <RadioGroup row name="vibIntensity" value={params.vibIntensity} onChange={onChange}>
-                <ExpRadio label="No Vibration" color="info" value={VIBRATION_INTENSITIES.no} />
-                <ExpRadio label="Low" color="info" value={VIBRATION_INTENSITIES.low} />
-                <ExpRadio label="Medium" color="info" value={VIBRATION_INTENSITIES.medium} />
-                <ExpRadio label="High" color="info" value={VIBRATION_INTENSITIES.high} />
+              <RadioGroup row name="vibrationIntensity" value={params.vibrationIntensity} onChange={onChange}>
+                <ExpRadio label="No Vibration" color="info" value={VIB_INTENSITIES.no} />
+                <ExpRadio label="Low" color="info" value={VIB_INTENSITIES.low} />
+                <ExpRadio label="Medium" color="info" value={VIB_INTENSITIES.medium} />
+                <ExpRadio label="High" color="info" value={VIB_INTENSITIES.high} />
               </RadioGroup>
             </Box>
 
             <SubHeaderText>Style</SubHeaderText>
             <Box mb={2}>
-              <RadioGroup row name="vibStyle" value={params.vibStyle} onChange={onChange}>
-                <ExpRadio label="Quick bursts" color="info" value={VIBRATION_STYLES.quickBursts} />
-                <ExpRadio label="Long vibrate" color="info" value={VIBRATION_STYLES.longVibrate} />
+              <RadioGroup row name="vibrationType" value={params.vibrationType} onChange={onChange}>
+                <ExpRadio label="Quick bursts" color="info" value={VIB_TYPES.quickBursts} />
+                <ExpRadio label="Long vibrate" color="info" value={VIB_TYPES.longVibrate} />
               </RadioGroup>
             </Box>
           </Grid>

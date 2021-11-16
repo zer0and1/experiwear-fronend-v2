@@ -26,11 +26,11 @@ const useStyles = makeStyles(theme => ({
   }),
 }));
 
-const ColorField = ({ label, name = 'color_field', value = '#fff', onChange }) => {
+const ColorField = ({ label, name = 'color_field', value = 'rgb(255,255,255)', onChange }) => {
   const classes = useStyles({ color: value });
   const [pickerToggled, togglePicker] = useState(false);
   const handleTogglePicker = useCallback(() => togglePicker(true), []);
-  const handleColorChange = useCallback((val) => onChange({ target: { name, value: `#${val.hex}` } }), [name, onChange]);
+  const handleColorChange = useCallback((val) => onChange({ target: { name, value: `rgb(${val.rgb.toString()})` } }), [name, onChange]);
   const handleClosePicker = useCallback((open) => togglePicker(open), []);
 
   return (

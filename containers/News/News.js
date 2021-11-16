@@ -14,7 +14,7 @@ import { getEnglishDateWithTime } from 'utils/helpers/time'
 import { AlertField, FanbandTerminal, FormButton, MagicImageField, MagicTextField } from 'components'
 import { useLoading, usePathIndicator } from 'utils/hooks'
 import { ALERT_TYPES, LINKS } from 'utils/constants'
-import { DEFAULT_PARAMS } from 'components/AlertField'
+import { DEFAULT_ALERT_PARAMS, LED_TYPES, VIB_INTENSITIES } from 'components/AlertField'
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -41,10 +41,10 @@ const News = () => {
 
   const { news: { results } } = useSelector(state => state.notifications)
   const [images, setImages] = useState([]);
-  const [alertParams, setAlertParmas] = useState(DEFAULT_PARAMS);
+  const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
 
   const resetParams = () => {
-    setAlertParmas(DEFAULT_PARAMS);
+    setAlertParmas(DEFAULT_ALERT_PARAMS);
   }
 
   const handleParamsChange = useCallback(({ target: { name, value } }) => setAlertParmas(params => ({ ...params, [name]: value })), []);
@@ -75,14 +75,7 @@ const News = () => {
   const onSubmit = async (data) => {
     changeLoadingStatus(true)
     try {
-      let formData = new FormData();
-      formData.append('title', data.title);
-      formData.append('body', data.body);
-      formData.append('type', ALERT_TYPES.NEWS.VALUE);
-      if (images.length) {
-        formData.append('file', images[0].file);
-      }
-      const { message } = await notificationsAPI.createNotification(formData);
+      const { message } = await notificationsAPI.createNotification({ ...data, ...alertParams }, images);
       showSuccessToast(message)
       initData();
       dispatch(getNotifications(ALERT_TYPES.NEWS.VALUE, results.length + 1))
@@ -154,7 +147,7 @@ const News = () => {
               />
             </Grid>
             <Grid container item xs={3} justify="flex-end">
-              <FanbandTerminal params={alertParams}>
+              <FanbandTerminal params={{ ...alertParams, ledType: LED_TYPES.stable, vibrationIntensity: VIB_INTENSITIES.no }}>
                 {terminalScreen}
               </FanbandTerminal>
             </Grid>

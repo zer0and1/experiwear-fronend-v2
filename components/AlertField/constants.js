@@ -1,29 +1,29 @@
-export const VIBRATION_STYLES = Object.freeze({
-  quickBursts: '0.05',
-  longVibrate: '0.12',
+export const VIB_TYPES = Object.freeze({
+  quickBursts: 'quickBursts',
+  longVibrate: 'longVibrate',
 });
 
-export const VIBRATION_INTENSITIES = Object.freeze({
-  no: '0',
-  low: '1',
-  medium: '2',
-  high: '3',
+export const VIB_INTENSITIES = Object.freeze({
+  no: 'noVibration',
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
 });
 
-export const LED_LIGHTS = Object.freeze({
-  flashing: '1',
-  stable: '2',
+export const LED_TYPES = Object.freeze({
+  flashing: 'flashing',
+  stable: 'stable',
 });
 
-export const DEFAULT_PARAMS = Object.freeze({
-  topLight1: '#825dde',
-  topLight2: '#9ea3ba',
-  topLight3: '#01a1c3',
-  bottomLight1: '#ffdb3c',
-  bottomLight2: '#01a1c3',
-  bottomLight3: '#825dde',
-  vibIntensity: VIBRATION_INTENSITIES.medium,
-  vibStyle: VIBRATION_STYLES.quickBursts,
-  vibDuration: 9,
-  ledLight: LED_LIGHTS.flashing,
+export const DEFAULT_ALERT_PARAMS = Object.freeze({
+  topColor1: 'rgb(130,93,222)',
+  topColor2: 'rgb(158,163,186)',
+  topColor3: 'rgb(1,161,195)',
+  bottomColor1: 'rgb(255,219,60)',
+  bottomColor2: 'rgb(1,161,195)',
+  bottomColor3: 'rgb(130,93,222)',
+  vibrationIntensity: VIB_INTENSITIES.medium,
+  vibrationType: VIB_TYPES.quickBursts,
+  duration: 3,
+  ledType: LED_TYPES.flashing,
 });

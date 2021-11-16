@@ -15,7 +15,7 @@ import { getEnglishDateWithTime } from 'utils/helpers/time'
 import { AlertField, FanbandTerminal, FormButton, MagicImageField, MagicTextField } from 'components'
 import { useLoading, usePathIndicator } from 'utils/hooks'
 import { ALERT_TYPES, LINKS } from 'utils/constants'
-import { DEFAULT_PARAMS } from 'components/AlertField';
+import { DEFAULT_ALERT_PARAMS } from 'components/AlertField';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -51,14 +51,14 @@ const News = () => {
   const { news: { results } } = useSelector(state => state.notifications)
   const [images, setImages] = useState([]);
   const [responses, setResponses] = useState([{ text: '' }]);
-  const [alertParams, setAlertParmas] = useState(DEFAULT_PARAMS);
+  const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
 
   const addResponse = () => {
     setResponses(prevState => [...prevState, { text: '' }]);
   };
 
   const resetParams = () => {
-    setAlertParmas(DEFAULT_PARAMS);
+    setAlertParmas(DEFAULT_ALERT_PARAMS);
   };
 
   const handleParamsChange = useCallback(({ target: { name, value } }) => {
@@ -166,7 +166,7 @@ const News = () => {
               </Grid>
             </Grid>
             <Grid container item xs={3} justify="flex-end">
-              <FanbandTerminal palette={alertParams}>
+              <FanbandTerminal params={alertParams}>
                 {terminalScreen}
               </FanbandTerminal>
             </Grid>
