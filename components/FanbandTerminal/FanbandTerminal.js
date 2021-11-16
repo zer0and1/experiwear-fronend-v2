@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
       radial-gradient(ellipse at top 10% left 80%, ${props.tColor3}, transparent 50%), radial-gradient(ellipse at bottom 10% left 80px, ${props.bColor3}, transparent 50%)`,
   },
   vibrate: {
-    animationDuration: props => `${props.vibPeriod}s`,
+    animationDuration: props => `${props.intensity === VIB_INTENSITIES.no ? 0 : props.vibPeriod}s`,
     animationName: '$vibrate',
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: props => parseInt(props.duration / props.vibPeriod),
@@ -168,7 +168,7 @@ const FanbandTerminal = ({ params, children = null }) => {
   }, [duration, vibrationType]);
 
   return (
-    <div className={intensity !== VIB_INTENSITIES.no && classes.vibrate} ref={rootRef}>
+    <div className={classes.vibrate} ref={rootRef}>
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
           <div className={classes.display}>
