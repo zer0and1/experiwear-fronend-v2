@@ -5,7 +5,7 @@ import { FLASHING_PATTERN } from "./constants";
 import { quadOut } from "./helper";
 
 const useStyles = makeStyles(() => ({
-   
+
   framework: {
     width: 150,
     height: 308,
@@ -51,28 +51,13 @@ const useStyles = makeStyles(() => ({
       radial-gradient(ellipse at top 0px left 40%, ${props.tColor2}, transparent 60%), radial-gradient(ellipse at bottom 0px left 50%, ${props.bColor2}, transparent 60%),
       radial-gradient(ellipse at top 10% left 80%, ${props.tColor3}, transparent 50%), radial-gradient(ellipse at bottom 10% left 80px, ${props.bColor3}, transparent 50%)`,
   },
-  vibrate_no: {
-    fontSize: 10
-  },
-  vibrate_low: {
+  vibrate: {
     animationDuration: props => `${props.style}s`,
-    animationName: '$vibrate_low',
+    animationName: '$vibrate',
     animationTimingFunction: 'ease-in-out',
-    animationIterationCount: props => parseInt(props.duration),
+    animationIterationCount: props => parseInt(props.duration / props.style),
   },
-  vibrate_medium: {
-    animationDuration: props => `${props.style}s`,
-    animationName: '$vibrate_medium',
-    animationTimingFunction: 'ease-in-out',
-    animationIterationCount: props => parseInt(props.duration),
-  },
-  vibrate_high: {
-    animationDuration: '0.1s',
-    animationName: '$vibrate_high',
-    animationTimingFunction: 'ease-in-out',
-    animationIterationCount: props => parseInt(props.duration),
-  },
-  '@keyframes vibrate_low': {
+  '@keyframes vibrate': {
     '0%': { transform: 'translate(0.5px, 0.5px) rotate(0deg)' },
     '10%': { transform: 'translate(-0.5px, -1px) rotate(-1deg)' },
     '20%': { transform: 'translate(-1.5px, 0px) rotate(1deg)' },
@@ -85,38 +70,12 @@ const useStyles = makeStyles(() => ({
     '90%': { transform: 'translate(0.5px, 1px) rotate(0deg)' },
     '100%': { transform: 'translate(0.5px, -1px) rotate(-1deg)' },
   },
-  '@keyframes vibrate_medium': {
-    '0%': { transform: 'translate(1px, 1px) rotate(0deg)' },
-    '10%': { transform: 'translate(-1px, -2px) rotate(-2deg)' },
-    '20%': { transform: 'translate(-3px, 0px) rotate(2deg)' },
-    '30%': { transform: 'translate(13px, 2px) rotate(0deg)' },
-    '40%': { transform: 'translate(1px, -1px) rotate(2deg)' },
-    '50%': { transform: 'translate(-1px, 2px) rotate(-2deg)' },
-    '60%': { transform: 'translate(-3px, 1px) rotate(0deg)' },
-    '70%': { transform: 'translate(3px, 1px) rotate(-2deg)' },
-    '80%': { transform: 'translate(-1px, -1px) rotate(2deg)' },
-    '90%': { transform: 'translate(1px, 2px) rotate(0deg)' },
-    '100%': { transform: 'translate(1px, -2px) rotate(-2deg)' },
-  },
-  '@keyframes vibrate_high': {
-    '0%': { transform: 'translate(2px, 2px) rotate(0deg)' },
-    '10%': { transform: 'translate(-2px, -4px) rotate(-4deg)' },
-    '20%': { transform: 'translate(-6px, 0px) rotate(4deg)' },
-    '30%': { transform: 'translate(6px, 4px) rotate(0deg)' },
-    '40%': { transform: 'translate(2px, -2px) rotate(4deg)' },
-    '50%': { transform: 'translate(-2px, 4px) rotate(-4deg)' },
-    '60%': { transform: 'translate(-6px, 2px) rotate(0deg)' },
-    '70%': { transform: 'translate(6px, 2px) rotate(-4deg)' },
-    '80%': { transform: 'translate(-6px, -2px) rotate(4deg)' },
-    '90%': { transform: 'translate(2px, 4px) rotate(0deg)' },
-    '100%': { transform: 'translate(2px, -4px) rotate(-4deg)' },
-  },
 }));
 
-const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, intensity = null, style = null, mounted = false, children }) => {
+const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, intensity = null, style = null, children = null }) => {
   const [, setFlash] = useState({ counter: 0, intervalId: 0, timeoutId: 0, prevState: [0, 1, 1, 1, 1, 1, 1], palette });
   const [lightState, setLightState] = useState({ timer: 0 });
-  const classes = useStyles({ ...lightState, duration, intensity, style});
+  const classes = useStyles({ ...lightState, duration, intensity, style, decoration });
   const rootRef = useRef(null);
 
   const flashLight = useCallback(() => setFlash(({ counter, intervalId, prevState: [, pt1, pt2, pt3, pb1, pb2, pb3], palette }) => {
@@ -147,6 +106,7 @@ const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, intens
       timeoutId,
       palette,
     }
+    // eslint-disable-next-line
   }), []);
 
   useEffect(() => {
@@ -167,30 +127,35 @@ const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, intens
   useEffect(() => {
     if (decoration) {
       setFlash(state => {
+        clearTimeout(state.timeoutId);
         clearInterval(state.intervalId);
+        const [period] = FLASHING_PATTERN[state.counter];
+        const timeoutId = setTimeout(flashLight, period);
+
         return {
           ...state,
           palette,
-          timeoutId: 0,
-          counter: 0,
+          timeoutId,
         };
       });
     }
+    // eslint-disable-next-line
   }, [palette, decoration]);
 
+  // Restart animation effect whenever observable options are changed
   useEffect(() => {
     if (rootRef.current && decoration) {
       rootRef.current.style.animation = 'none';
       setTimeout(() => rootRef.current.style.animation = '');
     }
-  }, [duration, decoration]);
+  }, [duration, decoration, style]);
 
   return (
-    <div className={intensity == 'no' ? classes.vibrate_no : intensity == 'low' ? classes.vibrate_low : intensity == 'medium' ? classes.vibrate_medium: classes.vibrate_high} ref={rootRef}>
+    <div className={classes.vibrate} ref={rootRef}>
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
           <div className={classes.display}>
-            {mounted ? (
+            {children ? (
               <>
                 <img src={TERMINAL_LINK} height={12} />
                 {children}

@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SettingDialog = ({ open, onClose, params, onChange, onReset }) => {
+const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onReset }) => {
   const classes = useStyles();
 
   const handleDurationChange = useCallback((e, value) => {
@@ -125,7 +125,7 @@ const SettingDialog = ({ open, onClose, params, onChange, onReset }) => {
             <Box mb={2}>
               <RadioGroup row name="style" value={params.style} onChange={onChange}>
                 <ExpRadio label="Quick bursts" color="info" value="0.05" />
-                <ExpRadio label="Long vibrate" color="info" value="0.3" />
+                <ExpRadio label="Long vibrate" color="info" value="0.12" />
               </RadioGroup>
             </Box>
           </Grid>
@@ -137,6 +137,7 @@ const SettingDialog = ({ open, onClose, params, onChange, onReset }) => {
               duration={params.duration}
               decoration={params.decoration}
             >
+              {terminalScreen}
             </FanbandTerminal>
           </Grid>
         </Grid>
