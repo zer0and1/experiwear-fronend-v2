@@ -4,6 +4,7 @@ import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Box, Gri
 import { ColorField, FormButton, HeaderText, SubHeaderText, PrettoSlider, Title, FanbandTerminal, ExpRadio } from 'components';
 import { VIBRATION_MARKS } from './constants';
 import CloseIcon from '@material-ui/icons/Close';
+import { LED_LIGHTS, VIBRATION_INTENSITIES, VIBRATION_STYLES } from 'components/AlertField';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +22,7 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
   const classes = useStyles();
 
   const handleDurationChange = useCallback((e, value) => {
-    onChange({ target: { value, name: 'duration', type: 'slider' } });
+    onChange({ target: { value, name: 'vibDuration', type: 'slider' } });
   }, [onChange]);
 
   return (
@@ -39,12 +40,12 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
             <Grid container spacing={2}>
               <Grid item xs={8}>
                 <PrettoSlider
-                  name="duration"
+                  name="vibDuration"
                   min={1}
                   max={20}
                   step={1}
                   marks={VIBRATION_MARKS}
-                  value={params.duration}
+                  value={params.vibDuration}
                   onChange={handleDurationChange}
                 />
               </Grid>
@@ -52,9 +53,9 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
 
             <HeaderText>Led Lights</HeaderText>
             <Box mb={2}>
-              <RadioGroup row name="decoration" value={params.decoration} onChange={onChange}>
-                <ExpRadio label="Flashing" color="info" value="flashing" />
-                <ExpRadio label="Stable" color="info" value="stable" />
+              <RadioGroup row name="ledLight" value={params.ledLight} onChange={onChange}>
+                <ExpRadio label="Flashing" color="info" value={LED_LIGHTS.flashing} />
+                <ExpRadio label="Stable" color="info" value={LED_LIGHTS.stable} />
               </RadioGroup>
             </Box>
             <SubHeaderText>Color palette</SubHeaderText>
@@ -113,30 +114,24 @@ const SettingDialog = ({ open, onClose, params, terminalScreen, onChange, onRese
 
             <SubHeaderText>Intensity</SubHeaderText>
             <Box mb={2}>
-              <RadioGroup row name="intensity" value={params.intensity} onChange={onChange}>
-                <ExpRadio label="No Vibration" color="info" value="no" />
-                <ExpRadio label="Low" color="info" value="low" />
-                <ExpRadio label="Medium" color="info" value="medium" />
-                <ExpRadio label="High" color="info" value="high" />
+              <RadioGroup row name="vibIntensity" value={params.vibIntensity} onChange={onChange}>
+                <ExpRadio label="No Vibration" color="info" value={VIBRATION_INTENSITIES.no} />
+                <ExpRadio label="Low" color="info" value={VIBRATION_INTENSITIES.low} />
+                <ExpRadio label="Medium" color="info" value={VIBRATION_INTENSITIES.medium} />
+                <ExpRadio label="High" color="info" value={VIBRATION_INTENSITIES.high} />
               </RadioGroup>
             </Box>
 
             <SubHeaderText>Style</SubHeaderText>
             <Box mb={2}>
-              <RadioGroup row name="style" value={params.style} onChange={onChange}>
-                <ExpRadio label="Quick bursts" color="info" value="0.05" />
-                <ExpRadio label="Long vibrate" color="info" value="0.12" />
+              <RadioGroup row name="vibStyle" value={params.vibStyle} onChange={onChange}>
+                <ExpRadio label="Quick bursts" color="info" value={VIBRATION_STYLES.quickBursts} />
+                <ExpRadio label="Long vibrate" color="info" value={VIBRATION_STYLES.longVibrate} />
               </RadioGroup>
             </Box>
           </Grid>
           <Grid item xs={3} container justify="flex-end">
-            <FanbandTerminal
-              palette={params}
-              intensity={params.intensity}
-              style={params.style}
-              duration={params.duration}
-              decoration={params.decoration}
-            >
+            <FanbandTerminal params={params}>
               {terminalScreen}
             </FanbandTerminal>
           </Grid>

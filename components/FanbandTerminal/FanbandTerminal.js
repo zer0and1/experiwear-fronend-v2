@@ -1,8 +1,9 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { Box, fade, makeStyles } from "@material-ui/core";
 import { TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH, TERMINAL_ATL, TERMINAL_BATTERY, TERMINAL_DISPLAY, TERMINAL_FRAMEWORK, TERMINAL_HAWKS, TERMINAL_LINK } from "utils/constants";
 import { FLASHING_PATTERN } from "./constants";
 import { quadOut } from "./helper";
+import _ from 'lodash';
 
 const useStyles = makeStyles(() => ({
 
@@ -72,7 +73,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, intensity = null, style = null, children = null }) => {
+const FanbandTerminal = ({ params, children = null }) => {
+  const { vibDuration: duration, vibIntensity: intensity, vibStyle: style, ledLight: decoration } = params;
+  const palette = useMemo(() => _.pick(params, ['topLight1', 'topLight2', 'topLight3', 'bottomLight1', 'bottomLight2', 'bottomLight3']), [params]);
   const [, setFlash] = useState({ counter: 0, intervalId: 0, timeoutId: 0, prevState: [0, 1, 1, 1, 1, 1, 1], palette });
   const [lightState, setLightState] = useState({ timer: 0 });
   const classes = useStyles({ ...lightState, duration, intensity, style, decoration });
@@ -112,6 +115,7 @@ const FanbandTerminal = ({ duration = 0, palette = {}, decoration = null, intens
   useEffect(() => {
     setFlash(state => {
       if (!state.timeoutId && decoration) {
+        console.log('start')
         flashLight();
       }
       return state;

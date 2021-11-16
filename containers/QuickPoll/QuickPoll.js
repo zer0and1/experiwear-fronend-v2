@@ -15,6 +15,7 @@ import { getEnglishDateWithTime } from 'utils/helpers/time'
 import { AlertField, FanbandTerminal, FormButton, MagicImageField, MagicTextField } from 'components'
 import { useLoading, usePathIndicator } from 'utils/hooks'
 import { ALERT_TYPES, LINKS } from 'utils/constants'
+import { DEFAULT_PARAMS } from 'components/AlertField';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -49,61 +50,28 @@ const News = () => {
   const { changeLoadingStatus } = useLoading();
   const { news: { results } } = useSelector(state => state.notifications)
   const [images, setImages] = useState([]);
-  const [responses, setResponses] = useState([
-    {text: ''}
-  ]);
+  const [responses, setResponses] = useState([{ text: '' }]);
+  const [alertParams, setAlertParmas] = useState(DEFAULT_PARAMS);
 
   const addResponse = () => {
-    setResponses(prevState => {
-      console.log(prevState);
-      return [...prevState, {text: ''}];
-    })
-  }
-
-  const defaultParams = {
-    topLight1: '#825dde',
-    topLight2: '#9ea3ba',
-    topLight3: '#01a1c3',
-    bottomLight1: '#ffdb3c',
-    bottomLight2: '#01a1c3',
-    bottomLight3: '#825dde',
-    decoration: 'flashing',
-    intensity: 'medium',
-    style: '0.3',
-    duration: 9,
+    setResponses(prevState => [...prevState, { text: '' }]);
   };
 
-  const [alertParams, setAlertParmas] = useState({
-    topLight1: '#825dde',
-    topLight2: '#9ea3ba',
-    topLight3: '#01a1c3',
-    bottomLight1: '#ffdb3c',
-    bottomLight2: '#01a1c3',
-    bottomLight3: '#825dde',
-    decoration: 'flashing',
-    intensity: 'medium',
-    style: '0.3',
-    duration: 9,
-  });
-
   const resetParams = () => {
-    setAlertParmas(defaultParams);
-  }
+    setAlertParmas(DEFAULT_PARAMS);
+  };
 
-  const handleParamsChange = useCallback(({ target: { name, value } }) => setAlertParmas(params => ({ ...params, [name]: value })), []);
+  const handleParamsChange = useCallback(({ target: { name, value } }) => {
+    setAlertParmas(params => ({ ...params, [name]: value }))
+  }, []);
 
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema)
   });
 
-  const terminalMounted = useMemo(() => {
-    const { title, body } = control.getValues();
-    return title && body && images.length;
-  }, [control, images]);
-
   const terminalScreen = useMemo(() => {
     const { title, body } = control.getValues();
-    
+
     if (!title || !body || !images.length) {
       return null;
     }
@@ -145,10 +113,8 @@ const News = () => {
 
   const initData = () => {
     setImages([]);
-    reset({
-      title: '',
-      body: ''
-    });
+    resetParams();
+    reset({ title: '', body: '' });
   };
 
   usePathIndicator({ path: LINKS.QUICKPOLL.HREF, label: LINKS.QUICKPOLL.TITLE });
@@ -165,16 +131,16 @@ const News = () => {
           <Grid container>
             <Grid item xs={9}>
               <Controller
-                  as={<MagicTextField />}
-                  name='question'
-                  label='Quick Poll question'
-                  labelWidth={200}
-                  error={errors.response?.question}
-                  className={classes.input}
-                  control={control}
-                  defaultValue='Should that shot have counted?'
+                as={<MagicTextField />}
+                name='question'
+                label='Quick Poll question'
+                labelWidth={200}
+                error={errors.response?.question}
+                className={classes.input}
+                control={control}
+                defaultValue='Should that shot have counted?'
               />
-              { responses.map((response, index) => (
+              {responses.map((response, index) => (
                 <Controller
                   as={<MagicTextField />}
                   name='response'
@@ -196,35 +162,35 @@ const News = () => {
                   onClick={addResponse}
                 >
                   Add another response
-                </Button>         
+                </Button>
               </Grid>
             </Grid>
             <Grid container item xs={3} justify="flex-end">
-              <FanbandTerminal palette={alertParams} mounted={terminalMounted}>
+              <FanbandTerminal palette={alertParams}>
                 {terminalScreen}
               </FanbandTerminal>
             </Grid>
             <Grid container>
-                <Grid item xs={6}>
-                  <MagicImageField
-                    label='Image'
-                    images={images}
-                    onChange={(imgList) => setImages(imgList)}
-                    width={350}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <AlertField
-                    label="Alert Parameters"
-                    value={alertParams}
-                    onChange={handleParamsChange}
-                    onReset={resetParams}
-                    width={350}
-                    mounted={terminalMounted}
-                    terminalScreen={terminalScreen}
-                  />
-                </Grid>
+              <Grid item xs={6}>
+                <MagicImageField
+                  label='Image'
+                  images={images}
+                  onChange={(imgList) => setImages(imgList)}
+                  width={350}
+                />
               </Grid>
+              <Grid item xs={6}>
+                <AlertField
+                  label="Alert Parameters"
+                  value={alertParams}
+                  onChange={handleParamsChange}
+                  onReset={resetParams}
+                  width={350}
+                  mt={3}
+                  terminalScreen={terminalScreen}
+                />
+              </Grid>
+            </Grid>
           </Grid>
 
           <FormButton type="submit">

@@ -35,11 +35,6 @@ export const ALERT_ACTIONS_ITEMS = [
     title: LINKS.QUICKPOLL.TITLE
   },
   {
-    icon: MessageSquareIcon,
-    path: LINKS.SURVEY.HREF,
-    title: LINKS.SURVEY.TITLE
-  },
-  {
     icon: CheckSquareIcon,
     path: LINKS.SCORE.HREF,
     title: LINKS.SCORE.TITLE

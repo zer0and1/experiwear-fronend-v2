@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core'
+import { Box, Card, CardContent, CardHeader, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -14,6 +14,7 @@ import { getEnglishDateWithTime } from 'utils/helpers/time'
 import { AlertField, FanbandTerminal, FormButton, MagicImageField, MagicTextField } from 'components'
 import { useLoading, usePathIndicator } from 'utils/hooks'
 import { ALERT_TYPES, LINKS } from 'utils/constants'
+import { DEFAULT_PARAMS } from 'components/AlertField'
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -40,66 +41,36 @@ const News = () => {
 
   const { news: { results } } = useSelector(state => state.notifications)
   const [images, setImages] = useState([]);
-
-  const defaultParams = {
-    topLight1: '#825dde',
-    topLight2: '#9ea3ba',
-    topLight3: '#01a1c3',
-    bottomLight1: '#ffdb3c',
-    bottomLight2: '#01a1c3',
-    bottomLight3: '#825dde',
-    decoration: 'flashing',
-    intensity: 'medium',
-    style: '0.3',
-    duration: 9,
-  };
-
-  const [alertParams, setAlertParmas] = useState({
-    topLight1: '#825dde',
-    topLight2: '#9ea3ba',
-    topLight3: '#01a1c3',
-    bottomLight1: '#ffdb3c',
-    bottomLight2: '#01a1c3',
-    bottomLight3: '#825dde',
-    decoration: 'flashing',
-    intensity: 'medium',
-    style: '0.3',
-    duration: 9,
-  });
+  const [alertParams, setAlertParmas] = useState(DEFAULT_PARAMS);
 
   const resetParams = () => {
-    setAlertParmas(defaultParams);
+    setAlertParmas(DEFAULT_PARAMS);
   }
 
   const handleParamsChange = useCallback(({ target: { name, value } }) => setAlertParmas(params => ({ ...params, [name]: value })), []);
 
-  const { control, handleSubmit, errors, reset } = useForm({
+  const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema)
   });
-
-  const terminalMounted = useMemo(() => {
-    const { title, body } = control.getValues();
-    return title && body && images.length;
-  }, [control, images]);
-
+  const watchAllFields = watch();
   const terminalScreen = useMemo(() => {
-    const { title, body } = control.getValues();
-    
+    const { title, body } = watchAllFields;
+
     if (!title || !body || !images.length) {
       return null;
     }
 
     return (
-      <Box display="flex" flexDirection="column" justifyContent="space-between" alignItems="center">
-        <Box>
-          <img src={images[0].data_url} />
+      <Box display="flex" flexDirection="column" justifyContent="space-between" alignItems="center" width="100%">
+        <Box height="48px" width="48px" overflow="hidden" borderRadius={6} mb={1}>
+          <img src={images[0].data_url} width="100%" height="auto" />
         </Box>
-        <Typography>
+        <Box color="white" textAlign="left" fontSize="10px">
           {body}
-        </Typography>
+        </Box>
       </Box>
     )
-  }, [control, images]);
+  }, [watchAllFields, images]);
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true)
@@ -179,12 +150,11 @@ const News = () => {
                 onChange={handleParamsChange}
                 onReset={resetParams}
                 width={350}
-                mounted={terminalMounted}
                 terminalScreen={terminalScreen}
               />
             </Grid>
             <Grid container item xs={3} justify="flex-end">
-              <FanbandTerminal palette={alertParams} mounted={terminalMounted}>
+              <FanbandTerminal params={alertParams}>
                 {terminalScreen}
               </FanbandTerminal>
             </Grid>
