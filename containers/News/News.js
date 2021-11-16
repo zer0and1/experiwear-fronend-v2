@@ -75,7 +75,25 @@ const News = () => {
   const onSubmit = async (data) => {
     changeLoadingStatus(true)
     try {
-      const { message } = await notificationsAPI.createNotification({ ...data, ...alertParams }, images);
+      const formData = new FormData();
+      formData.append('title', data.title);
+      formData.append('body', data.body);
+      formData.append('type', ALERT_TYPES.NEWS.VALUE);
+      formData.append('ledType', alertParams.ledType);
+      formData.append('topColor1', alertParams.topColor1);
+      formData.append('topColor2', alertParams.topColor2);
+      formData.append('topColor3', alertParams.topColor3);
+      formData.append('bottomColor1', alertParams.bottomColor1);
+      formData.append('bottomColor2', alertParams.bottomColor2);
+      formData.append('bottomColor3', alertParams.bottomColor3);
+      formData.append('vibrationType', alertParams.vibrationType);
+      formData.append('vibrationIntensity', alertParams.vibrationIntensity);
+      formData.append('duration', alertParams.duration);
+    
+      if (images.length) {
+        formData.append('file', images[0].file);
+      }
+      const { message } = await notificationsAPI.createNotification(formData);
       showSuccessToast(message)
       initData();
       dispatch(getNotifications(ALERT_TYPES.NEWS.VALUE, results.length + 1))
