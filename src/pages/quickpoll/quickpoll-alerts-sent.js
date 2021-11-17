@@ -15,6 +15,9 @@ import { ALERT_TYPES, LINKS } from 'utils/constants';
 import { useAsyncAction, usePathIndicator } from 'utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    overflow: 'auto',
+  },
   table: {
     tableLayout: 'fixed',
     width: '100%',
@@ -101,7 +104,7 @@ const QuickPollAlertsSent = () => {
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
-      <Card>
+      <Card className={classes.root}>
         <CardHeader title="Quick Poll ALERTS SENT" />
         <CardContent>
           <Container maxWidth="lg">
@@ -138,7 +141,7 @@ const QuickPollAlertsSent = () => {
                             classes[`color${Math.min(idx, 2)}`]
                           )}
                         >
-                          {alert.aggr?.[res].count} <br />{' '}
+                          {alert.aggr?.[res].count} <br />
                           {alert.aggr?.[res].percent}%
                         </td>
                       ))}

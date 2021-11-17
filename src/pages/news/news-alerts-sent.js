@@ -6,15 +6,17 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { getNotifications } from 'actions/getNotifications';
-import clsx from 'clsx';
 import { Layout, AlertItem } from 'components';
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { CurrentFanbandStats } from 'sidebars';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 import { useAsyncAction, usePathIndicator } from 'utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    overflow: 'auto',
+  },
   table: {
     tableLayout: 'fixed',
     width: '100%',
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const QuickPollAlertsSent = () => {
   const classes = useStyles();
   const alerts = useSelector((state) =>
-    state.notifications.survey.results
+    state.notifications.news.results
       .filter((alert) => alert.isSent)
       .map((alert) => {
         // TODO: aggregates reponses, sent, open, avg and md
@@ -70,7 +72,7 @@ const QuickPollAlertsSent = () => {
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
-      <Card>
+      <Card className={classes.root}>
         <CardHeader title="Quick Poll ALERTS SENT" />
         <CardContent>
           <Container maxWidth="lg">
