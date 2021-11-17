@@ -3,3 +3,4 @@ export { default as useGameSocket } from './useGameSocket';
 export { default as useLoading } from './useLoading';
 export { default as useSocket } from './useSocket';
 export { default as usePathIndicator } from './usePathIndicator';
+export { default as useAction } from './useAction';

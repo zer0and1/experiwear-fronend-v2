@@ -38,7 +38,6 @@ const SubMenu = ({ title, items }) => {
 
   const handleItemClick = (e, path) => {
     e.preventDefault();
-    console.log(mainPath, path);
     router.push(path);
   };
 

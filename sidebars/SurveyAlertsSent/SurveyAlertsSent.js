@@ -1,16 +1,21 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { memo, useCallback, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
+import { useRouter } from 'next/router';
 
 import { getNotifications } from 'actions/getNotifications'
 import { ALERT_TYPES } from 'utils/constants/alert-types'
 import { AlertItem, Title } from 'components'
 import { Button } from '@material-ui/core'
+import { LINKS } from 'utils/constants';
+import { useAction } from 'utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
   },
   items: {
+    overflow: 'auto',
+    maxHeight: 320,
   },
   button: {
     borderRadius: theme.spacing(3),
@@ -19,39 +24,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewsList = () => {
-  const dispatch = useDispatch();
+const SurveyList = () => {
+  const router = useRouter();
   const classes = useStyles();
-  const [viewAll, setViewAll] = useState(false);
-  const { news: { results } } = useSelector(state => state.notifications)
-  const news = useMemo(() => {
-    const alertsSent = results.filter(n => n.isSent);
-    return viewAll ? alertsSent : alertsSent.slice(0, 4);
-  }, [results, viewAll]);
+  const { survey: { results } } = useSelector(state => state.notifications)
+  const survey = useMemo(() => results.filter(n => n.isSent), [results]);
 
   const handleViewAll = useCallback(() => {
-    setViewAll(true);
-  }, []);
+    router.push(LINKS.QUICKPOLL_ALERTS_SENT.HREF);
+  }, [router]);
 
-  useEffect(() => {
-    dispatch(getNotifications(ALERT_TYPES.NEWS.VALUE))
-  }, [dispatch])
+  useAction(getNotifications(ALERT_TYPES.SURVEY.VALUE));
 
   return (
     <div className={classes.root}>
       <Title mb={4}>Survey Alerts Sent</Title>
+
       <div className={classes.items}>
-        {news.map((item) => (
+        {survey.map((item) => (
           <AlertItem key={item.id} data={item} mb={2} />
         ))}
       </div>
-      {viewAll || (
-        <Button color="primary" variant="contained" fullWidth className={classes.button} onClick={handleViewAll}>
-          View all
-        </Button>
-      )}
+
+      <Button color="primary" variant="contained" fullWidth className={classes.button} onClick={handleViewAll}>
+        View all
+      </Button>
     </div>
   );
 };
 
-export default memo(NewsList);
+export default memo(SurveyList);

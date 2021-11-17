@@ -14,7 +14,7 @@ const ALERT_TYPES = {
   SURVEY: {
     LABEL: 'Survey',
     VALUE: 'survey',
-    HREF: LINKS.SURVEY.HREF
+    HREF: LINKS.QUICKPOLL.HREF
   },
   SCORE: {
     LABEL: 'Score',

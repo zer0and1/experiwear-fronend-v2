@@ -35,14 +35,24 @@
     "eslint-loader": "^4.0.2",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.0.2",
     "pm2": "^4.5.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": "eslint --cache --fix",
+    "src/**/*.{js,jsx,json,css}": "prettier --single-quote --write"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged && git add .",
+    "lint": "eslint src --fix",
+    "format": "prettier --single-quote --write \"src/**/*.{js,jsx,json,css}\"",
     "=====PM2=====": "",
     "pm2:restart:dev": "npm run build && pm2 delete frontend || : &&  pm2 start frontend.json --env development",
     "pm2:restart:prod": "CONFIG_ENV=production npm run build && pm2 delete frontend || : &&  pm2 start frontend.json --env production",

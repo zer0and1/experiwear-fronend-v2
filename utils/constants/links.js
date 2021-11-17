@@ -32,13 +32,17 @@ const LINKS = Object.freeze({
     TITLE: 'News',
     HREF: '/news'
   },
+  NEWS_ALERTS_SENT: {
+    TITLE: 'News alerts sent',
+    HREF: '/news/news-alerts-sent'
+  },
   QUICKPOLL: {
     TITLE: 'Quick Poll',
     HREF: '/quickpoll'
   },
-  SURVEY: {
-    TITLE: 'Survey',
-    HREF: '/survey'
+  QUICKPOLL_ALERTS_SENT: {
+    TITLE: 'All quick polls',
+    HREF: '/quickpoll/quickpoll-alerts-sent'
   },
   SCORE: {
     TITLE: 'Score',
