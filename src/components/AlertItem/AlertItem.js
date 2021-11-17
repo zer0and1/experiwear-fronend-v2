@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    textAlign: 'left',
+    textTransform: 'none',
   },
   icon: {
     marginRight: theme.spacing(1.5),
