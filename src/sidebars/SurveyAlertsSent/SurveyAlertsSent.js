@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
@@ -8,7 +8,7 @@ import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { LINKS } from 'utils/constants';
-import { useAction } from 'utils/hooks';
+import { useAsyncAction } from 'utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -26,23 +26,22 @@ const useStyles = makeStyles((theme) => ({
 const SurveyList = () => {
   const router = useRouter();
   const classes = useStyles();
-  const {
-    survey: { results },
-  } = useSelector((state) => state.notifications);
-  const survey = useMemo(() => results.filter((n) => n.isSent), [results]);
+  const alerts = useSelector((state) =>
+    state.notifications.survey.results.filter((n) => n.isSent)
+  );
 
   const handleViewAll = useCallback(() => {
     router.push(LINKS.QUICKPOLL_ALERTS_SENT.HREF);
   }, [router]);
 
-  useAction(getNotifications(ALERT_TYPES.SURVEY.VALUE));
+  useAsyncAction(getNotifications(ALERT_TYPES.SURVEY.VALUE));
 
   return (
     <div className={classes.root}>
       <Title mb={4}>Survey Alerts Sent</Title>
 
       <div className={classes.items}>
-        {survey.map((item) => (
+        {alerts.map((item) => (
           <AlertItem key={item.id} data={item} mb={2} />
         ))}
       </div>

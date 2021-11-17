@@ -1,10 +1,11 @@
 import { Card, CardContent, CardHeader } from '@material-ui/core';
+import { getNotifications } from 'actions/getNotifications';
 import { Layout } from 'components';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { CurrentFanbandStats } from 'sidebars';
-import { LINKS } from 'utils/constants';
-import { usePathIndicator } from 'utils/hooks';
+import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { useAsyncAction, usePathIndicator } from 'utils/hooks';
 
 const QuickPollAlertsSent = () => {
   const alerts = useSelector((state) =>
@@ -31,6 +32,8 @@ const QuickPollAlertsSent = () => {
       label: LINKS.QUICKPOLL_ALERTS_SENT.TITLE,
     },
   ]);
+
+  useAsyncAction(getNotifications(ALERT_TYPES.SURVEY.VALUE), !alerts.length);
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
