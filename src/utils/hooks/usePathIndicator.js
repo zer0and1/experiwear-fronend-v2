@@ -5,11 +5,10 @@ import { setPathTokens } from 'actions/auxiliary';
 const usePathIndicator = (paths) => {
   const dispatch = useDispatch();
 
-  // eslint-disable-next-line
-  useEffect(
-    () => dispatch(setPathTokens(Array.isArray(paths) ? paths : [paths])),
-    []
-  );
+  useEffect(() => {
+    dispatch(setPathTokens(Array.isArray(paths) ? paths : [paths]));
+    // eslint-disable-next-line
+  }, []);
 };
 
 export default usePathIndicator;
