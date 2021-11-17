@@ -1,15 +1,21 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 
 import { getNotifications } from 'actions/getNotifications';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
+import { LINKS } from 'utils/constants';
+import { useAsyncAction } from 'utils/hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  items: {},
+  items: {
+    overflow: 'auto',
+    maxHeight: 320,
+  },
   button: {
     borderRadius: theme.spacing(3),
     height: 50,
@@ -18,44 +24,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewsList = () => {
-  const dispatch = useDispatch();
+  const router = useRouter();
   const classes = useStyles();
-  const [viewAll, setViewAll] = useState(false);
-  const {
-    news: { results },
-  } = useSelector((state) => state.notifications);
-  const news = useMemo(() => {
-    const alertsSent = results.filter((n) => n.isSent);
-    return viewAll ? alertsSent : alertsSent.slice(0, 4);
-  }, [results, viewAll]);
+  const alerts = useSelector((state) =>
+    state.notifications.news.results.filter((n) => n.isSent)
+  );
 
   const handleViewAll = useCallback(() => {
-    setViewAll(true);
-  }, []);
+    router.push(LINKS.NEWS_ALERTS_SENT.HREF);
+  }, [router]);
 
-  useEffect(() => {
-    dispatch(getNotifications(ALERT_TYPES.NEWS.VALUE));
-  }, [dispatch]);
+  useAsyncAction(getNotifications(ALERT_TYPES.NEWS.VALUE));
 
   return (
     <div className={classes.root}>
-      <Title mb={4}>News Alerts Sent</Title>
+      <Title mb={4}>Survey Alerts Sent</Title>
+
       <div className={classes.items}>
-        {news.map((item) => (
+        {alerts.map((item) => (
           <AlertItem key={item.id} data={item} mb={2} />
         ))}
       </div>
-      {viewAll || (
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          className={classes.button}
-          onClick={handleViewAll}
-        >
-          View all
-        </Button>
-      )}
+
+      <Button
+        color="primary"
+        variant="contained"
+        fullWidth
+        className={classes.button}
+        onClick={handleViewAll}
+      >
+        View all
+      </Button>
     </div>
   );
 };

@@ -33,15 +33,6 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     borderBottom: '1px solid #9ea3ba',
   },
-  color0: {
-    color: '#53c76e',
-  },
-  color1: {
-    color: '#d02231',
-  },
-  color2: {
-    color: '#53c76e',
-  },
 }));
 
 const QuickPollAlertsSent = () => {
@@ -54,43 +45,24 @@ const QuickPollAlertsSent = () => {
         return {
           ...alert,
           aggr: {
-            ...responses.redux(
-              (acc, res) => ({ ...acc, [res]: { count: 40, percent: 50 } }),
-              {}
-            ),
             sent: {
-              count: 80,
-              percent: 80,
+              count: 311,
+              percent: 98,
             },
             open: {
-              count: 80,
-              percent: 80,
+              count: 1,
+              percent: 2,
             },
-            avg: '0.00',
-            md: '0.00',
           },
         };
       })
   );
-  const responses = useMemo(
-    () =>
-      alerts.reduce(
-        (acc, alert) =>
-          acc.find((res) =>
-            alert.surveyResponses.find((sr) => sr.response === res)
-          )
-            ? acc
-            : [...acc, ...alert.surveyResponses.map((sr) => sr.response)],
-        []
-      ),
-    [alerts]
-  );
 
   usePathIndicator([
-    { path: LINKS.QUICKPOLL.HREF, label: LINKS.QUICKPOLL.TITLE },
+    { path: LINKS.NEWS.HREF, label: LINKS.NEWS.TITLE },
     {
-      path: LINKS.QUICKPOLL_ALERTS_SENT.HREF,
-      label: LINKS.QUICKPOLL_ALERTS_SENT.TITLE,
+      path: LINKS.NEWS_ALERTS_SENT.HREF,
+      label: LINKS.NEWS_ALERTS_SENT.TITLE,
     },
   ]);
 
@@ -105,19 +77,9 @@ const QuickPollAlertsSent = () => {
             <table className={classes.table}>
               <thead>
                 <tr>
-                  <td style={{ width: 300 }}></td>
-                  {responses.map((res, idx) => (
-                    <td
-                      key={res}
-                      className={clsx(classes.cell, classes[`color${idx}`])}
-                    >
-                      {res}
-                    </td>
-                  ))}
+                  <td style={{ width: 500 }}></td>
                   <th className={classes.cell}>sent</th>
                   <th className={classes.cell}>open</th>
-                  <th className={classes.cell}>avg</th>
-                  <th className={classes.cell}>md</th>
                 </tr>
               </thead>
               <tbody>
@@ -127,18 +89,6 @@ const QuickPollAlertsSent = () => {
                       <td className={classes.cell}>
                         <AlertItem data={alert} />
                       </td>
-                      {responses.map((res, idx) => (
-                        <td
-                          key={res}
-                          className={clsx(
-                            classes.cell,
-                            classes[`color${Math.min(idx, 2)}`]
-                          )}
-                        >
-                          {alert.aggr?.[res].count} <br />{' '}
-                          {alert.aggr?.[res].percent}%
-                        </td>
-                      ))}
                       <td className={classes.cell}>
                         {alert.aggr.sent.count} <br /> {alert.aggr.sent.percent}
                         %
@@ -147,14 +97,9 @@ const QuickPollAlertsSent = () => {
                         {alert.aggr.open.count} <br /> {alert.aggr.open.percent}
                         %
                       </td>
-                      <td className={classes.cell}>{alert.aggr.avg}</td>
-                      <td className={classes.cell}>{alert.aggr.md}</td>
                     </tr>
                     <tr>
-                      <td
-                        className={classes.divider}
-                        colSpan={responses.length + 5}
-                      ></td>
+                      <td className={classes.divider} colSpan={3}></td>
                     </tr>
                   </Fragment>
                 ))}
