@@ -47,29 +47,14 @@ const useStyles = makeStyles((theme) => ({
 const QuickPollAlertsSent = () => {
   const classes = useStyles();
   const alerts = useSelector((state) =>
-    state.notifications.survey.results.filter((alert) => alert.isSent)
-  );
-  const responses = useMemo(
-    () =>
-      alerts.reduce(
-        (acc, alert) =>
-          acc.find((res) =>
-            alert.surveyResponses.find((sr) => sr.response === res)
-          )
-            ? acc
-            : [...acc, ...alert.surveyResponses.map((sr) => sr.response)],
-        []
-      ),
-    [alerts]
-  );
-  const surveys = useMemo(
-    () =>
-      alerts.map((alert) => {
+    state.notifications.survey.results
+      .filter((alert) => alert.isSent)
+      .map((alert) => {
         // TODO: aggregates reponses, sent, open, avg and md
         return {
           ...alert,
           aggr: {
-            ...responses.reduce(
+            ...responses.redux(
               (acc, res) => ({ ...acc, [res]: { count: 40, percent: 50 } }),
               {}
             ),
@@ -85,8 +70,20 @@ const QuickPollAlertsSent = () => {
             md: '0.00',
           },
         };
-      }),
-    [alerts, responses]
+      })
+  );
+  const responses = useMemo(
+    () =>
+      alerts.reduce(
+        (acc, alert) =>
+          acc.find((res) =>
+            alert.surveyResponses.find((sr) => sr.response === res)
+          )
+            ? acc
+            : [...acc, ...alert.surveyResponses.map((sr) => sr.response)],
+        []
+      ),
+    [alerts]
   );
 
   usePathIndicator([
@@ -124,7 +121,7 @@ const QuickPollAlertsSent = () => {
                 </tr>
               </thead>
               <tbody>
-                {surveys.map((alert) => (
+                {alerts.map((alert) => (
                   <Fragment key={alert.id}>
                     <tr>
                       <td className={classes.cell}>
