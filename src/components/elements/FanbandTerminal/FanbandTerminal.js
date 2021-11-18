@@ -43,6 +43,8 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     padding: '12px 8px',
+    clipPath: `url(#clip-path)`,
+    overflow: 'hidden',
   },
   hawksIcon: {
     height: 50,

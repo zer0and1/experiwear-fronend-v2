@@ -19,9 +19,10 @@ import {
   FanbandTerminal,
   FormButton,
   MagicTextField,
+  TeamLogo,
 } from 'components';
-import { useLoading, usePathIndicator } from 'hooks';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { useLoading } from 'hooks';
+import { ALERT_TYPES } from 'utils/constants';
 import {
   DEFAULT_ALERT_PARAMS,
   LED_TYPES,
@@ -29,7 +30,6 @@ import {
 } from 'components/elements/AlertField';
 
 const schema = yup.object().shape({
-  title: TITLE_VALID,
   body: STRING_VALID,
 });
 
@@ -52,10 +52,26 @@ const Score = () => {
   const dispatch = useDispatch();
   const { changeLoadingStatus } = useLoading();
 
-  const {
-    news: { results },
-  } = useSelector((state) => state.notifications);
+  const { results } = useSelector((state) => state.notifications.news);
+  const { selectedGame: game } = useSelector((state) => state.games);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
+  const [hawksTeam, opposingTeam] = useMemo(() => {
+    if (!game) {
+      return [null, null];
+    }
+    const homeTeam = { ...game.homeTeam, score: game.homeTeamScore };
+    const visitorTeam = { ...game.visitorTeam, score: game.visitorTeamScore };
+    return game.homeTeam.abbreviation === 'ATL'
+      ? [homeTeam, visitorTeam]
+      : [visitorTeam, homeTeam];
+  }, [game]);
+
+  const alertTitle = useMemo(() => {
+    if (hawksTeam && opposingTeam) {
+      return `${hawksTeam.score} - ${opposingTeam.score}`;
+    }
+    return '0 - 0';
+  }, [hawksTeam, opposingTeam]);
 
   const resetParams = () => {
     setAlertParmas(DEFAULT_ALERT_PARAMS);
@@ -74,31 +90,42 @@ const Score = () => {
   const terminalScreen = useMemo(() => {
     const { title, body } = watchAllFields;
 
-    if (!title || !body) {
+    if (!title || !body || !hawksTeam || !opposingTeam) {
       return null;
     }
 
     return (
       <Box
         display="flex"
+        flexGrow={1}
         flexDirection="column"
-        justifyContent="space-between"
+        justifyContent="space-around"
         alignItems="center"
         width="100%"
+        py={2}
       >
+        <Box display="flex" overflow="hidden" alignItems="center" height="36px">
+          <TeamLogo size={80} team={hawksTeam.abbreviation} />
+          <TeamLogo size={80} team={opposingTeam.abbreviation} />
+        </Box>
         <Box
-          height="48px"
-          width="48px"
-          overflow="hidden"
-          borderRadius={6}
-          mb={1}
-        ></Box>
-        <Box color="white" textAlign="left" fontSize="10px">
-          {body}
+          textAlign="center"
+          fontSize="18px"
+          color="#ffdb3c"
+          display="flex"
+          justifyContent="space-around"
+          width="100%"
+        >
+          <span>{hawksTeam.score}</span>
+          <span>-</span>
+          <span>{opposingTeam.score}</span>
+        </Box>
+        <Box color="white" textAlign="center" fontSize="12px">
+          <span style={{ textTransform: 'uppercase' }}>{body}</span>
         </Box>
       </Box>
     );
-  }, [watchAllFields]);
+  }, [watchAllFields, hawksTeam, opposingTeam]);
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -132,10 +159,8 @@ const Score = () => {
   };
 
   const initData = () => {
-    reset({ title: '', body: '' });
+    reset({ body: '' });
   };
-
-  usePathIndicator({ path: LINKS.SCORE.HREF, label: LINKS.SCORE.TITLE });
 
   return (
     <Card className={classes.root}>
@@ -159,7 +184,8 @@ const Score = () => {
                 error={errors.title?.message}
                 className={classes.input}
                 control={control}
-                defaultValue=""
+                defaultValue={alertTitle}
+                inputProps={{ readOnly: true }}
               />
               <Controller
                 as={<MagicTextField />}

@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 import { setSelectedGame } from 'redux/actions/games';
 import { ContainedButton } from 'components';
-import TeamLogo from 'components/parts/TeamLogo';
+import { TeamLogo } from 'components';
 import { getEnglishDateWithTime } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({

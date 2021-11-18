@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Title } from 'components';
-import TeamLogo from 'components/parts/TeamLogo';
+import { TeamLogo } from 'components';
 import { useSelector } from 'react-redux';
 import { getEnglishDateWithTime } from 'utils/helpers';
 
