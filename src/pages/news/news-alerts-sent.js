@@ -5,13 +5,13 @@ import {
   Container,
   makeStyles,
 } from '@material-ui/core';
-import { getNotifications } from 'actions/getNotifications';
+import { getNotifications } from 'redux/actions/getNotifications';
 import { Layout, AlertItem } from 'components';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { CurrentFanbandStats } from 'sidebars';
+import { CurrentFanbandStats } from 'components';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
-import { useAsyncAction, usePathIndicator } from 'utils/hooks';
+import { useAsyncAction, usePathIndicator } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {

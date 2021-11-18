@@ -1,6 +1,6 @@
-import News from 'containers/News';
+import News from 'components/widgets/News';
 import { Layout } from 'components';
-import { CurrentFanbandStats, NewsAlertsSent } from 'sidebars';
+import { CurrentFanbandStats, NewsAlertsSent } from 'components';
 
 export default function NewsPage() {
   return (

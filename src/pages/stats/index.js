@@ -1,6 +1,4 @@
-import { Layout } from 'components';
-import Stats from 'containers/Stats';
-import { ActivityTimeline } from 'sidebars';
+import { Layout, Stats, ActivityTimeline } from 'components';
 
 export default function HomePage() {
   return (

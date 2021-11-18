@@ -1,4 +1,6 @@
-const getEnglishDateWithTime = (date) => {
+import moment from 'moment';
+
+export const getEnglishDateWithTime = (date) => {
   if (!!date) {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -12,7 +14,7 @@ const getEnglishDateWithTime = (date) => {
   return '';
 };
 
-const getEnglishDate = (date) => {
+export const getEnglishDate = (date) => {
   if (!!date) {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -23,7 +25,7 @@ const getEnglishDate = (date) => {
   return '';
 };
 
-const getEnglishTime = (date) => {
+export const getEnglishTime = (date) => {
   if (!!date) {
     return new Date(date).toLocaleTimeString('en-US', {
       hour: 'numeric',
@@ -34,13 +36,13 @@ const getEnglishTime = (date) => {
   return '';
 };
 
-const getISODate = (value) => {
+export const getISODate = (value) => {
   const [yyyy, mm, dd, hh, mi] = value.split(/[/:\-T]/);
 
   return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
 };
 
-const getLocalDate = (value) => {
+export const getLocalDate = (value) => {
   const date = new Date(value);
   const yyyy = date.getFullYear();
   const mm = date.getMonth() + 1;
@@ -53,10 +55,5 @@ const getLocalDate = (value) => {
   }:${mi > 10 ? mi : `0${mi}`}`;
 };
 
-export {
-  getEnglishDate,
-  getEnglishTime,
-  getEnglishDateWithTime,
-  getISODate,
-  getLocalDate,
-};
+export const conv2time = (datetime) =>
+  moment(moment(datetime).format('HHmm'), 'HHmm');

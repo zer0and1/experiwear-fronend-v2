@@ -1,4 +1,4 @@
-import Schedule from 'containers/Schedule';
+import Schedule from 'components/widgets/Schedule';
 import { Layout } from 'components';
 
 export default function SchedulePage() {

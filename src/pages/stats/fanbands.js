@@ -1,6 +1,6 @@
 import { Layout } from 'components';
-import Fanbands from 'containers/Fanbands';
-import { ActivityTimeline } from 'sidebars';
+import Fanbands from 'components/widgets/Fanbands';
+import { ActivityTimeline } from 'components';
 
 export default function HomePage() {
   return (

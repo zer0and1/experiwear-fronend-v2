@@ -1,4 +1,4 @@
-import Canned from 'containers/Canned';
+import Canned from 'components/widgets/Canned';
 import { Layout } from 'components';
 
 export default function CannedPage() {

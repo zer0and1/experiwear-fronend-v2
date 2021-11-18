@@ -3,8 +3,8 @@ import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import theme from 'styles/theme';
-import store from 'store';
+import theme from 'theme';
+import store from 'redux/store';
 import InitProvider from 'utils/hocs/InitProvider';
 import ToastProvider from 'utils/hocs/ToastProvider';
 import * as COMMON_CONSTANTS from 'utils/constants/common';

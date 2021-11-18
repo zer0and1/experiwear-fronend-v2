@@ -1,13 +1,13 @@
 import LINKS from 'utils/constants/links';
-import HomeIcon from 'components/Icons/HomeIcon';
-import MailIcon from 'components/Icons/MailIcon';
-import MessageSquareIcon from 'components/Icons/MessageSquareIcon';
-import CheckSquareIcon from 'components/Icons/CheckSquareIcon';
-import DealIcon from 'components/Icons/DealIcon';
-import CalendarIcon from 'components/Icons/CalendarIcon';
-import AccelerometerIcon from 'components/Icons/AccelerometerIcon';
-import StatsIcon from 'components/Icons/StatsIcon';
-import AlertIcon from 'components/Icons/AlertIcon';
+import HomeIcon from 'components/icons/HomeIcon';
+import MailIcon from 'components/icons/MailIcon';
+import MessageSquareIcon from 'components/icons/MessageSquareIcon';
+import CheckSquareIcon from 'components/icons/CheckSquareIcon';
+import DealIcon from 'components/icons/DealIcon';
+import CalendarIcon from 'components/icons/CalendarIcon';
+import AccelerometerIcon from 'components/icons/AccelerometerIcon';
+import StatsIcon from 'components/icons/StatsIcon';
+import AlertIcon from 'components/icons/AlertIcon';
 
 export const OVERVIEW_ITEMS = [
   {

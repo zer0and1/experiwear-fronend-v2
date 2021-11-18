@@ -1,4 +1,4 @@
-import ForgotPassword from 'containers/Auth/ForgotPassword';
+import ForgotPassword from 'components/widgets/ForgotPassword';
 
 export default function ForgotPasswordPage() {
   return <ForgotPassword />;

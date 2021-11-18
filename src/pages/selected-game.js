@@ -1,6 +1,6 @@
 import { Layout } from 'components';
-import SelectedGame from 'containers/SelectedGame';
-import { SelectedGameSidebar } from 'sidebars';
+import SelectedGame from 'components/widgets/SelectedGame';
+import { SelectedGameSidebar } from 'components';
 
 export default function HomePage() {
   return (

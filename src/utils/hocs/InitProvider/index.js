@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as authAPI from 'services/api-auth';
-import { setIsAuthenticated, setCurrentUser } from 'actions/auth';
-import { getGames } from 'actions/games';
-import { getFanbandsStatistics } from 'actions/getFanbandsStatistics';
-import useGameSocket from 'utils/hooks/useGameSocket';
-import useFanbandSocket from 'utils/hooks/useFanbandSocket';
+import { setIsAuthenticated, setCurrentUser } from 'redux/actions/auth';
+import { getGames } from 'redux/actions/games';
+import { getFanbandsStatistics } from 'redux/actions/getFanbandsStatistics';
+import useGameSocket from 'hooks/useGameSocket';
+import useFanbandSocket from 'hooks/useFanbandSocket';
 import { isServer } from 'utils/helpers/utility';
 import scrollToTop from 'utils/helpers/scrollToTop';
 import { AUTH_ROUTES, PAGE_ROUTES } from 'utils/constants/routes';

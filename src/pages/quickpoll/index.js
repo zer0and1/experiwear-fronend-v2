@@ -1,6 +1,6 @@
-import QuickPoll from 'containers/QuickPoll';
+import QuickPoll from 'components/widgets/QuickPoll';
 import { Layout } from 'components';
-import { CurrentFanbandStats, SurveyAlertsSent } from 'sidebars';
+import { CurrentFanbandStats, SurveyAlertsSent } from 'components';
 
 export default function NewsPage() {
   return (

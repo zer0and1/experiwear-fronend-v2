@@ -1,7 +1,7 @@
-import AlertDealIcon from 'components/Icons/AlertDealIcon';
-import AlertScheduledIcon from 'components/Icons/AlertScheduledIcon';
-import AlertScoreIcon from 'components/Icons/AlertScoreIcon';
-import AlertSurveyIcon from 'components/Icons/AlertSurveyIcon';
+import AlertDealIcon from 'components/icons/AlertDealIcon';
+import AlertScheduledIcon from 'components/icons/AlertScheduledIcon';
+import AlertScoreIcon from 'components/icons/AlertScoreIcon';
+import AlertSurveyIcon from 'components/icons/AlertSurveyIcon';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 
 const getAlertIcon = (type) => {

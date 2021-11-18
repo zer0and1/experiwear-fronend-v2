@@ -1,8 +1,16 @@
 import { Fragment } from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
+import css from 'styled-jsx/css';
 
-import globalStyles from 'styles/global';
+const globalStyle = css.global`
+  html,
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    padding: 0 !important;
+  }
+`;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -55,7 +63,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons&display=swap"
           />
           <style jsx global>
-            {globalStyles}
+            {globalStyle}
           </style>
         </Head>
         <body>
