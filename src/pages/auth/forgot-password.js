@@ -1,4 +1,4 @@
-import ForgotPassword from 'components/widgets/ForgotPassword';
+import { ForgotPassword } from 'components';
 
 export default function ForgotPasswordPage() {
   return <ForgotPassword />;

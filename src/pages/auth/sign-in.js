@@ -1,4 +1,4 @@
-import SignIn from 'components/widgets/Auth/SignIn';
+import { SignIn } from 'components';
 
 export default function SignInPage() {
   return <SignIn />;

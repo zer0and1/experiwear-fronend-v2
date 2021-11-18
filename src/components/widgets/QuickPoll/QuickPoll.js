@@ -265,7 +265,7 @@ const News = () => {
                   label="Image"
                   images={images}
                   onChange={(imgList) => setImages(imgList)}
-                  width={350}
+                  width="100%"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -274,7 +274,7 @@ const News = () => {
                   value={alertParams}
                   onChange={handleParamsChange}
                   onReset={resetParams}
-                  width={350}
+                  width="90%"
                   mt={3}
                   terminalScreen={terminalScreen}
                 />

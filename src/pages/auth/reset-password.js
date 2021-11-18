@@ -1,4 +1,4 @@
-import ResetPassword from 'components/widgets/Auth/ResetPassword';
+import { ResetPassword } from 'components';
 
 export default function ResetPasswordPage() {
   return <ResetPassword />;
