@@ -9,7 +9,6 @@ import { getFanbandsStatistics } from 'redux/actions/getFanbandsStatistics';
 import useGameSocket from 'hooks/useGameSocket';
 import useFanbandSocket from 'hooks/useFanbandSocket';
 import { isServer } from 'utils/helpers/utility';
-import scrollToTop from 'utils/helpers/scrollToTop';
 import { AUTH_ROUTES, PAGE_ROUTES } from 'utils/constants/routes';
 import LINKS from 'utils/constants/links';
 
@@ -65,7 +64,13 @@ const InitProvider = () => {
         router.push(LINKS.SIGN_IN.HREF);
       }
     }
-    scrollToTop();
+
+    window.scroll({
+      left: 0,
+      top: 0,
+      behavior: 'smooth',
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 

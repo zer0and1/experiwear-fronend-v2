@@ -7,7 +7,7 @@ import MagicSurveyInfo from 'components/parts/Card/MagicSurveyInfo';
 import MagicAlertStatus from 'components/parts/Card/MagicAlertStatus';
 import { ANSWER_ENUM } from 'utils/constants/alert-types';
 import { ALERT_IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
-import getPercent from 'utils/helpers/getPercent';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -85,12 +85,12 @@ const MagicSurveyAlert = ({ item }) => {
         <MagicAlertStatus
           title="Sent:"
           value={item?.sent || 0}
-          percent={getPercent(item?.sent || 0, total)}
+          percent={calcPercent(item?.sent || 0, total)}
         />
         <MagicAlertStatus
           title="Open:"
           value={item?.received || 0}
-          percent={getPercent(item?.received || 0, item?.sent || 0)}
+          percent={calcPercent(item?.received || 0, item?.sent || 0)}
         />
         <MagicAlertStatus
           title="AVG:"

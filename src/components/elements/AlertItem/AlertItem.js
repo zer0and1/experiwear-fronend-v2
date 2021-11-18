@@ -1,6 +1,6 @@
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import clsx from 'clsx';
-import { getEnglishDate, getEnglishTime } from 'utils/helpers/time';
+import { getEnglishDate, getEnglishTime } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {

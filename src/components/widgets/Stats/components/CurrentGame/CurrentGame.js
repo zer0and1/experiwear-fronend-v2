@@ -11,7 +11,7 @@ import {
 import { Title } from 'components';
 import TeamLogo from 'components/parts/TeamLogo';
 import { useSelector } from 'react-redux';
-import { getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDateWithTime } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {

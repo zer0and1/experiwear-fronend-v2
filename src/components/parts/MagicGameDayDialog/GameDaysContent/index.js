@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { setSelectedGame } from 'redux/actions/games';
 import { ContainedButton } from 'components';
 import TeamLogo from 'components/parts/TeamLogo';
-import { getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDateWithTime } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   container: {

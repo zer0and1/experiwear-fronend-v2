@@ -19,7 +19,7 @@ import * as notificationsAPI from 'services/api-notifications';
 import { getNotifications } from 'redux/actions/getNotifications';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
 import { TITLE_VALID } from 'utils/constants/validations';
-import { getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDateWithTime } from 'utils/helpers';
 import {
   AlertField,
   FanbandTerminal,

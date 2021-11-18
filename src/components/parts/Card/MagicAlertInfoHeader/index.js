@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDateWithTime } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   rowView: {

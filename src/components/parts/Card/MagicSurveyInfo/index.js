@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MagicAlertInfoHeader from 'components/parts/Card/MagicAlertInfoHeader';
-import getPercent from 'utils/helpers/getPercent';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -49,7 +49,7 @@ const MagicSurveyInfo = ({ item }) => {
             {item?.yes || 0}
           </Typography>
           <Typography variant="caption" className={classes.answerYesPercent}>
-            {`${getPercent(item?.yes || 0, item?.sent || 0)} %`}
+            {`${calcPercent(item?.yes || 0, item?.sent || 0)} %`}
           </Typography>
         </div>
 
@@ -61,7 +61,7 @@ const MagicSurveyInfo = ({ item }) => {
             {item?.no || 0}
           </Typography>
           <Typography variant="caption" className={classes.answerNoPercent}>
-            {`${getPercent(item?.no || 0, item?.sent || 0)} %`}
+            {`${calcPercent(item?.no || 0, item?.sent || 0)} %`}
           </Typography>
         </div>
       </div>

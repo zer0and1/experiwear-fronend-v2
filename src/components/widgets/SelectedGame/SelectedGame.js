@@ -13,7 +13,7 @@ import moment from 'moment';
 import { Add } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import { setPathTokens } from 'redux/actions/auxiliary';
-import { getEnglishDate, getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDate, getEnglishDateWithTime } from 'utils/helpers';
 import LINKS from 'utils/constants/links';
 
 const useStyles = makeStyles((theme) => ({

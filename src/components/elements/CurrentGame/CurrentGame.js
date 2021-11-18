@@ -4,7 +4,7 @@ import { Box, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import TeamLogo from 'components/parts/TeamLogo';
-import { getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDateWithTime } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {},

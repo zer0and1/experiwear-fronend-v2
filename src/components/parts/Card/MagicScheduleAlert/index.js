@@ -12,7 +12,7 @@ import MagicConfirmDialog from 'components/parts/MagicConfirmDialog';
 import useLoading from 'hooks/useLoading';
 import { showSuccessToast, showErrorToast } from 'utils/helpers/toast';
 import { ALERT_IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
-import getPercent from 'utils/helpers/getPercent';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -151,12 +151,12 @@ const MagicScheduleAlert = ({ item, onEdit }) => {
         <MagicAlertStatus
           title="Sent:"
           value={item?.sent || 0}
-          percent={getPercent(item?.sent, total)}
+          percent={calcPercent(item?.sent, total)}
         />
         <MagicAlertStatus
           title="Open:"
           value={item?.received || 0}
-          percent={getPercent(item?.received, item?.sent || 0)}
+          percent={calcPercent(item?.received, item?.sent || 0)}
         />
       </div>
       {openModal && (

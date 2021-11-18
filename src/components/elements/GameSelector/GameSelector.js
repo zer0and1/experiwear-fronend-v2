@@ -1,7 +1,7 @@
 import { Box, makeStyles, MenuItem, Select } from '@material-ui/core';
 import { setSelectedGame } from 'redux/actions/games';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEnglishDateWithTime } from 'utils/helpers/time';
+import { getEnglishDateWithTime } from 'utils/helpers';
 import TeamLogo from 'components/parts/TeamLogo';
 import LINKS from 'utils/constants/links';
 import { useRouter } from 'next/router';

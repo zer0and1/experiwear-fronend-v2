@@ -15,7 +15,7 @@ import { getLatestNotification } from 'redux/actions/getLatestNotification';
 import { DOUGHNUT_OPTIONS } from './constants';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 import CircleIcon from 'components/icons/CircleIcon';
-import getPercent from 'utils/helpers/getPercent';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -72,9 +72,9 @@ const LatestAlert = () => {
   const { selectedGame } = useSelector((state) => state.games);
   const totalAnswer = yes + no;
   const noResponse = sent - totalAnswer;
-  const yesPercent = getPercent(yes, sent);
-  const noPercent = getPercent(no, sent);
-  const noResponsePercent = getPercent(noResponse, sent);
+  const yesPercent = calcPercent(yes, sent);
+  const noPercent = calcPercent(no, sent);
+  const noResponsePercent = calcPercent(noResponse, sent);
   const chartColors = useMemo(
     () => [
       theme.palette.info.main,

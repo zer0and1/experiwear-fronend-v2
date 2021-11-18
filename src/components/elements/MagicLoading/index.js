@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     width: '100%',
     height: props.height ? props.height : '100%',
-    zIndex: 5,
+    zIndex: 9999,
   }),
 }));
 

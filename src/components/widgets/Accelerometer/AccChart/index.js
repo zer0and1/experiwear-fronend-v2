@@ -6,7 +6,6 @@ import { Card, CardContent, withStyles } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { useSelector } from 'react-redux';
 import { Line } from 'react-chartjs-2';
-import range from 'utils/helpers/range';
 
 const useStyles = makeStyles(() => ({
   paginationContainer: {
@@ -66,7 +65,7 @@ const AccChart = ({ alertInstance }) => {
   let data = {};
   if (accData) {
     data = {
-      labels: range(0, accData.length - 1, 50),
+      labels: Array.from({ length: accData.length }).map((_, idx) => 50 * idx),
       datasets: [
         {
           label: 'x',
