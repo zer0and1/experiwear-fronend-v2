@@ -47,6 +47,10 @@ const LINKS = Object.freeze({
     TITLE: 'Score',
     HREF: '/score',
   },
+  SCORE_ALERTS_SENT: {
+    TITLE: 'Score alerts sent',
+    HREF: '/score/score-alerts-sent',
+  },
   PROMO: {
     TITLE: 'Promo',
     HREF: '/promo',

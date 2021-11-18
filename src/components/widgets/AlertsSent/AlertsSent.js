@@ -4,41 +4,43 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
 import { getNotifications } from 'redux/actions/getNotifications';
-import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
-import { LINKS } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    flexGrow: 1,
+    position: 'relative',
+    overflow: 'hidden',
+  },
   items: {
     overflow: 'auto',
-    maxHeight: 320,
+    height: 'calc(100% - 56px - 66px)',
+    marginBottom: 16,
   },
   button: {
     borderRadius: theme.spacing(3),
     height: 50,
-    marginTop: theme.spacing(2),
   },
 }));
 
-const NewsList = () => {
+const AlertsSent = ({ type, link }) => {
   const router = useRouter();
   const classes = useStyles();
   const alerts = useSelector((state) =>
-    state.notifications.news.results.filter((n) => n.isSent)
+    state.notifications[type].results.filter((n) => n.isSent)
   );
 
   const handleViewAll = useCallback(() => {
-    router.push(LINKS.NEWS_ALERTS_SENT.HREF);
-  }, [router]);
+    router.push(link);
+  }, [router, link]);
 
-  useAsyncAction(getNotifications(ALERT_TYPES.NEWS.VALUE));
+  useAsyncAction(getNotifications(type));
 
   return (
     <div className={classes.root}>
-      <Title mb={4}>Survey Alerts Sent</Title>
+      <Title mb={4}>{type} Alerts Sent</Title>
 
       <div className={classes.items}>
         {alerts.map((item) => (
@@ -59,4 +61,4 @@ const NewsList = () => {
   );
 };
 
-export default memo(NewsList);
+export default memo(AlertsSent);

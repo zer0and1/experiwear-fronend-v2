@@ -8,11 +8,6 @@ const ALERT_TYPES = {
   },
   QUICKPOLL: {
     LABEL: 'Quick Poll',
-    VALUE: 'quickpoll',
-    HREF: LINKS.QUICKPOLL.HREF,
-  },
-  SURVEY: {
-    LABEL: 'Survey',
     VALUE: 'survey',
     HREF: LINKS.QUICKPOLL.HREF,
   },

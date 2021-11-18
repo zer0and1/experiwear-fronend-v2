@@ -1,6 +1,5 @@
-import News from 'components/widgets/News';
-import { Layout } from 'components';
-import { CurrentFanbandStats, NewsAlertsSent } from 'components';
+import { Layout, News, CurrentFanbandStats, AlertsSent } from 'components';
+import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function NewsPage() {
   return (
@@ -8,7 +7,10 @@ export default function NewsPage() {
       sidebar={
         <>
           <CurrentFanbandStats />
-          <NewsAlertsSent />
+          <AlertsSent
+            type={ALERT_TYPES.NEWS.VALUE}
+            link={LINKS.NEWS_ALERTS_SENT.HREF}
+          />
         </>
       }
     >

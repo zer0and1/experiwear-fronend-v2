@@ -9,21 +9,21 @@ import SideBar from '../SideBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
     minHeight: '100vh',
     backgroundColor: '#f7fafc',
   },
   container: {
+    display: 'flex',
+    flexDirection: 'column',
     minHeight: '100vh',
-    padding: theme.spacing(7, 5, 1, 5),
+    padding: '56px 40px 38px 40px',
     marginLeft: theme.custom.layout.sideMenu,
     marginRight: theme.custom.layout.sideBar,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
-    height: 'calc(100vh - 196px)',
+    flexGrow: 1,
+    height: 0,
   },
 }));
 

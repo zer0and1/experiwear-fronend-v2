@@ -8,14 +8,16 @@ import * as yup from 'yup';
 
 import * as notificationsAPI from 'services/api-notifications';
 import { getNotifications } from 'redux/actions/getNotifications';
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
+import {
+  showErrorToast,
+  showSuccessToast,
+  getEnglishDateWithTime,
+} from 'utils/helpers';
 import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations';
-import { getEnglishDateWithTime } from 'utils/helpers';
 import {
   AlertField,
   FanbandTerminal,
   FormButton,
-  MagicImageField,
   MagicTextField,
 } from 'components';
 import { useLoading, usePathIndicator } from 'hooks';
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const News = () => {
+const Score = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { changeLoadingStatus } = useLoading();
@@ -53,7 +55,6 @@ const News = () => {
   const {
     news: { results },
   } = useSelector((state) => state.notifications);
-  const [images, setImages] = useState([]);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
 
   const resetParams = () => {
@@ -73,7 +74,7 @@ const News = () => {
   const terminalScreen = useMemo(() => {
     const { title, body } = watchAllFields;
 
-    if (!title || !body || !images.length) {
+    if (!title || !body) {
       return null;
     }
 
@@ -91,15 +92,13 @@ const News = () => {
           overflow="hidden"
           borderRadius={6}
           mb={1}
-        >
-          <img src={images[0].data_url} width="100%" height="auto" />
-        </Box>
+        ></Box>
         <Box color="white" textAlign="left" fontSize="10px">
           {body}
         </Box>
       </Box>
     );
-  }, [watchAllFields, images]);
+  }, [watchAllFields]);
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -107,7 +106,7 @@ const News = () => {
       const formData = new FormData();
       formData.append('title', data.title);
       formData.append('body', data.body);
-      formData.append('type', ALERT_TYPES.NEWS.VALUE);
+      formData.append('type', ALERT_TYPES.SCORE.VALUE);
       formData.append('ledType', alertParams.ledType);
       formData.append('topColor1', alertParams.topColor1);
       formData.append('topColor2', alertParams.topColor2);
@@ -119,13 +118,10 @@ const News = () => {
       formData.append('vibrationIntensity', alertParams.vibrationIntensity);
       formData.append('duration', alertParams.duration);
 
-      if (images.length) {
-        formData.append('file', images[0].file);
-      }
       const { message } = await notificationsAPI.createNotification(formData);
       showSuccessToast(message);
       initData();
-      dispatch(getNotifications(ALERT_TYPES.NEWS.VALUE, results.length + 1));
+      dispatch(getNotifications(ALERT_TYPES.SCORE.VALUE, results.length + 1));
     } catch (error) {
       if (error.response) {
         const { data: { message = [] } = {} } = error.response;
@@ -136,19 +132,15 @@ const News = () => {
   };
 
   const initData = () => {
-    setImages([]);
-    reset({
-      title: '',
-      body: '',
-    });
+    reset({ title: '', body: '' });
   };
 
-  usePathIndicator({ path: LINKS.NEWS.HREF, label: LINKS.NEWS.TITLE });
+  usePathIndicator({ path: LINKS.SCORE.HREF, label: LINKS.SCORE.TITLE });
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        title="Create News Alert"
+        title="Create Score Alert"
         subheader={getEnglishDateWithTime(new Date())}
       />
       <CardContent>
@@ -162,7 +154,7 @@ const News = () => {
               <Controller
                 as={<MagicTextField />}
                 name="title"
-                label="News Alert Title"
+                label="Score alert Title"
                 labelWidth={200}
                 error={errors.title?.message}
                 className={classes.input}
@@ -171,21 +163,13 @@ const News = () => {
               />
               <Controller
                 as={<MagicTextField />}
-                multiline
-                rows={5}
                 name="body"
-                label="News Body Text"
+                label="Score description"
                 labelWidth={200}
                 error={errors.body?.message}
                 className={classes.input}
                 control={control}
                 defaultValue=""
-              />
-              <MagicImageField
-                label="Image"
-                images={images}
-                onChange={(imgList) => setImages(imgList)}
-                width={350}
               />
               <AlertField
                 label="Alert Parameters"
@@ -217,4 +201,4 @@ const News = () => {
   );
 };
 
-export default memo(News);
+export default memo(Score);

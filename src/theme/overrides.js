@@ -10,11 +10,38 @@ export default {
     root: {
       borderRadius: 8,
       height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+  MuiCardHeader: {
+    root: {
+      padding: '48px 25px 0px 25px',
+    },
+    title: {
+      display: 'inline-block',
+      fontFamily: 'SFProDisplay-BlackItalic',
+      fontSize: 16,
+      fontWeight: 900,
+      letterSpacing: 0.48,
+      color: '#01a1c3',
+      textTransform: 'uppercase',
+    },
+    subheader: {
+      display: 'inline-block',
+      float: 'right',
+      color: '#9ea3ba',
+      fontFamily: 'SFProText-Regular',
+      fontSize: 14,
+      letterSpacing: 0.42,
     },
   },
   MuiCardContent: {
     root: {
       padding: 32,
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
     },
   },
   MuiPaper: {
@@ -61,28 +88,6 @@ export default {
       color: '#696974',
       letterSpacing: 0.1,
       userSelect: 'none',
-    },
-  },
-  MuiCardHeader: {
-    root: {
-      padding: '48px 25px 0px 25px',
-    },
-    title: {
-      display: 'inline-block',
-      fontFamily: 'SFProDisplay-BlackItalic',
-      fontSize: 16,
-      fontWeight: 900,
-      letterSpacing: 0.48,
-      color: '#01a1c3',
-      textTransform: 'uppercase',
-    },
-    subheader: {
-      display: 'inline-block',
-      float: 'right',
-      color: '#9ea3ba',
-      fontFamily: 'SFProText-Regular',
-      fontSize: 14,
-      letterSpacing: 0.42,
     },
   },
 };

@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
   },
   input: {
     marginBottom: theme.spacing(4),
@@ -280,8 +281,9 @@ const News = () => {
               </Grid>
             </Grid>
           </Grid>
-
-          <FormButton type="submit">Send</FormButton>
+          <Box mt="auto">
+            <FormButton type="submit">Send</FormButton>
+          </Box>
         </form>
       </CardContent>
     </Card>

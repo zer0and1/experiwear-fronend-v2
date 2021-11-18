@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SideMenu = () => {
   const classes = useStyles();
-  const matches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const matches = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const dispatch = useDispatch();
 
   const handleLogout = () => {
