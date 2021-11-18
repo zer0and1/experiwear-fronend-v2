@@ -55,6 +55,10 @@ const LINKS = Object.freeze({
     TITLE: 'Promo',
     HREF: '/promo',
   },
+  PROMO_ALERTS_SENT: {
+    TITLE: 'Promo alerts sent',
+    HREF: '/promo/promo-alerts-sent',
+  },
   SCHEDULE: {
     TITLE: 'Schedule',
     HREF: '/schedule',

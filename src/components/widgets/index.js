@@ -9,6 +9,7 @@ export { default as Home } from './Home';
 export { default as HomeSidebar } from './HomeSidebar';
 export { default as Layout } from './Layout';
 export { default as News } from './News';
+export { default as Promo } from './Promo';
 export { default as QuickPoll } from './QuickPoll';
 export { default as QuickPollSentAll } from './QuickPollSentAll';
 export { default as ResetPassword } from './ResetPassword';

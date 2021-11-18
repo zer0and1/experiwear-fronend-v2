@@ -8,21 +8,18 @@ import * as yup from 'yup';
 
 import * as notificationsAPI from 'services/api-notifications';
 import { getNotifications } from 'redux/actions/getNotifications';
-import {
-  showErrorToast,
-  showSuccessToast,
-  getEnglishDateWithTime,
-} from 'utils/helpers';
-import { STRING_VALID } from 'utils/constants/validations';
+import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
+import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations';
+import { getEnglishDateWithTime } from 'utils/helpers';
 import {
   AlertField,
   FanbandTerminal,
   FormButton,
+  MagicImageField,
   MagicTextField,
-  TeamLogo,
 } from 'components';
-import { useLoading } from 'hooks';
-import { ALERT_TYPES } from 'utils/constants';
+import { useLoading, usePathIndicator } from 'hooks';
+import { ALERT_TYPES, LINKS } from 'utils/constants';
 import {
   DEFAULT_ALERT_PARAMS,
   LED_TYPES,
@@ -30,6 +27,7 @@ import {
 } from 'components/elements/AlertField';
 
 const schema = yup.object().shape({
+  title: TITLE_VALID,
   body: STRING_VALID,
 });
 
@@ -47,31 +45,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Score = () => {
+const Promo = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { changeLoadingStatus } = useLoading();
 
-  const { results } = useSelector((state) => state.notifications.news);
-  const { selectedGame: game } = useSelector((state) => state.games);
+  const {
+    promo: { results },
+  } = useSelector((state) => state.notifications);
+  const [images, setImages] = useState([]);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
-  const [hawksTeam, opposingTeam] = useMemo(() => {
-    if (!game) {
-      return [null, null];
-    }
-    const homeTeam = { ...game.homeTeam, score: game.homeTeamScore };
-    const visitorTeam = { ...game.visitorTeam, score: game.visitorTeamScore };
-    return game.homeTeam.abbreviation === 'ATL'
-      ? [homeTeam, visitorTeam]
-      : [visitorTeam, homeTeam];
-  }, [game]);
-
-  const alertTitle = useMemo(() => {
-    if (hawksTeam && opposingTeam) {
-      return `${hawksTeam.score} - ${opposingTeam.score}`;
-    }
-    return '0 - 0';
-  }, [hawksTeam, opposingTeam]);
 
   const resetParams = () => {
     setAlertParmas(DEFAULT_ALERT_PARAMS);
@@ -90,42 +73,33 @@ const Score = () => {
   const terminalScreen = useMemo(() => {
     const { title, body } = watchAllFields;
 
-    if (!title || !body || !hawksTeam || !opposingTeam) {
+    if (!title || !body || !images.length) {
       return null;
     }
 
     return (
       <Box
         display="flex"
-        flexGrow={1}
         flexDirection="column"
-        justifyContent="space-around"
+        justifyContent="space-between"
         alignItems="center"
         width="100%"
-        py={2}
       >
-        <Box display="flex" overflow="hidden" alignItems="center" height="36px">
-          <TeamLogo size={80} team={hawksTeam.abbreviation} />
-          <TeamLogo size={80} team={opposingTeam.abbreviation} />
-        </Box>
         <Box
-          textAlign="center"
-          fontSize="18px"
-          color="#ffdb3c"
-          display="flex"
-          justifyContent="space-around"
-          width="100%"
+          height="48px"
+          width="48px"
+          overflow="hidden"
+          borderRadius={6}
+          mb={1}
         >
-          <span>{hawksTeam.score}</span>
-          <span>-</span>
-          <span>{opposingTeam.score}</span>
+          <img src={images[0].data_url} width="100%" height="auto" />
         </Box>
-        <Box color="white" textAlign="center" fontSize="12px">
-          <span style={{ textTransform: 'uppercase' }}>{body}</span>
+        <Box color="white" textAlign="left" fontSize="10px">
+          {body}
         </Box>
       </Box>
     );
-  }, [watchAllFields, hawksTeam, opposingTeam]);
+  }, [watchAllFields, images]);
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -133,7 +107,7 @@ const Score = () => {
       const formData = new FormData();
       formData.append('title', data.title);
       formData.append('body', data.body);
-      formData.append('type', ALERT_TYPES.SCORE.VALUE);
+      formData.append('type', ALERT_TYPES.PROMO.VALUE);
       formData.append('ledType', alertParams.ledType);
       formData.append('topColor1', alertParams.topColor1);
       formData.append('topColor2', alertParams.topColor2);
@@ -145,10 +119,13 @@ const Score = () => {
       formData.append('vibrationIntensity', alertParams.vibrationIntensity);
       formData.append('duration', alertParams.duration);
 
+      if (images.length) {
+        formData.append('file', images[0].file);
+      }
       const { message } = await notificationsAPI.createNotification(formData);
       showSuccessToast(message);
       initData();
-      dispatch(getNotifications(ALERT_TYPES.SCORE.VALUE, results.length + 1));
+      dispatch(getNotifications(ALERT_TYPES.PROMO.VALUE, results.length + 1));
     } catch (error) {
       if (error.response) {
         const { data: { message = [] } = {} } = error.response;
@@ -159,13 +136,19 @@ const Score = () => {
   };
 
   const initData = () => {
-    reset({ body: '' });
+    setImages([]);
+    reset({
+      title: '',
+      body: '',
+    });
   };
+
+  usePathIndicator({ path: LINKS.PROMO.HREF, label: LINKS.PROMO.TITLE });
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        title="Create Score Alert"
+        title="Create Promo Alert"
         subheader={getEnglishDateWithTime(new Date())}
       />
       <CardContent>
@@ -179,31 +162,24 @@ const Score = () => {
               <Controller
                 as={<MagicTextField />}
                 name="title"
-                label="Score alert Title"
+                label="Promo Alert Title"
                 labelWidth={200}
                 error={errors.title?.message}
                 className={classes.input}
                 control={control}
-                defaultValue={alertTitle}
-                inputProps={{ readOnly: true }}
+                defaultValue=""
               />
               <Controller
                 as={<MagicTextField />}
+                multiline
+                rows={5}
                 name="body"
-                label="Score description"
+                label="Promo Body Text"
                 labelWidth={200}
                 error={errors.body?.message}
                 className={classes.input}
                 control={control}
                 defaultValue=""
-              />
-              <AlertField
-                label="Alert Parameters"
-                value={alertParams}
-                onChange={handleParamsChange}
-                onReset={resetParams}
-                width={350}
-                terminalScreen={terminalScreen}
               />
             </Grid>
             <Grid container item xs={3} justify="flex-end">
@@ -217,6 +193,27 @@ const Score = () => {
                 {terminalScreen}
               </FanbandTerminal>
             </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <MagicImageField
+                  label="Image"
+                  images={images}
+                  onChange={(imgList) => setImages(imgList)}
+                  width="100%"
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <AlertField
+                  label="Alert Parameters"
+                  value={alertParams}
+                  onChange={handleParamsChange}
+                  onReset={resetParams}
+                  width="100%"
+                  mt={3}
+                  terminalScreen={terminalScreen}
+                />
+              </Grid>
+            </Grid>
           </Grid>
           <Box mt="auto">
             <FormButton type="submit">Send</FormButton>
@@ -227,4 +224,4 @@ const Score = () => {
   );
 };
 
-export default memo(Score);
+export default memo(Promo);
