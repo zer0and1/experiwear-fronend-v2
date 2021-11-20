@@ -10,7 +10,6 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import { Title } from 'components';
 import { useRouter } from 'next/router';
 import LINKS from 'utils/constants/links';
 
@@ -63,32 +62,24 @@ const Fanbands = () => {
     statistics: { offline = 0, online = 0, inArea = 0 },
   } = useSelector((state) => state.fanbands);
   const { selectedGame } = useSelector((state) => state.games);
+  const viewListLink = (
+    <Link
+      component="button"
+      className={classes.viewListLink}
+      underline="hover"
+      onClick={() => router.push(LINKS.STATS_FANBANDS.HREF)}
+    >
+      View list
+    </Link>
+  );
 
   return (
     <Card className={classes.root}>
-      <CardHeader
-        title={
-          selectedGame ? (
-            'Online Fanbands In Arena'
-          ) : (
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Title>Fanbands</Title>
-              <Link
-                component="button"
-                className={classes.viewListLink}
-                underline="hover"
-                onClick={() => router.push(LINKS.STATS_FANBANDS.HREF)}
-              >
-                View list
-              </Link>
-            </Box>
-          )
-        }
-      />
+      {selectedGame ? (
+        <CardHeader title="Online Fanbands In Arena" />
+      ) : (
+        <CardHeader title="Fanbands" subheader={viewListLink} />
+      )}
       <CardContent>
         {selectedGame ? (
           <Box>

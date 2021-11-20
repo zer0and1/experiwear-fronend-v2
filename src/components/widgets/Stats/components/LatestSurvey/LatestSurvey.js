@@ -127,8 +127,8 @@ const LatestAlert = () => {
             <Doughnut
               data={chartData}
               options={DOUGHNUT_OPTIONS}
-              width={230}
-              height={230}
+              width={200}
+              height={200}
             />
           </div>
           <div className={classes.footer}>

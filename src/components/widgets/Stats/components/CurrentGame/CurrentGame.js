@@ -8,7 +8,6 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import { Title } from 'components';
 import { TeamLogo } from 'components';
 import { useSelector } from 'react-redux';
 import { getEnglishDateWithTime } from 'utils/helpers';
@@ -21,12 +20,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(3),
     height: theme.spacing(6),
     marginTop: theme.spacing(2),
-  },
-  subtitle: {
-    fontFamily: theme.custom.fonts.SFProTextRegular,
-    fontSize: 14,
-    color: '#9ea3ba',
-    letterSpacing: 0.42,
   },
   teamName: {
     fontFamily: theme.custom.fonts.SFProTextMedium,
@@ -48,19 +41,9 @@ const CurrentGame = () => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Title>Current Game</Title>
-            {selectedGame && (
-              <Typography className={classes.subtitle}>
-                {getEnglishDateWithTime(selectedGame.date)}
-              </Typography>
-            )}
-          </Box>
+        title="Current Game"
+        subheader={
+          selectedGame ? getEnglishDateWithTime(selectedGame.date) : ''
         }
       />
       <CardContent className={classes.content}>
