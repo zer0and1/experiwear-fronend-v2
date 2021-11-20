@@ -215,7 +215,7 @@ const SettingDialog = ({
               </RadioGroup>
             </Box>
           </Grid>
-          <Grid item xs={3} container justify="flex-end">
+          <Grid item xs={3} container justifyContent="flex-end">
             <FanbandTerminal params={params}>{terminalScreen}</FanbandTerminal>
           </Grid>
         </Grid>

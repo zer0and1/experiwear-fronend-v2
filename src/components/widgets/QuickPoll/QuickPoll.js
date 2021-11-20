@@ -248,7 +248,7 @@ const News = () => {
                 </Button>
               </Grid>
             </Grid>
-            <Grid container item xs={3} justify="flex-end">
+            <Grid container item xs={3} justifyContent="flex-end">
               <FanbandTerminal
                 params={{
                   ...alertParams,
