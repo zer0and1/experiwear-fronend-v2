@@ -20,7 +20,7 @@ const AppBar = () => {
   return (
     <Grid
       container
-      justify="space-between"
+      justifyContent="space-between"
       alignItems="center"
       className={classes.root}
     >

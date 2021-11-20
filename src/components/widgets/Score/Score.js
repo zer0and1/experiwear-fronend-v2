@@ -104,7 +104,13 @@ const Score = () => {
         width="100%"
         py={2}
       >
-        <Box display="flex" overflow="hidden" alignItems="center" height="36px">
+        <Box
+          display="flex"
+          overflow="hidden"
+          alignItems="center"
+          width="150%"
+          height="36px"
+        >
           <TeamLogo size={80} team={hawksTeam.abbreviation} />
           <TeamLogo size={80} team={opposingTeam.abbreviation} />
         </Box>
