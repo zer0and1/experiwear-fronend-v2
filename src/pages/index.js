@@ -1,6 +1,4 @@
-import { Layout } from 'components';
-import Home from 'components/widgets/Home';
-import { HomeSidebar } from 'components';
+import { HomeSidebar, Layout, Home } from 'components';
 
 export default function HomePage() {
   return (

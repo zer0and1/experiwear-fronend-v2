@@ -8,7 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import LINKS from 'utils/constants/links';
 
-const HomeSidebar = () => {
+const SelectedGameSidebar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
@@ -73,4 +73,4 @@ const HomeSidebar = () => {
   );
 };
 
-export default HomeSidebar;
+export default SelectedGameSidebar;

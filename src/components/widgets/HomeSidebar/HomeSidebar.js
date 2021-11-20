@@ -1,35 +1,25 @@
-import { Fragment } from 'react';
-import { Calendar, Timeline, CurrentGame } from 'components';
+import { Fragment, useMemo } from 'react';
+import { Timeline, CurrentGame } from 'components';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 const HomeSidebar = () => {
-  const { selectedDate, notifications, cellData } = useSelector(
-    ({ notifications }) => {
-      const {
-        selectedDate,
-        alertStatus,
-        all: { results },
-      } = notifications;
-      return {
-        selectedDate,
-        cellData: alertStatus,
-        notifications: results.filter((n) =>
-          moment(n.createdAt).isSame(moment(selectedDate), 'day')
-        ),
-      };
-    }
+  const {
+    selectedDate,
+    all: { results: notifications },
+  } = useSelector((state) => state.notifications);
+  const slots = useMemo(
+    () =>
+      notifications.filter((n) =>
+        moment(n.createdAt).isSame(moment(selectedDate), 'day')
+      ),
+    [notifications, selectedDate]
   );
-  const { selectedGame } = useSelector((state) => state.games);
 
-  return selectedGame ? (
-    <Fragment>
-      <Calendar minimized={true} cellData={cellData} />
-    </Fragment>
-  ) : (
+  return (
     <Fragment>
       <CurrentGame />
-      <Timeline date={selectedDate} slots={notifications} />
+      <Timeline date={selectedDate} slots={slots} />
     </Fragment>
   );
 };
