@@ -4,8 +4,8 @@ import clsx from 'clsx';
 import { AlertItem } from 'components';
 import { Fragment, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
-import { useAsyncAction, usePathIndicator } from 'hooks';
+import { ALERT_TYPES } from 'utils/constants';
+import { useAsyncAction } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,14 +84,6 @@ const QuickPollAlertsSent = () => {
       }),
     [alerts, responses]
   );
-
-  usePathIndicator([
-    { path: LINKS.quickPoll.path, label: LINKS.quickPoll.title },
-    {
-      path: LINKS.quickPollSent.path,
-      label: LINKS.quickPollSent.TITLE,
-    },
-  ]);
 
   useAsyncAction(getNotifications(ALERT_TYPES.SURVEY.VALUE), !alerts.length);
 

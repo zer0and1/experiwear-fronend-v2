@@ -33,7 +33,7 @@ export default Object.freeze({
   },
   newsSent: {
     title: 'News alerts sent',
-    path: '/news/news-alerts-sent',
+    path: '/news/news-sent',
   },
   quickPoll: {
     title: 'Quick Poll',
@@ -41,7 +41,7 @@ export default Object.freeze({
   },
   quickPollSent: {
     title: 'All quick polls',
-    path: '/quickpoll/quickpoll-alerts-sent',
+    path: '/quickpoll/quickpoll-sent',
   },
   score: {
     title: 'Score',
@@ -49,7 +49,7 @@ export default Object.freeze({
   },
   scoreSent: {
     title: 'Score alerts sent',
-    path: '/score/score-alerts-sent',
+    path: '/score/score-sent',
   },
   promo: {
     title: 'Promo',
@@ -57,7 +57,7 @@ export default Object.freeze({
   },
   promoSent: {
     title: 'Promo alerts sent',
-    path: '/promo/promo-alerts-sent',
+    path: '/promo/promo-sent',
   },
   scheduled: {
     title: 'Schedule',
@@ -65,7 +65,7 @@ export default Object.freeze({
   },
   scheduledSent: {
     title: 'Active scheduled alerts',
-    path: '/schedule/schedule-alerts-sent',
+    path: '/schedule/schedule-sent',
   },
   accelerometer: {
     title: 'Accelerometer',

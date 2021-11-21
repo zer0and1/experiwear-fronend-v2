@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function PromoPage() {
-  usePathIndicator({ path: LINKS.promo.path, label: LINKS.promo.title });
+  usePathIndicator(LINKS.promo);
 
   return (
     <Layout

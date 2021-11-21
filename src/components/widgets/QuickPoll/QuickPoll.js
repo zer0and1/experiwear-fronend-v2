@@ -27,8 +27,8 @@ import {
   MagicImageField,
   MagicTextField,
 } from 'components';
-import { useLoading, usePathIndicator } from 'hooks';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { useLoading } from 'hooks';
+import { ALERT_TYPES } from 'utils/constants';
 import {
   DEFAULT_ALERT_PARAMS,
   LED_TYPES,
@@ -178,11 +178,6 @@ const News = () => {
     resetParams();
     reset({ title: '', body: '' });
   };
-
-  usePathIndicator({
-    path: LINKS.quickPoll.path,
-    label: LINKS.quickPoll.title,
-  });
 
   return (
     <Card className={classes.root}>

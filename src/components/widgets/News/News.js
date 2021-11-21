@@ -18,8 +18,8 @@ import {
   MagicImageField,
   MagicTextField,
 } from 'components';
-import { useLoading, usePathIndicator } from 'hooks';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { useLoading } from 'hooks';
+import { ALERT_TYPES } from 'utils/constants';
 import {
   DEFAULT_ALERT_PARAMS,
   LED_TYPES,
@@ -142,8 +142,6 @@ const News = () => {
       body: '',
     });
   };
-
-  usePathIndicator({ path: LINKS.news.path, label: LINKS.newsTITLE });
 
   return (
     <Card className={classes.root}>

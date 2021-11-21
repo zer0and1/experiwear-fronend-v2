@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function SchedulePage() {
-  usePathIndicator({ path: LINKS.schedule.path, label: LINKS.schedule.title });
+  usePathIndicator(LINKS.schedule.path);
 
   return (
     <Layout

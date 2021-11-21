@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function ScorePage() {
-  usePathIndicator({ path: LINKS.score.path, label: LINKS.score.title });
+  usePathIndicator(LINKS.score);
 
   return (
     <Layout

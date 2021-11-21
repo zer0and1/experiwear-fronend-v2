@@ -1,8 +1,10 @@
-import { Layout } from 'components';
-import Fanbands from 'components/widgets/Fanbands';
-import { ActivityTimeline } from 'components';
+import { Layout, Fanbands, ActivityTimeline } from 'components';
+import { usePathIndicator } from 'hooks';
+import { LINKS } from 'utils/constants';
 
-export default function HomePage() {
+export default function FanbandsPage() {
+  usePathIndicator([LINKS.stats, LINKS.statsFanbands]);
+
   return (
     <Layout sidebar={<ActivityTimeline />}>
       <Fanbands />
