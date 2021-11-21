@@ -24,7 +24,7 @@ const ALERT_TYPES = {
   SCHEDULE: {
     LABEL: 'Active Scheduled',
     VALUE: 'scheduled',
-    HREF: LINKS.schedule.path,
+    HREF: LINKS.scheduled.path,
   },
 };
 

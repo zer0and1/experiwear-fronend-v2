@@ -4,7 +4,6 @@ export * from './common';
 export * from './game-status';
 export * from './image-paths';
 export * from './messages';
-export * from './routes';
 export * from './sidebar-menu';
 export * from './socket';
 export * from './validations';

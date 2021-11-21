@@ -1,4 +1,5 @@
 export { default as AccelerometerIcon } from './AccelerometerIcon';
+export { default as AlertIcon } from './AlertIcon';
 export { default as AlertDealIcon } from './AlertDealIcon';
 export { default as AlertScheduledIcon } from './AlertScheduledIcon';
 export { default as AlertScoreIcon } from './AlertScoreIcon';

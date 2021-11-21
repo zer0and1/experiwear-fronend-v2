@@ -6,10 +6,8 @@ import * as authAPI from 'services/api-auth';
 import { setIsAuthenticated, setCurrentUser } from 'redux/actions/auth';
 import { getGames } from 'redux/actions/games';
 import { getFanbandsStatistics } from 'redux/actions/getFanbandsStatistics';
-import useGameSocket from 'hooks/useGameSocket';
-import useFanbandSocket from 'hooks/useFanbandSocket';
-import { isServer } from 'utils/helpers/utility';
-import { AUTH_ROUTES, PAGE_ROUTES } from 'utils/constants/routes';
+import { useFanbandSocket, useGameSocket } from 'hooks/useFanbandSocket';
+import { isServer } from 'utils/helpers';
 import LINKS from 'utils/constants/links';
 
 const InitProvider = () => {
@@ -54,22 +52,14 @@ const InitProvider = () => {
   };
 
   useEffect(() => {
-    const isAuthenticated = isServer() ? '' : localStorage.isAuthenticated;
-    if (isAuthenticated === 'true') {
-      if (AUTH_ROUTES.includes(router.pathname)) {
-        router.push(LINKS.home.path);
-      }
+    const isAuthenticated = isServer()
+      ? false
+      : JSON.parse(localStorage.isAuthenticated);
+    if (isAuthenticated) {
+      router.push(LINKS.home.path);
     } else {
-      if (PAGE_ROUTES.includes(router.pathname)) {
-        router.push(LINKS.signIn.path);
-      }
+      router.push(LINKS.signIn.path);
     }
-
-    window.scroll({
-      left: 0,
-      top: 0,
-      behavior: 'smooth',
-    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
