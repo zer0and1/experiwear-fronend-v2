@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getNotifications,
@@ -6,11 +6,11 @@ import {
 } from 'redux/actions/getNotifications';
 import { Card, CardContent } from '@material-ui/core';
 import { Calendar, CardHeaderButton } from 'components';
-import { Add } from '@material-ui/icons';
-import LINKS from 'utils/constants/links';
+import { Add as AddIcon } from '@material-ui/icons';
+import { LINKS } from 'utils/constants';
 import { useRouter } from 'next/router';
-import { setPathTokens } from 'redux/actions/auxiliary';
-import { setSelectedGame } from 'redux/actions/games';
+import { useAsyncAction } from 'hooks';
+import { isEmpty } from 'utils/helpers';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,16 +24,10 @@ const Home = () => {
   };
 
   const handleCreateNewsAlert = () => {
-    router.push(LINKS.NEWS.HREF);
+    router.push(LINKS.news.path);
   };
 
-  useEffect(() => {
-    dispatch(getNotifications());
-    dispatch(
-      setPathTokens([{ path: LINKS.HOME.HREF, label: LINKS.HOME.TITLE }])
-    );
-    dispatch(setSelectedGame(''));
-  }, [dispatch]);
+  useAsyncAction(getNotifications(), isEmpty(alertStatus));
 
   return (
     <Card>
@@ -43,7 +37,7 @@ const Home = () => {
           cellData={alertStatus}
           actions={
             <CardHeaderButton
-              startIcon={<Add />}
+              startIcon={<AddIcon />}
               onClick={handleCreateNewsAlert}
             >
               News Alert

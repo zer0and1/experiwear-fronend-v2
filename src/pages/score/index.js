@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function ScorePage() {
-  usePathIndicator({ path: LINKS.SCORE.HREF, label: LINKS.SCORE.TITLE });
+  usePathIndicator({ path: LINKS.score.path, label: LINKS.score.title });
 
   return (
     <Layout
@@ -12,7 +12,7 @@ export default function ScorePage() {
           <CurrentFanbandStats />
           <AlertsSent
             type={ALERT_TYPES.SCORE.VALUE}
-            link={LINKS.SCORE_ALERTS_SENT.HREF}
+            link={LINKS.scoreSent.path}
           />
         </>
       }

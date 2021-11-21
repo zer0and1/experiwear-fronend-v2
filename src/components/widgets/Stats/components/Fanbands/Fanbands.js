@@ -67,7 +67,7 @@ const Fanbands = () => {
       component="button"
       className={classes.viewListLink}
       underline="hover"
-      onClick={() => router.push(LINKS.STATS_FANBANDS.HREF)}
+      onClick={() => router.push(LINKS.statsFanbands.path)}
     >
       View list
     </Link>

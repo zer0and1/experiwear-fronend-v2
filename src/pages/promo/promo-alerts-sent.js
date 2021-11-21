@@ -3,10 +3,10 @@ import { useAlertsSent, usePathIndicator } from 'hooks';
 
 const NewsAlertsSent = () => {
   usePathIndicator([
-    { path: LINKS.PROMO.HREF, label: LINKS.PROMO.TITLE },
+    { path: LINKS.promo.path, label: LINKS.promo.title },
     {
-      path: LINKS.PROMO_ALERTS_SENT.HREF,
-      label: LINKS.PROMO_ALERTS_SENT.TITLE,
+      path: LINKS.promoSent.path,
+      label: LINKS.promoSent.TITLE,
     },
   ]);
 

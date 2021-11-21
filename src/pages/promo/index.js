@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function PromoPage() {
-  usePathIndicator({ path: LINKS.PROMO.HREF, label: LINKS.PROMO.TITLE });
+  usePathIndicator({ path: LINKS.promo.path, label: LINKS.promo.title });
 
   return (
     <Layout
@@ -12,7 +12,7 @@ export default function PromoPage() {
           <CurrentFanbandStats />
           <AlertsSent
             type={ALERT_TYPES.PROMO.VALUE}
-            link={LINKS.PROMO_ALERTS_SENT.HREF}
+            link={LINKS.promoSent.path}
           />
         </>
       }

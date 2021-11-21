@@ -3,10 +3,10 @@ import { useAlertsSent, usePathIndicator } from 'hooks';
 
 const ScoreAlertsSent = () => {
   usePathIndicator([
-    { path: LINKS.SCORE.HREF, label: LINKS.SCORE.TITLE },
+    { path: LINKS.score.path, label: LINKS.score.title },
     {
-      path: LINKS.SCORE_ALERTS_SENT.HREF,
-      label: LINKS.SCORE_ALERTS_SENT.TITLE,
+      path: LINKS.scoreSent.path,
+      label: LINKS.scoreSent.TITLE,
     },
   ]);
 

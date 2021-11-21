@@ -11,8 +11,8 @@ const Fanbands = () => {
   useEffect(() => {
     dispatch(
       setPathTokens([
-        { path: LINKS.STATS.HREF, label: LINKS.STATS.TITLE },
-        { path: LINKS.STATS_FANBANDS.HREF, label: LINKS.STATS_FANBANDS.TITLE },
+        { path: LINKS.stats.path, label: LINKS.stats.title },
+        { path: LINKS.statsFanbands.path, label: LINKS.statsFanbands.TITLE },
       ])
     );
   }, [dispatch]);

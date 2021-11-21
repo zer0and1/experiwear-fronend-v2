@@ -4,10 +4,10 @@ import { usePathIndicator } from 'hooks';
 
 const QuickPollAlertsSent = () => {
   usePathIndicator([
-    { path: LINKS.QUICKPOLL.HREF, label: LINKS.QUICKPOLL.TITLE },
+    { path: LINKS.quickPoll.path, label: LINKS.quickPoll.title },
     {
-      path: LINKS.QUICKPOLL_ALERTS_SENT.HREF,
-      label: LINKS.QUICKPOLL_ALERTS_SENT.TITLE,
+      path: LINKS.quickPollSent.path,
+      label: LINKS.quickPollSent.TITLE,
     },
   ]);
 

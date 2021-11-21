@@ -4,27 +4,27 @@ const ALERT_TYPES = {
   NEWS: {
     LABEL: 'News',
     VALUE: 'news',
-    HREF: LINKS.NEWS.HREF,
+    HREF: LINKS.news.path,
   },
   SURVEY: {
     LABEL: 'Quick Poll',
     VALUE: 'survey',
-    HREF: LINKS.QUICKPOLL.HREF,
+    HREF: LINKS.quickPoll.path,
   },
   SCORE: {
     LABEL: 'Score',
     VALUE: 'score',
-    HREF: LINKS.SCORE.HREF,
+    HREF: LINKS.score.path,
   },
   PROMO: {
     LABEL: 'Promo',
     VALUE: 'promo',
-    HREF: LINKS.PROMO.HREF,
+    HREF: LINKS.promo.path,
   },
   SCHEDULE: {
     LABEL: 'Active Scheduled',
     VALUE: 'scheduled',
-    HREF: LINKS.SCHEDULE.HREF,
+    HREF: LINKS.schedule.path,
   },
 };
 

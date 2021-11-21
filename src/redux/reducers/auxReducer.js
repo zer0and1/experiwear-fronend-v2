@@ -9,7 +9,7 @@ export default function auxReducer(state = initialState, action) {
     case TYPES.SET_PATH_TOKENS:
       return {
         ...state,
-        pathTokens: [{ path: '/', label: 'Experiwear' }, ...action.payload],
+        pathTokens: [{ path: '/', title: 'Experiwear' }, ...action.payload],
       };
     default:
       return state;

@@ -50,15 +50,15 @@ const SelectedGame = () => {
   );
 
   const handleCreateNewsAlert = () => {
-    router.push(LINKS.NEWS.HREF);
+    router.push(LINKS.news.path);
   };
 
   useEffect(() => {
     dispatch(getNotifications());
     dispatch(
       setPathTokens([
-        { path: LINKS.HOME.HREF, label: LINKS.HOME.TITLE },
-        { path: LINKS.HOME.HREF, label: getEnglishDateWithTime(selectedDate) },
+        { path: LINKS.home.path, label: LINKS.home.TITLE },
+        { path: LINKS.home.path, label: getEnglishDateWithTime(selectedDate) },
       ])
     );
   }, [dispatch, selectedDate]);

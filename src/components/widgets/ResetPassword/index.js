@@ -41,7 +41,7 @@ const ResetPassword = () => {
 
         const { message } = await authAPI.resetPassword(params);
         showSuccessToast(message);
-        router.push(LINKS.SIGN_IN.HREF);
+        router.push(LINKS.signIn.path);
       } catch (error) {
         if (error.response) {
           const { data: { message = [] } = {} } = error.response;
@@ -99,7 +99,7 @@ const ResetPassword = () => {
           variant="contained"
           fullWidth
           className={authClasses.button}
-          href={LINKS.SIGN_IN.HREF}
+          href={LINKS.signIn.path}
         >
           Cancel
         </Button>

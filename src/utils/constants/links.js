@@ -1,84 +1,78 @@
-const LINKS = Object.freeze({
-  SIGN_IN: {
-    TITLE: 'Sign In',
-    HREF: '/auth/sign-in',
+export default Object.freeze({
+  signIn: {
+    title: 'Sign In',
+    path: '/auth/sign-in',
   },
-  FORGOT_PASSWORD: {
-    TITLE: 'Forgot Password',
-    HREF: '/auth/forgot-password',
+  forgotPassword: {
+    title: 'Forgot Password',
+    path: '/auth/forgot-password',
   },
-  RESET_PASSWORD: {
-    TITLE: 'Reset Password',
-    HREF: '/auth/reset-password',
+  resetPassword: {
+    title: 'Reset Password',
+    path: '/auth/reset-password',
   },
-  HOME: {
-    TITLE: 'Home',
-    HREF: '/',
+  home: {
+    title: 'Home',
+    path: '/',
   },
-  SELECTED_GAME: {
-    TITLE: 'Selected Game',
-    HREF: '/selected-game',
+  selectedGame: {
+    title: 'Selected Game',
+    path: '/selected-game',
   },
-  STATS: {
-    TITLE: 'Stats',
-    HREF: '/stats',
+  stats: {
+    title: 'Stats',
+    path: '/stats',
   },
-  STATS_FANBANDS: {
-    TITLE: 'Fanbands',
-    HREF: '/stats/fanbands',
+  statsFanbands: {
+    title: 'Fanbands',
+    path: '/stats/fanbands',
   },
-  NEWS: {
-    TITLE: 'News',
-    HREF: '/news',
+  news: {
+    title: 'News',
+    path: '/news',
   },
-  NEWS_ALERTS_SENT: {
-    TITLE: 'News alerts sent',
-    HREF: '/news/news-alerts-sent',
+  newsSent: {
+    title: 'News alerts sent',
+    path: '/news/news-alerts-sent',
   },
-  QUICKPOLL: {
-    TITLE: 'Quick Poll',
-    HREF: '/quickpoll',
+  quickPoll: {
+    title: 'Quick Poll',
+    path: '/quickpoll',
   },
-  QUICKPOLL_ALERTS_SENT: {
-    TITLE: 'All quick polls',
-    HREF: '/quickpoll/quickpoll-alerts-sent',
+  quickPollSent: {
+    title: 'All quick polls',
+    path: '/quickpoll/quickpoll-alerts-sent',
   },
-  SCORE: {
-    TITLE: 'Score',
-    HREF: '/score',
+  score: {
+    title: 'Score',
+    path: '/score',
   },
-  SCORE_ALERTS_SENT: {
-    TITLE: 'Score alerts sent',
-    HREF: '/score/score-alerts-sent',
+  scoreSent: {
+    title: 'Score alerts sent',
+    path: '/score/score-alerts-sent',
   },
-  PROMO: {
-    TITLE: 'Promo',
-    HREF: '/promo',
+  promo: {
+    title: 'Promo',
+    path: '/promo',
   },
-  PROMO_ALERTS_SENT: {
-    TITLE: 'Promo alerts sent',
-    HREF: '/promo/promo-alerts-sent',
+  promoSent: {
+    title: 'Promo alerts sent',
+    path: '/promo/promo-alerts-sent',
   },
-  SCHEDULE: {
-    TITLE: 'Schedule',
-    HREF: '/schedule',
+  scheduled: {
+    title: 'Schedule',
+    path: '/schedule',
   },
-  SCHEDULE_ALERTS_SENT: {
-    TITLE: 'Active scheduled alerts',
-    HREF: '/schedule/schedule-alerts-sent',
+  scheduledSent: {
+    title: 'Active scheduled alerts',
+    path: '/schedule/schedule-alerts-sent',
   },
-  CANNED: {
-    TITLE: 'Canned',
-    HREF: '/canned',
+  accelerometer: {
+    title: 'Accelerometer',
+    path: '/accelerometer',
   },
-  ACCELEROMETER: {
-    TITLE: 'Accelerometer',
-    HREF: '/accelerometer',
-  },
-  SAVED_ALERTS: {
-    TITLE: 'Saved alerts',
-    HREF: '/saved-alerts',
+  savedAlerts: {
+    title: 'Saved alerts',
+    path: '/saved-alerts',
   },
 });
-
-export default LINKS;

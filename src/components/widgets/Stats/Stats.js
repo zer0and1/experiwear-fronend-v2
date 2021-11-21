@@ -10,7 +10,7 @@ const Stats = () => {
 
   useEffect(() => {
     dispatch(
-      setPathTokens([{ path: LINKS.STATS.HREF, label: LINKS.STATS.TITLE }])
+      setPathTokens([{ path: LINKS.stats.path, label: LINKS.stats.title }])
     );
   }, [dispatch]);
 

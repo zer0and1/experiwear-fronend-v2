@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function SchedulePage() {
-  usePathIndicator({ path: LINKS.SCHEDULE.HREF, label: LINKS.SCHEDULE.TITLE });
+  usePathIndicator({ path: LINKS.schedule.path, label: LINKS.schedule.title });
 
   return (
     <Layout
@@ -12,7 +12,7 @@ export default function SchedulePage() {
           <CurrentFanbandStats />
           <AlertsSent
             type={ALERT_TYPES.SCHEDULE.VALUE}
-            link={LINKS.SCHEDULE_ALERTS_SENT.HREF}
+            link={LINKS.scheduledSent.path}
           />
         </>
       }

@@ -9,7 +9,7 @@ const setUserToken =
   (dispatch) => {
     dispatch(setIsAuthenticated(isAuthenticated));
     dispatch(setCurrentUser(user));
-    Router.push(LINKS.HOME.HREF);
+    Router.push(LINKS.home.path);
   };
 
 const setIsAuthenticated = (isAuthenticated) => {
@@ -37,7 +37,7 @@ const logoutUser = () => async (dispatch) => {
   localStorage.clear();
   dispatch(setIsAuthenticated(false));
   dispatch(setCurrentUser({}));
-  Router.push(LINKS.SIGN_IN.HREF);
+  Router.push(LINKS.signIn.path);
 };
 
 export { setUserToken, setIsAuthenticated, setCurrentUser, logoutUser };

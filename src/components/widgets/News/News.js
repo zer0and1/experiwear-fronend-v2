@@ -143,7 +143,7 @@ const News = () => {
     });
   };
 
-  usePathIndicator({ path: LINKS.NEWS.HREF, label: LINKS.NEWS.TITLE });
+  usePathIndicator({ path: LINKS.news.path, label: LINKS.newsTITLE });
 
   return (
     <Card className={classes.root}>

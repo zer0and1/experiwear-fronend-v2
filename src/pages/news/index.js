@@ -9,7 +9,7 @@ export default function NewsPage() {
           <CurrentFanbandStats />
           <AlertsSent
             type={ALERT_TYPES.NEWS.VALUE}
-            link={LINKS.NEWS_ALERTS_SENT.HREF}
+            link={LINKS.newsSent.path}
           />
         </>
       }

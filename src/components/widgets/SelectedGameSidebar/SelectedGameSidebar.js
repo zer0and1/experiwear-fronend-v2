@@ -27,7 +27,7 @@ const SelectedGameSidebar = () => {
   };
 
   useEffect(() => {
-    selectedGame || router.push(LINKS.HOME.HREF);
+    selectedGame || router.push(LINKS.home.path);
   }, [selectedGame, router]);
 
   return (

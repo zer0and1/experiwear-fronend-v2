@@ -144,7 +144,7 @@ const SignIn = () => {
             label="Remember Me"
           />
           <LinkButton
-            href={LINKS.FORGOT_PASSWORD.HREF}
+            href={LINKS.forgotPassword.path}
             className={authClasses.forgotLink}
           >
             Forgot Password

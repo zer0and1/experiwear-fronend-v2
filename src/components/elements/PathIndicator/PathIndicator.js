@@ -35,7 +35,7 @@ const PathIndicator = () => {
   const router = useRouter();
   const pathTokens = useSelector((state) => state.aux.pathTokens);
   const lastTokenLabel = useMemo(
-    () => (pathTokens.length ? pathTokens[pathTokens.length - 1].label : ''),
+    () => (pathTokens.length ? pathTokens[pathTokens.length - 1].title : ''),
     [pathTokens]
   );
 
@@ -57,7 +57,7 @@ const PathIndicator = () => {
             onClick={() => handleTokenClick(token.path)}
             className={classes.token}
           >
-            {token.label}
+            {token.title}
           </Link>
         ))}
       </Breadcrumbs>

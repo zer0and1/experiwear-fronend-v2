@@ -47,8 +47,8 @@ const GameSelector = () => {
     dispatch(setSelectedGame(games.find((g) => g.id === e.target.value)));
 
     switch (pathTokens[1].path) {
-      case LINKS.HOME.HREF:
-        router.push(LINKS.SELECTED_GAME.HREF);
+      case LINKS.home.path:
+        router.push(LINKS.selectedGame.path);
         break;
       default:
         break;

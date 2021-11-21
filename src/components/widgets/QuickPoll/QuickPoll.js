@@ -180,8 +180,8 @@ const News = () => {
   };
 
   usePathIndicator({
-    path: LINKS.QUICKPOLL.HREF,
-    label: LINKS.QUICKPOLL.TITLE,
+    path: LINKS.quickPoll.path,
+    label: LINKS.quickPoll.title,
   });
 
   return (
