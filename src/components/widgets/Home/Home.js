@@ -4,31 +4,16 @@ import {
   getNotifications,
   setSelectedDate,
 } from 'redux/actions/getNotifications';
-import { Button, Card, CardContent, makeStyles } from '@material-ui/core';
-import { Calendar } from 'components';
+import { Card, CardContent } from '@material-ui/core';
+import { Calendar, CardHeaderButton } from 'components';
 import { Add } from '@material-ui/icons';
 import LINKS from 'utils/constants/links';
 import { useRouter } from 'next/router';
 import { setPathTokens } from 'redux/actions/auxiliary';
 import { setSelectedGame } from 'redux/actions/games';
 
-const useStyles = makeStyles((theme) => ({
-  newsAlertButton: {
-    backgroundColor: theme.palette.info.main,
-    fontSize: 12,
-    height: 35,
-    '&:hover': {
-      backgroundColor: theme.palette.info.dark,
-    },
-  },
-  cardContent: {
-    height: '100%',
-  },
-}));
-
 const Home = () => {
   const dispatch = useDispatch();
-  const classes = useStyles();
   const router = useRouter();
   const { selectedDate, alertStatus } = useSelector(
     (state) => state.notifications
@@ -52,20 +37,17 @@ const Home = () => {
 
   return (
     <Card>
-      <CardContent className={classes.cardContent}>
+      <CardContent>
         <Calendar
           value={selectedDate}
           cellData={alertStatus}
           actions={
-            <Button
-              variant="contained"
-              color="primary"
+            <CardHeaderButton
               startIcon={<Add />}
-              className={classes.newsAlertButton}
               onClick={handleCreateNewsAlert}
             >
               News Alert
-            </Button>
+            </CardHeaderButton>
           }
           onChange={handleDateChange}
         />
