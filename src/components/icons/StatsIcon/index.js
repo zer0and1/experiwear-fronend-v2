@@ -9,9 +9,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const StatsIcon = ({ isActive = false, className, viewBox, ...rest }) => {
+const StatsIcon = ({ className, viewBox, ...rest }) => {
   const classes = useStyles();
-  const color = isActive ? '#01a1c3' : '#9ea3ba';
 
   return (
     <SvgIcon
@@ -22,7 +21,7 @@ const StatsIcon = ({ isActive = false, className, viewBox, ...rest }) => {
       <g fill="none" stroke="none">
         <path
           d="M8 14.4A6.4 6.4 0 1 0 8 1.6a6.4 6.4 0 0 0 0 12.8zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM7.2.8h1.6v8H7.2v-8zm0 6.4h8v1.6h-8V7.2z"
-          fill={color}
+          fill="currentColor"
           fillRule="nonzero"
         />
       </g>

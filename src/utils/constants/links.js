@@ -63,6 +63,10 @@ const LINKS = Object.freeze({
     TITLE: 'Schedule',
     HREF: '/schedule',
   },
+  SCHEDULE_ALERTS_SENT: {
+    TITLE: 'Active scheduled alerts',
+    HREF: '/schedule/schedule-alerts-sent',
+  },
   CANNED: {
     TITLE: 'Canned',
     HREF: '/canned',

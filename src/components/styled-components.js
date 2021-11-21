@@ -1,4 +1,4 @@
-import { withStyles, Slider, Typography } from '@material-ui/core';
+import { withStyles, Slider, Typography, Button } from '@material-ui/core';
 
 export const HeaderText = withStyles((theme) => ({
   root: {
@@ -47,3 +47,14 @@ export const PrettoSlider = withStyles((theme) => ({
     boxShadow: '0px 0px 0px 1px rgb(0 116 140 / 16%)',
   },
 }))(Slider);
+
+export const CardHeaderButton = withStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.info.main,
+    fontSize: 12,
+    height: 35,
+    '&:hover': {
+      backgroundColor: theme.palette.info.dark,
+    },
+  },
+}))(Button);

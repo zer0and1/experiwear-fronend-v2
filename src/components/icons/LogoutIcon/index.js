@@ -9,9 +9,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const LogoutIcon = ({ isActive = false, className, viewBox, ...rest }) => {
+const LogoutIcon = ({ className, viewBox, ...rest }) => {
   const classes = useStyles();
-  const color = isActive ? '#01a1c3' : '#9ea3ba';
 
   return (
     <SvgIcon
@@ -27,7 +26,7 @@ const LogoutIcon = ({ isActive = false, className, viewBox, ...rest }) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <g stroke={color} strokeWidth="1.2">
+        <g stroke="currentColor" strokeWidth="1.2">
           <path d="M11 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M8 12h11M15 8l4 4-4 4" />
         </g>
       </g>

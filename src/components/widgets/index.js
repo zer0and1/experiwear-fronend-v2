@@ -19,4 +19,5 @@ export { default as SideBar } from './SideBar';
 export { default as SideMenu } from './SideMenu';
 export { default as SignIn } from './SignIn';
 export { default as Stats } from './Stats';
+export { default as Schedule } from './Schedule';
 export { default as Score } from './Score';

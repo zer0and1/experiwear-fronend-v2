@@ -21,6 +21,11 @@ const ALERT_TYPES = {
     VALUE: 'promo',
     HREF: LINKS.PROMO.HREF,
   },
+  SCHEDULE: {
+    LABEL: 'Active Scheduled',
+    VALUE: 'scheduled',
+    HREF: LINKS.SCHEDULE.HREF,
+  },
 };
 
 const ALERT_TYPES_ARRAY = [

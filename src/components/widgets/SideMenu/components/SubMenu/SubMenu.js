@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuIcon: {
     minWidth: 35,
+    color: '#9ea3ba',
+  },
+  menuIconActive: {
+    color: '#01a1c3',
   },
   item: {
     fontFamily: theme.custom.fonts.SFProTextRegular,
@@ -62,8 +66,12 @@ const SubMenu = ({ title, items }) => {
           })}
           onClick={(e) => handleItemClick(e, path)}
         >
-          <ListItemIcon className={classes.menuIcon}>
-            <MenuIcon isActive={path === mainPath} />
+          <ListItemIcon
+            className={clsx(classes.menuIcon, {
+              [classes.menuIconActive]: path === mainPath,
+            })}
+          >
+            <MenuIcon />
           </ListItemIcon>
           <ListItemText primary={title} />
         </ListItem>
