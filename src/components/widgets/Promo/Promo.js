@@ -25,6 +25,7 @@ import {
   LED_TYPES,
   VIB_INTENSITIES,
 } from 'components/elements/AlertField';
+import { ImageScreen } from 'components/elements/FanbandTerminal';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -69,37 +70,7 @@ const Promo = () => {
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
   });
-  const watchAllFields = watch();
-  const terminalScreen = useMemo(() => {
-    const { title, body } = watchAllFields;
-
-    if (!title || !body || !images.length) {
-      return null;
-    }
-
-    return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-      >
-        <Box
-          height="48px"
-          width="48px"
-          overflow="hidden"
-          borderRadius={6}
-          mb={1}
-        >
-          <img src={images[0].data_url} width="100%" height="auto" />
-        </Box>
-        <Box color="white" textAlign="left" fontSize="10px">
-          {body}
-        </Box>
-      </Box>
-    );
-  }, [watchAllFields, images]);
+  const bodyText = watch('body');
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -188,7 +159,7 @@ const Promo = () => {
                   vibrationIntensity: VIB_INTENSITIES.no,
                 }}
               >
-                {terminalScreen}
+                <ImageScreen imageUrl={images[0]?.data_url} text={bodyText} />
               </FanbandTerminal>
             </Grid>
             <Grid container spacing={3}>
@@ -208,7 +179,12 @@ const Promo = () => {
                   onReset={resetParams}
                   width="100%"
                   mt={3}
-                  terminalScreen={terminalScreen}
+                  terminalScreen={
+                    <ImageScreen
+                      imageUrl={images[0]?.data_url}
+                      text={bodyText}
+                    />
+                  }
                 />
               </Grid>
             </Grid>

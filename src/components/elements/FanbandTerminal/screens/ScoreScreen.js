@@ -4,7 +4,7 @@ import { TeamLogo } from 'components';
 import { isEmpty } from 'utils/helpers';
 import ScreenFrame from './ScreenFrame';
 
-const ImageScreen = ({ game, text }) => {
+const ScoreScreen = ({ game, text }) => {
   const [hawksTeam, opposingTeam] = useMemo(() => {
     if (isEmpty(game)) {
       return [null, null];
@@ -61,4 +61,4 @@ const ImageScreen = ({ game, text }) => {
   );
 };
 
-export default ImageScreen;
+export default ScoreScreen;

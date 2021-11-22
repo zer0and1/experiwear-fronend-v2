@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,6 +25,7 @@ import {
   LED_TYPES,
   VIB_INTENSITIES,
 } from 'components/elements/AlertField';
+import { ImageScreen } from 'components/elements/FanbandTerminal';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -69,37 +70,7 @@ const News = () => {
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
   });
-  const watchAllFields = watch();
-  const terminalScreen = useMemo(() => {
-    const { title, body } = watchAllFields;
-
-    if (!title || !body || !images.length) {
-      return null;
-    }
-
-    return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-      >
-        <Box
-          height="48px"
-          width="48px"
-          overflow="hidden"
-          borderRadius={6}
-          mb={1}
-        >
-          <img src={images[0].data_url} width="100%" height="auto" />
-        </Box>
-        <Box color="white" textAlign="left" fontSize="10px">
-          {body}
-        </Box>
-      </Box>
-    );
-  }, [watchAllFields, images]);
+  const bodyText = watch('body');
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -191,7 +162,9 @@ const News = () => {
                 onChange={handleParamsChange}
                 onReset={resetParams}
                 width={350}
-                terminalScreen={terminalScreen}
+                terminalScreen={
+                  <ImageScreen imageUrl={images[0]?.data_url} text={bodyText} />
+                }
               />
             </Grid>
             <Grid container item xs={3} justifyContent="flex-end">
@@ -202,7 +175,7 @@ const News = () => {
                   vibrationIntensity: VIB_INTENSITIES.no,
                 }}
               >
-                {terminalScreen}
+                <ImageScreen imageUrl={images[0]?.data_url} text={bodyText} />
               </FanbandTerminal>
             </Grid>
           </Grid>

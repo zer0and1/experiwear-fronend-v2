@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
@@ -34,6 +34,7 @@ import {
   LED_TYPES,
   VIB_INTENSITIES,
 } from 'components/elements/AlertField';
+import { QuickPollScreen } from 'components/elements/FanbandTerminal';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -60,15 +61,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.info.dark,
     },
-  },
-  triangle: {
-    width: 0,
-    height: 0,
-    display: 'inline-block',
-    borderTop: '3px solid transparent',
-    borderLeft: '6px solid #ffdb3c',
-    borderBottom: '3px solid transparent',
-    marginRight: 3,
   },
 }));
 
@@ -99,43 +91,6 @@ const News = () => {
     resolver: yupResolver(schema),
   });
   const watchTitle = watch('title');
-
-  const terminalScreen = useMemo(() => {
-    if (!watchTitle || responses.every((d) => !d)) {
-      return null;
-    }
-
-    return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Box color="#f80015" fontSize="16px" mb={2}>
-          POLL
-        </Box>
-        <Box color="white" textAlign="left" fontSize="10px" mb={2.5}>
-          {watchTitle}
-        </Box>
-        {responses
-          .filter((r) => r)
-          .map((res, idx) => (
-            <Box
-              key={idx}
-              color={idx ? 'white' : '#ffdb3c'}
-              textAlign="center"
-              fontSize="10px"
-              mb="5px"
-              pl={idx ? '6px' : 0}
-            >
-              {idx ? null : <div className={classes.triangle} />}
-              <span style={{ textTransform: 'uppercase' }}>{res}</span>
-            </Box>
-          ))}
-      </Box>
-    );
-  }, [watchTitle, responses, classes]);
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -251,7 +206,7 @@ const News = () => {
                   vibrationIntensity: VIB_INTENSITIES.no,
                 }}
               >
-                {terminalScreen}
+                <QuickPollScreen text={watchTitle} responses={responses} />
               </FanbandTerminal>
             </Grid>
             <Grid container spacing={3}>
@@ -271,7 +226,9 @@ const News = () => {
                   onReset={resetParams}
                   width="90%"
                   mt={3}
-                  terminalScreen={terminalScreen}
+                  terminalScreen={
+                    <QuickPollScreen text={watchTitle} responses={responses} />
+                  }
                 />
               </Grid>
             </Grid>
