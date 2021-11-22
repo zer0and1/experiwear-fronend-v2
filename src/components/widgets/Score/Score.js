@@ -12,6 +12,7 @@ import {
   showErrorToast,
   showSuccessToast,
   getEnglishDateWithTime,
+  isEmpty,
 } from 'utils/helpers';
 import { STRING_VALID } from 'utils/constants/validations';
 import {
@@ -19,7 +20,6 @@ import {
   FanbandTerminal,
   FormButton,
   MagicTextField,
-  TeamLogo,
 } from 'components';
 import { useLoading } from 'hooks';
 import { ALERT_TYPES } from 'utils/constants';
@@ -28,6 +28,7 @@ import {
   LED_TYPES,
   VIB_INTENSITIES,
 } from 'components/elements/AlertField';
+import { ScoreScreen } from 'components/elements/FanbandTerminal';
 
 const schema = yup.object().shape({
   body: STRING_VALID,
@@ -55,23 +56,16 @@ const Score = () => {
   const { results } = useSelector((state) => state.notifications.news);
   const { selectedGame: game } = useSelector((state) => state.games);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
-  const [hawksTeam, opposingTeam] = useMemo(() => {
-    if (!game) {
-      return [null, null];
-    }
-    const homeTeam = { ...game.homeTeam, score: game.homeTeamScore };
-    const visitorTeam = { ...game.visitorTeam, score: game.visitorTeamScore };
-    return game.homeTeam.abbreviation === 'ATL'
-      ? [homeTeam, visitorTeam]
-      : [visitorTeam, homeTeam];
-  }, [game]);
 
   const alertTitle = useMemo(() => {
-    if (hawksTeam && opposingTeam) {
-      return `${hawksTeam.score} - ${opposingTeam.score}`;
+    if (isEmpty(game)) {
+      return '0 - 0';
     }
-    return '0 - 0';
-  }, [hawksTeam, opposingTeam]);
+    if (game.homeTeam.abbreviation === 'ATL') {
+      return `${game.homeTeam.score} - ${game.visitorTeam.score}`;
+    }
+    return `${game.visitorTeam.score} - ${game.homeTeam.score}`;
+  }, [game]);
 
   const resetParams = () => {
     setAlertParmas(DEFAULT_ALERT_PARAMS);
@@ -86,52 +80,7 @@ const Score = () => {
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
   });
-  const watchAllFields = watch();
-  const terminalScreen = useMemo(() => {
-    const { title, body } = watchAllFields;
-
-    if (!title || !body || !hawksTeam || !opposingTeam) {
-      return null;
-    }
-
-    return (
-      <Box
-        display="flex"
-        flexGrow={1}
-        flexDirection="column"
-        justifyContent="space-around"
-        alignItems="center"
-        width="100%"
-        py={2}
-      >
-        <Box
-          display="flex"
-          overflow="hidden"
-          alignItems="center"
-          width="150%"
-          height="36px"
-        >
-          <TeamLogo size={80} team={hawksTeam.abbreviation} />
-          <TeamLogo size={80} team={opposingTeam.abbreviation} />
-        </Box>
-        <Box
-          textAlign="center"
-          fontSize="18px"
-          color="#ffdb3c"
-          display="flex"
-          justifyContent="space-around"
-          width="100%"
-        >
-          <span>{hawksTeam.score}</span>
-          <span>-</span>
-          <span>{opposingTeam.score}</span>
-        </Box>
-        <Box color="white" textAlign="center" fontSize="12px">
-          <span style={{ textTransform: 'uppercase' }}>{body}</span>
-        </Box>
-      </Box>
-    );
-  }, [watchAllFields, hawksTeam, opposingTeam]);
+  const bodyText = watch('body');
 
   const onSubmit = async (data) => {
     changeLoadingStatus(true);
@@ -209,7 +158,7 @@ const Score = () => {
                 onChange={handleParamsChange}
                 onReset={resetParams}
                 width={350}
-                terminalScreen={terminalScreen}
+                terminalScreen={<ScoreScreen game={game} text={bodyText} />}
               />
             </Grid>
             <Grid container item xs={3} justifyContent="flex-end">
@@ -220,7 +169,7 @@ const Score = () => {
                   vibrationIntensity: VIB_INTENSITIES.no,
                 }}
               >
-                {terminalScreen}
+                <ScoreScreen game={game} text={bodyText} />
               </FanbandTerminal>
             </Grid>
           </Grid>

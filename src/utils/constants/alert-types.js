@@ -22,9 +22,9 @@ const ALERT_TYPES = {
     HREF: LINKS.promo.path,
   },
   SCHEDULE: {
-    LABEL: 'Active Scheduled',
+    LABEL: 'Scheduled',
     VALUE: 'scheduled',
-    HREF: LINKS.scheduled.path,
+    HREF: LINKS.schedule.path,
   },
 };
 

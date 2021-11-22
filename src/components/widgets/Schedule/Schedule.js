@@ -18,6 +18,7 @@ import {
   MagicTextField,
   CardHeaderButton,
   CalendarIcon,
+  MagicSelect,
 } from 'components';
 import { useLoading } from 'hooks';
 import { ALERT_TYPES } from 'utils/constants';
@@ -147,7 +148,7 @@ const Schedule = () => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title="Create Schedule Alert"
+        title="Create Scheduled Alert"
         subheader={
           <CardHeaderButton startIcon={<CalendarIcon />}>
             Set date and time
@@ -162,6 +163,18 @@ const Schedule = () => {
         >
           <Grid container>
             <Grid item xs={9}>
+              <Controller
+                as={<MagicSelect />}
+                name="type"
+                label="Alert type"
+                error={errors.title?.message}
+                className={classes.input}
+                control={control}
+                items={Object.values(ALERT_TYPES).map((type) => ({
+                  value: type.VALUE,
+                  label: type.LABEL,
+                }))}
+              />
               <Controller
                 as={<MagicTextField />}
                 name="title"

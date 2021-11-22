@@ -1,14 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState, useMemo } from 'react';
-import { Box, fade, makeStyles } from '@material-ui/core';
-import {
-  TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH,
-  TERMINAL_ATL,
-  TERMINAL_BATTERY,
-  TERMINAL_DISPLAY,
-  TERMINAL_FRAMEWORK,
-  TERMINAL_HAWKS,
-  TERMINAL_LINK,
-} from 'utils/constants';
+import { alpha, makeStyles } from '@material-ui/core';
+import { TERMINAL_DISPLAY, TERMINAL_FRAMEWORK } from 'utils/constants';
 import { FLASHING_PATTERN } from './constants';
 import { quadOut } from './helper';
 import _ from 'lodash';
@@ -32,23 +24,6 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     backgroundImage: `url(${TERMINAL_DISPLAY})`,
     backgroundSize: '100% 100%',
-  },
-  display: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    zIndex: 2,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    padding: '12px 8px',
-    clipPath: `url(#clip-path)`,
-    overflow: 'hidden',
-  },
-  hawksIcon: {
-    height: 50,
-    marginBottom: 8,
   },
   clipPathSvg: {
     width: 0,
@@ -148,27 +123,27 @@ const FanbandTerminal = ({ params, children = null }) => {
           const miniStep = 50;
           const newIntervalId = setInterval(() => {
             setLightState(({ timer }) => ({
-              tColor1: fade(
+              tColor1: alpha(
                 palette.topColor1,
                 pt1 - (pt1 - top1) * quadOut(timer / period)
               ),
-              tColor2: fade(
+              tColor2: alpha(
                 palette.topColor2,
                 pt2 - (pt2 - top2) * quadOut(timer / period)
               ),
-              tColor3: fade(
+              tColor3: alpha(
                 palette.topColor3,
                 pt3 - (pt3 - top3) * quadOut(timer / period)
               ),
-              bColor1: fade(
+              bColor1: alpha(
                 palette.bottomColor1,
                 pb1 - (pb1 - bottom1) * quadOut(timer / period)
               ),
-              bColor2: fade(
+              bColor2: alpha(
                 palette.bottomColor2,
                 pb2 - (pb2 - bottom2) * quadOut(timer / period)
               ),
-              bColor3: fade(
+              bColor3: alpha(
                 palette.bottomColor3,
                 pb3 - (pb3 - bottom3) * quadOut(timer / period)
               ),
@@ -251,33 +226,7 @@ const FanbandTerminal = ({ params, children = null }) => {
     <div className={classes.vibrate} ref={rootRef}>
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
-          <div className={classes.display}>
-            {children ? (
-              <>
-                <img src={TERMINAL_LINK} height={12} />
-                {children}
-                <img src={TERMINAL_BATTERY} height={12} />
-              </>
-            ) : (
-              <>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  flexDirection="column"
-                  mt={3}
-                  height={70}
-                >
-                  <img src={TERMINAL_ATL} height={40} />
-                  <img src={TERMINAL_HAWKS} height={24} />
-                </Box>
-                <img
-                  src={TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH}
-                  className={classes.hawksIcon}
-                />
-              </>
-            )}
-          </div>
+          {children}
           <div className={classes.gradient} />
         </div>
       </div>

@@ -59,11 +59,11 @@ export default Object.freeze({
     title: 'Promo alerts sent',
     path: '/promo/promo-sent',
   },
-  scheduled: {
+  schedule: {
     title: 'Schedule',
     path: '/schedule',
   },
-  scheduledSent: {
+  scheduleSent: {
     title: 'Active scheduled alerts',
     path: '/schedule/schedule-sent',
   },

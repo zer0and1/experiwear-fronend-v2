@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Select, MenuItem } from '@material-ui/core';
-
-import { MagicTextField } from 'components';
+import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
   menuPaper: {
     backgroundColor: theme.palette.background.primary,
   },
@@ -16,40 +17,53 @@ const useStyles = makeStyles((theme) => ({
   placeholder: {
     color: theme.palette.text.secondary,
   },
+  label: {
+    color: '#d5d5dc',
+    '&.Mui-focused': {
+      color: '#d5d5dc',
+    },
+  },
 }));
 
 const MagicSelect = React.forwardRef(
-  ({ items, placeholder, label, labelWidth, ...rest }, ref) => {
+  ({ items, placeholder, label, ...rest }, ref) => {
     const classes = useStyles();
 
     return (
-      <Select
-        id="demo-customized-select"
-        ref={ref}
-        displayEmpty
-        input={<MagicTextField label={label} labelWidth={labelWidth} />}
-        placeholder={placeholder}
-        classes={{
-          icon: classes.icon,
-        }}
-        MenuProps={{
-          classes: {
-            paper: classes.menuPaper,
-          },
-        }}
-        {...rest}
-      >
-        {placeholder && (
-          <MenuItem key="placeholder" value="" className={classes.placeholder}>
-            {placeholder}
-          </MenuItem>
-        )}
-        {items.map((item, index) => (
-          <MenuItem key={index} value={item.VALUE}>
-            {item.LABEL}
-          </MenuItem>
-        ))}
-      </Select>
+      <FormControl className={classes.root}>
+        <InputLabel id={`select-label-${label}`} className={classes.label}>
+          {label}
+        </InputLabel>
+        <Select
+          ref={ref}
+          labelId={`select-label-${label}`}
+          placeholder={placeholder}
+          classes={{
+            icon: classes.icon,
+          }}
+          MenuProps={{
+            classes: {
+              paper: classes.menuPaper,
+            },
+          }}
+          {...rest}
+        >
+          {placeholder && (
+            <MenuItem
+              key="placeholder"
+              value=""
+              className={classes.placeholder}
+            >
+              {placeholder}
+            </MenuItem>
+          )}
+          {items.map(({ value, label }) => (
+            <MenuItem key={value} value={value}>
+              {label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     );
   }
 );
