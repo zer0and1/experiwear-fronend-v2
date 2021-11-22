@@ -3,12 +3,15 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as authAPI from 'services/api-auth';
-import { setIsAuthenticated, setCurrentUser } from 'redux/actions/auth';
+import {
+  setIsAuthenticated,
+  setCurrentUser,
+  getFanbandsStatistics,
+} from 'redux/actions';
 import { getGames } from 'redux/actions/games';
-import { getFanbandsStatistics } from 'redux/actions/getFanbandsStatistics';
-import { useFanbandSocket, useGameSocket } from 'hooks/useFanbandSocket';
+import { useFanbandSocket, useGameSocket } from 'hooks';
 import { isServer } from 'utils/helpers';
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 
 const InitProvider = () => {
   const dispatch = useDispatch();
@@ -50,19 +53,6 @@ const InitProvider = () => {
       router.push(LINKS.signIn.path);
     }
   };
-
-  useEffect(() => {
-    const isAuthenticated = isServer()
-      ? false
-      : JSON.parse(localStorage.isAuthenticated);
-    if (isAuthenticated) {
-      router.push(LINKS.home.path);
-    } else {
-      router.push(LINKS.signIn.path);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router]);
 
   return <div />;
 };

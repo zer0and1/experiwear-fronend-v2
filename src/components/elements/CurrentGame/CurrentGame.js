@@ -4,7 +4,7 @@ import { Box, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { TeamLogo } from 'components';
-import { getEnglishDateWithTime } from 'utils/helpers';
+import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -34,7 +34,7 @@ const CurrentGame = () => {
   const classes = useStyles();
   const selectedGame = useSelector((state) => state.games.selectedGame);
 
-  if (!selectedGame) {
+  if (isEmpty(selectedGame)) {
     return null;
   }
 

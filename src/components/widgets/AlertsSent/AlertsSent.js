@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
-import { getNotifications } from 'redux/actions/getNotifications';
+import { getNotifications } from 'redux/actions';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { useAsyncAction } from 'hooks';
@@ -13,11 +13,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     position: 'relative',
     overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
   },
   items: {
     overflow: 'auto',
-    height: 'calc(100% - 56px - 66px)',
+    height: 0,
     marginBottom: 16,
+    flexGrow: 1,
   },
   button: {
     borderRadius: theme.spacing(3),

@@ -81,7 +81,7 @@ export const authPageStyles = makeStyles((theme) => ({
 
 const AuthWrapper = ({ title, children }) => {
   const classes = useStyles();
-  const { loadingStatus } = useSelector((state) => state.loading);
+  const { loadingStatus } = useSelector((state) => state.aux);
 
   return (
     <div className={classes.root}>

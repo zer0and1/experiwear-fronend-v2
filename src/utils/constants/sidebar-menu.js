@@ -41,7 +41,7 @@ export const ALERT_ACTIONS_ITEMS = [
   },
   {
     icon: CalendarIcon,
-    ...LINKS.schedule,
+    ...LINKS.scheduled,
   },
   {
     icon: AccelerometerIcon,

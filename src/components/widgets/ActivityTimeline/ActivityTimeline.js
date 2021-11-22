@@ -1,26 +1,29 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { getNotifications } from 'redux/actions/getNotifications';
+import { getNotifications } from 'redux/actions';
 import { AlertItem, Title } from 'components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 'calc(100% - 132px)',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
   },
   container: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    height: '100%',
+    height: 0,
+    flexGrow: 1,
     overflowY: 'scroll',
-    '&::-webkit-scrollbar': {
+    '&::scrollbar': {
       width: '0.6em',
     },
-    '&::-webkit-scrollbar-track': {
-      '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+    '&::scrollbar-track': {
+      'box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
     },
-    '&::-webkit-scrollbar-thumb': {
+    '&::scrollbar-thumb': {
       backgroundColor: 'rgba(0,0,0,.1)',
       borderRadius: theme.spacing(0.5),
     },

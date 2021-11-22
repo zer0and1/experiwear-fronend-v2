@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { LINKS } from 'utils/constants';
 
 export default function HomePage() {
-  usePathIndicator({ path: LINKS.home.path, label: LINKS.home.title });
+  usePathIndicator(LINKS.home);
 
   return (
     <Layout sidebar={<HomeSidebar />}>

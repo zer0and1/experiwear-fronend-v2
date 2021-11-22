@@ -46,9 +46,15 @@ const INITIAL_STATE = Object.freeze({
 
 const notificationsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TYPES.SET_ALL_NOTIFICATIONS:
+    case TYPES.SET_NOTIFICATIONS:
+      const { type, results, total } = action.payload;
+
+      if (type) {
+        return { ...state, [type]: action.payload };
+      }
+
       const grouped = _.groupBy(
-        action.payload.results.map((n) => ({
+        results.map((n) => ({
           ...n,
           date: moment(n.createdAt).format('YYYY-MM-DD'),
         })),
@@ -65,19 +71,7 @@ const notificationsReducer = (state = INITIAL_STATE, action) => {
         );
       }
 
-      return { ...state, all: action.payload, alertStatus: grouped };
-    case TYPES.SET_NEWS_NOTIFICATIONS:
-      return { ...state, news: action.payload };
-    case TYPES.SET_SURVEY_NOTIFICATIONS:
-      return { ...state, survey: action.payload };
-    case TYPES.SET_SCORE_NOTIFICATIONS:
-      return { ...state, score: action.payload };
-    case TYPES.SET_PROMO_NOTIFICATIONS:
-      return { ...state, promo: action.payload };
-    case TYPES.SET_SCHEDULED_NOTIFICATIONS:
-      return { ...state, scheduled: action.payload };
-    case TYPES.SET_CANNED_NOTIFICATIONS:
-      return { ...state, canned: action.payload };
+      return { ...state, all: { results, total }, alertStatus: grouped };
     case TYPES.SET_LATEST_NOTIFICATION:
       return { ...state, latest: action.payload };
     case TYPES.SET_LATEST_SURVEY_NOTIFICATION:

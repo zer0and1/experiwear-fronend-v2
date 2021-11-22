@@ -1,11 +1,13 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setNotifications } from 'redux/actions/getNotifications';
-import { setLatestNotification } from 'redux/actions/getLatestNotification';
-import { updateFanbandsStatistics } from 'redux/actions/getFanbandsStatistics';
+import {
+  setNotifications,
+  setLatestNotification,
+  updateFanbandsStatistics,
+} from 'redux/actions';
 import { ANSWER_ENUM } from 'utils/constants/alert-types';
-import useSocket from 'hooks/useSocket';
+import { useSocket } from 'hooks';
 import WS_EVENTS from 'utils/constants/socket';
 
 const useFanbandSocket = () => {

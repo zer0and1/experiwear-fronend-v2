@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Layout = ({ children, sidebar }) => {
   const classes = useStyles();
-  const { loadingStatus } = useSelector((state) => state.loading);
+  const { loadingStatus } = useSelector((state) => state.aux);
 
   return (
     <main className={classes.root}>

@@ -22,7 +22,7 @@ export const getGames =
       const playGame = games.find(
         (item) => item.statusGame === GAME_STATUS.IN_PLAY
       );
-      let closestUpcomingGame = {};
+      let closestUpcomingGame = null;
       if (!isEmpty(playGame)) {
         closestUpcomingGame = playGame;
       } else {

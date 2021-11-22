@@ -176,21 +176,6 @@ export const setLatestNotification =
     }
   };
 
-const getActionType = (type) => {
-  switch (type) {
-    case ALERT_TYPES.NEWS.VALUE:
-      return TYPES.SET_NEWS_NOTIFICATIONS;
-    case ALERT_TYPES.SURVEY.VALUE:
-      return TYPES.SET_SURVEY_NOTIFICATIONS;
-    case ALERT_TYPES.SCORE.VALUE:
-      return TYPES.SET_SCORE_NOTIFICATIONS;
-    case ALERT_TYPES.PROMO.VALUE:
-      return TYPES.SET_PROMO_NOTIFICATIONS;
-    default:
-      return TYPES.SET_ALL_NOTIFICATIONS;
-  }
-};
-
 export const getNotifications =
   (type = '', take = PAGE_COUNT) =>
   async (dispatch) => {
@@ -208,10 +193,11 @@ export const getNotifications =
         await notificationsAPI.getNotifications(params);
 
       await dispatch({
-        type: getActionType(type),
+        type: TYPES.SET_NOTIFICATIONS,
         payload: {
           results,
           total,
+          type,
         },
       });
     } catch (error) {
@@ -235,10 +221,11 @@ export const getMoreNotifications = (type) => async (dispatch, getState) => {
     );
 
     await dispatch({
-      type: getActionType(type),
+      type: TYPES.SET_NOTIFICATIONS,
       payload: {
         results: [...preResults, ...results],
         total,
+        type,
       },
     });
   } catch (error) {
@@ -254,10 +241,11 @@ export const setNotifications =
       const { total = 0 } = notifications[type];
 
       await dispatch({
-        type: getActionType(type),
+        type: TYPES.SET_NOTIFICATIONS,
         payload: {
           results,
           total,
+          type,
         },
       });
     } catch (error) {

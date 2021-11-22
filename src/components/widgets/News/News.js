@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as notificationsAPI from 'services/api-notifications';
-import { getNotifications } from 'redux/actions/getNotifications';
+import { getNotifications } from 'redux/actions';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
 import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations';
 import { getEnglishDateWithTime } from 'utils/helpers';

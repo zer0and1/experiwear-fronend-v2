@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setLoadingStatus } from 'redux/actions/loading';
+import { setLoadingStatus } from 'redux/actions';
 
 const useLoading = () => {
   const dispatch = useDispatch();

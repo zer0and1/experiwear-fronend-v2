@@ -10,11 +10,9 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
-
-import { getLatestNotification } from 'redux/actions/getLatestNotification';
-import { Title } from 'components';
+import { getLatestNotification } from 'redux/actions';
+import { Title, CircleIcon } from 'components';
 import { DOUGHNUT_OPTIONS } from './constants';
-import CircleIcon from 'components/icons/CircleIcon';
 
 const useStyles = makeStyles((theme) => ({
   container: {

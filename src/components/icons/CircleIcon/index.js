@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CircleIcon = ({ className, viewBox, ...rest }) => {
+const CircleIcon = ({ className, color, viewBox, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -18,7 +18,7 @@ const CircleIcon = ({ className, viewBox, ...rest }) => {
       {...rest}
       className={clsx(classes.root, className)}
     >
-      <g stroke="none" fill="currentColor">
+      <g stroke="none" fill={color || 'currentColor'}>
         <circle id="Oval" cx="8" cy="8" r="8" />
       </g>
     </SvgIcon>

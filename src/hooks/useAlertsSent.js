@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, makeStyles } from '@material-ui/core';
-import { getNotifications } from 'redux/actions/getNotifications';
+import { getNotifications } from 'redux/actions';
 import { Layout, AlertItem } from 'components';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';

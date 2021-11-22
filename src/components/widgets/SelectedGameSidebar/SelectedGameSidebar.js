@@ -1,10 +1,7 @@
 import { Fragment, useEffect } from 'react';
 import { Calendar, Checkbox, Title } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setAlertToShow,
-  setSelectedDate,
-} from 'redux/actions/getNotifications';
+import { setAlertToShow, setSelectedDate } from 'redux/actions';
 import { useRouter } from 'next/router';
 import LINKS from 'utils/constants/links';
 

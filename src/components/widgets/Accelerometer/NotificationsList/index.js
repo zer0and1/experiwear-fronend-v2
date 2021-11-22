@@ -7,8 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   getNotifications,
   getMoreNotifications,
-} from 'redux/actions/getNotifications';
-import { getAccelerometerData } from 'redux/actions/getAccelerometer';
+  getAccelerometerData,
+} from 'redux/actions';
 import { ContainedButton } from 'components';
 import MagicCardHeader from 'components/parts/Card/MagicCardHeader';
 

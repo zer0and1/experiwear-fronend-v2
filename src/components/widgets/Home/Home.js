@@ -1,9 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getNotifications,
-  setSelectedDate,
-} from 'redux/actions/getNotifications';
+import { getNotifications, setSelectedDate } from 'redux/actions';
 import { Card, CardContent } from '@material-ui/core';
 import { Calendar, CardHeaderButton } from 'components';
 import { Add as AddIcon } from '@material-ui/icons';

@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNotifications } from 'redux/actions/getNotifications';
+import { getNotifications } from 'redux/actions';
 import {
   Button,
   Card,
