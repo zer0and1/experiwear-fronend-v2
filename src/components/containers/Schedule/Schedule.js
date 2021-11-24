@@ -5,6 +5,7 @@ import { createAlert } from 'redux/actions';
 import {
   CalendarIcon,
   CardHeaderButton,
+  DatetimePicker,
   MagicSelect,
   NewsForm,
   PromoForm,
@@ -16,6 +17,7 @@ import { ALERT_TYPES } from 'utils/constants';
 const Schedule = () => {
   const dispatch = useDispatch();
   const [type, setAlertType] = useState(ALERT_TYPES.NEWS.VALUE);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleCreate = useCallback(
     async (data) => {
@@ -39,13 +41,20 @@ const Schedule = () => {
     }
   }, [type, handleCreate]);
 
+  const handleDatetimeClick = useCallback((e) => {
+    setAnchorEl(e.target);
+  }, []);
+
   return (
     <Container maxWidth="md">
       <Card>
         <CardHeader
           title="Create Scheduled Alert"
           subheader={
-            <CardHeaderButton startIcon={<CalendarIcon />}>
+            <CardHeaderButton
+              startIcon={<CalendarIcon />}
+              onClick={handleDatetimeClick}
+            >
               Set date and time
             </CardHeaderButton>
           }
@@ -64,6 +73,10 @@ const Schedule = () => {
             onChange={(e) => setAlertType(e.target.value)}
           />
           {form}
+          <DatetimePicker
+            anchorEl={anchorEl}
+            onClose={() => setAnchorEl(null)}
+          />
         </CardContent>
       </Card>
     </Container>

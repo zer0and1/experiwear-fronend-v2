@@ -3,6 +3,7 @@ export { default as AlertsSent } from './AlertsSent';
 export { default as AuthWrapper } from './AuthWrapper';
 export { default as AppBar } from './AppBar';
 export { default as CurrentFanbandStats } from './CurrentFanbandStats';
+export { default as DatetimePicker } from './DatetimePicker';
 export { default as HomeSidebar } from './HomeSidebar';
 export { default as Layout } from './Layout';
 export { default as NewsForm } from './NewsForm';
