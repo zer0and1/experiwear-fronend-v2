@@ -9,7 +9,8 @@ export default {
   MuiCard: {
     root: {
       borderRadius: 8,
-      height: '100%',
+      minHeight: '100%',
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
     },
@@ -42,7 +43,6 @@ export default {
       display: 'flex',
       flexDirection: 'column',
       flexGrow: 1,
-      overflow: 'auto',
     },
   },
   MuiPaper: {
@@ -89,6 +89,13 @@ export default {
       color: '#696974',
       letterSpacing: 0.1,
       userSelect: 'none',
+    },
+  },
+  MuiContainer: {
+    root: {
+      minHeight: '100%',
+      display: 'flex',
+      marginBottom: '38px',
     },
   },
 };

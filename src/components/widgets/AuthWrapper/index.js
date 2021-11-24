@@ -50,35 +50,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const authPageStyles = makeStyles((theme) => ({
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-  },
-  input: {
-    marginBottom: theme.spacing(4),
-  },
-  button: {
-    marginBottom: theme.spacing(2.5),
-    borderRadius: theme.spacing(3),
-    height: 50,
-  },
-  forgotLink: {
-    color: '#d8d8d8',
-    fontSize: 14,
-    cursor: 'pointer',
-    textDecoration: 'none',
-  },
-  emailLabel: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: theme.spacing(2),
-    color: theme.custom.palette.red,
-  },
-}));
-
 const AuthWrapper = ({ title, children }) => {
   const classes = useStyles();
   const { loadingStatus } = useSelector((state) => state.aux);

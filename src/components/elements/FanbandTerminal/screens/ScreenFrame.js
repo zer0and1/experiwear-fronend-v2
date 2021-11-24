@@ -1,10 +1,10 @@
 import { Box, makeStyles } from '@material-ui/core';
 import { Fragment } from 'react';
 import {
-  TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH,
   TERMINAL_ATL,
   TERMINAL_BATTERY,
   TERMINAL_HAWKS,
+  TERMINAL_HAWKS_LOGO,
   TERMINAL_LINK,
 } from 'utils/constants';
 
@@ -52,10 +52,7 @@ const ScreenFrame = ({ children }) => {
             <img src={TERMINAL_ATL} height={40} />
             <img src={TERMINAL_HAWKS} height={24} />
           </Box>
-          <img
-            src={TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH}
-            className={classes.hawksIcon}
-          />
+          <img src={TERMINAL_HAWKS_LOGO} className={classes.hawksIcon} />
         </Fragment>
       )}
     </div>

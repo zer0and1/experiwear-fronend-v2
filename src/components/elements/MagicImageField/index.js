@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 const MagicImageField = ({
   label,
   className,
-  dataURLKey = 'data_url',
-  images,
+  dataURLKey = 'url',
+  image,
   onChange,
   width = 350,
   height = 160,
@@ -57,8 +57,8 @@ const MagicImageField = ({
     <Box className={clsx(classes.root, className)} {...boxProps}>
       <Typography className={classes.label}>{label}</Typography>
       <ImageUploading
-        value={images}
-        onChange={onChange}
+        value={image ? [image] : []}
+        onChange={(imgList) => onChange(imgList[0])}
         dataURLKey={dataURLKey}
       >
         {({

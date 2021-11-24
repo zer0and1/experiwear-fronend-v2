@@ -5,6 +5,7 @@ import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    marginBottom: theme.spacing(4),
   },
   menuPaper: {
     backgroundColor: theme.palette.background.primary,

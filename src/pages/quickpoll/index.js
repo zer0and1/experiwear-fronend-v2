@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { ALERT_TYPES, LINKS } from 'utils/constants';
 
 export default function NewsPage() {
-  usePathIndicator(LINKS.promo);
+  usePathIndicator(LINKS.quickPoll);
 
   return (
     <Layout

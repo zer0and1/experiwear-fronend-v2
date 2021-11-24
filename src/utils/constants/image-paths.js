@@ -18,4 +18,5 @@ export const TERMINAL_DISPLAY = '/assets/images/terminal/display.png';
 export const TERMINAL_BATTERY = '/assets/images/terminal/battery.svg';
 export const TERMINAL_LINK = '/assets/images/terminal/link.svg';
 export const TERMINAL_HAWKS = '/assets/images/terminal/hawks.svg';
+export const TERMINAL_HAWKS_LOGO = '/assets/images/terminal/hawks-logo.svg';
 export const TERMINAL_ATL = '/assets/images/terminal/ATL.svg';

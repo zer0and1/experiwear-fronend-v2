@@ -6,35 +6,34 @@ import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
 import { showErrorToast, showSuccessToast } from 'utils/helpers';
 
-export const createAlert =
-  (type, data, alertParams, image) => async (dispatch) => {
-    dispatch(setLoadingStatus(true));
+export const createAlert = (type, data) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
 
-    const formData = new FormData();
-    formData.append('title', data.title);
-    formData.append('body', data.body);
-    formData.append('type', type);
-    formData.append('ledType', alertParams.ledType);
-    formData.append('topColor1', alertParams.topColor1);
-    formData.append('topColor2', alertParams.topColor2);
-    formData.append('topColor3', alertParams.topColor3);
-    formData.append('bottomColor1', alertParams.bottomColor1);
-    formData.append('bottomColor2', alertParams.bottomColor2);
-    formData.append('bottomColor3', alertParams.bottomColor3);
-    formData.append('vibrationType', alertParams.vibrationType);
-    formData.append('vibrationIntensity', alertParams.vibrationIntensity);
-    formData.append('duration', alertParams.duration);
-    image && formData.append('file', image.file);
+  const formData = new FormData();
+  formData.append('type', type);
+  formData.append('title', data.title);
+  formData.append('body', data.body);
+  formData.append('ledType', data.ledType);
+  formData.append('topColor1', data.topColor1);
+  formData.append('topColor2', data.topColor2);
+  formData.append('topColor3', data.topColor3);
+  formData.append('bottomColor1', data.bottomColor1);
+  formData.append('bottomColor2', data.bottomColor2);
+  formData.append('bottomColor3', data.bottomColor3);
+  formData.append('vibrationType', data.vibrationType);
+  formData.append('vibrationIntensity', data.vibrationIntensity);
+  formData.append('duration', data.duration);
+  data.image && formData.append('file', data.file);
 
-    try {
-      const { message } = await notificationsAPI.createNotification(formData);
-      showSuccessToast(message);
-    } catch (e) {
-      showErrorToast(e.response?.data?.message?.[0]);
-    }
+  try {
+    const { message } = await notificationsAPI.createNotification(formData);
+    showSuccessToast(message);
+  } catch (e) {
+    showErrorToast(e.response?.data?.message?.[0]);
+  }
 
-    dispatch(setLoadingStatus(false));
-  };
+  dispatch(setLoadingStatus(false));
+};
 
 export const getAccelerometerData = (notificationId) => async (dispatch) => {
   try {
