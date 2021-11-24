@@ -3,6 +3,38 @@ import * as fanbandsAPI from 'services/api-fanband';
 import * as notificationsAPI from 'services/api-notifications';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { isEmpty } from 'utils/helpers/utility';
+import { setLoadingStatus } from './auxiliary';
+import { showErrorToast, showSuccessToast } from 'utils/helpers';
+
+export const createAlert =
+  (type, data, alertParams, image) => async (dispatch) => {
+    dispatch(setLoadingStatus(true));
+
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('body', data.body);
+    formData.append('type', type);
+    formData.append('ledType', alertParams.ledType);
+    formData.append('topColor1', alertParams.topColor1);
+    formData.append('topColor2', alertParams.topColor2);
+    formData.append('topColor3', alertParams.topColor3);
+    formData.append('bottomColor1', alertParams.bottomColor1);
+    formData.append('bottomColor2', alertParams.bottomColor2);
+    formData.append('bottomColor3', alertParams.bottomColor3);
+    formData.append('vibrationType', alertParams.vibrationType);
+    formData.append('vibrationIntensity', alertParams.vibrationIntensity);
+    formData.append('duration', alertParams.duration);
+    image && formData.append('file', image.file);
+
+    try {
+      const { message } = await notificationsAPI.createNotification(formData);
+      showSuccessToast(message);
+    } catch (e) {
+      showErrorToast(e.response?.data?.message?.[0]);
+    }
+
+    dispatch(setLoadingStatus(false));
+  };
 
 export const getAccelerometerData = (notificationId) => async (dispatch) => {
   try {
