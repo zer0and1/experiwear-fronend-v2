@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLoading } from '.';
+import { setLoadingStatus } from 'redux/actions';
 
 const useAsyncAction = (action, showLoading = false) => {
   const dispatch = useDispatch();
-  const { changeLoadingStatus } = useLoading();
 
   useEffect(() => {
     if (showLoading) {
       (async () => {
-        changeLoadingStatus(true);
+        dispatch(setLoadingStatus(true));
         await dispatch(action);
-        changeLoadingStatus(false);
+        dispatch(setLoadingStatus(false));
       })();
     } else {
       dispatch(action);
