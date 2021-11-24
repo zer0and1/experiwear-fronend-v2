@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, useMediaQuery } from '@material-ui/core';
-import { UserAccount } from './components';
+import UserAccount from './UserAccount';
 
 const useStyles = makeStyles((theme) => ({
   root: {},

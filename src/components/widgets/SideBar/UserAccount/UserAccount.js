@@ -2,16 +2,18 @@ import {
   Avatar,
   Badge,
   Box,
+  Divider,
   IconButton,
   Menu,
   MenuItem,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { logoutUser } from 'redux/actions/auth';
 import BellIcon from 'components/icons/BellIcon';
+import { useAsyncAction } from 'hooks';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getNotifications } from 'redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,21 +36,43 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 0.32,
     textTransform: 'capitalize',
   },
+  image: {
+    backgroundImage: (props) => `url(${props.imageUrl})`,
+    backgroundSize: 'cover',
+    width: 46,
+    height: 46,
+    borderRadius: 6,
+    float: 'left',
+    marginRight: 10,
+  },
+  content: {
+    color: '#121212',
+    fontFamily: theme.custom.fonts.SFUITextMedium,
+    fontSize: 12,
+    width: 223,
+    height: 42,
+    overflowWrap: 'break-word',
+    overflow: 'hidden',
+  },
+  menu: {
+    padding: theme.spacing(2, 1.5),
+  },
 }));
 
 const UserAccount = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
+  const latestNotifications = useSelector(
+    (state) => state.notifications.all.results
+  );
+
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const toggleMenu = (e) => {
+  const toggleNotification = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
+  useAsyncAction(getNotifications());
 
   return (
     <div className={classes.root}>
@@ -57,13 +81,12 @@ const UserAccount = () => {
           variant="rounded"
           src={currentUser.avatar}
           className={classes.avatar}
-          onClick={toggleMenu}
         />
         <Typography className={classes.username}>
           {`${currentUser.firstName} ${currentUser.lastName}`}
         </Typography>
       </Box>
-      <IconButton>
+      <IconButton onClick={toggleNotification}>
         <Badge variant="dot" color="primary">
           <BellIcon />
         </Badge>
@@ -76,14 +99,20 @@ const UserAccount = () => {
         onClose={() => setAnchorEl(null)}
         elevation={0}
         getContentAnchorEl={null}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{ p: 16 }}
+        classes={{ paper: classes.menu }}
       >
-        <MenuItem className={classes.item} onClick={handleLogout}>
-          Log out
-        </MenuItem>
+        {latestNotifications.map((n, idx) => [
+          <MenuItem className={classes.item} key={n.id}>
+            <img className={classes.image} src={n.imageUrl} />
+            <div className={classes.content}>{n.body}</div>
+          </MenuItem>,
+          idx < latestNotifications.length - 1 && (
+            <Divider style={{ margin: 8 }} />
+          ),
+        ])}
       </Menu>
     </div>
   );
