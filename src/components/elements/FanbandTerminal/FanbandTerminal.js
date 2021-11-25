@@ -11,6 +11,14 @@ import {
 } from 'components/elements/AlertField';
 
 const useStyles = makeStyles(() => ({
+  root: {
+    animationDuration: (props) =>
+      `${props.intensity === VIB_INTENSITIES.no ? 0 : props.vibPeriod}s`,
+    animationName: '$vibrate',
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: (props) =>
+      parseInt(props.duration / props.vibPeriod),
+  },
   framework: {
     width: 150,
     height: 308,
@@ -42,14 +50,6 @@ const useStyles = makeStyles(() => ({
     ) => `url(${TERMINAL_DISPLAY}) 100% 100%, radial-gradient(ellipse at top 10% left 0, ${props.tColor1}, transparent 50%), radial-gradient(ellipse at bottom 10% left 0, ${props.bColor1}, transparent 50%),
       radial-gradient(ellipse at top 0px left 40%, ${props.tColor2}, transparent 60%), radial-gradient(ellipse at bottom 0px left 50%, ${props.bColor2}, transparent 60%),
       radial-gradient(ellipse at top 10% left 80%, ${props.tColor3}, transparent 50%), radial-gradient(ellipse at bottom 10% left 80px, ${props.bColor3}, transparent 50%)`,
-  },
-  vibrate: {
-    animationDuration: (props) =>
-      `${props.intensity === VIB_INTENSITIES.no ? 0 : props.vibPeriod}s`,
-    animationName: '$vibrate',
-    animationTimingFunction: 'ease-in-out',
-    animationIterationCount: (props) =>
-      parseInt(props.duration / props.vibPeriod),
   },
   '@keyframes vibrate': {
     '0%': { transform: 'translate(0.5px, 0.5px) rotate(0deg)' },
@@ -223,7 +223,7 @@ const FanbandTerminal = ({ params, children = null }) => {
   }, [duration, vibrationType]);
 
   return (
-    <div className={classes.vibrate} ref={rootRef}>
+    <div className={classes.root} ref={rootRef}>
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
           {children}

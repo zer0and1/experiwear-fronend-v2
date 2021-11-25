@@ -6,34 +6,49 @@ import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
 import { showErrorToast, showSuccessToast } from 'utils/helpers';
 
-export const createAlert = (type, data) => async (dispatch) => {
-  dispatch(setLoadingStatus(true));
+export const createAlert =
+  (type, data, scheduledTime = null) =>
+  async (dispatch) => {
+    dispatch(setLoadingStatus(true));
 
-  const formData = new FormData();
-  formData.append('type', type);
-  formData.append('title', data.title);
-  formData.append('body', data.body);
-  formData.append('ledType', data.ledType);
-  formData.append('topColor1', data.topColor1);
-  formData.append('topColor2', data.topColor2);
-  formData.append('topColor3', data.topColor3);
-  formData.append('bottomColor1', data.bottomColor1);
-  formData.append('bottomColor2', data.bottomColor2);
-  formData.append('bottomColor3', data.bottomColor3);
-  formData.append('vibrationType', data.vibrationType);
-  formData.append('vibrationIntensity', data.vibrationIntensity);
-  formData.append('duration', data.duration);
-  data.image && formData.append('file', data.file);
+    const formData = new FormData();
+    formData.append('type', type);
+    formData.append('title', data.title);
+    formData.append('body', data.body);
+    formData.append('ledType', data.ledType);
+    formData.append('topColor1', data.topColor1);
+    formData.append('topColor2', data.topColor2);
+    formData.append('topColor3', data.topColor3);
+    formData.append('bottomColor1', data.bottomColor1);
+    formData.append('bottomColor2', data.bottomColor2);
+    formData.append('bottomColor3', data.bottomColor3);
+    formData.append('vibrationType', data.vibrationType);
+    formData.append('vibrationIntensity', data.vibrationIntensity);
+    formData.append('duration', data.duration);
+    formData.append('file', data.image);
+    formData.append('responses', data.responses);
 
-  try {
-    const { message } = await notificationsAPI.createNotification(formData);
-    showSuccessToast(message);
-  } catch (e) {
-    showErrorToast(e.response?.data?.message?.[0]);
-  }
+    try {
+      let response;
 
-  dispatch(setLoadingStatus(false));
-};
+      if (scheduledTime) {
+        formData.append('scheduledTime', scheduledTime);
+        response = await notificationsAPI.createScheduledNotification(formData);
+      } else {
+        response = await notificationsAPI.createNotification(formData);
+      }
+
+      dispatch(
+        getNotifications(scheduledTime ? ALERT_TYPES.SCHEDULE.VALUE : type)
+      );
+
+      showSuccessToast(response.message);
+    } catch (e) {
+      showErrorToast(e.response?.data?.message?.[0]);
+    }
+
+    dispatch(setLoadingStatus(false));
+  };
 
 export const getAccelerometerData = (notificationId) => async (dispatch) => {
   try {
@@ -220,8 +235,10 @@ export const getNotifications =
           take,
         };
       }
-      const { results = [], total = 0 } =
-        await notificationsAPI.getNotifications(params);
+      const { results = [], total = 0 } = await (type ===
+        ALERT_TYPES.SCHEDULE.VALUE
+        ? notificationsAPI.getScheduledNotifications
+        : notificationsAPI.getNotifications)(params);
 
       await dispatch({
         type: TYPES.SET_NOTIFICATIONS,
@@ -303,9 +320,8 @@ export const getScheduledNotifications =
         take,
       };
 
-      const { results, total } = await scheduleAPI.getScheduledNotifications(
-        params
-      );
+      const { results, total } =
+        await notificationsAPI.getScheduledNotifications(params);
       await dispatch({
         type: TYPES.SET_SCHEDULED_NOTIFICATIONS,
         payload: {

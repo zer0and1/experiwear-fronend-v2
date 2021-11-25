@@ -23,9 +23,11 @@ const Schedule = () => {
 
   const handleCreate = useCallback(
     async (data) => {
-      await dispatch(createAlert(type, data));
+      if (datetime) {
+        await dispatch(createAlert(type, data, datetime));
+      }
     },
-    [type, dispatch]
+    [type, datetime, dispatch]
   );
 
   const form = useMemo(() => {
