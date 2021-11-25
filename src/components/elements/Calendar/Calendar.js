@@ -6,7 +6,6 @@ import { Box, makeStyles } from '@material-ui/core';
 import CalendarPicker from './components/CalendarPicker';
 
 const useStyles = makeStyles(() => ({
-  root: {},
   table: {
     width: '100%',
   },
@@ -20,7 +19,7 @@ const Calendar = ({
   minimized = false,
   ...boxProps
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ minimized });
   const [year, setYear] = useState(parseInt(moment(value).format('YYYY')));
   const [month, setMonth] = useState(parseInt(moment(value).format('MM')));
 
@@ -30,7 +29,7 @@ const Calendar = ({
   };
 
   return (
-    <Box className={classes.root} {...boxProps}>
+    <Box {...boxProps}>
       <CalendarPicker
         year={year}
         month={month}

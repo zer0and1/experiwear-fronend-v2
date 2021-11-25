@@ -24,3 +24,4 @@ export { default as PathIndicator } from './PathIndicator';
 export { default as TeamLogo } from './TeamLogo';
 export { default as Timeline } from './Timeline';
 export { default as Title } from './Title';
+export { default as TimePicker } from './TimePicker';

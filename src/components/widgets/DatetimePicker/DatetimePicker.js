@@ -1,9 +1,15 @@
 import { memo } from 'react';
 import { Box, Popover } from '@material-ui/core';
-import { Calendar, Title } from 'components';
+import { Calendar, TimePicker, Title } from 'components';
 import { useSelector } from 'react-redux';
 
-const DatetimePicker = ({ anchorEl, onClose }) => {
+const DatetimePicker = ({
+  anchorEl,
+  onClose,
+  value,
+  onChange,
+  ...boxProps
+}) => {
   const cellData = useSelector((state) => state.notifications.alertStatus);
 
   return (
@@ -20,9 +26,17 @@ const DatetimePicker = ({ anchorEl, onClose }) => {
         horizontal: 'center',
       }}
     >
-      <Box p={2}>
+      <Box p={2} width={420} {...boxProps}>
         <Title mb={4}>Date</Title>
-        <Calendar cellData={cellData} minimized mb={4} />
+        <Calendar
+          cellData={cellData}
+          minimized
+          value={value}
+          onChange={onChange}
+          mb={4}
+        />
+        <Title>Time</Title>
+        <TimePicker value={value} onChange={onChange} pr={10} />
       </Box>
     </Popover>
   );

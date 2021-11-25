@@ -18,7 +18,8 @@ const Schedule = () => {
   const dispatch = useDispatch();
   const [type, setAlertType] = useState(ALERT_TYPES.NEWS.VALUE);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [datetime, setDatetime] = useState(new Date());
+  console.log(datetime);
   const handleCreate = useCallback(
     async (data) => {
       await dispatch(createAlert(type, data));
@@ -76,6 +77,8 @@ const Schedule = () => {
           <DatetimePicker
             anchorEl={anchorEl}
             onClose={() => setAnchorEl(null)}
+            value={datetime}
+            onChange={setDatetime}
           />
         </CardContent>
       </Card>

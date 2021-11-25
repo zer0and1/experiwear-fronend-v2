@@ -17,7 +17,11 @@ const CalendarBody = ({
   );
 
   const handleDaySelect = (day) => {
-    onChange(new Date(year, month - 1, day));
+    onChange(
+      moment(date)
+        .set({ year, month: month - 1, date: day })
+        .toDate()
+    );
   };
 
   return (
