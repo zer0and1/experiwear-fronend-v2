@@ -50,11 +50,19 @@ export const PrettoSlider = withStyles((theme) => ({
 
 export const CardHeaderButton = withStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.info.main,
     fontSize: 12,
     height: 35,
+  },
+  contained: {
+    backgroundColor: theme.palette.info.main,
     '&:hover': {
       backgroundColor: theme.palette.info.dark,
+    },
+  },
+  outlined: {
+    borderColor: theme.palette.info.main,
+    '&::.Mui-startIcon': {
+      color: theme.palette.info.main,
     },
   },
 }))(Button);

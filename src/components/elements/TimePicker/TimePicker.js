@@ -91,10 +91,24 @@ const TimePicker = ({ value, onChange, ...boxProps }) => {
     }
   };
 
+  const handleIncHour = () => {
+    const h = moment(value).hours() + 1;
+    if (h <= 23) {
+      onChange(moment(value).hours(h).toDate());
+    }
+  };
+
+  const handleDecHour = () => {
+    const h = moment(value).hours() - 1;
+    if (h >= 0) {
+      onChange(moment(value).hours(h).toDate());
+    }
+  };
+
   return (
     <Box className={classes.root} {...boxProps}>
       <div className={classes.digit}>
-        <IconButton className={classes.arrowButton}>
+        <IconButton className={classes.arrowButton} onClick={handleIncHour}>
           <ArrowDropUp />
         </IconButton>
         <div className={classes.inputWrapper}>
@@ -107,13 +121,18 @@ const TimePicker = ({ value, onChange, ...boxProps }) => {
           />
           <div className={classes.font}>h</div>
         </div>
-        <IconButton className={classes.arrowButton}>
+        <IconButton className={classes.arrowButton} onClick={handleDecHour}>
           <ArrowDropDown />
         </IconButton>
       </div>
       <div className={classes.font}>:</div>
       <div className={classes.digit}>
-        <IconButton className={classes.arrowButton}>
+        <IconButton
+          className={classes.arrowButton}
+          onClick={() =>
+            handleMinChange({ target: { value: parseInt(min) + 1 } })
+          }
+        >
           <ArrowDropUp />
         </IconButton>
         <div className={classes.inputWrapper}>
@@ -126,7 +145,12 @@ const TimePicker = ({ value, onChange, ...boxProps }) => {
           />
           <div className={classes.font}>m</div>
         </div>
-        <IconButton className={classes.arrowButton}>
+        <IconButton
+          className={classes.arrowButton}
+          onClick={() =>
+            handleMinChange({ target: { value: parseInt(min) - 1 } })
+          }
+        >
           <ArrowDropDown />
         </IconButton>
       </div>

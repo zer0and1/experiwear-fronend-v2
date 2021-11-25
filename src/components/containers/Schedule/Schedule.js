@@ -13,13 +13,14 @@ import {
   ScoreForm,
 } from 'components';
 import { ALERT_TYPES } from 'utils/constants';
+import moment from 'moment';
 
 const Schedule = () => {
   const dispatch = useDispatch();
   const [type, setAlertType] = useState(ALERT_TYPES.NEWS.VALUE);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [datetime, setDatetime] = useState(new Date());
-  console.log(datetime);
+  const [datetime, setDatetime] = useState();
+
   const handleCreate = useCallback(
     async (data) => {
       await dispatch(createAlert(type, data));
@@ -42,9 +43,15 @@ const Schedule = () => {
     }
   }, [type, handleCreate]);
 
-  const handleDatetimeClick = useCallback((e) => {
-    setAnchorEl(e.target);
-  }, []);
+  const handleDatetimeClick = useCallback(
+    (e) => {
+      if (!datetime) {
+        setDatetime(new Date());
+      }
+      setAnchorEl(e.target);
+    },
+    [datetime]
+  );
 
   return (
     <Container maxWidth="md">
@@ -55,8 +62,11 @@ const Schedule = () => {
             <CardHeaderButton
               startIcon={<CalendarIcon />}
               onClick={handleDatetimeClick}
+              variant={datetime ? 'outlined' : 'contained'}
             >
-              Set date and time
+              {datetime
+                ? moment(datetime).format('MMM D @ hh:mm A')
+                : 'Set date and time'}
             </CardHeaderButton>
           }
         />

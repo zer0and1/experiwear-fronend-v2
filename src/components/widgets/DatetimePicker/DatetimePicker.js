@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Box, Popover } from '@material-ui/core';
-import { Calendar, TimePicker, Title } from 'components';
+import { Calendar, FormButton, TimePicker, Title } from 'components';
 import { useSelector } from 'react-redux';
 
 const DatetimePicker = ({
@@ -36,7 +36,10 @@ const DatetimePicker = ({
           mb={4}
         />
         <Title>Time</Title>
-        <TimePicker value={value} onChange={onChange} pr={10} />
+        <TimePicker value={value} onChange={onChange} pr={10} mb={1} />
+        <Box px={10} mb={2}>
+          <FormButton onClick={onClose}>Done</FormButton>
+        </Box>
       </Box>
     </Popover>
   );
