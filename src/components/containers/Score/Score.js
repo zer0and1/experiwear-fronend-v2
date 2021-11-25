@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader, Container } from '@material-ui/core';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { getEnglishDateWithTime } from 'utils/helpers';
 import { ALERT_TYPES } from 'utils/constants';
 import { createAlert } from 'redux/actions';
-import { ScoreForm } from 'components';
+import { ScoreForm, AlertContainer } from 'components';
 
 const Score = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Score = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <AlertContainer maxWidth="md">
       <Card>
         <CardHeader
           title="Create Score Alert"
@@ -24,7 +24,7 @@ const Score = () => {
           <ScoreForm onCreate={handleCreate} />
         </CardContent>
       </Card>
-    </Container>
+    </AlertContainer>
   );
 };
 

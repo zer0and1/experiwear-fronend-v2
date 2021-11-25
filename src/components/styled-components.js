@@ -1,4 +1,10 @@
-import { withStyles, Slider, Typography, Button } from '@material-ui/core';
+import {
+  withStyles,
+  Slider,
+  Typography,
+  Button,
+  Container,
+} from '@material-ui/core';
 
 export const HeaderText = withStyles((theme) => ({
   root: {
@@ -66,3 +72,11 @@ export const CardHeaderButton = withStyles((theme) => ({
     },
   },
 }))(Button);
+
+export const AlertContainer = withStyles({
+  root: {
+    marginLeft: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+})(Container);

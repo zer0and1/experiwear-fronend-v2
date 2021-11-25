@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader, Container } from '@material-ui/core';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { createAlert } from 'redux/actions';
 import {
   CalendarIcon,
@@ -11,6 +11,7 @@ import {
   PromoForm,
   QuickPollForm,
   ScoreForm,
+  AlertContainer,
 } from 'components';
 import { ALERT_TYPES } from 'utils/constants';
 import moment from 'moment';
@@ -56,7 +57,7 @@ const Schedule = () => {
   );
 
   return (
-    <Container maxWidth="md">
+    <AlertContainer maxWidth="md">
       <Card>
         <CardHeader
           title="Create Scheduled Alert"
@@ -94,7 +95,7 @@ const Schedule = () => {
           />
         </CardContent>
       </Card>
-    </Container>
+    </AlertContainer>
   );
 };
 

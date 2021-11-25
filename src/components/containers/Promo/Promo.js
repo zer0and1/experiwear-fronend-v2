@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader, Container } from '@material-ui/core';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { getEnglishDateWithTime } from 'utils/helpers';
 import { ALERT_TYPES } from 'utils/constants';
-import { PromoForm } from 'components';
+import { PromoForm, AlertContainer } from 'components';
 import { createAlert } from 'redux/actions';
 
 const Promo = () => {
@@ -14,7 +14,7 @@ const Promo = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <AlertContainer maxWidth="md">
       <Card>
         <CardHeader
           title="Create Promo Alert"
@@ -24,7 +24,7 @@ const Promo = () => {
           <PromoForm onCreate={handleCreate} />
         </CardContent>
       </Card>
-    </Container>
+    </AlertContainer>
   );
 };
 
