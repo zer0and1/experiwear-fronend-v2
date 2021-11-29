@@ -1,4 +1,4 @@
-import * as TYPES from 'redux/actions/types';
+import * as TYPES from 'redux/action-types';
 
 const INITIAL_STATE = {
   pathTokens: [],

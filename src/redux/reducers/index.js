@@ -1,19 +1,15 @@
 import { combineReducers } from 'redux';
 
-import loadingReducer from 'redux/reducers/loadingReducer';
-import authReducer from 'redux/reducers/authReducer';
-import notificationsReducer from 'redux/reducers/notificationsReducer';
-import fanbandsReducer from 'redux/reducers/fanbandsReducer';
-import gamesReducer from 'redux/reducers/gamesReducer';
-import accelerometerReducer from 'redux/reducers/accelerometerReducer';
+import authReducer from './authReducer';
+import alertsReducer from './alertsReducer';
+import fanbandsReducer from './fanbandsReducer';
+import gamesReducer from './gamesReducer';
 import auxReducer from './auxReducer';
 
 export default combineReducers({
-  loading: loadingReducer,
   auth: authReducer,
-  notifications: notificationsReducer,
+  notifications: alertsReducer,
   fanbands: fanbandsReducer,
   games: gamesReducer,
-  accelerometer: accelerometerReducer,
   aux: auxReducer,
 });

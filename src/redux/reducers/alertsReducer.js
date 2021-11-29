@@ -1,4 +1,4 @@
-import * as TYPES from 'redux/actions/types';
+import * as TYPES from 'redux/action-types';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -42,9 +42,13 @@ const INITIAL_STATE = Object.freeze({
     score: true,
     promo: true,
   },
+  acc: {
+    results: [],
+    total: 0,
+  },
 });
 
-const notificationsReducer = (state = INITIAL_STATE, action) => {
+const alertsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.SET_NOTIFICATIONS:
       const { type, results, total } = action.payload;
@@ -87,9 +91,11 @@ const notificationsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         alertsToShow: { ...alertsToShow, [alert]: visibility },
       };
+    case TYPES.SET_ACC_DATA:
+      return { ...state, acc: action.payload };
     default:
       return state;
   }
 };
 
-export default notificationsReducer;
+export default alertsReducer;

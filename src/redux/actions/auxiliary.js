@@ -1,4 +1,4 @@
-import * as TYPES from './types';
+import * as TYPES from '../action-types';
 
 export const setPathTokens = (tokens) => ({
   type: TYPES.SET_PATH_TOKENS,

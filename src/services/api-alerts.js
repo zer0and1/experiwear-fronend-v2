@@ -35,3 +35,7 @@ export const editScheduledNotification = async (id, params) => {
 export const deleteScheduledNotification = async (id) => {
   return await axios.delete(`/notifications/scheduled-broadcast/${id}`);
 };
+
+export const getAccelerometerData = async (params) => {
+  return await axios.get('/accelerometer', { params });
+};

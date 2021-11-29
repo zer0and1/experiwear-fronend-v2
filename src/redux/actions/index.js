@@ -1,5 +1,4 @@
 export * from './auth';
 export * from './auxiliary';
 export * from './games';
-export * from './notifications';
-export * from './types';
+export * from './alerts';

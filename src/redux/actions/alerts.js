@@ -1,6 +1,6 @@
-import * as TYPES from './types';
+import * as TYPES from '../action-types';
 import * as fanbandsAPI from 'services/api-fanband';
-import * as notificationsAPI from 'services/api-notifications';
+import * as alertsAPI from 'services/api-alerts';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
@@ -33,9 +33,9 @@ export const createAlert =
 
       if (scheduledTime) {
         formData.append('scheduledTime', scheduledTime);
-        response = await notificationsAPI.createScheduledNotification(formData);
+        response = await alertsAPI.createScheduledNotification(formData);
       } else {
-        response = await notificationsAPI.createNotification(formData);
+        response = await alertsAPI.createNotification(formData);
       }
 
       dispatch(
@@ -50,7 +50,7 @@ export const createAlert =
     dispatch(setLoadingStatus(false));
   };
 
-export const getAccelerometerData = (notificationId) => async (dispatch) => {
+export const getAccData = (notificationId) => async (dispatch) => {
   try {
     const params = {
       notificationId,
@@ -58,15 +58,11 @@ export const getAccelerometerData = (notificationId) => async (dispatch) => {
       take: 100,
     };
 
-    const { results, total } = await accelerometerAPI.getAccelerometerData(
-      params
-    );
-    await dispatch({
+    const res = await alertsAPI.getAccelerometerData(params);
+
+    dispatch({
       type: TYPES.SET_ACC_DATA,
-      payload: {
-        results,
-        total,
-      },
+      payload: res,
     });
   } catch (error) {
     console.log('[getAccelerometerData] error => ', error);
@@ -166,7 +162,7 @@ export const getLatestNewsNotifications =
         skip: 0,
         take: 10,
       };
-      const { results = [] } = await notificationsAPI.getNotifications(params);
+      const { results = [] } = await alertsAPI.getNotifications(params);
 
       await dispatch({
         type: TYPES.SET_LATEST_NEWS_NOTIFICATIONS,
@@ -179,7 +175,7 @@ export const getLatestNewsNotifications =
 
 export const getLatestNotification = (type) => async (dispatch) => {
   try {
-    const response = await notificationsAPI.getLatestNotification({ type });
+    const response = await alertsAPI.getLatestNotification({ type });
     let actionType = TYPES.SET_LATEST_NOTIFICATION;
 
     switch (type) {
@@ -237,8 +233,8 @@ export const getNotifications =
       }
       const { results = [], total = 0 } = await (type ===
         ALERT_TYPES.SCHEDULE.VALUE
-        ? notificationsAPI.getScheduledNotifications
-        : notificationsAPI.getNotifications)(params);
+        ? alertsAPI.getScheduledNotifications
+        : alertsAPI.getNotifications)(params);
 
       await dispatch({
         type: TYPES.SET_NOTIFICATIONS,
@@ -264,7 +260,7 @@ export const getMoreNotifications = (type) => async (dispatch, getState) => {
       skip: preResults.length,
       take: PAGE_COUNT,
     };
-    const { results = [], total = 0 } = await notificationsAPI.getNotifications(
+    const { results = [], total = 0 } = await alertsAPI.getNotifications(
       params
     );
 
@@ -320,8 +316,9 @@ export const getScheduledNotifications =
         take,
       };
 
-      const { results, total } =
-        await notificationsAPI.getScheduledNotifications(params);
+      const { results, total } = await alertsAPI.getScheduledNotifications(
+        params
+      );
       await dispatch({
         type: TYPES.SET_SCHEDULED_NOTIFICATIONS,
         payload: {

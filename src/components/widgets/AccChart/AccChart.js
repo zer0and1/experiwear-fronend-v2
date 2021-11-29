@@ -75,12 +75,12 @@ const data = {
   ],
 };
 
-const Accelerometer = ({ ...boxProps }) => {
+const AccChart = ({ ...boxProps }) => {
   return (
-    <Box height={400} {...boxProps}>
+    <Box height={250} {...boxProps}>
       <Line options={options} data={data} />
     </Box>
   );
 };
 
-export default memo(Accelerometer);
+export default memo(AccChart);
