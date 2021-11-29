@@ -1,3 +1,4 @@
+export { default as Accelerometer } from './Accelerometer';
 export { default as Home } from './Home';
 export { default as News } from './News';
 export { default as Promo } from './Promo';

@@ -1,3 +1,4 @@
+export { default as AccChart } from './AccChart';
 export { default as ActivityTimeline } from './ActivityTimeline';
 export { default as AlertsSent } from './AlertsSent';
 export { default as AuthWrapper } from './AuthWrapper';
