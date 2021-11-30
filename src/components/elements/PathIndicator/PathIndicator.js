@@ -57,7 +57,7 @@ const PathIndicator = () => {
             onClick={() => handleTokenClick(token.path)}
             className={classes.token}
           >
-            {token.title}
+            {token.token || token.title}
           </Link>
         ))}
       </Breadcrumbs>

@@ -52,7 +52,7 @@ export const ALERT_ACTIONS_ITEMS = [
 export const SAVED_ALERTS_ITEMS = [
   {
     icon: AlertIcon,
-    ...LINKS.savedAlerts,
+    ...LINKS.saved,
   },
 ];
 

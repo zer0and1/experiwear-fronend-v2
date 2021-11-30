@@ -71,8 +71,13 @@ export default Object.freeze({
     title: 'Accelerometer',
     path: '/accelerometer',
   },
-  savedAlerts: {
+  saved: {
     title: 'Saved alerts',
-    path: '/saved-alerts',
+    path: '/saved',
+  },
+  savedAll: {
+    title: 'Saved alerts',
+    token: 'View all',
+    path: '/saved-alerts/all',
   },
 });

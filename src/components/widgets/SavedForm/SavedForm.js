@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewsForm = ({ onCreate }) => {
+const SavedForm = ({ onCreate }) => {
   const classes = useStyles();
   const [image, setImage] = useState(null);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
@@ -67,7 +67,7 @@ const NewsForm = ({ onCreate }) => {
           <Controller
             as={<MagicTextField />}
             name="title"
-            label="News Alert Title"
+            label="Alert Title"
             labelWidth={200}
             error={errors.title?.message}
             className={classes.input}
@@ -79,7 +79,7 @@ const NewsForm = ({ onCreate }) => {
             multiline
             rows={5}
             name="body"
-            label="News Body Text"
+            label="Body Text"
             labelWidth={200}
             error={errors.body?.message}
             className={classes.input}
@@ -129,4 +129,4 @@ const NewsForm = ({ onCreate }) => {
   );
 };
 
-export default memo(NewsForm);
+export default memo(SavedForm);
