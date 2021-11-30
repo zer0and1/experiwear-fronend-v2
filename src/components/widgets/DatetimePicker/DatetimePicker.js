@@ -37,9 +37,6 @@ const DatetimePicker = ({
         />
         <Title>Time</Title>
         <TimePicker value={value} onChange={onChange} pr={10} mb={1} />
-        <Box px={10} mb={2}>
-          <FormButton onClick={onClose}>Done</FormButton>
-        </Box>
       </Box>
     </Popover>
   );
