@@ -15,3 +15,4 @@ export { default as SelectedGameSidebar } from './SelectedGameSidebar';
 export { default as SideBar } from './SideBar';
 export { default as SideMenu } from './SideMenu';
 export { default as SavedForm } from './SavedForm';
+export { default as ActiveSavedAlerts } from './ActiveSavedAlerts';

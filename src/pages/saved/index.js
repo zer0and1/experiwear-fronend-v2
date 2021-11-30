@@ -1,4 +1,4 @@
-import { Layout, Saved, CurrentFanbandStats } from 'components';
+import { Layout, Saved, ActiveSavedAlerts } from 'components';
 import { usePathIndicator } from 'hooks';
 import { LINKS } from 'utils/constants';
 
@@ -6,7 +6,7 @@ export default function SavedPage() {
   usePathIndicator(LINKS.saved);
 
   return (
-    <Layout sidebar={<CurrentFanbandStats />}>
+    <Layout sidebar={<ActiveSavedAlerts />}>
       <Saved />
     </Layout>
   );
