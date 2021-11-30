@@ -7,13 +7,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: (props) => props.size,
     fontWeight: 900,
     letterSpacing: 0.48,
-    color: theme.palette.info.main,
+    color: (props) => props.color || theme.palette.info.main,
     textTransform: 'uppercase',
   },
 }));
 
-const Title = ({ children, className, size = 16, ...boxProps }) => {
-  const classes = useStyles({ size });
+const Title = ({ children, className, size = 16, color, ...boxProps }) => {
+  const classes = useStyles({ size, color });
 
   return (
     <Box className={clsx(classes.root, className)} {...boxProps}>

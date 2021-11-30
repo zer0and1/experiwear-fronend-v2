@@ -78,6 +78,6 @@ export default Object.freeze({
   savedAll: {
     title: 'Saved alerts',
     token: 'View all',
-    path: '/saved-alerts/all',
+    path: '/saved/view-all',
   },
 });

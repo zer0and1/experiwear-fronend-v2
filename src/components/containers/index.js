@@ -13,3 +13,4 @@ export { default as ResetPassword } from './ResetPassword';
 export { default as ForgotPassword } from './ForgotPassword';
 export { default as Fanbands } from './Fanbands';
 export { default as Saved } from './Saved';
+export { default as SavedAlertsAll } from './SavedAlertsAll';
