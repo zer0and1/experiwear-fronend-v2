@@ -80,4 +80,8 @@ export default Object.freeze({
     token: 'View all',
     path: '/saved/view-all',
   },
+  tickets: {
+    title: 'Manage tickets',
+    path: '/tickets',
+  },
 });

@@ -56,6 +56,13 @@ export const SAVED_ALERTS_ITEMS = [
   },
 ];
 
+export const MANAGE_TICKETS = [
+  {
+    icon: AlertIcon,
+    ...LINKS.tickets,
+  },
+];
+
 export const SIDEBAR_GROUPS = [
   {
     title: 'Overview',
@@ -68,6 +75,10 @@ export const SIDEBAR_GROUPS = [
   {
     title: 'Saved alerts',
     items: SAVED_ALERTS_ITEMS,
+  },
+  {
+    title: 'Ticket actions',
+    items: MANAGE_TICKETS,
   },
 ];
 

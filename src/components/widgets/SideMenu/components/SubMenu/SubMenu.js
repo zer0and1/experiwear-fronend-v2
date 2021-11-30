@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     color: '#000',
     paddingLeft: theme.spacing(4),
+    paddingTop: 4,
+    paddingBottom: 4,
   },
   selectedItem: {
     '& .MuiTypography-root': {
