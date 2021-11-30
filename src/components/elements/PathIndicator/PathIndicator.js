@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.spacing(3),
     color: '#0f3f62',
     letterSpacing: 0.72,
+  },
+  active: {
+    color: theme.palette.info.main,
   },
   separator: {
     color: '#79869f',
@@ -50,12 +54,14 @@ const PathIndicator = () => {
       <Typography className={classes.lastToken}>{lastTokenLabel}</Typography>
 
       <Breadcrumbs classes={{ separator: classes.separator }} separator="/">
-        {pathTokens.map((token) => (
+        {pathTokens.map((token, idx) => (
           <Link
             key={token.path}
             color="inherit"
             onClick={() => handleTokenClick(token.path)}
-            className={classes.token}
+            className={clsx(classes.token, {
+              [classes.active]: idx === pathTokens.length - 1,
+            })}
           >
             {token.token || token.title}
           </Link>
