@@ -9,6 +9,7 @@ import {
   AccelerometerIcon,
   StatsIcon,
   AlertIcon,
+  TicketIcon,
 } from 'components/icons';
 
 export const OVERVIEW_ITEMS = [
@@ -58,7 +59,7 @@ export const SAVED_ALERTS_ITEMS = [
 
 export const MANAGE_TICKETS = [
   {
-    icon: AlertIcon,
+    icon: TicketIcon,
     ...LINKS.tickets,
   },
 ];

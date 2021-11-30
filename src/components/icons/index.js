@@ -23,3 +23,4 @@ export { default as OnlineIcon } from './OnlineIcon';
 export { default as RecoverIcon } from './RecoverIcon';
 export { default as SearchIcon } from './SearchIcon';
 export { default as StatsIcon } from './StatsIcon';
+export { default as TicketIcon } from './TicketIcon';
