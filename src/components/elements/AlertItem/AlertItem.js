@@ -35,11 +35,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     color: '#333',
   },
+  popover: {
+    marginTop: 15,
+  },
   actionsContainer: {
     display: 'flex',
     flexDirection: 'column',
     rowGap: 11,
-    padding: 16,
+    padding: '20px 14px',
   },
   actions: {
     backgroundColor: '#9ea3ba',
@@ -48,10 +51,12 @@ const useStyles = makeStyles((theme) => ({
     },
     width: 120,
     height: 35,
+    fontSize: 12,
   },
   action: {
     width: 120,
     height: 35,
+    fontSize: 12,
   },
   send: {
     backgroundColor: theme.palette.promo.main,
@@ -111,9 +116,11 @@ const AlertItem = ({
           horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'center',
         }}
+        getContentAnchorEl={null}
+        classes={{ paper: classes.popover }}
       >
         <div className={classes.actionsContainer}>
           <Button className={clsx(classes.action, classes.send)}>Send</Button>
