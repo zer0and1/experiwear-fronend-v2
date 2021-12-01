@@ -98,4 +98,19 @@ export default {
       marginBottom: '38px',
     },
   },
+  MuiTabs: {
+    indicator: {
+      backgroundColor: 'unset',
+    },
+  },
+  MuiTab: {
+    root: {
+      fontFamily: 'SFProDisplay-BlackItalic',
+      fontSize: 16,
+    },
+    textColorInherit: {
+      color: '#01a1c3',
+      opacity: 0.3,
+    },
+  },
 };

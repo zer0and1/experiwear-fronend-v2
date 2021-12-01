@@ -81,7 +81,7 @@ export default Object.freeze({
     path: '/saved/view-all',
   },
   tickets: {
-    title: 'Manage tickets',
+    title: 'Manage Tickets',
     path: '/tickets',
   },
 });
