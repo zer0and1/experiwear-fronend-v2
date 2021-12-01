@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MagicImageField = ({
+const ExpImageField = ({
   label,
   className,
   dataURLKey = 'url',
@@ -109,4 +109,4 @@ const MagicImageField = ({
   );
 };
 
-export default memo(MagicImageField);
+export default memo(ExpImageField);

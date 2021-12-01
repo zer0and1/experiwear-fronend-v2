@@ -10,8 +10,8 @@ import {
   AlertField,
   FanbandTerminal,
   FormButton,
-  MagicImageField,
-  MagicTextField,
+  ExpImageField,
+  ExpTextField,
 } from 'components';
 import {
   DEFAULT_ALERT_PARAMS,
@@ -71,22 +71,20 @@ const PromoForm = ({ onCreate }) => {
       <Grid container>
         <Grid item xs={9}>
           <Controller
-            as={<MagicTextField />}
+            as={<ExpTextField />}
             name="title"
             label="Promo Alert Title"
-            labelWidth={200}
             error={errors.title?.message}
             className={classes.input}
             control={control}
             defaultValue=""
           />
           <Controller
-            as={<MagicTextField />}
+            as={<ExpTextField />}
             multiline
             rows={5}
             name="body"
             label="Promo Body Text"
-            labelWidth={200}
             error={errors.body?.message}
             className={classes.input}
             control={control}
@@ -106,7 +104,7 @@ const PromoForm = ({ onCreate }) => {
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <MagicImageField
+            <ExpImageField
               label="Image"
               image={image}
               onChange={setImage}

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AlertItem = ({
+const TicketItem = ({
   data: {
     barcode = '0 705632 441947',
     section = 'G9',
@@ -72,4 +72,4 @@ const AlertItem = ({
   );
 };
 
-export default AlertItem;
+export default TicketItem;

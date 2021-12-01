@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Typography, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { BandLogo, MagicLoading } from 'components';
+import { BandLogo, ExpLoading } from 'components';
 import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +56,7 @@ const AuthWrapper = ({ title, children }) => {
 
   return (
     <div className={classes.root}>
-      {loadingStatus && <MagicLoading loading={loadingStatus} />}
+      {loadingStatus && <ExpLoading loading={loadingStatus} />}
       <Paper className={classes.container}>
         <Grid container>
           <Grid item md={6} className={classes.imgSection} />

@@ -1,6 +1,12 @@
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MagicSelect = React.forwardRef(
-  ({ items, placeholder, label, ...rest }, ref) => {
+const ExpSelect = React.forwardRef(
+  ({ items, placeholder, label, error, ...rest }, ref) => {
     const classes = useStyles();
 
     return (
-      <FormControl className={classes.root}>
+      <FormControl className={classes.root} error={!!error}>
         <InputLabel id={`select-label-${label}`} className={classes.label}>
           {label}
         </InputLabel>
@@ -64,9 +70,10 @@ const MagicSelect = React.forwardRef(
             </MenuItem>
           ))}
         </Select>
+        {error && <FormHelperText>{error}</FormHelperText>}
       </FormControl>
     );
   }
 );
 
-export default memo(MagicSelect);
+export default memo(ExpSelect);

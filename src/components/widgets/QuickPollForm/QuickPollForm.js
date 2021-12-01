@@ -10,8 +10,8 @@ import {
   AlertField,
   FanbandTerminal,
   FormButton,
-  MagicImageField,
-  MagicTextField,
+  ExpImageField,
+  ExpTextField,
 } from 'components';
 import {
   DEFAULT_ALERT_PARAMS,
@@ -84,10 +84,9 @@ const QuickPollForm = ({ onCreate }) => {
       <Grid container>
         <Grid item xs={9}>
           <Controller
-            as={<MagicTextField />}
+            as={<ExpTextField />}
             name="title"
             label="Quick Poll question"
-            labelWidth={200}
             error={errors.response?.title}
             className={classes.input}
             control={control}
@@ -95,10 +94,9 @@ const QuickPollForm = ({ onCreate }) => {
           />
           {responses.map((res, idx) => (
             <Box key={idx} display="flex">
-              <MagicTextField
+              <ExpTextField
                 name={`response${idx}`}
                 label={`Response #${idx + 1}`}
-                labelWidth={200}
                 className={classes.input}
                 value={res}
                 onChange={(e) =>
@@ -146,7 +144,7 @@ const QuickPollForm = ({ onCreate }) => {
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <MagicImageField
+            <ExpImageField
               label="Image"
               image={image}
               onChange={setImage}

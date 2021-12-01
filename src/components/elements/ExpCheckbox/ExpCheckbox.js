@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-const CheckBox = (props) => {
+const ExpCheckbox = (props) => {
   const classes = useStyles(props);
 
   return (
@@ -36,4 +36,4 @@ const CheckBox = (props) => {
   );
 };
 
-export default CheckBox;
+export default ExpCheckbox;

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as authAPI from 'services/api-auth';
-import { MagicTextField, AuthWrapper } from 'components';
+import { ExpTextField, AuthWrapper } from 'components';
 import useLoading from 'hooks/useLoading';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
 import {
@@ -86,8 +86,7 @@ const ResetPassword = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
-          as={<MagicTextField />}
-          labelWidth={280}
+          as={<ExpTextField />}
           name="password"
           type="password"
           label="New Password"
@@ -97,8 +96,7 @@ const ResetPassword = () => {
           defaultValue=""
         />
         <Controller
-          as={<MagicTextField />}
-          labelWidth={280}
+          as={<ExpTextField />}
           name="confirmPassword"
           type="password"
           label="Confirm Password"

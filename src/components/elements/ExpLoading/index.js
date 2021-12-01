@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-const MagicLoading = ({ loading, height, size }) => {
+const ExpLoading = ({ loading, height, size }) => {
   const classes = useStyles({ height });
 
   return (
@@ -26,4 +26,4 @@ const MagicLoading = ({ loading, height, size }) => {
   );
 };
 
-export default memo(MagicLoading);
+export default memo(ExpLoading);

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as authAPI from 'services/api-auth';
-import { MagicTextField, AuthWrapper } from 'components';
+import { ExpTextField, AuthWrapper } from 'components';
 import useLoading from 'hooks/useLoading';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
 import { EMAIL_VALID } from 'utils/constants/validations';
@@ -73,7 +73,7 @@ const ForgotPassword = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
-          as={<MagicTextField />}
+          as={<ExpTextField />}
           name="email"
           type="email"
           label="E-mail"

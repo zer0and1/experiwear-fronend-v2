@@ -6,7 +6,7 @@ import {
   CalendarIcon,
   CardHeaderButton,
   DatetimePicker,
-  MagicSelect,
+  ExpSelect,
   NewsForm,
   PromoForm,
   QuickPollForm,
@@ -74,7 +74,7 @@ const Schedule = () => {
           }
         />
         <CardContent>
-          <MagicSelect
+          <ExpSelect
             name="type"
             label="Alert type"
             items={Object.values(ALERT_TYPES)

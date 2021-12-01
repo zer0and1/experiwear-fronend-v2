@@ -14,8 +14,6 @@ import LINKS from 'utils/constants/links';
 import MESSAGES from 'utils/constants/messages';
 import {
   InputAdornment,
-  Checkbox,
-  FormControlLabel,
   Box,
   Button,
   IconButton,
@@ -26,7 +24,7 @@ import {
   LockOpenOutlined,
   LockOutlined,
 } from '@material-ui/icons';
-import { MagicTextField } from 'components';
+import { ExpTextField, ExpCheckbox } from 'components';
 
 const schema = yup.object().shape({
   email: EMAIL_VALID,
@@ -109,7 +107,7 @@ const SignIn = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
-          as={<MagicTextField />}
+          as={<ExpTextField />}
           name="email"
           type="email"
           label="E-mail"
@@ -127,7 +125,7 @@ const SignIn = () => {
           }}
         />
         <Controller
-          as={<MagicTextField />}
+          as={<ExpTextField />}
           name="password"
           type={showPassword ? 'text' : 'password'}
           label="Password"
@@ -162,10 +160,7 @@ const SignIn = () => {
           width="100%"
           mb={3}
         >
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="Remember Me"
-          />
+          <ExpCheckbox name="checkedB" color="primary" label="Remember Me" />
           <LinkButton
             href={LINKS.forgotPassword.path}
             className={classes.forgotLink}

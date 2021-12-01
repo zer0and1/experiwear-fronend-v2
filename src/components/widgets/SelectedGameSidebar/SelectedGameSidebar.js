@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react';
-import { Calendar, Checkbox, Title } from 'components';
+import { Calendar, ExpCheckbox, Title } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertToShow, setSelectedDate } from 'redux/actions';
 import { useRouter } from 'next/router';
@@ -38,28 +38,28 @@ const SelectedGameSidebar = () => {
         mb={8}
       />
       <Title mb={3}>Alerts to show</Title>
-      <Checkbox
+      <ExpCheckbox
         label="News"
         color="news"
         name="news"
         checked={alertsToShow.news}
         onChange={handleVisibilityChange}
       />
-      <Checkbox
+      <ExpCheckbox
         label="Survey"
         color="survey"
         name="survey"
         checked={alertsToShow.survey}
         onChange={handleVisibilityChange}
       />
-      <Checkbox
+      <ExpCheckbox
         label="Score"
         color="score"
         name="score"
         checked={alertsToShow.score}
         onChange={handleVisibilityChange}
       />
-      <Checkbox
+      <ExpCheckbox
         label="Promo"
         color="promo"
         name="promo"

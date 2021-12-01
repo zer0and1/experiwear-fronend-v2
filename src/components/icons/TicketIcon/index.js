@@ -5,12 +5,14 @@ import clsx from 'clsx';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: 16,
+    width: (props) => props.width || 12,
+    marginLeft: 2,
+    marginRight: 2,
   },
 }));
 
 const TicketIcon = ({ className, viewBox, ...rest }) => {
-  const classes = useStyles();
+  const classes = useStyles(rest);
 
   return (
     <SvgIcon

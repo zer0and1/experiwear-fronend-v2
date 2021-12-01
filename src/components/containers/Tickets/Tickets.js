@@ -2,6 +2,7 @@ import { Card, CardContent, makeStyles, Tab, Tabs } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useState } from 'react';
 import TicketTable from './TicketsTable';
+import TicketForm from './TicketForm';
 
 const TABS = Object.freeze({
   tickets: {
@@ -45,6 +46,9 @@ const Tickets = () => {
         <TabContext value={tab}>
           <TabPanel value={TABS.tickets.id} className={classes.tabPanel}>
             <TicketTable tickets={tickets} />
+          </TabPanel>
+          <TabPanel value={TABS.newTickets.id} className={classes.tabPanel}>
+            <TicketForm />
           </TabPanel>
         </TabContext>
       </CardContent>

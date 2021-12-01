@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { MagicLoading } from 'components';
+import { ExpLoading } from 'components';
 import AppBar from '../AppBar';
 import SideMenu from '../SideMenu';
 import SideBar from '../SideBar';
@@ -44,7 +44,7 @@ const Layout = ({ children, sidebar }) => {
 
   return (
     <main className={classes.root}>
-      <MagicLoading loading={loadingStatus} />
+      <ExpLoading loading={loadingStatus} />
       <SideMenu />
 
       <div className={classes.container}>

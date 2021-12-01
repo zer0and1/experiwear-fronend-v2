@@ -16,3 +16,5 @@ export { default as SideBar } from './SideBar';
 export { default as SideMenu } from './SideMenu';
 export { default as SavedForm } from './SavedForm';
 export { default as ActiveSavedAlerts } from './ActiveSavedAlerts';
+export { default as PathIndicator } from './PathIndicator';
+export { default as GameSelector } from '../widgets/GameSelector';

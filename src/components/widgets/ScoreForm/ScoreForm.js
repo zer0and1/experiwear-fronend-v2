@@ -12,7 +12,7 @@ import {
   AlertField,
   FanbandTerminal,
   FormButton,
-  MagicTextField,
+  ExpTextField,
 } from 'components';
 import {
   DEFAULT_ALERT_PARAMS,
@@ -81,10 +81,9 @@ const ScoreForm = ({ onCreate }) => {
       <Grid container>
         <Grid item xs={9}>
           <Controller
-            as={<MagicTextField />}
+            as={<ExpTextField />}
             name="title"
             label="Score alert Title"
-            labelWidth={200}
             error={errors.title?.message}
             className={classes.input}
             control={control}
@@ -92,10 +91,9 @@ const ScoreForm = ({ onCreate }) => {
             inputProps={{ readOnly: true }}
           />
           <Controller
-            as={<MagicTextField />}
+            as={<ExpTextField />}
             name="body"
             label="Score description"
-            labelWidth={200}
             error={errors.body?.message}
             className={classes.input}
             control={control}
