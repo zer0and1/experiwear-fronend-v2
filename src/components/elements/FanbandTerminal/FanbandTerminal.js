@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useRef, useState, useMemo } from 'react';
-import { alpha, makeStyles } from '@material-ui/core';
+import { alpha, makeStyles, Box } from '@material-ui/core';
 import { TERMINAL_DISPLAY, TERMINAL_FRAMEWORK } from 'utils/constants';
 import { FLASHING_PATTERN } from './constants';
 import { quadOut } from './helper';
@@ -20,11 +20,12 @@ const useStyles = makeStyles(() => ({
       parseInt(props.duration / props.vibPeriod),
   },
   framework: {
-    width: 150,
-    height: 308,
+    width: '100%',
+    height: '100%',
     backgroundImage: `url(${TERMINAL_FRAMEWORK})`,
-    backgroundSize: 'cover',
-    padding: '50px 20px 56px 25px',
+    backgroundSize: '100% 100%',
+    padding: ({ scale }) =>
+      `${50 * scale}px ${24 * scale}px ${56 * scale}px ${24 * scale}px`,
   },
   displayContainer: {
     width: '100%',
@@ -66,13 +67,30 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FanbandTerminal = ({ params, children = null }) => {
+const FanbandTerminal = ({
+  params,
+  children = null,
+  disabledAnimation = false,
+  scale = 0.9,
+  ...boxProps
+}) => {
   const {
     duration,
     vibrationIntensity: intensity,
     vibrationType,
     ledType,
-  } = params;
+  } = useMemo(
+    () =>
+      disabledAnimation
+        ? {
+            ...params,
+            ledType: LED_TYPES.stable,
+            vibrationIntensity: VIB_INTENSITIES.no,
+          }
+        : params,
+    [params, disabledAnimation]
+  );
+
   const palette = useMemo(
     () =>
       _.pick(params, [
@@ -103,6 +121,7 @@ const FanbandTerminal = ({ params, children = null }) => {
     intensity,
     vibPeriod,
     ledType,
+    scale,
   });
   const rootRef = useRef(null);
 
@@ -223,7 +242,13 @@ const FanbandTerminal = ({ params, children = null }) => {
   }, [duration, vibrationType]);
 
   return (
-    <div className={classes.root} ref={rootRef}>
+    <Box
+      className={classes.root}
+      ref={rootRef}
+      width={150 * scale}
+      height={308 * scale}
+      {...boxProps}
+    >
       <div className={classes.framework}>
         <div className={classes.displayContainer}>
           {children}
@@ -235,7 +260,7 @@ const FanbandTerminal = ({ params, children = null }) => {
           <path d="M0.332,0.996 C0.144,0.979,0.05,0.892,0.009,0.682 C0,0.633,0,0.376,0.009,0.325 C0.025,0.244,0.049,0.158,0.101,0.1 C0.176,0.007,0.372,0.001,0.386,0.001 C0.474,0,0.464,0,0.542,0 C0.74,0,0.851,0.03,0.918,0.119 C0.956,0.16,0.978,0.237,0.995,0.327 C1,0.376,1,0.63,0.995,0.679 C0.979,0.764,0.948,0.831,0.925,0.867 C0.905,0.893,0.841,0.984,0.623,0.999 L0.609,0.999 L0.494,1 C0.427,1,0.389,1,0.361,0.998"></path>
         </clipPath>
       </svg>
-    </div>
+    </Box>
   );
 };
 

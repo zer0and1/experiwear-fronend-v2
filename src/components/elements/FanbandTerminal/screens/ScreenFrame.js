@@ -18,13 +18,13 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    padding: '12px 8px',
+    padding: '10%',
     clipPath: `url(#clip-path)`,
     overflow: 'hidden',
   },
   hawksIcon: {
-    height: 50,
-    marginBottom: 8,
+    height: '30%',
+    marginBottom: '15%',
   },
 });
 
@@ -46,11 +46,11 @@ const ScreenFrame = ({ children }) => {
             alignItems="center"
             justifyContent="space-between"
             flexDirection="column"
-            mt={3}
-            height={70}
+            mt="30%"
+            height="40%"
           >
-            <img src={TERMINAL_ATL} height={40} />
-            <img src={TERMINAL_HAWKS} height={24} />
+            <img src={TERMINAL_ATL} width="100%" />
+            <img src={TERMINAL_HAWKS} width="100%" />
           </Box>
           <img src={TERMINAL_HAWKS_LOGO} className={classes.hawksIcon} />
         </Fragment>

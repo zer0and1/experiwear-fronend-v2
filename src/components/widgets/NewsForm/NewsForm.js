@@ -13,11 +13,7 @@ import {
   ExpImageField,
   ExpTextField,
 } from 'components';
-import {
-  DEFAULT_ALERT_PARAMS,
-  LED_TYPES,
-  VIB_INTENSITIES,
-} from 'components/elements/AlertField';
+import { DEFAULT_ALERT_PARAMS } from 'components/elements/AlertField';
 import { ImageScreen } from 'components/elements/FanbandTerminal';
 
 const schema = object().shape({
@@ -110,14 +106,8 @@ const NewsForm = ({ onCreate }) => {
             />
           </Grid>
         </Grid>
-        <Grid item xs={3} justifyContent="flex-end">
-          <FanbandTerminal
-            params={{
-              ...alertParams,
-              ledType: LED_TYPES.stable,
-              vibrationIntensity: VIB_INTENSITIES.no,
-            }}
-          >
+        <Grid item xs={3} container justifyContent="flex-end">
+          <FanbandTerminal params={alertParams} disabledAnimation>
             <ImageScreen imageUrl={image?.url} text={bodyText} />
           </FanbandTerminal>
         </Grid>
