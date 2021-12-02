@@ -1,4 +1,4 @@
-import { Box, Button, fade, makeStyles } from '@material-ui/core';
+import { Box, Button, alpha, makeStyles } from '@material-ui/core';
 import { ColorPicker } from 'material-ui-color';
 import { useCallback, useState } from 'react';
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     height: 35,
     '&:hover': {
-      backgroundColor: fade(color, 0.6),
+      backgroundColor: alpha(color, 0.6),
     },
   }),
 }));

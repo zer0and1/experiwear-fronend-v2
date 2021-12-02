@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import moment from 'moment';
 import { useMemo } from 'react';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles/colorManipulator';
 import { conv2time } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     height: 58,
     top: (props) => props.top,
     left: (props) => `calc(${props.left}%)`,
-    backgroundColor: (props) => fade(theme.palette?.[props.type].main, 0.2),
+    backgroundColor: (props) =>
+      alpha(theme.palette?.[props.type]?.main || theme.palette.info.main, 0.2),
     borderRadius: 10,
     padding: 6,
   },
