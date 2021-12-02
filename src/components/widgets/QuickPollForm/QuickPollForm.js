@@ -85,7 +85,6 @@ const QuickPollForm = ({ onCreate }) => {
               name="title"
               label="Quick Poll question"
               error={errors.response?.title}
-              className={classes.input}
               control={control}
               fullWidth
               defaultValue="Should that shot have counted?"
@@ -93,11 +92,10 @@ const QuickPollForm = ({ onCreate }) => {
           </Grid>
           <Grid item xs={12}>
             {responses.map((res, idx) => (
-              <Box key={idx} display="flex">
+              <Box key={idx} display="flex" mb={2}>
                 <ExpTextField
                   name={`response${idx}`}
                   label={`Response #${idx + 1}`}
-                  className={classes.input}
                   value={res}
                   fullWidth
                   onChange={(e) =>

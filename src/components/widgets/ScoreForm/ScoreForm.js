@@ -85,6 +85,7 @@ const ScoreForm = ({ onCreate }) => {
               className={classes.input}
               control={control}
               defaultValue={alertTitle}
+              fullWidth
               inputProps={{ readOnly: true }}
             />
           </Grid>
@@ -96,6 +97,7 @@ const ScoreForm = ({ onCreate }) => {
               error={errors.body?.message}
               className={classes.input}
               control={control}
+              fullWidth
               defaultValue=""
             />
           </Grid>
