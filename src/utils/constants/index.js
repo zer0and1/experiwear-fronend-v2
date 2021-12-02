@@ -7,3 +7,4 @@ export * from './messages';
 export * from './sidebar-menu';
 export * from './socket';
 export * from './validations';
+export * from './enums';

@@ -21,7 +21,7 @@ export default function auxReducer(state = INITIAL_STATE, action) {
     case TYPES.SET_ERROR:
       return {
         ...state,
-        error: aaction.payload,
+        error: action.payload,
       };
     default:
       return state;

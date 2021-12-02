@@ -5,36 +5,46 @@ import {
   Popover,
   Tabs,
   Tab,
+  MenuList,
+  MenuItem,
+  makeStyles,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { TabContext, TabPanel } from '@material-ui/lab';
 import { useAsyncAction } from 'hooks';
 import { getFanbands } from 'redux/actions';
 import { useSelector } from 'react-redux';
+import { FANBAND_LABELS, FANBAND_TYPES } from 'utils/constants';
 
-const TABS = Object.freeze({
-  provisioned: {
-    id: 'provisioned',
-    label: 'PROVISIONED',
+const useStyles = makeStyles((theme) => ({
+  item: {
+    fontFamily: theme.custom.fonts.SFProTextBold,
+    fontSize: 14,
+    color: '#000',
+    '&>span': {
+      fontFamily: theme.custom.fonts.SFProTextRegular,
+    },
   },
-  nonProvisioned: {
-    id: 'non-provisioned',
-    label: 'NON-PROVISIONED',
-  },
-  all: {
-    id: 'all',
-    label: 'ALL',
-  },
-});
+}));
 
 const FanbandSelector = React.forwardRef(({ error, ...rest }, ref) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tab, setTab] = useState('provisioned');
   const fanbands = useSelector((state) => state.fanbands.results);
 
-  console.log(fanbands);
-
   useAsyncAction(getFanbands(), !fanbands.length);
+
+  const FanbandTabPanel = ({ fanbands = [] }) => (
+    <MenuList>
+      {fanbands.map(({ id, name, phone }) => (
+        <MenuItem key={id} className={classes.item}>
+          {name}
+          <span>&nbsp;{` ∙ Phone: ${phone}`}</span>
+        </MenuItem>
+      ))}
+    </MenuList>
+  );
 
   return (
     <React.Fragment>
@@ -69,17 +79,26 @@ const FanbandSelector = React.forwardRef(({ error, ...rest }, ref) => {
         }}
       >
         <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
-          <Tab value={TABS.provisioned.id} label={TABS.provisioned.label} />
           <Tab
-            value={TABS.nonProvisioned.id}
-            label={TABS.nonProvisioned.label}
+            value={FANBAND_TYPES.provisioned}
+            label={FANBAND_LABELS.provisioned}
           />
-          <Tab value={TABS.all.id} label={TABS.all.label} />
+          <Tab
+            value={FANBAND_TYPES.nonProvisioned}
+            label={FANBAND_LABELS.nonProvisioned}
+          />
+          <Tab value={FANBAND_TYPES.all} label={FANBAND_LABELS.all} />
         </Tabs>
         <TabContext value={tab}>
-          <TabPanel value={TABS.provisioned.id}></TabPanel>
-          <TabPanel value={TABS.nonProvisioned.id}></TabPanel>
-          <TabPanel value={TABS.all.id}></TabPanel>
+          <TabPanel value={FANBAND_TYPES.provisioned}>
+            <FanbandTabPanel fanbands={fanbands} />
+          </TabPanel>
+          <TabPanel value={FANBAND_TYPES.nonProvisioned}>
+            <FanbandTabPanel fanbands={fanbands} />
+          </TabPanel>
+          <TabPanel value={FANBAND_TYPES.all}>
+            <FanbandTabPanel fanbands={fanbands} />
+          </TabPanel>
         </TabContext>
       </Popover>
     </React.Fragment>
