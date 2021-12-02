@@ -13,11 +13,7 @@ import {
   ExpImageField,
   ExpTextField,
 } from 'components';
-import {
-  DEFAULT_ALERT_PARAMS,
-  LED_TYPES,
-  VIB_INTENSITIES,
-} from 'components/elements/AlertField';
+import { DEFAULT_ALERT_PARAMS } from 'components/elements/AlertField';
 import { ImageScreen } from 'components/elements/FanbandTerminal';
 
 const schema = object().shape({
@@ -63,40 +59,33 @@ const SavedForm = ({ onCreate }) => {
   return (
     <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Grid container>
-        <Grid item xs={9}>
-          <Controller
-            as={<ExpTextField />}
-            name="title"
-            label="Alert Title"
-            error={errors.title?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=""
-          />
-          <Controller
-            as={<ExpTextField />}
-            multiline
-            rows={5}
-            name="body"
-            label="Body Text"
-            error={errors.body?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=""
-          />
-        </Grid>
-        <Grid container item xs={3} justifyContent="flex-end">
-          <FanbandTerminal
-            params={{
-              ...alertParams,
-              ledType: LED_TYPES.stable,
-              vibrationIntensity: VIB_INTENSITIES.no,
-            }}
-          >
-            <ImageScreen imageUrl={image?.url} text={bodyText} />
-          </FanbandTerminal>
-        </Grid>
-        <Grid container spacing={3}>
+        <Grid item xs={9} container spacing={2}>
+          <Grid item xs={12}>
+            <Controller
+              as={<ExpTextField />}
+              name="title"
+              label="Alert Title"
+              error={errors.title?.message}
+              className={classes.input}
+              control={control}
+              fullWidth
+              defaultValue=""
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              as={<ExpTextField />}
+              multiline
+              rows={5}
+              name="body"
+              label="Body Text"
+              error={errors.body?.message}
+              className={classes.input}
+              control={control}
+              fullWidth
+              defaultValue=""
+            />
+          </Grid>
           <Grid item xs={6}>
             <ExpImageField
               label="Image"
@@ -105,7 +94,7 @@ const SavedForm = ({ onCreate }) => {
               width="100%"
             />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <AlertField
               label="Alert Parameters"
               value={alertParams}
@@ -118,6 +107,11 @@ const SavedForm = ({ onCreate }) => {
               }
             />
           </Grid>
+        </Grid>
+        <Grid container item xs={3} justifyContent="flex-end">
+          <FanbandTerminal params={alertParams} disabledAnimation>
+            <ImageScreen imageUrl={image?.url} text={bodyText} />
+          </FanbandTerminal>
         </Grid>
       </Grid>
       <Box mt="auto">

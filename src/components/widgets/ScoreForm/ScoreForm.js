@@ -14,11 +14,7 @@ import {
   FormButton,
   ExpTextField,
 } from 'components';
-import {
-  DEFAULT_ALERT_PARAMS,
-  LED_TYPES,
-  VIB_INTENSITIES,
-} from 'components/elements/AlertField';
+import { DEFAULT_ALERT_PARAMS } from 'components/elements/AlertField';
 import { ScoreScreen } from 'components/elements/FanbandTerminal';
 
 const schema = yup.object().shape({
@@ -79,43 +75,43 @@ const ScoreForm = ({ onCreate }) => {
   return (
     <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Grid container>
-        <Grid item xs={9}>
-          <Controller
-            as={<ExpTextField />}
-            name="title"
-            label="Score alert Title"
-            error={errors.title?.message}
-            className={classes.input}
-            control={control}
-            defaultValue={alertTitle}
-            inputProps={{ readOnly: true }}
-          />
-          <Controller
-            as={<ExpTextField />}
-            name="body"
-            label="Score description"
-            error={errors.body?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=""
-          />
-          <AlertField
-            label="Alert Parameters"
-            value={alertParams}
-            onChange={handleParamsChange}
-            onReset={resetParams}
-            width={350}
-            terminalScreen={<ScoreScreen game={game} text={bodyText} />}
-          />
+        <Grid item xs={9} container spacing={4}>
+          <Grid item xs={12}>
+            <Controller
+              as={<ExpTextField />}
+              name="title"
+              label="Score alert Title"
+              error={errors.title?.message}
+              className={classes.input}
+              control={control}
+              defaultValue={alertTitle}
+              inputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              as={<ExpTextField />}
+              name="body"
+              label="Score description"
+              error={errors.body?.message}
+              className={classes.input}
+              control={control}
+              defaultValue=""
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <AlertField
+              label="Alert Parameters"
+              value={alertParams}
+              onChange={handleParamsChange}
+              onReset={resetParams}
+              width={350}
+              terminalScreen={<ScoreScreen game={game} text={bodyText} />}
+            />
+          </Grid>
         </Grid>
         <Grid container item xs={3} justifyContent="flex-end">
-          <FanbandTerminal
-            params={{
-              ...alertParams,
-              ledType: LED_TYPES.stable,
-              vibrationIntensity: VIB_INTENSITIES.no,
-            }}
-          >
+          <FanbandTerminal params={alertParams} disabledAnimation>
             <ScoreScreen game={game} text={bodyText} />
           </FanbandTerminal>
         </Grid>

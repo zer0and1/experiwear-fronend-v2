@@ -13,11 +13,7 @@ import {
   ExpImageField,
   ExpTextField,
 } from 'components';
-import {
-  DEFAULT_ALERT_PARAMS,
-  LED_TYPES,
-  VIB_INTENSITIES,
-} from 'components/elements/AlertField';
+import { DEFAULT_ALERT_PARAMS } from 'components/elements/AlertField';
 import { QuickPollScreen } from 'components/elements/FanbandTerminal';
 
 const schema = yup.object().shape({
@@ -82,42 +78,48 @@ const QuickPollForm = ({ onCreate }) => {
   return (
     <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Grid container>
-        <Grid item xs={9}>
-          <Controller
-            as={<ExpTextField />}
-            name="title"
-            label="Quick Poll question"
-            error={errors.response?.title}
-            className={classes.input}
-            control={control}
-            defaultValue="Should that shot have counted?"
-          />
-          {responses.map((res, idx) => (
-            <Box key={idx} display="flex">
-              <ExpTextField
-                name={`response${idx}`}
-                label={`Response #${idx + 1}`}
-                className={classes.input}
-                value={res}
-                onChange={(e) =>
-                  setResponses((res) =>
-                    res.map((r, i) => (i === idx ? e.target.value : r))
-                  )
-                }
-              />
-              {responses.length > 1 && (
-                <Box display="flex" alignItems="center">
-                  <IconButton
-                    onClick={() =>
-                      setResponses((res) => res.filter((r, i) => i !== idx))
-                    }
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </Box>
-              )}
-            </Box>
-          ))}
+        <Grid item xs={9} container spacing={2}>
+          <Grid item xs={12}>
+            <Controller
+              as={<ExpTextField />}
+              name="title"
+              label="Quick Poll question"
+              error={errors.response?.title}
+              className={classes.input}
+              control={control}
+              fullWidth
+              defaultValue="Should that shot have counted?"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            {responses.map((res, idx) => (
+              <Box key={idx} display="flex">
+                <ExpTextField
+                  name={`response${idx}`}
+                  label={`Response #${idx + 1}`}
+                  className={classes.input}
+                  value={res}
+                  fullWidth
+                  onChange={(e) =>
+                    setResponses((res) =>
+                      res.map((r, i) => (i === idx ? e.target.value : r))
+                    )
+                  }
+                />
+                {responses.length > 1 && (
+                  <Box display="flex" alignItems="center">
+                    <IconButton
+                      onClick={() =>
+                        setResponses((res) => res.filter((r, i) => i !== idx))
+                      }
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </Box>
+                )}
+              </Box>
+            ))}
+          </Grid>
           <Grid item xs={12}>
             <Button
               variant="contained"
@@ -130,19 +132,6 @@ const QuickPollForm = ({ onCreate }) => {
               Add another response
             </Button>
           </Grid>
-        </Grid>
-        <Grid container item xs={3} justifyContent="flex-end">
-          <FanbandTerminal
-            params={{
-              ...alertParams,
-              ledType: LED_TYPES.stable,
-              vibrationIntensity: VIB_INTENSITIES.no,
-            }}
-          >
-            <QuickPollScreen text={watchTitle} responses={responses} />
-          </FanbandTerminal>
-        </Grid>
-        <Grid container spacing={3}>
           <Grid item xs={6}>
             <ExpImageField
               label="Image"
@@ -164,6 +153,11 @@ const QuickPollForm = ({ onCreate }) => {
               }
             />
           </Grid>
+        </Grid>
+        <Grid container item xs={3} justifyContent="flex-end">
+          <FanbandTerminal params={alertParams} disabledAnimation>
+            <QuickPollScreen text={watchTitle} responses={responses} />
+          </FanbandTerminal>
         </Grid>
       </Grid>
       <Box mt="auto">
