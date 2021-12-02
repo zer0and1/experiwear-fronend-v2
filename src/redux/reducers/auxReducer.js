@@ -3,6 +3,7 @@ import * as TYPES from 'redux/action-types';
 const INITIAL_STATE = {
   pathTokens: [],
   loadingStatus: false,
+  error: null,
 };
 
 export default function auxReducer(state = INITIAL_STATE, action) {
@@ -16,6 +17,11 @@ export default function auxReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         loadingStatus: action.payload,
+      };
+    case TYPES.SET_ERROR:
+      return {
+        ...state,
+        error: aaction.payload,
       };
     default:
       return state;

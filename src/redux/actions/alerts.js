@@ -1,5 +1,5 @@
 import * as TYPES from '../action-types';
-import * as fanbandsAPI from 'services/api-fanband';
+import * as fanbandsAPI from 'services/api-fanbands';
 import * as alertsAPI from 'services/api-alerts';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { isEmpty } from 'utils/helpers/utility';

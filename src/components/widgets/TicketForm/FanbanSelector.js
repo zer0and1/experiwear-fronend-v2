@@ -8,6 +8,9 @@ import {
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { TabContext, TabPanel } from '@material-ui/lab';
+import { useAsyncAction } from 'hooks';
+import { getFanbands } from 'redux/actions';
+import { useSelector } from 'react-redux';
 
 const TABS = Object.freeze({
   provisioned: {
@@ -27,6 +30,11 @@ const TABS = Object.freeze({
 const FanbandSelector = React.forwardRef(({ error, ...rest }, ref) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [tab, setTab] = useState('provisioned');
+  const fanbands = useSelector((state) => state.fanbands.results);
+
+  console.log(fanbands);
+
+  useAsyncAction(getFanbands(), !fanbands.length);
 
   return (
     <React.Fragment>

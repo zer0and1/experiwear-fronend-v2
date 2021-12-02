@@ -9,3 +9,8 @@ export const setLoadingStatus = (loadingStatus) => ({
   type: TYPES.SET_LOADING_STATUS,
   payload: loadingStatus,
 });
+
+export const setError = (error) => ({
+  type: TYPES.SET_ERROR,
+  payload: error,
+});

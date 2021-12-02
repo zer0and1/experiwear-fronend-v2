@@ -1,4 +1,3 @@
-export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const SET_IS_AUTHENTICATED = 'SET_IS_AUTHENTICATED';
 
@@ -22,8 +21,14 @@ export const UPDATE_FANBANDS_STATISTICS = 'UPDATE_FANBANDS_STATISTICS';
 export const SET_ACC_NOTIFICATION = 'SET_ACC_NOTIFICATION';
 export const SET_ACC_DATA = 'SET_ACC_DATA';
 
-export const SET_SIDE_DRAWER = 'SET_SIDE_DRAWER';
-export const SET_PATH_TOKENS = 'SET_PATH_TOKENS';
 export const SELECT_DATE = 'SELECT_DATE';
 export const SELECT_GAME = 'SELECT_GAME';
 export const SET_ALERT_TO_SHOW = 'SET_ALERT_TO_SHOW';
+
+// auxiliary actions
+export const SET_PATH_TOKENS = 'SET_PATH_TOKENS';
+export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
+export const SET_ERROR = 'SET_ERROR';
+
+// fanband actions
+export const SET_FANBANDS = 'SET_FANBANDS';
