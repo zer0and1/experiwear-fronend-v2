@@ -17,4 +17,6 @@ export { default as SideMenu } from './SideMenu';
 export { default as SavedForm } from './SavedForm';
 export { default as ActiveSavedAlerts } from './ActiveSavedAlerts';
 export { default as PathIndicator } from './PathIndicator';
-export { default as GameSelector } from '../widgets/GameSelector';
+export { default as GameSelector } from './GameSelector';
+export { default as TicketTable } from './TicketTable';
+export { default as TicketForm } from './TicketForm';

@@ -1,8 +1,7 @@
 import { Card, CardContent, makeStyles, Tab, Tabs } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useState } from 'react';
-import TicketTable from './TicketsTable';
-import TicketForm from './TicketForm';
+import { TicketTable, TicketForm } from 'components';
 
 const TABS = Object.freeze({
   tickets: {

@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormButton, ExpTextField } from 'components';
 import { Grid } from '@material-ui/core';
+import FanbandSelector from './FanbanSelector';
 
 const schema = yup
   .object({
@@ -12,6 +13,7 @@ const schema = yup
     row: yup.string().required(),
     seat: yup.string().required(),
     order: yup.string().required(),
+    fanband: yup.string().required(),
   })
   .required();
 
@@ -24,6 +26,7 @@ export default function TicketForm() {
       row: '',
       seat: '',
       order: '',
+      fanband: '',
     },
   });
   const onSubmit = (data) => console.log(data);
@@ -87,13 +90,19 @@ export default function TicketForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormButton type="submit" color="primary">
-            Save
-          </FormButton>
+          <Controller
+            control={control}
+            name="fanband"
+            label="Assign to fanband"
+            placeholder="Assign to fanband"
+            error={errors.fanband?.message}
+            fullWidth
+            as={<FanbandSelector />}
+          />
         </Grid>
         <Grid item xs={12}>
-          <FormButton type="submit" color="secondary">
-            Delete
+          <FormButton type="submit" color="primary">
+            Save
           </FormButton>
         </Grid>
       </Grid>

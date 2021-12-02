@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExpSelect = React.forwardRef(
-  ({ items, placeholder, label, error, ...rest }, ref) => {
+  ({ items = [], placeholder, label, error, ...rest }, ref) => {
     const classes = useStyles();
 
     return (
@@ -55,16 +55,10 @@ const ExpSelect = React.forwardRef(
           }}
           {...rest}
         >
-          {placeholder && (
-            <MenuItem
-              key="placeholder"
-              value=""
-              className={classes.placeholder}
-            >
-              {placeholder}
-            </MenuItem>
-          )}
-          {items.map(({ value, label }) => (
+          {(placeholder
+            ? items.concat({ value: '', label: placeholder })
+            : items
+          ).map(({ value, label }) => (
             <MenuItem key={value} value={value}>
               {label}
             </MenuItem>

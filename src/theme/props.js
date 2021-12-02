@@ -4,4 +4,9 @@ export default {
     color: 'primary',
     fullWidth: true,
   },
+  MuiTextField: {
+    InputLabelProps: {
+      shrink: true,
+    },
+  },
 };
