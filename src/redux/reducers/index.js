@@ -5,6 +5,7 @@ import alertsReducer from './alertsReducer';
 import fanbandsReducer from './fanbandsReducer';
 import gamesReducer from './gamesReducer';
 import auxReducer from './auxReducer';
+import mainReducer from './main-state';
 
 export default combineReducers({
   auth: authReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   fanbands: fanbandsReducer,
   games: gamesReducer,
   aux: auxReducer,
+  main: mainReducer,
 });

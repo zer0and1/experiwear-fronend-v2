@@ -32,3 +32,6 @@ export const SET_ERROR = 'SET_ERROR';
 
 // fanband actions
 export const SET_FANBANDS = 'SET_FANBANDS';
+
+// main state actions
+export const SET_TICKETS = 'SET_TICKETS';

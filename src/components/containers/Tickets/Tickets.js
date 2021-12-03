@@ -2,6 +2,9 @@ import { Card, CardContent, makeStyles, Tab, Tabs } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useState } from 'react';
 import { TicketTable, TicketForm } from 'components';
+import { useSelector } from 'react-redux';
+import { useAsyncAction } from 'hooks';
+import { getTickets } from 'redux/actions/tickets';
 
 const TABS = Object.freeze({
   tickets: {
@@ -29,15 +32,14 @@ const useStyles = makeStyles({
 const Tickets = () => {
   const classes = useStyles();
   const [tab, setTab] = useState(TABS.tickets.id);
-  const tickets = Array.from({ length: 10 }).map(() => ({}));
-  const handleChangeTab = (e, newValue) => {
-    setTab(newValue);
-  };
+  const tickets = useSelector((state) => state.main.tickets.results);
+
+  useAsyncAction(getTickets(), !tickets.length);
 
   return (
     <Card>
       <CardContent>
-        <Tabs value={tab} onChange={handleChangeTab}>
+        <Tabs value={tab} onChange={(e, t) => setTab(t)}>
           <Tab value={TABS.tickets.id} label={TABS.tickets.label} />
           <Tab value={TABS.newTickets.id} label={TABS.newTickets.label} />
           <Tab value={TABS.uploadTickets.id} label={TABS.uploadTickets.label} />
