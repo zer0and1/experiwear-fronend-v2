@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   TextField,
   InputAdornment,
@@ -25,35 +25,67 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: theme.custom.fonts.SFProTextRegular,
     },
   },
+  hidden: {
+    display: 'none',
+  },
 }));
 
-const FanbandSelector = React.forwardRef(({ error, ...rest }, ref) => {
+const FanbandSelector = React.forwardRef(({ error, label, ...rest }, ref) => {
   const classes = useStyles();
+  const labelRef = useRef();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tab, setTab] = useState('provisioned');
   const fanbands = useSelector((state) => state.fanbands.results);
+  const provisionedFanbands = useMemo(
+    () => fanbands.filter((f) => f.phone),
+    [fanbands]
+  );
+  const nonProvisionedFanbands = useMemo(
+    () => fanbands.filter((f) => !f.phone),
+    [fanbands]
+  );
 
-  useAsyncAction(getFanbands(), !fanbands.length);
+  const handleClick = ({ id, name, phone }) => {
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      'value'
+    ).set;
+    nativeInputValueSetter.call(ref.current, id);
+    nativeInputValueSetter.call(labelRef.current, `${name} ∙ Phone: ${phone}`);
+    const ev1 = new Event('input', { bubbles: true });
+    const ev2 = new Event('input', { bubbles: true });
+    ref.current.dispatchEvent(ev1);
+    labelRef.current.dispatchEvent(ev2);
+    setAnchorEl(null);
+  };
 
   const FanbandTabPanel = ({ fanbands = [] }) => (
     <MenuList>
-      {fanbands.map(({ id, name, phone }) => (
-        <MenuItem key={id} className={classes.item}>
-          {name}
-          <span>&nbsp;{` ∙ Phone: ${phone}`}</span>
+      {fanbands.map((f) => (
+        <MenuItem
+          key={f.id}
+          className={classes.item}
+          onClick={() => handleClick(f)}
+          selected={f.id === rest.value}
+        >
+          {f.name}
+          <span>&nbsp;{` ∙ Phone: ${f.phone}`}</span>
         </MenuItem>
       ))}
     </MenuList>
   );
 
+  useAsyncAction(getFanbands(), !fanbands.length);
+
   return (
     <React.Fragment>
       <TextField
-        {...rest}
-        inputRef={ref}
+        inputRef={labelRef}
+        label={label}
         helperText={error}
         error={!!error}
         placeholder="Not assigned"
+        fullWidth
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -65,6 +97,7 @@ const FanbandSelector = React.forwardRef(({ error, ...rest }, ref) => {
         InputLabelProps={{ shrink: true }}
         onClick={(e) => setAnchorEl(e.target)}
       />
+      <TextField inputRef={ref} {...rest} className={classes.hidden} />
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -91,10 +124,10 @@ const FanbandSelector = React.forwardRef(({ error, ...rest }, ref) => {
         </Tabs>
         <TabContext value={tab}>
           <TabPanel value={FANBAND_TYPES.provisioned}>
-            <FanbandTabPanel fanbands={fanbands} />
+            <FanbandTabPanel fanbands={provisionedFanbands} />
           </TabPanel>
           <TabPanel value={FANBAND_TYPES.nonProvisioned}>
-            <FanbandTabPanel fanbands={fanbands} />
+            <FanbandTabPanel fanbands={nonProvisionedFanbands} />
           </TabPanel>
           <TabPanel value={FANBAND_TYPES.all}>
             <FanbandTabPanel fanbands={fanbands} />

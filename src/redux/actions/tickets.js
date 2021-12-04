@@ -1,7 +1,7 @@
 import * as ActionTypes from 'redux/action-types';
 import { createAction } from 'redux-actions';
-import { setError } from '.';
-import { readTickets } from 'services/api-tickets';
+import { setError, setLoadingStatus } from '.';
+import { createTicket, readTickets } from 'services/api-tickets';
 
 export const setTickets = createAction(
   ActionTypes.SET_TICKETS,
@@ -15,4 +15,17 @@ export const getTickets = (params) => async (dispatch) => {
   } catch (e) {
     dispatch(setError(e));
   }
+};
+
+export const insertTicket = (params) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    dispatch(await createTicket(params));
+    dispatch(getTickets());
+  } catch (e) {
+    dispatch(setError(e));
+  }
+
+  dispatch(setLoadingStatus(false));
 };

@@ -17,7 +17,12 @@ const schema = yup
   })
   .required();
 
-export default function TicketForm() {
+export default function TicketForm({
+  defaultValues = {},
+  onSubmit,
+  onDelete,
+  updating = false,
+}) {
   const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -27,9 +32,9 @@ export default function TicketForm() {
       seat: '',
       order: '',
       fanband: '',
+      ...defaultValues,
     },
   });
-  const onSubmit = (data) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -105,6 +110,13 @@ export default function TicketForm() {
             Save
           </FormButton>
         </Grid>
+        {updating && (
+          <Grid item xs={12}>
+            <FormButton type="submit" color="secondary" onClick={onDelete}>
+              Delete
+            </FormButton>
+          </Grid>
+        )}
       </Grid>
     </form>
   );

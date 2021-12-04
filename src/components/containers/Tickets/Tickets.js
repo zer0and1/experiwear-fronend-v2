@@ -2,9 +2,9 @@ import { Card, CardContent, makeStyles, Tab, Tabs } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useState } from 'react';
 import { TicketTable, TicketForm } from 'components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAsyncAction } from 'hooks';
-import { getTickets } from 'redux/actions/tickets';
+import { getTickets, insertTicket } from 'redux/actions/tickets';
 
 const TABS = Object.freeze({
   tickets: {
@@ -31,8 +31,13 @@ const useStyles = makeStyles({
 
 const Tickets = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [tab, setTab] = useState(TABS.tickets.id);
   const tickets = useSelector((state) => state.main.tickets.results);
+
+  const handleSubmit = (data) => {
+    dispatch(insertTicket(data));
+  };
 
   useAsyncAction(getTickets(), !tickets.length);
 
@@ -49,7 +54,7 @@ const Tickets = () => {
             <TicketTable tickets={tickets} />
           </TabPanel>
           <TabPanel value={TABS.newTickets.id} className={classes.tabPanel}>
-            <TicketForm />
+            <TicketForm onSubmit={handleSubmit} />
           </TabPanel>
         </TabContext>
       </CardContent>
