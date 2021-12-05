@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   TextField,
   InputAdornment,
@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 const FanbandSelector = React.forwardRef(({ error, label, ...rest }, ref) => {
   const classes = useStyles();
-  const labelRef = useRef();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [tab, setTab] = useState('provisioned');
+  const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
+  const [fanbandLabel, setFanbandLabel] = useState('');
   const fanbands = useSelector((state) => state.fanbands.results);
   const provisionedFanbands = useMemo(
     () => fanbands.filter((f) => f.phone),
@@ -51,12 +51,10 @@ const FanbandSelector = React.forwardRef(({ error, label, ...rest }, ref) => {
       'value'
     ).set;
     nativeInputValueSetter.call(ref.current, id);
-    nativeInputValueSetter.call(labelRef.current, `${name} ∙ Phone: ${phone}`);
     const ev1 = new Event('input', { bubbles: true });
-    const ev2 = new Event('input', { bubbles: true });
     ref.current.dispatchEvent(ev1);
-    labelRef.current.dispatchEvent(ev2);
     setAnchorEl(null);
+    setFanbandLabel(`${name} ∙ Phone: ${phone}`);
   };
 
   const FanbandTabPanel = ({ fanbands = [] }) => (
@@ -80,10 +78,10 @@ const FanbandSelector = React.forwardRef(({ error, label, ...rest }, ref) => {
   return (
     <React.Fragment>
       <TextField
-        inputRef={labelRef}
         label={label}
         helperText={error}
         error={!!error}
+        value={rest.value && fanbandLabel}
         placeholder="Not assigned"
         fullWidth
         InputProps={{
