@@ -35,8 +35,8 @@ const Tickets = () => {
   const [tab, setTab] = useState(TABS.tickets.id);
   const tickets = useSelector((state) => state.main.tickets.results);
 
-  const handleSubmit = (data) => {
-    dispatch(insertTicket(data));
+  const handleSubmit = async (data) => {
+    await dispatch(insertTicket(data));
   };
 
   useAsyncAction(getTickets(), !tickets.length);

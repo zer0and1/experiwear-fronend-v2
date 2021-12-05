@@ -20,3 +20,4 @@ export { default as PathIndicator } from './PathIndicator';
 export { default as GameSelector } from './GameSelector';
 export { default as TicketTable } from './TicketTable';
 export { default as TicketForm } from './TicketForm';
+export { default as FanbandSelector } from './FanbandSelector';

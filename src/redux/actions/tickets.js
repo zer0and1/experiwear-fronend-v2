@@ -2,6 +2,7 @@ import * as ActionTypes from 'redux/action-types';
 import { createAction } from 'redux-actions';
 import { setError, setLoadingStatus } from '.';
 import { createTicket, readTickets } from 'services/api-tickets';
+import { showSuccessToast } from 'utils/helpers';
 
 export const setTickets = createAction(
   ActionTypes.SET_TICKETS,
@@ -21,7 +22,8 @@ export const insertTicket = (params) => async (dispatch) => {
   dispatch(setLoadingStatus(true));
 
   try {
-    dispatch(await createTicket(params));
+    const { message } = await createTicket(params);
+    showSuccessToast(message);
     dispatch(getTickets());
   } catch (e) {
     dispatch(setError(e));

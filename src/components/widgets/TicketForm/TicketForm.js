@@ -2,9 +2,8 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FormButton, ExpTextField } from 'components';
+import { FanbandSelector, FormButton, ExpTextField } from 'components';
 import { Grid } from '@material-ui/core';
-import FanbandSelector from './FanbanSelector';
 
 const schema = yup
   .object({
@@ -13,7 +12,7 @@ const schema = yup
     row: yup.string().required(),
     seat: yup.string().required(),
     order: yup.string().required(),
-    fanband: yup.string().required(),
+    fanbandId: yup.string().required(),
   })
   .required();
 
@@ -23,7 +22,7 @@ export default function TicketForm({
   onDelete,
   updating = false,
 }) {
-  const { control, handleSubmit, errors } = useForm({
+  const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       barcode: '',
@@ -31,13 +30,18 @@ export default function TicketForm({
       row: '',
       seat: '',
       order: '',
-      fanband: '',
+      fanbandId: '',
       ...defaultValues,
     },
   });
 
+  const submitHandler = async (data) => {
+    await onSubmit(data);
+    reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Controller
@@ -97,10 +101,10 @@ export default function TicketForm({
         <Grid item xs={12}>
           <Controller
             control={control}
-            name="fanband"
+            name="fanbandId"
             label="Assign to fanband"
             placeholder="Assign to fanband"
-            error={errors.fanband?.message}
+            error={errors.fanbandId?.message}
             fullWidth
             as={<FanbandSelector />}
           />
