@@ -37,7 +37,9 @@ export default function TicketForm({
 
   const submitHandler = async (data) => {
     await onSubmit(data);
-    reset();
+    if (!updating) {
+      reset();
+    }
   };
 
   return (

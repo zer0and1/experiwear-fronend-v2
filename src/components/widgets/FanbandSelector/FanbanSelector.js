@@ -38,7 +38,7 @@ const FanbandSelector = React.forwardRef(
     const fanbands = useSelector((state) => state.main.fanbands.results);
     const fanbandLabel = useMemo(() => {
       const { name, phone } = fanbands.find((f) => f.id === value) || {};
-      return `${name} ∙ Phone: ${phone}`;
+      return `${name || ''} ∙ Phone: ${phone || ''}`;
     }, [fanbands, value]);
 
     const provisionedFanbands = useMemo(
