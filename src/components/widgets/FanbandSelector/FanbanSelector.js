@@ -30,110 +30,120 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FanbandSelector = React.forwardRef(({ error, label, ...rest }, ref) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
-  const [fanbandLabel, setFanbandLabel] = useState('');
-  const fanbands = useSelector((state) => state.main.fanbands.results);
-  const provisionedFanbands = useMemo(
-    () => fanbands.filter((f) => f.phone),
-    [fanbands]
-  );
-  const nonProvisionedFanbands = useMemo(
-    () => fanbands.filter((f) => !f.phone),
-    [fanbands]
-  );
+const FanbandSelector = React.forwardRef(
+  ({ error, label, value, ...rest }, ref) => {
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
+    const fanbands = useSelector((state) => state.main.fanbands.results);
+    const fanbandLabel = useMemo(() => {
+      const { name, phone } = fanbands.find((f) => f.id === value) || {};
+      return `${name} ∙ Phone: ${phone}`;
+    }, [fanbands, value]);
 
-  const handleClick = ({ id, name, phone }) => {
-    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-      window.HTMLInputElement.prototype,
-      'value'
-    ).set;
-    nativeInputValueSetter.call(ref.current, id);
-    const ev1 = new Event('input', { bubbles: true });
-    ref.current.dispatchEvent(ev1);
-    setAnchorEl(null);
-    setFanbandLabel(`${name} ∙ Phone: ${phone}`);
-  };
+    const provisionedFanbands = useMemo(
+      () => fanbands.filter((f) => f.phone),
+      [fanbands]
+    );
+    const nonProvisionedFanbands = useMemo(
+      () => fanbands.filter((f) => !f.phone),
+      [fanbands]
+    );
 
-  const FanbandTabPanel = ({ fanbands = [] }) => (
-    <MenuList>
-      {fanbands.map((f) => (
-        <MenuItem
-          key={f.id}
-          className={classes.item}
-          onClick={() => handleClick(f)}
-          selected={f.id === rest.value}
+    const handleClick = (id) => {
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        window.HTMLInputElement.prototype,
+        'value'
+      ).set;
+      nativeInputValueSetter.call(ref.current, id);
+      const ev1 = new Event('input', { bubbles: true });
+      ref.current.dispatchEvent(ev1);
+      setAnchorEl(null);
+    };
+
+    const FanbandTabPanel = ({ fanbands = [] }) => (
+      <MenuList>
+        {fanbands.map(({ id, name, phone }) => (
+          <MenuItem
+            key={id}
+            className={classes.item}
+            onClick={() => handleClick(id)}
+            selected={id === value}
+          >
+            {name}
+            <span>&nbsp;{` ∙ Phone: ${phone}`}</span>
+          </MenuItem>
+        ))}
+      </MenuList>
+    );
+
+    useAsyncAction(getFanbands(), !fanbands.length);
+
+    return (
+      <React.Fragment>
+        <TextField
+          label={label}
+          helperText={error}
+          error={!!error}
+          value={value && fanbandLabel}
+          placeholder="Not assigned"
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <KeyboardArrowDownIcon />
+              </InputAdornment>
+            ),
+            readOnly: true,
+          }}
+          InputLabelProps={{ shrink: true }}
+          onClick={(e) => setAnchorEl(e.target)}
+        />
+        <TextField
+          inputRef={ref}
+          {...rest}
+          value={value}
+          className={classes.hidden}
+        />
+        <Popover
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={() => setAnchorEl(null)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
         >
-          {f.name}
-          <span>&nbsp;{` ∙ Phone: ${f.phone}`}</span>
-        </MenuItem>
-      ))}
-    </MenuList>
-  );
-
-  useAsyncAction(getFanbands(), !fanbands.length);
-
-  return (
-    <React.Fragment>
-      <TextField
-        label={label}
-        helperText={error}
-        error={!!error}
-        value={rest.value && fanbandLabel}
-        placeholder="Not assigned"
-        fullWidth
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <KeyboardArrowDownIcon />
-            </InputAdornment>
-          ),
-          readOnly: true,
-        }}
-        InputLabelProps={{ shrink: true }}
-        onClick={(e) => setAnchorEl(e.target)}
-      />
-      <TextField inputRef={ref} {...rest} className={classes.hidden} />
-      <Popover
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={() => setAnchorEl(null)}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
-          <Tab
-            value={FANBAND_TYPES.provisioned}
-            label={FANBAND_LABELS.provisioned}
-          />
-          <Tab
-            value={FANBAND_TYPES.nonProvisioned}
-            label={FANBAND_LABELS.nonProvisioned}
-          />
-          <Tab value={FANBAND_TYPES.all} label={FANBAND_LABELS.all} />
-        </Tabs>
-        <TabContext value={tab}>
-          <TabPanel value={FANBAND_TYPES.provisioned}>
-            <FanbandTabPanel fanbands={provisionedFanbands} />
-          </TabPanel>
-          <TabPanel value={FANBAND_TYPES.nonProvisioned}>
-            <FanbandTabPanel fanbands={nonProvisionedFanbands} />
-          </TabPanel>
-          <TabPanel value={FANBAND_TYPES.all}>
-            <FanbandTabPanel fanbands={fanbands} />
-          </TabPanel>
-        </TabContext>
-      </Popover>
-    </React.Fragment>
-  );
-});
+          <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+            <Tab
+              value={FANBAND_TYPES.provisioned}
+              label={FANBAND_LABELS.provisioned}
+            />
+            <Tab
+              value={FANBAND_TYPES.nonProvisioned}
+              label={FANBAND_LABELS.nonProvisioned}
+            />
+            <Tab value={FANBAND_TYPES.all} label={FANBAND_LABELS.all} />
+          </Tabs>
+          <TabContext value={tab}>
+            <TabPanel value={FANBAND_TYPES.provisioned}>
+              <FanbandTabPanel fanbands={provisionedFanbands} />
+            </TabPanel>
+            <TabPanel value={FANBAND_TYPES.nonProvisioned}>
+              <FanbandTabPanel fanbands={nonProvisionedFanbands} />
+            </TabPanel>
+            <TabPanel value={FANBAND_TYPES.all}>
+              <FanbandTabPanel fanbands={fanbands} />
+            </TabPanel>
+          </TabContext>
+        </Popover>
+      </React.Fragment>
+    );
+  }
+);
 
 export default FanbandSelector;

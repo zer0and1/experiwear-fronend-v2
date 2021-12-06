@@ -28,7 +28,7 @@ const TicketModify = ({ ticketId }) => {
         {ticketData && (
           <TicketForm
             defaultValues={ticketData}
-            onSumbit={handleSubmit}
+            onSubmit={handleSubmit}
             onDelete={handleDelete}
             updating
           />
