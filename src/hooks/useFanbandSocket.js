@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   setNotifications,
   setLatestNotification,
-  updateFanbandsStatistics,
+  setFanbandsStatistics,
 } from 'redux/actions';
 import { ANSWER_ENUM } from 'utils/constants/alert-types';
 import { useSocket } from 'hooks';
@@ -16,7 +16,7 @@ const useFanbandSocket = () => {
 
   const inAreaHandler = useCallback(
     (statistics) => {
-      dispatch(updateFanbandsStatistics(statistics));
+      dispatch(setFanbandsStatistics(statistics));
     },
     [dispatch]
   );
@@ -24,7 +24,7 @@ const useFanbandSocket = () => {
 
   const statusHandler = useCallback(
     (statistics) => {
-      dispatch(updateFanbandsStatistics(statistics));
+      dispatch(setFanbandsStatistics(statistics));
     },
     [dispatch]
   );

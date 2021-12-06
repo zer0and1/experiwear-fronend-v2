@@ -1,6 +1,10 @@
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import { TicketIcon } from 'components';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,19 +43,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TicketItem = ({
-  data: {
-    barcode = '0 705632 441947',
-    section = 'G9',
-    row = '12',
-    seat = '9A',
-    order = 'XXXXXXXXX',
-    fanband = 'Fanband name',
-  },
-  className,
-  ...boxProps
-}) => {
+const TicketItem = ({ data, className, ...boxProps }) => {
   const classes = useStyles();
+  const router = useRouter();
+  const fanbands = useSelector((state) => state.main.fanbands.results);
+  const fanbandName = useMemo(
+    () => fanbands.find((f) => f.id === data.fanbandId)?.name,
+    [fanbands, data]
+  );
+
+  const handleClick = () => {
+    router.push(LINKS.ticketModify.path.replace(':id', data.id));
+  };
 
   return (
     <Box {...boxProps} className={clsx(classes.root, className)}>
@@ -59,13 +62,17 @@ const TicketItem = ({
         <TicketIcon width="18px" />
       </Box>
       <Typography className={classes.content}>
-        Barcode: <span>{barcode}</span> <br />
-        Section: <span>{section}</span> ∙ Row: <span>{row}</span> ∙ Seat:{' '}
-        <span>{seat}</span> <br />
-        Order: <span>{order}</span> <br />
-        Fanband: <span>{fanband}</span> <br />
+        Barcode: <span>{data.barcode}</span> <br />
+        Section: <span>{data.section}</span> ∙ Row: <span>{data.row}</span> ∙
+        Seat: <span>{data.seat}</span> <br />
+        Order: <span>{data.order}</span> <br />
+        Fanband: <span>{fanbandName}</span> <br />
       </Typography>
-      <Button fullWidth={false} className={classes.action}>
+      <Button
+        fullWidth={false}
+        className={classes.action}
+        onClick={handleClick}
+      >
         Modify
       </Button>
     </Box>

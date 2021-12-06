@@ -35,7 +35,7 @@ const FanbandSelector = React.forwardRef(({ error, label, ...rest }, ref) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
   const [fanbandLabel, setFanbandLabel] = useState('');
-  const fanbands = useSelector((state) => state.fanbands.results);
+  const fanbands = useSelector((state) => state.main.fanbands.results);
   const provisionedFanbands = useMemo(
     () => fanbands.filter((f) => f.phone),
     [fanbands]

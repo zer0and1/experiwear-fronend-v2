@@ -12,7 +12,7 @@ const schema = yup
     row: yup.string().required(),
     seat: yup.string().required(),
     order: yup.string().required(),
-    fanbandId: yup.string().required(),
+    fanbandId: yup.string(),
   })
   .required();
 
@@ -116,7 +116,7 @@ export default function TicketForm({
         </Grid>
         {updating && (
           <Grid item xs={12}>
-            <FormButton type="submit" color="secondary" onClick={onDelete}>
+            <FormButton color="secondary" onClick={onDelete}>
               Delete
             </FormButton>
           </Grid>

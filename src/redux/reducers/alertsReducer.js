@@ -91,8 +91,6 @@ const alertsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         alertsToShow: { ...alertsToShow, [alert]: visibility },
       };
-    case TYPES.SET_ACC_DATA:
-      return { ...state, acc: action.payload };
     default:
       return state;
   }

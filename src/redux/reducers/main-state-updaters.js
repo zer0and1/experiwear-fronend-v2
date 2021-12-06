@@ -1,6 +1,6 @@
 export const INITIAL_MAIN_STATE = {
   fanbands: {
-    resutls: [],
+    results: [],
     take: 0,
     total: 0,
     statistics: {},
@@ -17,5 +17,21 @@ export const setTicketsUpdater = (state, { payload }) => ({
   tickets: {
     ...state.tickets,
     ...payload,
+  },
+});
+
+export const setFanbandsUpdater = (state, { payload }) => ({
+  ...state,
+  fanbands: {
+    ...state.fanbands,
+    ...payload,
+  },
+});
+
+export const setFanbandsStatisticsUpdater = (state, { payload }) => ({
+  ...state,
+  fanbands: {
+    ...state.fanbands,
+    statistics: payload,
   },
 });

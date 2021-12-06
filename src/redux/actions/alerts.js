@@ -1,5 +1,4 @@
 import * as TYPES from '../action-types';
-import * as fanbandsAPI from 'services/api-fanbands';
 import * as alertsAPI from 'services/api-alerts';
 import { ALERT_TYPES } from 'utils/constants/alert-types';
 import { isEmpty } from 'utils/helpers/utility';
@@ -50,25 +49,6 @@ export const createAlert =
     dispatch(setLoadingStatus(false));
   };
 
-export const getAccData = (notificationId) => async (dispatch) => {
-  try {
-    const params = {
-      notificationId,
-      skip: 0,
-      take: 100,
-    };
-
-    const res = await alertsAPI.getAccelerometerData(params);
-
-    dispatch({
-      type: TYPES.SET_ACC_DATA,
-      payload: res,
-    });
-  } catch (error) {
-    console.log('[getAccelerometerData] error => ', error);
-  }
-};
-
 const PAGE_COUNT = 5;
 export const getCannedNotifications =
   (take = PAGE_COUNT) =>
@@ -115,34 +95,6 @@ export const getMoreCannedNotifications = () => async (dispatch, getState) => {
   } catch (error) {
     console.log('[getMoreCannedNotifications] error => ', error);
   }
-};
-
-export const getFanbandsStatistics =
-  (refresh = false) =>
-  async (dispatch, getState) => {
-    try {
-      const {
-        fanbands: { statistics },
-      } = getState();
-      if (!refresh && !isEmpty(statistics)) {
-        return;
-      }
-
-      const response = await fanbandsAPI.getFanbandsStatistics();
-      await dispatch({
-        type: TYPES.FETCH_FANBANDS_STATISTICS,
-        payload: response,
-      });
-    } catch (error) {
-      console.log('[getFanbandsStatistics] error => ', error);
-    }
-  };
-
-export const updateFanbandsStatistics = (statistics) => {
-  return {
-    type: TYPES.UPDATE_FANBANDS_STATISTICS,
-    payload: statistics,
-  };
 };
 
 export const getLatestNewsNotifications =

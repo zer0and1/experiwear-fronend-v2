@@ -1,9 +1,6 @@
 import { memo } from 'react';
 import { Card, CardContent, CardHeader, makeStyles } from '@material-ui/core';
 import { AccChart, AlertContainer } from 'components';
-import { useAsyncAction } from 'hooks';
-import { getAccData } from 'redux/actions';
-import { useSelector } from 'react-redux';
 import { AccSlider } from './styled';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,8 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Accelerometer = () => {
   const classes = useStyles();
-  const acc = useSelector((state) => state.notifications.acc.results);
-  useAsyncAction(getAccData(), !acc.length);
 
   return (
     <AlertContainer maxWidth="md">

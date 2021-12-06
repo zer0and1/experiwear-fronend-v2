@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CurrentFanbandStats = () => {
   const classes = useStyles();
-  const { statistics = {} } = useSelector((state) => state.fanbands);
+  const { statistics = {} } = useSelector((state) => state.main.fanbands);
 
   return (
     <div className={classes.root}>

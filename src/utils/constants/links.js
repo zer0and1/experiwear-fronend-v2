@@ -84,4 +84,9 @@ export default Object.freeze({
     title: 'Manage Tickets',
     path: '/tickets',
   },
+  ticketModify: {
+    title: 'Manage Tickets',
+    token: 'Modify Ticket',
+    path: '/tickets/:id',
+  },
 });
