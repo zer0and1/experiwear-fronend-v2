@@ -1,7 +1,7 @@
 import * as TYPES from '../action-types';
 import * as gameAPI from 'services/api-game';
 import { isEmpty } from 'utils/helpers/utility';
-import GAME_STATUS from 'utils/constants/game-status';
+import { GAME_STATUS } from 'utils/constants';
 
 export const getGames =
   (refresh = false) =>
@@ -20,7 +20,7 @@ export const getGames =
       );
 
       const playGame = games.find(
-        (item) => item.statusGame === GAME_STATUS.IN_PLAY
+        (item) => item.statusGame === GAME_STATUS.inPlay
       );
       let closestUpcomingGame = null;
       if (!isEmpty(playGame)) {

@@ -2,7 +2,7 @@ import { memo, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { setPathTokens } from 'redux/actions/auxiliary';
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 import { CurrentGame, Fanbands, LatestAlert, LatestSurvey } from './components';
 
 const Stats = () => {

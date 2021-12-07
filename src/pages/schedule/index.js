@@ -1,6 +1,6 @@
 import { Layout, Schedule, CurrentFanbandStats, AlertsSent } from 'components';
 import { usePathIndicator } from 'hooks';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
 
 export default function SchedulePage() {
   usePathIndicator(LINKS.schedule);
@@ -11,7 +11,7 @@ export default function SchedulePage() {
         <>
           <CurrentFanbandStats />
           <AlertsSent
-            type={ALERT_TYPES.SCHEDULE.VALUE}
+            type={ALERT_MIXED_TYPES.scheduled}
             link={LINKS.scheduleSent.path}
           />
         </>

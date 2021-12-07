@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Drawer, useMediaQuery } from '@material-ui/core';
 
 import { SubMenu } from './components';
-import SIDEBAR_GROUPS from 'utils/constants/sidebar-menu';
+import { SIDEBAR_GROUPS } from './constants';
 import { Logo, LogoutIcon } from 'components';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from 'redux/actions/auth';

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { AlertItem } from 'components';
 import { Fragment, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { ALERT_TYPES } from 'utils/constants';
+import { ALERT_PROTO_TYPES } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +85,7 @@ const QuickPollAlertsSent = () => {
     [alerts, responses]
   );
 
-  useAsyncAction(getNotifications(ALERT_TYPES.SURVEY.VALUE), !alerts.length);
+  useAsyncAction(getNotifications(ALERT_PROTO_TYPES.survey), !alerts.length);
 
   return (
     <Card className={classes.root}>

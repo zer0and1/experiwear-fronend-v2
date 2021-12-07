@@ -4,7 +4,7 @@ import { Typography, Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BandLogo, ExpLoading } from 'components';
-import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths';
+import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {

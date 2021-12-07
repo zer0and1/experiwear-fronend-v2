@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {

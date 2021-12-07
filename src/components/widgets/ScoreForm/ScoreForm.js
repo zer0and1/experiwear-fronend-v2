@@ -7,15 +7,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { isEmpty } from 'utils/helpers';
-import { STRING_VALID } from 'utils/constants/validations';
+import { STRING_VALID, DEFAULT_ALERT_PARAMS } from 'utils/constants';
 import {
   AlertField,
   FanbandTerminal,
   FormButton,
   ExpTextField,
 } from 'components';
-import { DEFAULT_ALERT_PARAMS } from 'components/elements/AlertField';
-import { ScoreScreen } from 'components/elements/FanbandTerminal';
+import { ScoreScreen } from 'components';
 
 const schema = yup.object().shape({
   body: STRING_VALID,

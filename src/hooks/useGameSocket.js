@@ -6,8 +6,8 @@ import {
   setSelectedGame,
   setClosestUpcomingGame,
 } from 'redux/actions/games';
-import useSocket from 'hooks/useSocket';
-import WS_EVENTS from 'utils/constants/socket';
+import { useSocket } from 'hooks';
+import { WS_EVENTS } from 'utils/constants';
 
 const useGameSocket = () => {
   const dispatch = useDispatch();

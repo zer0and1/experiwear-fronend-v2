@@ -1,6 +1,6 @@
 import { Layout, Promo, CurrentFanbandStats, AlertsSent } from 'components';
 import { usePathIndicator } from 'hooks';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
 
 export default function PromoPage() {
   usePathIndicator(LINKS.promo);
@@ -11,7 +11,7 @@ export default function PromoPage() {
         <>
           <CurrentFanbandStats />
           <AlertsSent
-            type={ALERT_TYPES.PROMO.VALUE}
+            type={ALERT_PROTO_TYPES.promo}
             link={LINKS.promoSent.path}
           />
         </>

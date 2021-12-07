@@ -13,12 +13,12 @@ import {
   ScoreForm,
   AlertContainer,
 } from 'components';
-import { ALERT_TYPES } from 'utils/constants';
+import { ALERT_PROTO_TYPES, ALERT_PROTO_LABELS } from 'utils/constants';
 import moment from 'moment';
 
 const Schedule = () => {
   const dispatch = useDispatch();
-  const [type, setAlertType] = useState(ALERT_TYPES.NEWS.VALUE);
+  const [type, setAlertType] = useState(ALERT_PROTO_TYPES.news);
   const [anchorEl, setAnchorEl] = useState(null);
   const [datetime, setDatetime] = useState();
 
@@ -33,13 +33,13 @@ const Schedule = () => {
 
   const form = useMemo(() => {
     switch (type) {
-      case ALERT_TYPES.NEWS.VALUE:
+      case ALERT_PROTO_TYPES.news:
         return <NewsForm onCreate={handleCreate} />;
-      case ALERT_TYPES.SURVEY.VALUE:
+      case ALERT_PROTO_TYPES.survey:
         return <QuickPollForm onCreate={handleCreate} />;
-      case ALERT_TYPES.SCORE.VALUE:
+      case ALERT_PROTO_TYPES.score:
         return <ScoreForm onCreate={handleCreate} />;
-      case ALERT_TYPES.PROMO.VALUE:
+      case ALERT_PROTO_TYPES.promo:
         return <PromoForm onCreate={handleCreate} />;
       default:
         return <NewsForm onCreate={handleCreate} />;
@@ -77,12 +77,10 @@ const Schedule = () => {
           <ExpSelect
             name="type"
             label="Alert type"
-            items={Object.values(ALERT_TYPES)
-              .filter((t) => t.VALUE !== ALERT_TYPES.SCHEDULE.VALUE)
-              .map((type) => ({
-                value: type.VALUE,
-                label: type.LABEL,
-              }))}
+            items={Object.values(ALERT_PROTO_TYPES).map((type) => ({
+              value: type,
+              label: ALERT_PROTO_LABELS[type],
+            }))}
             value={type}
             onChange={(e) => setAlertType(e.target.value)}
           />

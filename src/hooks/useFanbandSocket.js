@@ -6,9 +6,9 @@ import {
   setLatestNotification,
   setFanbandsStatistics,
 } from 'redux/actions';
-import { ANSWER_ENUM } from 'utils/constants/alert-types';
+import { ANSWER_ENUM } from 'utils/constants';
 import { useSocket } from 'hooks';
-import WS_EVENTS from 'utils/constants/socket';
+import { WS_EVENTS } from 'utils/constants';
 
 const useFanbandSocket = () => {
   const dispatch = useDispatch();

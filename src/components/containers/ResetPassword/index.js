@@ -6,13 +6,9 @@ import * as yup from 'yup';
 
 import * as authAPI from 'services/api-auth';
 import { ExpTextField, AuthWrapper } from 'components';
-import useLoading from 'hooks/useLoading';
+import { useLoading } from 'hooks';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
-import {
-  PASSWORD_VALID,
-  CONFIRM_PASSWORD_VALID,
-} from 'utils/constants/validations';
-import LINKS from 'utils/constants/links';
+import { PASSWORD_VALID, CONFIRM_PASSWORD_VALID, LINKS } from 'utils/constants';
 import { Button, makeStyles, Typography } from '@material-ui/core';
 
 const schema = yup.object().shape({

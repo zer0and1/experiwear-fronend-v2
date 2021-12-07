@@ -1,31 +1,39 @@
-import * as TYPES from '../action-types';
 import * as alertsAPI from 'services/api-alerts';
-import { ALERT_TYPES } from 'utils/constants/alert-types';
+import * as TYPES from '../action-types';
+import { createAction } from 'redux-actions';
+import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
 import { showErrorToast, showSuccessToast } from 'utils/helpers';
+import { setError } from '.';
+
+const makeFormData = (type, data) => {
+  const formData = new FormData();
+  formData.append('type', type);
+  formData.append('title', data.title);
+  formData.append('body', data.body);
+  formData.append('ledType', data.ledType);
+  formData.append('topColor1', data.topColor1);
+  formData.append('topColor2', data.topColor2);
+  formData.append('topColor3', data.topColor3);
+  formData.append('bottomColor1', data.bottomColor1);
+  formData.append('bottomColor2', data.bottomColor2);
+  formData.append('bottomColor3', data.bottomColor3);
+  formData.append('vibrationType', data.vibrationType);
+  formData.append('vibrationIntensity', data.vibrationIntensity);
+  formData.append('duration', data.duration);
+  formData.append('file', data.image);
+  formData.append('responses', data.responses);
+
+  return formData;
+};
 
 export const createAlert =
   (type, data, scheduledTime = null) =>
   async (dispatch) => {
     dispatch(setLoadingStatus(true));
 
-    const formData = new FormData();
-    formData.append('type', type);
-    formData.append('title', data.title);
-    formData.append('body', data.body);
-    formData.append('ledType', data.ledType);
-    formData.append('topColor1', data.topColor1);
-    formData.append('topColor2', data.topColor2);
-    formData.append('topColor3', data.topColor3);
-    formData.append('bottomColor1', data.bottomColor1);
-    formData.append('bottomColor2', data.bottomColor2);
-    formData.append('bottomColor3', data.bottomColor3);
-    formData.append('vibrationType', data.vibrationType);
-    formData.append('vibrationIntensity', data.vibrationIntensity);
-    formData.append('duration', data.duration);
-    formData.append('file', data.image);
-    formData.append('responses', data.responses);
+    const formData = makeFormData(type, data);
 
     try {
       let response;
@@ -38,7 +46,7 @@ export const createAlert =
       }
 
       dispatch(
-        getNotifications(scheduledTime ? ALERT_TYPES.SCHEDULE.VALUE : type)
+        getNotifications(scheduledTime ? ALERT_MIXED_TYPES.scheduled : type)
       );
 
       showSuccessToast(response.message);
@@ -49,54 +57,22 @@ export const createAlert =
     dispatch(setLoadingStatus(false));
   };
 
-const PAGE_COUNT = 5;
-export const getCannedNotifications =
-  (take = PAGE_COUNT) =>
-  async (dispatch) => {
-    try {
-      const params = {
-        skip: 0,
-        take,
-      };
+export const insertSavedAlert = (type, data) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+  const formData = makeFormData(type, data);
 
-      const { results, total } = await cannedAPI.getCanneds(params);
-      await dispatch({
-        type: TYPES.SET_CANNED_NOTIFICATIONS,
-        payload: {
-          results,
-          total,
-        },
-      });
-    } catch (error) {
-      console.log('[getCannedNotifications] error => ', error);
-    }
-  };
-
-export const getMoreCannedNotifications = () => async (dispatch, getState) => {
   try {
-    const {
-      notifications: {
-        canned: { results: preResults },
-      },
-    } = getState();
-    const params = {
-      skip: preResults.length,
-      take: PAGE_COUNT,
-    };
-
-    const { results, total } = await cannedAPI.getCanneds(params);
-    await dispatch({
-      type: TYPES.SET_CANNED_NOTIFICATIONS,
-      payload: {
-        results: [...preResults, ...results],
-        total,
-      },
-    });
-  } catch (error) {
-    console.log('[getMoreCannedNotifications] error => ', error);
+    const { message } = alertsAPI.createSavedAlert(formData);
+    showSuccessToast(message);
+    dispatch(getSavedAlert());
+  } catch (e) {
+    showErrorToast(e.response?.data?.message?.[0]);
   }
+
+  dispatch(setLoadingStatus(false));
 };
 
+const PAGE_COUNT = 5;
 export const getLatestNewsNotifications =
   (refresh = false) =>
   async (dispatch, getState) => {
@@ -109,7 +85,7 @@ export const getLatestNewsNotifications =
       }
 
       const params = {
-        type: ALERT_TYPES.NEWS.VALUE,
+        type: ALERT_PROTO_TYPES.news,
         isSent: true,
         skip: 0,
         take: 10,
@@ -131,7 +107,7 @@ export const getLatestNotification = (type) => async (dispatch) => {
     let actionType = TYPES.SET_LATEST_NOTIFICATION;
 
     switch (type) {
-      case ALERT_TYPES.SURVEY.VALUE:
+      case ALERT_PROTO_TYPES.survey:
         actionType = TYPES.SET_LATEST_SURVEY_NOTIFICATION;
         break;
       default:
@@ -153,7 +129,7 @@ export const setLatestNotification =
     try {
       let actionType = TYPES.SET_LATEST_NOTIFICATION;
       switch (type) {
-        case ALERT_TYPES.SURVEY.VALUE:
+        case ALERT_PROTO_TYPES.survey:
           actionType = TYPES.SET_LATEST_SURVEY_NOTIFICATION;
           break;
         default:
@@ -170,6 +146,17 @@ export const setLatestNotification =
     }
   };
 
+export const setAlerts = createAction(TYPES.SET_ALERTS, (payload) => payload);
+
+export const getSavedAlerts = (params) => async (dispatch) => {
+  try {
+    const res = alertsAPI.readSavedAlerts(params);
+    dispatch(setAlerts({ ...res, type: ALERT_MIXED_TYPES.saved }));
+  } catch (e) {
+    dispatch(setError(e));
+  }
+};
+
 export const getNotifications =
   (type = '', take = PAGE_COUNT) =>
   async (dispatch) => {
@@ -184,12 +171,12 @@ export const getNotifications =
         };
       }
       const { results = [], total = 0 } = await (type ===
-        ALERT_TYPES.SCHEDULE.VALUE
+        ALERT_MIXED_TYPES.scheduled
         ? alertsAPI.getScheduledNotifications
         : alertsAPI.getNotifications)(params);
 
       await dispatch({
-        type: TYPES.SET_NOTIFICATIONS,
+        type: TYPES.SET_ALERTS,
         payload: {
           results,
           total,
@@ -217,7 +204,7 @@ export const getMoreNotifications = (type) => async (dispatch, getState) => {
     );
 
     await dispatch({
-      type: TYPES.SET_NOTIFICATIONS,
+      type: TYPES.SET_ALERTS,
       payload: {
         results: [...preResults, ...results],
         total,
@@ -237,7 +224,7 @@ export const setNotifications =
       const { total = 0 } = notifications[type];
 
       await dispatch({
-        type: TYPES.SET_NOTIFICATIONS,
+        type: TYPES.SET_ALERTS,
         payload: {
           results,
           total,
@@ -258,55 +245,3 @@ export const setAlertToShow = (alert, visibility) => ({
   type: TYPES.SET_ALERT_TO_SHOW,
   payload: { alert, visibility },
 });
-
-export const getScheduledNotifications =
-  (take = PAGE_COUNT) =>
-  async (dispatch) => {
-    try {
-      const params = {
-        skip: 0,
-        take,
-      };
-
-      const { results, total } = await alertsAPI.getScheduledNotifications(
-        params
-      );
-      await dispatch({
-        type: TYPES.SET_SCHEDULED_NOTIFICATIONS,
-        payload: {
-          results,
-          total,
-        },
-      });
-    } catch (error) {
-      console.log('[getScheduledNotifications] error => ', error);
-    }
-  };
-
-export const getMoreScheduledNotifications =
-  () => async (dispatch, getState) => {
-    try {
-      const {
-        notifications: {
-          scheduled: { results: preResults },
-        },
-      } = getState();
-      const params = {
-        skip: preResults.length,
-        take: PAGE_COUNT,
-      };
-
-      const { results, total } = await scheduleAPI.getScheduledNotifications(
-        params
-      );
-      await dispatch({
-        type: TYPES.SET_SCHEDULED_NOTIFICATIONS,
-        payload: {
-          results: [...preResults, ...results],
-          total,
-        },
-      });
-    } catch (error) {
-      console.log('[getMoreScheduledNotifications] error => ', error);
-    }
-  };

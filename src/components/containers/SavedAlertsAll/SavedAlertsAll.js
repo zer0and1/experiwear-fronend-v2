@@ -9,7 +9,7 @@ import { getNotifications } from 'redux/actions';
 import { AlertContainer, AlertItem, Title } from 'components';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { ALERT_TYPES } from 'utils/constants';
+import { ALERT_PROTO_TYPES } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 import clsx from 'clsx';
 
@@ -66,7 +66,7 @@ const SavedAlertsAll = () => {
     state.notifications.news.results.filter((alert) => alert.isSent)
   );
 
-  useAsyncAction(getNotifications(ALERT_TYPES.NEWS.VALUE), !alerts.length);
+  useAsyncAction(getNotifications(ALERT_PROTO_TYPES.news), !alerts.length);
 
   return (
     <AlertContainer maxWidth="md">

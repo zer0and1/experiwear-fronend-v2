@@ -14,7 +14,7 @@ import { Add } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import { setPathTokens } from 'redux/actions/auxiliary';
 import { getEnglishDate, getEnglishDateWithTime } from 'utils/helpers';
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   newsAlertButton: {

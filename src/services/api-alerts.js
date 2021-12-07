@@ -39,3 +39,12 @@ export const deleteScheduledNotification = async (id) => {
 export const getAccelerometerData = async (params) => {
   return await axios.get('/accelerometer', { params });
 };
+
+export const createSavedAlert = async (params) => {
+  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
+  return await axios.post('/notifications/saved', params);
+};
+
+export const readSavedAlerts = async (params) => {
+  return await axios.post('/notifications/saved', { params });
+};

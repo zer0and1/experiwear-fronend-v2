@@ -8,9 +8,7 @@ import * as authAPI from 'services/api-auth';
 import { ExpTextField, AuthWrapper } from 'components';
 import useLoading from 'hooks/useLoading';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
-import { EMAIL_VALID } from 'utils/constants/validations';
-import LINKS from 'utils/constants/links';
-import MESSAGES from 'utils/constants/messages';
+import { EMAIL_VALID, LINKS } from 'utils/constants';
 import { Button, makeStyles } from '@material-ui/core';
 
 const schema = yup.object().shape({
@@ -58,7 +56,9 @@ const ForgotPassword = () => {
           query: { email: data.email },
         });
       } catch (error) {
-        showErrorToast(MESSAGES.EMAIL_NOT_FOUND);
+        showErrorToast(
+          'Your email does not existed. Please input correct email.'
+        );
       }
       changeLoadingStatus(false);
     },

@@ -6,6 +6,7 @@ export { default as Checkbox } from './ExpCheckbox';
 export { default as ColorField } from './ColorField';
 export { default as CurrentGame } from './CurrentGame';
 export { default as FanbandTerminal } from './FanbandTerminal';
+export * from './FanbandTerminal';
 export { default as FormButton } from './FormButton';
 export { default as LinkButton } from './LinkButton';
 export { default as Logo } from './Logo';

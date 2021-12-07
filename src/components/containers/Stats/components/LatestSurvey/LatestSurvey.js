@@ -13,7 +13,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 import { getLatestNotification } from 'redux/actions';
 import { DOUGHNUT_OPTIONS } from './constants';
-import { ALERT_TYPES } from 'utils/constants';
+import { ALERT_PROTO_TYPES } from 'utils/constants';
 import { CircleIcon } from 'components/icons';
 import { calcPercent } from 'utils/helpers';
 
@@ -97,7 +97,7 @@ const LatestAlert = () => {
   );
 
   useEffect(() => {
-    dispatch(getLatestNotification(ALERT_TYPES.SURVEY.VALUE));
+    dispatch(getLatestNotification(ALERT_PROTO_TYPES.survey));
   }, [dispatch]);
 
   return (

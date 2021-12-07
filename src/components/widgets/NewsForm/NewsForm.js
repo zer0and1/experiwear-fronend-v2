@@ -5,7 +5,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object } from 'yup';
 
-import { TITLE_VALID, STRING_VALID } from 'utils/constants/validations';
+import {
+  TITLE_VALID,
+  STRING_VALID,
+  DEFAULT_ALERT_PARAMS,
+} from 'utils/constants';
 import {
   AlertField,
   FanbandTerminal,
@@ -13,8 +17,7 @@ import {
   ExpImageField,
   ExpTextField,
 } from 'components';
-import { DEFAULT_ALERT_PARAMS } from 'components/elements/AlertField';
-import { ImageScreen } from 'components/elements/FanbandTerminal';
+import { ImageScreen } from 'components';
 
 const schema = object().shape({
   title: TITLE_VALID,

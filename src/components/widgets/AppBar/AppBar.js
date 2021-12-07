@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH } from 'utils/constants/image-paths';
+import { TEMP_TEAM_HAWKS_SMALL_IMAGE_PATH } from 'utils/constants';
 import { GameSelector, PathIndicator } from 'components';
 
 const useStyles = makeStyles((theme) => ({

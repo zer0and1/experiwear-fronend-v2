@@ -3,7 +3,7 @@ import { Calendar, ExpCheckbox, Title } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertToShow, setSelectedDate } from 'redux/actions';
 import { useRouter } from 'next/router';
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 
 const SelectedGameSidebar = () => {
   const dispatch = useDispatch();

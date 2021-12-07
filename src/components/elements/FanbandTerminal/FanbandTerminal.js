@@ -4,11 +4,7 @@ import { TERMINAL_DISPLAY, TERMINAL_FRAMEWORK } from 'utils/constants';
 import { FLASHING_PATTERN } from './constants';
 import { quadOut } from './helper';
 import _ from 'lodash';
-import {
-  VIB_TYPES,
-  LED_TYPES,
-  VIB_INTENSITIES,
-} from 'components/elements/AlertField';
+import { VIB_TYPES, LED_TYPES, VIB_INTENSITIES } from 'utils/constants';
 
 const useStyles = makeStyles(() => ({
   root: {

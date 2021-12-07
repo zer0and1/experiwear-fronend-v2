@@ -7,14 +7,18 @@ import theme from 'theme';
 import store from 'redux/store';
 import InitProvider from 'utils/hocs/InitProvider';
 import ToastProvider from 'utils/hocs/ToastProvider';
-import * as COMMON_CONSTANTS from 'utils/constants/common';
-import { BANNER_IMAGE_PATH } from 'utils/constants/image-paths';
+import {
+  BANNER_IMAGE_PATH,
+  TITLE,
+  SITE_URL,
+  DESCRIPTION,
+} from 'utils/constants';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>{COMMON_CONSTANTS.TITLE}</title>
+        <title>{TITLE}</title>
         <meta charSet="utf-8" />
         <meta name="keywords" content="Keywords" />
         <meta name="description" content="Description" />
@@ -27,24 +31,18 @@ function MyApp({ Component, pageProps }) {
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={COMMON_CONSTANTS.SITE_URL} />
-        <meta property="og:title" content={COMMON_CONSTANTS.TITLE} />
-        <meta
-          property="og:description"
-          content={COMMON_CONSTANTS.DESCRIPTION}
-        />
+        <meta property="og:url" content={SITE_URL} />
+        <meta property="og:title" content={TITLE} />
+        <meta property="og:description" content={DESCRIPTION} />
         <meta property="og:image" content={BANNER_IMAGE_PATH} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="628" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={COMMON_CONSTANTS.SITE_URL} />
-        <meta property="twitter:title" content={COMMON_CONSTANTS.TITLE} />
-        <meta
-          property="twitter:description"
-          content={COMMON_CONSTANTS.DESCRIPTION}
-        />
+        <meta property="twitter:url" content={SITE_URL} />
+        <meta property="twitter:title" content={TITLE} />
+        <meta property="twitter:description" content={DESCRIPTION} />
         <meta property="twitter:image" content={BANNER_IMAGE_PATH} />
 
         <meta name="msapplication-config" content="/browserconfig.xml" />

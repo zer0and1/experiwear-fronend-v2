@@ -1,33 +1,34 @@
 import * as TYPES from 'redux/action-types';
 import moment from 'moment';
 import _ from 'lodash';
+import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 
 const INITIAL_STATE = Object.freeze({
-  all: {
+  [ALERT_PROTO_TYPES.news]: {
     results: [],
     total: 0,
   },
-  news: {
+  [ALERT_PROTO_TYPES.survey]: {
     results: [],
     total: 0,
   },
-  survey: {
+  [ALERT_PROTO_TYPES.score]: {
     results: [],
     total: 0,
   },
-  score: {
+  [ALERT_PROTO_TYPES.promo]: {
     results: [],
     total: 0,
   },
-  promo: {
+  [ALERT_MIXED_TYPES.all]: {
     results: [],
     total: 0,
   },
-  scheduled: {
+  [ALERT_MIXED_TYPES.scheduled]: {
     results: [],
     total: 0,
   },
-  canned: {
+  [ALERT_MIXED_TYPES.saved]: {
     results: [],
     total: 0,
   },
@@ -50,7 +51,7 @@ const INITIAL_STATE = Object.freeze({
 
 const alertsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TYPES.SET_NOTIFICATIONS:
+    case TYPES.SET_ALERTS:
       const { type, results, total } = action.payload;
 
       if (type) {

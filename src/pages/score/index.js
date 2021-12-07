@@ -1,6 +1,6 @@
 import { Layout, Score, CurrentFanbandStats, AlertsSent } from 'components';
 import { usePathIndicator } from 'hooks';
-import { ALERT_TYPES, LINKS } from 'utils/constants';
+import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
 
 export default function ScorePage() {
   usePathIndicator(LINKS.score);
@@ -11,7 +11,7 @@ export default function ScorePage() {
         <>
           <CurrentFanbandStats />
           <AlertsSent
-            type={ALERT_TYPES.SCORE.VALUE}
+            type={ALERT_PROTO_TYPES.score}
             link={LINKS.scoreSent.path}
           />
         </>

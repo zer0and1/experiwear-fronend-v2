@@ -22,11 +22,7 @@ import {
 } from 'components';
 import { VIBRATION_MARKS } from './constants';
 import CloseIcon from '@material-ui/icons/Close';
-import {
-  LED_TYPES,
-  VIB_INTENSITIES,
-  VIB_TYPES,
-} from 'components/elements/AlertField';
+import { LED_TYPES, VIB_INTENSITIES, VIB_TYPES } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {

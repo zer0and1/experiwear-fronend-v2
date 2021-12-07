@@ -7,11 +7,9 @@ import * as yup from 'yup';
 import * as authAPI from 'services/api-auth';
 import { setUserToken } from 'redux/actions/auth';
 import { LinkButton, AuthWrapper } from 'components';
-import useLoading from 'hooks/useLoading';
-import { showErrorToast } from 'utils/helpers/toast';
-import { EMAIL_VALID, PASSWORD_VALID } from 'utils/constants/validations';
-import LINKS from 'utils/constants/links';
-import MESSAGES from 'utils/constants/messages';
+import { useLoading } from 'hooks';
+import { showErrorToast } from 'utils/helpers';
+import { LINKS, EMAIL_VALID, PASSWORD_VALID } from 'utils/constants';
 import {
   InputAdornment,
   Box,
@@ -81,7 +79,7 @@ const SignIn = () => {
           })
         );
       } catch (error) {
-        showErrorToast(MESSAGES.SIGN_IN_ERROR);
+        showErrorToast('Your credential is incorrect.');
       }
       changeLoadingStatus(false);
     },

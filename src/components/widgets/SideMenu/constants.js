@@ -1,4 +1,4 @@
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 import {
   HomeIcon,
   MailIcon,
@@ -82,5 +82,3 @@ export const SIDEBAR_GROUPS = [
     items: MANAGE_TICKETS,
   },
 ];
-
-export default SIDEBAR_GROUPS;

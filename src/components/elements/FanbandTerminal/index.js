@@ -1,2 +1,2 @@
 export { default } from './FanbandTerminal';
-export * from './screens';
+export * from './components';

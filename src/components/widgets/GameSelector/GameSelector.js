@@ -3,7 +3,7 @@ import { setSelectedGame } from 'redux/actions/games';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEnglishDateWithTime } from 'utils/helpers';
 import { TeamLogo } from 'components';
-import LINKS from 'utils/constants/links';
+import { LINKS } from 'utils/constants';
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
