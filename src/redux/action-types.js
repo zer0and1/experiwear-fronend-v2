@@ -19,7 +19,8 @@ export const SET_ALERT_TO_SHOW = 'SET_ALERT_TO_SHOW';
 // auxiliary actions
 export const SET_PATH_TOKENS = 'SET_PATH_TOKENS';
 export const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
-export const SET_ERROR = 'SET_ERROR';
+export const SET_RESPONSE_SUCCESS = 'SET_RESPONSE_SUCCESS';
+export const SET_RESPONSE_ERROR = 'SET_RESPONSE_ERROR';
 
 // fanband actions
 export const SET_FANBANDS = 'SET_FANBANDS';

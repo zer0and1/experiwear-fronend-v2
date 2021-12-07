@@ -44,7 +44,7 @@ const Saved = () => {
     <AlertContainer maxWidth="md">
       <Card>
         <CardHeader
-          title="Create Scheduled Alert"
+          title="Save Alert"
           subheader={getEnglishDateWithTime(new Date())}
         />
         <CardContent>

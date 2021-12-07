@@ -45,6 +45,15 @@ export const createSavedAlert = async (params) => {
   return await axios.post('/notifications/saved', params);
 };
 
-export const readSavedAlerts = async (params) => {
-  return await axios.get('/notifications/saved', { params });
+export const sendSavedAlert = async (id) => {
+  return await axios.post(`/notifications/saved/${id}/send`);
+};
+
+export const updateSavedAlert = async (id, params) => {
+  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
+  return await axios.put(`/notifications/saved/${id}`, params);
+};
+
+export const deleteSavedAlert = async (id) => {
+  return await axios.delete(`/notifications/saved/${id}`);
 };

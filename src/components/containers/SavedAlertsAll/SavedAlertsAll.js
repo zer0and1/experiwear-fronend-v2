@@ -5,11 +5,11 @@ import {
   CardHeader,
   makeStyles,
 } from '@material-ui/core';
-import { getNotifications } from 'redux/actions';
+import { getSavedAlerts } from 'redux/actions';
 import { AlertContainer, AlertItem, Title } from 'components';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { ALERT_PROTO_TYPES } from 'utils/constants';
+import { ALERT_MIXED_TYPES } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 import clsx from 'clsx';
 
@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   table: {
-    tableLayout: 'fixed',
+    tableLayout: 'auto',
     width: '100%',
   },
   cellAlert: {
     textAlign: 'center',
     height: 92,
-    minWidth: 300,
+    minWidth: 200,
   },
   cellButton: {
     verticalAlign: 'middle',
@@ -62,11 +62,15 @@ const useStyles = makeStyles((theme) => ({
 
 const SavedAlertsAll = () => {
   const classes = useStyles();
-  const alerts = useSelector((state) =>
-    state.notifications.news.results.filter((alert) => alert.isSent)
-  );
+  const alerts = useSelector((state) => state.notifications.saved.results);
 
-  useAsyncAction(getNotifications(ALERT_PROTO_TYPES.news), !alerts.length);
+  const handleSend = () => {};
+
+  const handleEdit = () => {};
+
+  const handleDelete = () => {};
+
+  useAsyncAction(getSavedAlerts(ALERT_MIXED_TYPES.saved), !alerts.length);
 
   return (
     <AlertContainer maxWidth="md">
@@ -85,13 +89,22 @@ const SavedAlertsAll = () => {
                       <AlertItem data={alert} />
                     </td>
                     <td className={classes.cellButton}>
-                      <Button className={clsx(classes.action, classes.send)}>
+                      <Button
+                        className={clsx(classes.action, classes.send)}
+                        onClick={handleSend}
+                      >
                         Send
                       </Button>
-                      <Button className={clsx(classes.action, classes.edit)}>
+                      <Button
+                        className={clsx(classes.action, classes.edit)}
+                        onClick={handleEdit}
+                      >
                         Edit
                       </Button>
-                      <Button className={clsx(classes.action, classes.delete)}>
+                      <Button
+                        className={clsx(classes.action, classes.delete)}
+                        onClick={handleDelete}
+                      >
                         Delete
                       </Button>
                     </td>

@@ -56,6 +56,10 @@ const Tickets = () => {
           <TabPanel value={TABS.newTickets.id} className={classes.tabPanel}>
             <TicketForm onSubmit={handleSubmit} />
           </TabPanel>
+          <TabPanel
+            value={TABS.uploadTickets.id}
+            className={classes.tabPanel}
+          ></TabPanel>
         </TabContext>
       </CardContent>
     </Card>

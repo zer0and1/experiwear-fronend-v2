@@ -4,8 +4,7 @@ import { createAction } from 'redux-actions';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
-import { showErrorToast, showSuccessToast } from 'utils/helpers';
-import { setError } from '.';
+import { setReponseError } from '.';
 
 const makeFormData = (type, data) => {
   const formData = new FormData();
@@ -49,9 +48,9 @@ export const createAlert =
         getNotifications(scheduledTime ? ALERT_MIXED_TYPES.scheduled : type)
       );
 
-      showSuccessToast(response.message);
+      dispatch(setResponseSuccess(response));
     } catch (e) {
-      showErrorToast(e.response?.data?.message?.[0]);
+      dispatch(setReponseError(e));
     }
 
     dispatch(setLoadingStatus(false));
@@ -62,11 +61,50 @@ export const insertSavedAlert = (type, data) => async (dispatch) => {
   const formData = makeFormData(type, data);
 
   try {
-    const { message } = await alertsAPI.createSavedAlert(formData);
-    showSuccessToast(message);
+    const response = await alertsAPI.createSavedAlert(formData);
+    dispatch(setResponseSuccess(response));
     dispatch(getSavedAlerts());
   } catch (e) {
-    showErrorToast(e.response?.data?.message?.[0]);
+    dispatch(setReponseError(e));
+  }
+
+  dispatch(setLoadingStatus(false));
+};
+
+export const sendSavedAlert = (id) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    const response = await alertsAPI.sendSavedAlert(id);
+    dispatch(setResponseSuccess(response));
+  } catch (e) {
+    dispatch(setReponseError(e));
+  }
+
+  dispatch(setLoadingStatus(false));
+};
+
+export const modifySavedAlert = (id, params) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    const response = await alertsAPI.updateSavedAlert(id, params);
+    dispatch(setResponseSuccess(response));
+  } catch (e) {
+    dispatch(setReponseError(e));
+  }
+
+  dispatch(setLoadingStatus(false));
+};
+
+export const removeSavedAlert = (id) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    const response = await alertsAPI.deleteSavedAlert(id);
+    dispatch(setResponseSuccess(response));
+  } catch (e) {
+    dispatch(setReponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -150,10 +188,10 @@ export const setAlerts = createAction(TYPES.SET_ALERTS, (payload) => payload);
 
 export const getSavedAlerts = (params) => async (dispatch) => {
   try {
-    const res = await alertsAPI.readSavedAlerts(params);
+    const res = await alertsAPI.getNotifications({ ...params, isSaved: true });
     dispatch(setAlerts({ ...res, type: ALERT_MIXED_TYPES.saved }));
   } catch (e) {
-    dispatch(setError(e));
+    dispatch(setReponseError(e));
   }
 };
 

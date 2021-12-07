@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
-import { getNotifications } from 'redux/actions';
+import { getSavedAlerts } from 'redux/actions';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { useAsyncAction } from 'hooks';
-import { LINKS } from 'utils/constants';
+import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,15 +32,13 @@ const useStyles = makeStyles((theme) => ({
 const ActiveSavedAlerts = () => {
   const router = useRouter();
   const classes = useStyles();
-  const alerts = useSelector((state) =>
-    state.notifications.news.results.filter((n) => n.isSent)
-  );
+  const alerts = useSelector((state) => state.notifications.saved.results);
 
   const handleViewAll = useCallback(() => {
     router.push(LINKS.savedAll.path);
   }, [router]);
 
-  useAsyncAction(getNotifications('news'));
+  useAsyncAction(getSavedAlerts(ALERT_MIXED_TYPES.saved));
 
   return (
     <div className={classes.root}>
