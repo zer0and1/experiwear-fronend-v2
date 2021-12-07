@@ -10,7 +10,11 @@ import {
   ScoreForm,
   AlertContainer,
 } from 'components';
-import { ALERT_PROTO_LABELS, ALERT_PROTO_TYPES } from 'utils/constants';
+import {
+  ALERT_FORM_MODES,
+  ALERT_PROTO_LABELS,
+  ALERT_PROTO_TYPES,
+} from 'utils/constants';
 import { getEnglishDateWithTime } from 'utils/helpers';
 
 const Saved = () => {
@@ -24,20 +28,20 @@ const Saved = () => {
     [type, dispatch]
   );
 
-  const form = useMemo(() => {
+  const AlertForm = useMemo(() => {
     switch (type) {
       case ALERT_PROTO_TYPES.news:
-        return <NewsForm onCreate={handleCreate} />;
+        return NewsForm;
       case ALERT_PROTO_TYPES.survey:
-        return <QuickPollForm onCreate={handleCreate} />;
+        return QuickPollForm;
       case ALERT_PROTO_TYPES.score:
-        return <ScoreForm onCreate={handleCreate} />;
+        return ScoreForm;
       case ALERT_PROTO_TYPES.promo:
-        return <PromoForm onCreate={handleCreate} />;
+        return PromoForm;
       default:
-        return <NewsForm onCreate={handleCreate} />;
+        return NewsForm;
     }
-  }, [type, handleCreate]);
+  }, [type]);
 
   return (
     <AlertContainer maxWidth="md">
@@ -61,7 +65,7 @@ const Saved = () => {
               />
             </Grid>
           </Grid>
-          {form}
+          <AlertForm onCreate={handleCreate} mode={ALERT_FORM_MODES.saved} />
         </CardContent>
       </Card>
     </AlertContainer>

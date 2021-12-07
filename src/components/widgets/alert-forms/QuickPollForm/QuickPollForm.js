@@ -5,7 +5,11 @@ import { Add as AddIcon, Close as CloseIcon } from '@material-ui/icons';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { TITLE_VALID, DEFAULT_ALERT_PARAMS } from 'utils/constants';
+import {
+  TITLE_VALID,
+  DEFAULT_ALERT_PARAMS,
+  ALERT_FORM_MODES,
+} from 'utils/constants';
 import {
   AlertField,
   FanbandTerminal,
@@ -158,7 +162,9 @@ const QuickPollForm = ({ onCreate }) => {
         </Grid>
       </Grid>
       <Box mt="auto">
-        <FormButton type="submit">Send</FormButton>
+        <FormButton type="submit">
+          {mode === ALERT_FORM_MODES.saved ? 'Save' : 'Send'}
+        </FormButton>
       </Box>
     </form>
   );

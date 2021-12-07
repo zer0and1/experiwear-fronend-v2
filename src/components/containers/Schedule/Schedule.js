@@ -13,7 +13,11 @@ import {
   ScoreForm,
   AlertContainer,
 } from 'components';
-import { ALERT_PROTO_TYPES, ALERT_PROTO_LABELS } from 'utils/constants';
+import {
+  ALERT_PROTO_TYPES,
+  ALERT_PROTO_LABELS,
+  ALERT_FORM_MODES,
+} from 'utils/constants';
 import moment from 'moment';
 
 const Schedule = () => {
@@ -31,20 +35,20 @@ const Schedule = () => {
     [type, datetime, dispatch]
   );
 
-  const form = useMemo(() => {
+  const AlertForm = useMemo(() => {
     switch (type) {
       case ALERT_PROTO_TYPES.news:
-        return <NewsForm onCreate={handleCreate} />;
+        return NewsForm;
       case ALERT_PROTO_TYPES.survey:
-        return <QuickPollForm onCreate={handleCreate} />;
+        return QuickPollForm;
       case ALERT_PROTO_TYPES.score:
-        return <ScoreForm onCreate={handleCreate} />;
+        return ScoreForm;
       case ALERT_PROTO_TYPES.promo:
-        return <PromoForm onCreate={handleCreate} />;
+        return PromoForm;
       default:
-        return <NewsForm onCreate={handleCreate} />;
+        return NewsForm;
     }
-  }, [type, handleCreate]);
+  }, [type]);
 
   const handleDatetimeClick = useCallback(
     (e) => {
@@ -84,7 +88,10 @@ const Schedule = () => {
             value={type}
             onChange={(e) => setAlertType(e.target.value)}
           />
-          {form}
+          <AlertForm
+            onCreate={handleCreate}
+            mode={ALERT_FORM_MODES.scheduled}
+          />
           <DatetimePicker
             anchorEl={anchorEl}
             onClose={() => setAnchorEl(null)}

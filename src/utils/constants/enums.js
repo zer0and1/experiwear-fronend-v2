@@ -81,6 +81,12 @@ export const DEFAULT_ALERT_PARAMS = Object.freeze({
   ledType: LED_TYPES.flashing,
 });
 
+export const ALERT_FORM_MODES = Object.freeze({
+  proto: 'proto',
+  scheduled: 'scheduled',
+  saved: 'saved',
+});
+
 export const LINKS = Object.freeze({
   signIn: {
     title: 'Sign In',
