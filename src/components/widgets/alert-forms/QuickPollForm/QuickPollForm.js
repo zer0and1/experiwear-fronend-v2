@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const QuickPollForm = ({ onCreate }) => {
+const QuickPollForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
   const classes = useStyles();
   const [image, setImage] = useState(null);
   const [responses, setResponses] = useState(['']);

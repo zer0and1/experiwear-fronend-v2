@@ -46,5 +46,5 @@ export const createSavedAlert = async (params) => {
 };
 
 export const readSavedAlerts = async (params) => {
-  return await axios.post('/notifications/saved', { params });
+  return await axios.get('/notifications/saved', { params });
 };

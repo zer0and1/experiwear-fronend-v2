@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PromoForm = ({ onCreate }) => {
+const PromoForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
   const classes = useStyles();
   const [image, setImage] = useState(null);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);

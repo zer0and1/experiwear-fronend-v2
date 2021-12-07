@@ -1,7 +1,7 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
-import { createAlert } from 'redux/actions';
+import { insertSavedAlert } from 'redux/actions';
 import {
   ExpSelect,
   NewsForm,
@@ -21,12 +21,9 @@ const Saved = () => {
   const dispatch = useDispatch();
   const [type, setAlertType] = useState(ALERT_PROTO_TYPES.news);
 
-  const handleCreate = useCallback(
-    async (data) => {
-      await dispatch(createAlert(type, data));
-    },
-    [type, dispatch]
-  );
+  const handleCreate = async (data) => {
+    await dispatch(insertSavedAlert(type, data));
+  };
 
   const AlertForm = useMemo(() => {
     switch (type) {

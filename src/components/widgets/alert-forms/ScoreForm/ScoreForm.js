@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScoreForm = ({ onCreate }) => {
+const ScoreForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
   const classes = useStyles();
   const { selectedGame: game } = useSelector((state) => state.games);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);

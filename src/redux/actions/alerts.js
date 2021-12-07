@@ -62,9 +62,9 @@ export const insertSavedAlert = (type, data) => async (dispatch) => {
   const formData = makeFormData(type, data);
 
   try {
-    const { message } = alertsAPI.createSavedAlert(formData);
+    const { message } = await alertsAPI.createSavedAlert(formData);
     showSuccessToast(message);
-    dispatch(getSavedAlert());
+    dispatch(getSavedAlerts());
   } catch (e) {
     showErrorToast(e.response?.data?.message?.[0]);
   }
@@ -150,7 +150,7 @@ export const setAlerts = createAction(TYPES.SET_ALERTS, (payload) => payload);
 
 export const getSavedAlerts = (params) => async (dispatch) => {
   try {
-    const res = alertsAPI.readSavedAlerts(params);
+    const res = await alertsAPI.readSavedAlerts(params);
     dispatch(setAlerts({ ...res, type: ALERT_MIXED_TYPES.saved }));
   } catch (e) {
     dispatch(setError(e));
