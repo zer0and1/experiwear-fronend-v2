@@ -1,6 +1,6 @@
 import * as ActionTypes from 'redux/action-types';
 import { createAction } from 'redux-actions';
-import { setReponseError, setLoadingStatus } from '.';
+import { setResponseError, setLoadingStatus } from '.';
 import {
   createTicket,
   deleteTicket,
@@ -19,7 +19,7 @@ export const getTickets = (params) => async (dispatch) => {
     const fanbands = await readTickets(params);
     dispatch(setTickets(fanbands));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 };
 
@@ -31,7 +31,7 @@ export const insertTicket = (params) => async (dispatch) => {
     showSuccessToast(message);
     dispatch(getTickets());
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -46,7 +46,7 @@ export const modifyTicket = (id, params) => async (dispatch, getState) => {
     showSuccessToast(message);
     dispatch(setTickets(tickets.map((t) => (t.id === id ? data : t))));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -61,7 +61,7 @@ export const removeTicket = (id) => async (dispatch, getState) => {
     showSuccessToast(message);
     dispatch(setTickets(tickets.filter((t) => t.id !== id)));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));

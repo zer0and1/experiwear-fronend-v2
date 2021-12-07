@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
-import { setReponseError } from '.';
+import { setResponseSuccess, setResponseError } from '.';
 
 const makeFormData = (type, data) => {
   const formData = new FormData();
@@ -50,7 +50,7 @@ export const createAlert =
 
       dispatch(setResponseSuccess(response));
     } catch (e) {
-      dispatch(setReponseError(e));
+      dispatch(setResponseError(e));
     }
 
     dispatch(setLoadingStatus(false));
@@ -65,7 +65,7 @@ export const insertSavedAlert = (type, data) => async (dispatch) => {
     dispatch(setResponseSuccess(response));
     dispatch(getSavedAlerts());
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -78,7 +78,7 @@ export const sendSavedAlert = (id) => async (dispatch) => {
     const response = await alertsAPI.sendSavedAlert(id);
     dispatch(setResponseSuccess(response));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -91,7 +91,7 @@ export const modifySavedAlert = (id, params) => async (dispatch) => {
     const response = await alertsAPI.updateSavedAlert(id, params);
     dispatch(setResponseSuccess(response));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -104,7 +104,7 @@ export const removeSavedAlert = (id) => async (dispatch) => {
     const response = await alertsAPI.deleteSavedAlert(id);
     dispatch(setResponseSuccess(response));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 
   dispatch(setLoadingStatus(false));
@@ -191,7 +191,7 @@ export const getSavedAlerts = (params) => async (dispatch) => {
     const res = await alertsAPI.getNotifications({ ...params, isSaved: true });
     dispatch(setAlerts({ ...res, type: ALERT_MIXED_TYPES.saved }));
   } catch (e) {
-    dispatch(setReponseError(e));
+    dispatch(setResponseError(e));
   }
 };
 

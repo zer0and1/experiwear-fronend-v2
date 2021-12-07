@@ -11,14 +11,25 @@ export const setLoadingStatus = (loadingStatus) => ({
   payload: loadingStatus,
 });
 
-export const setReponseSuccess = ({ message }) => {
-  showSuccessToast(message || 'Successfully Executed!');
+export const setResponseSuccess = (response) => {
+  showSuccessToast(response?.message || 'Successfully Executed!');
+
+  return {
+    type: ActionTypes.SET_RESPONSE_SUCCESS,
+    payload: response,
+  };
 };
 
-export const setReponseError = (error) => {
+export const setResponseError = (error) => {
   showErrorToast(
-    error?.message ||
+    error?.response?.data?.message ||
       error?.response?.data?.message?.[0] ||
+      error?.message ||
       'Something went wrong!'
   );
+
+  return {
+    type: ActionTypes.SET_RESPONSE_ERROR,
+    payload: error,
+  };
 };

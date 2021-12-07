@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import * as ActionTypes from 'redux/action-types';
 import { readFanbands } from 'services/api-fanbands';
 import { FANBAND_TYPES } from 'utils/constants';
-import { setReponseError } from '.';
+import { setResponseError } from '.';
 
 export const setFanbands = createAction(
   ActionTypes.SET_FANBANDS,
@@ -20,7 +20,7 @@ export const getFanbands =
       const fanbands = await readFanbands({ pageType });
       dispatch(setFanbands(fanbands));
     } catch (e) {
-      dispatch(setReponseError(e));
+      dispatch(setResponseError(e));
     }
   };
 
@@ -29,6 +29,6 @@ export const getFanbandsStatistics = () => async (dispatch) => {
     const response = await getFanbandsStatistics();
     dispatch(setFanbandsStatistics(response));
   } catch (error) {
-    dispatch(setReponseError(error));
+    dispatch(setResponseError(error));
   }
 };

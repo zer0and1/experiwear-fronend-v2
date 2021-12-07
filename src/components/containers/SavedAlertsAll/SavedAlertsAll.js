@@ -5,10 +5,14 @@ import {
   CardHeader,
   makeStyles,
 } from '@material-ui/core';
-import { getSavedAlerts } from 'redux/actions';
+import {
+  getSavedAlerts,
+  removeSavedAlert,
+  sendSavedAlert,
+} from 'redux/actions';
 import { AlertContainer, AlertItem, Title } from 'components';
 import { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ALERT_MIXED_TYPES } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 import clsx from 'clsx';
@@ -62,13 +66,18 @@ const useStyles = makeStyles((theme) => ({
 
 const SavedAlertsAll = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const alerts = useSelector((state) => state.notifications.saved.results);
 
-  const handleSend = () => {};
+  const handleSend = (id) => {
+    dispatch(sendSavedAlert(id));
+  };
 
-  const handleEdit = () => {};
+  const handleEdit = (id) => {};
 
-  const handleDelete = () => {};
+  const handleDelete = (id) => {
+    dispatch(removeSavedAlert(id));
+  };
 
   useAsyncAction(getSavedAlerts(ALERT_MIXED_TYPES.saved), !alerts.length);
 
@@ -91,19 +100,19 @@ const SavedAlertsAll = () => {
                     <td className={classes.cellButton}>
                       <Button
                         className={clsx(classes.action, classes.send)}
-                        onClick={handleSend}
+                        onClick={() => handleSend(alert.id)}
                       >
                         Send
                       </Button>
                       <Button
                         className={clsx(classes.action, classes.edit)}
-                        onClick={handleEdit}
+                        onClick={() => handleEdit(alert.id)}
                       >
                         Edit
                       </Button>
                       <Button
                         className={clsx(classes.action, classes.delete)}
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(alert.id)}
                       >
                         Delete
                       </Button>
