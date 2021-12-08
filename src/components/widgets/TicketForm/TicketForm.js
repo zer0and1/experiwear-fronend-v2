@@ -12,7 +12,7 @@ const schema = yup
     row: yup.string().required(),
     seat: yup.string().required(),
     order: yup.string().required(),
-    fanbandId: yup.string(),
+    userId: yup.string(),
   })
   .required();
 
@@ -30,7 +30,7 @@ export default function TicketForm({
       row: '',
       seat: '',
       order: '',
-      fanbandId: '',
+      userId: '',
       ...defaultValues,
     },
   });
@@ -103,10 +103,10 @@ export default function TicketForm({
         <Grid item xs={12}>
           <Controller
             control={control}
-            name="fanbandId"
+            name="userId"
             label="Assign to fanband"
             placeholder="Assign to fanband"
-            error={errors.fanbandId?.message}
+            error={errors.userId?.message}
             fullWidth
             as={<FanbandSelector />}
           />

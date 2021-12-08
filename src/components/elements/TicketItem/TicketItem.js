@@ -48,7 +48,7 @@ const TicketItem = ({ data, className, ...boxProps }) => {
   const router = useRouter();
   const fanbands = useSelector((state) => state.main.fanbands.results);
   const fanbandName = useMemo(
-    () => fanbands.find((f) => f.id === data.fanbandId)?.name,
+    () => fanbands.find((f) => f.id === data.userId)?.name,
     [fanbands, data]
   );
 
