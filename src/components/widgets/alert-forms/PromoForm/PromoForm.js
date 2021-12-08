@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import _ from 'lodash';
 import {
   TITLE_VALID,
   STRING_VALID,
@@ -33,10 +33,20 @@ const useStyles = makeStyles({
   },
 });
 
-const PromoForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
+const PromoForm = ({
+  onSubmit,
+  mode = ALERT_FORM_MODES.proto,
+  defaultValues = null,
+  updating = false,
+}) => {
   const classes = useStyles();
-  const [image, setImage] = useState(null);
-  const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
+  const [image, setImage] = useState(
+    defaultValues ? { url: defaultValues.imageUrl } : null
+  );
+  const [alertParams, setAlertParmas] = useState(
+    _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
+      DEFAULT_ALERT_PARAMS
+  );
 
   const resetParams = () => {
     setAlertParmas(DEFAULT_ALERT_PARAMS);
@@ -50,12 +60,23 @@ const PromoForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
 
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      title: '',
+      body: '',
+      ..._.pick(defaultValues, ['title', 'body']),
+    },
   });
   const bodyText = watch('body');
 
-  const onSubmit = async (data) => {
-    await onCreate({ ...data, ...alertParams, image });
-    resetForm();
+  const submitHandler = async (data) => {
+    await onSubmit({
+      ..._.pick(data, ['title', 'body']),
+      ...alertParams,
+      file: image.file,
+    });
+    if (!updating) {
+      resetForm();
+    }
   };
 
   const resetForm = () => {
@@ -63,8 +84,13 @@ const PromoForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
     setImage(null);
     resetParams();
   };
+
   return (
-    <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      noValidate
+      className={classes.root}
+      onSubmit={handleSubmit(submitHandler)}
+    >
       <Grid container>
         <Grid item container xs={9} spacing={2}>
           <Grid item xs={12}>
@@ -75,7 +101,6 @@ const PromoForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
               error={errors.title?.message}
               control={control}
               fullWidth
-              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -88,7 +113,6 @@ const PromoForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
               error={errors.body?.message}
               control={control}
               fullWidth
-              defaultValue=""
             />
           </Grid>
           <Grid item xs={6}>

@@ -15,7 +15,7 @@ export default function EditSavedAlertPage() {
     )
   );
 
-  usePathIndicator([LINKS.saved, LINKS.savedEdit]);
+  usePathIndicator([LINKS.saved, LINKS.savedAll, LINKS.savedEdit]);
   useAsyncAction(getSavedAlerts(), !alert);
 
   return (
