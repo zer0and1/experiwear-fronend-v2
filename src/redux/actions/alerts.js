@@ -6,27 +6,6 @@ import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';
 import { setResponseSuccess, setResponseError } from '.';
 
-const makeFormData = (type, data) => {
-  const formData = new FormData();
-  formData.append('type', type);
-  formData.append('title', data.title);
-  formData.append('body', data.body);
-  formData.append('ledType', data.ledType);
-  formData.append('topColor1', data.topColor1);
-  formData.append('topColor2', data.topColor2);
-  formData.append('topColor3', data.topColor3);
-  formData.append('bottomColor1', data.bottomColor1);
-  formData.append('bottomColor2', data.bottomColor2);
-  formData.append('bottomColor3', data.bottomColor3);
-  formData.append('vibrationType', data.vibrationType);
-  formData.append('vibrationIntensity', data.vibrationIntensity);
-  formData.append('duration', data.duration);
-  formData.append('file', data.image);
-  formData.append('responses', data.responses);
-
-  return formData;
-};
-
 export const createAlert =
   (type, data, scheduledTime = null) =>
   async (dispatch) => {
@@ -90,6 +69,7 @@ export const modifySavedAlert = (id, params) => async (dispatch) => {
   try {
     const response = await alertsAPI.updateSavedAlert(id, params);
     dispatch(setResponseSuccess(response));
+    dispatch(getSavedAlerts());
   } catch (e) {
     dispatch(setResponseError(e));
   }

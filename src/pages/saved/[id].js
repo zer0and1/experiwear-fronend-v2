@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { getSavedAlerts } from 'redux/actions';
 import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
 
-export default function SavedPage() {
+export default function EditSavedAlertPage() {
   const {
     query: { id },
   } = useRouter();
@@ -15,7 +15,7 @@ export default function SavedPage() {
     )
   );
 
-  usePathIndicator(LINKS.savedEdit);
+  usePathIndicator([LINKS.saved, LINKS.savedEdit]);
   useAsyncAction(getSavedAlerts(), !alert);
 
   return (

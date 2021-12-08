@@ -170,7 +170,8 @@ export const LINKS = Object.freeze({
     path: '/saved/view-all',
   },
   savedEdit: {
-    title: 'Edit saved alerts',
+    title: 'Edit Saved alert',
+    token: 'Edit',
     path: '/saved/:id',
   },
   tickets: {
