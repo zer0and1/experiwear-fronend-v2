@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import _ from 'lodash';
 import { isEmpty } from 'utils/helpers';
 import {
   STRING_VALID,
@@ -21,6 +21,7 @@ import {
 import { ScoreScreen } from 'components';
 
 const schema = yup.object().shape({
+  title: STRING_VALID,
   body: STRING_VALID,
 });
 
@@ -35,10 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScoreForm = ({ onSubmit, mode = ALERT_FORM_MODES.proto }) => {
+const ScoreForm = ({
+  onSubmit,
+  mode = ALERT_FORM_MODES.proto,
+  defaultValues = null,
+  updating = false,
+}) => {
   const classes = useStyles();
   const { selectedGame: game } = useSelector((state) => state.games);
-  const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
+  const [alertParams, setAlertParmas] = useState(
+    defaultValues
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS))
+      : DEFAULT_ALERT_PARAMS
+  );
 
   const alertTitle = useMemo(() => {
     if (isEmpty(game)) {
@@ -62,12 +72,20 @@ const ScoreForm = ({ onSubmit, mode = ALERT_FORM_MODES.proto }) => {
 
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      title:
+        mode === ALERT_FORM_MODES.saved ? defaultValues?.title : alertTitle,
+      body: '',
+      ..._.pick(defaultValues, ['body']),
+    },
   });
   const bodyText = watch('body');
 
   const submitHandler = async (data) => {
-    await onSubmit({ ...data, ...alertParams });
-    resetForm();
+    await onSubmit({ ..._.pick(data, ['title', 'body']), ...alertParams });
+    if (!updating) {
+      resetForm();
+    }
   };
 
   const resetForm = () => {
@@ -89,11 +107,9 @@ const ScoreForm = ({ onSubmit, mode = ALERT_FORM_MODES.proto }) => {
               name="title"
               label="Score alert Title"
               error={errors.title?.message}
-              className={classes.input}
               control={control}
-              defaultValue={alertTitle}
               fullWidth
-              inputProps={{ readOnly: true }}
+              inputProps={{ readOnly: mode !== ALERT_FORM_MODES.saved }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -102,10 +118,8 @@ const ScoreForm = ({ onSubmit, mode = ALERT_FORM_MODES.proto }) => {
               name="body"
               label="Score description"
               error={errors.body?.message}
-              className={classes.input}
               control={control}
               fullWidth
-              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>

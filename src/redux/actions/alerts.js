@@ -82,6 +82,7 @@ export const removeSavedAlert = (id) => async (dispatch) => {
 
   try {
     const response = await alertsAPI.deleteSavedAlert(id);
+    await dispatch(getSavedAlerts());
     dispatch(setResponseSuccess(response));
   } catch (e) {
     dispatch(setResponseError(e));
