@@ -5,6 +5,7 @@ import { Add as AddIcon, Close as CloseIcon } from '@material-ui/icons';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import _ from 'lodash';
 import {
   TITLE_VALID,
   DEFAULT_ALERT_PARAMS,
@@ -43,11 +44,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const QuickPollForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
+const QuickPollForm = ({
+  onSubmit,
+  mode = ALERT_FORM_MODES.proto,
+  defaultValues = null,
+  updating = false,
+}) => {
   const classes = useStyles();
-  const [image, setImage] = useState(null);
-  const [responses, setResponses] = useState(['']);
-  const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
+  const [image, setImage] = useState(
+    defaultValues ? { url: defaultValues.imageUrl } : null
+  );
+  const [responses, setResponses] = useState(
+    defaultValues ? defaultValues.surveyResponses : ['']
+  );
+  const [alertParams, setAlertParmas] = useState(
+    _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
+      DEFAULT_ALERT_PARAMS
+  );
 
   const addResponse = () => {
     setResponses((prevState) => [...prevState, '']);
@@ -63,12 +76,23 @@ const QuickPollForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
 
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      title: '',
+      ..._.pick(defaultValues, ['title']),
+    },
   });
   const watchTitle = watch('title');
 
-  const onSubmit = async (data) => {
-    await onCreate({ ...data, ...alertParams, image, responses });
-    resetForm();
+  const submitHandler = async (data) => {
+    await onSubmit({
+      ..._.pick(data, ['title']),
+      ...alertParams,
+      file: image.file,
+      responses,
+    });
+    if (!updating) {
+      resetForm();
+    }
   };
 
   const resetForm = () => {
@@ -79,7 +103,11 @@ const QuickPollForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
   };
 
   return (
-    <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      noValidate
+      className={classes.root}
+      onSubmit={handleSubmit(submitHandler)}
+    >
       <Grid container>
         <Grid item xs={9} container spacing={2}>
           <Grid item xs={12}>
@@ -90,7 +118,6 @@ const QuickPollForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
               error={errors.response?.title}
               control={control}
               fullWidth
-              defaultValue="Should that shot have counted?"
             />
           </Grid>
           <Grid item xs={12}>
