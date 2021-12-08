@@ -17,9 +17,11 @@ import {
 } from 'utils/constants';
 import { getEnglishDateWithTime } from 'utils/helpers';
 
-const Saved = () => {
+const Saved = ({ defaultValues = null, updating = false }) => {
   const dispatch = useDispatch();
-  const [type, setAlertType] = useState(ALERT_PROTO_TYPES.news);
+  const [type, setAlertType] = useState(
+    defaultValues ? defaultValues.type : ALERT_PROTO_TYPES.news
+  );
 
   const handleCreate = async (data) => {
     await dispatch(insertSavedAlert(type, data));
@@ -50,19 +52,26 @@ const Saved = () => {
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={9}>
-              <ExpSelect
-                name="type"
-                label="Alert type"
-                items={Object.values(ALERT_PROTO_TYPES).map((type) => ({
-                  value: type,
-                  label: ALERT_PROTO_LABELS[type],
-                }))}
-                value={type}
-                onChange={(e) => setAlertType(e.target.value)}
-              />
+              {updating || (
+                <ExpSelect
+                  name="type"
+                  label="Alert type"
+                  items={Object.values(ALERT_PROTO_TYPES).map((type) => ({
+                    value: type,
+                    label: ALERT_PROTO_LABELS[type],
+                  }))}
+                  value={type}
+                  onChange={(e) => setAlertType(e.target.value)}
+                />
+              )}
             </Grid>
           </Grid>
-          <AlertForm onCreate={handleCreate} mode={ALERT_FORM_MODES.saved} />
+          <AlertForm
+            onCreate={handleCreate}
+            mode={ALERT_FORM_MODES.saved}
+            defaultValues={defaultValues}
+            updating={updating}
+          />
         </CardContent>
       </Card>
     </AlertContainer>

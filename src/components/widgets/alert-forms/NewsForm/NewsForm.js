@@ -36,12 +36,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewsForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
+const NewsForm = ({
+  onCreate,
+  mode = ALERT_FORM_MODES.proto,
+  defaultValues = null,
+  updating = false,
+}) => {
   const classes = useStyles();
-  const [image, setImage] = useState(null);
-  const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
+  const [image, setImage] = useState(
+    defaultValues ? { url: defaultValues.imageUrl } : null
+  );
+  const [alertParams, setAlertParmas] = useState(
+    defaultValues || DEFAULT_ALERT_PARAMS
+  );
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      title: '',
+      body: '',
+      ...defaultValues,
+    },
   });
   const bodyText = watch('body');
 
@@ -50,8 +64,10 @@ const NewsForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
     setAlertParmas((params) => ({ ...params, [name]: value }));
 
   const onSubmit = async (data) => {
-    await onCreate({ ...data, ...alertParams, image });
-    resetForm();
+    await onCreate({ ...data, ...alertParams, file: image.file });
+    if (!updating) {
+      resetForm();
+    }
   };
 
   const resetForm = () => {
@@ -72,7 +88,6 @@ const NewsForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
               label="News Alert Title"
               error={errors.title?.message}
               fullWidth
-              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -85,7 +100,6 @@ const NewsForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
               label="News Body Text"
               error={errors.body?.message}
               fullWidth
-              defaultValue=""
             />
           </Grid>
           <Grid item xs={6}>

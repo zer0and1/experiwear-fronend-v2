@@ -169,6 +169,10 @@ export const LINKS = Object.freeze({
     token: 'View all',
     path: '/saved/view-all',
   },
+  savedEdit: {
+    title: 'Edit saved alerts',
+    path: '/saved/:id',
+  },
   tickets: {
     title: 'Manage Tickets',
     path: '/tickets',

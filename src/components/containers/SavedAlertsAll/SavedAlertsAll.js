@@ -13,9 +13,10 @@ import {
 import { AlertContainer, AlertItem, Title } from 'components';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ALERT_MIXED_TYPES } from 'utils/constants';
+import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,13 +68,16 @@ const useStyles = makeStyles((theme) => ({
 const SavedAlertsAll = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const router = useRouter();
   const alerts = useSelector((state) => state.notifications.saved.results);
 
   const handleSend = (id) => {
     dispatch(sendSavedAlert(id));
   };
 
-  const handleEdit = (id) => {};
+  const handleEdit = (id) => {
+    router.push(LINKS.savedEdit.path.replace(':id', id));
+  };
 
   const handleDelete = (id) => {
     dispatch(removeSavedAlert(id));
