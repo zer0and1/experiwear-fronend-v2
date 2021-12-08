@@ -32,16 +32,17 @@ export const createAlert =
   async (dispatch) => {
     dispatch(setLoadingStatus(true));
 
-    const formData = makeFormData(type, data);
-
     try {
       let response;
 
       if (scheduledTime) {
-        formData.append('scheduledTime', scheduledTime);
-        response = await alertsAPI.createScheduledNotification(formData);
+        response = await alertsAPI.createScheduledNotification({
+          ...data,
+          type,
+          scheduledTime,
+        });
       } else {
-        response = await alertsAPI.createNotification(formData);
+        response = await alertsAPI.createNotification({ ...data, type });
       }
 
       dispatch(
@@ -58,10 +59,9 @@ export const createAlert =
 
 export const insertSavedAlert = (type, data) => async (dispatch) => {
   dispatch(setLoadingStatus(true));
-  const formData = makeFormData(type, data);
 
   try {
-    const response = await alertsAPI.createSavedAlert(formData);
+    const response = await alertsAPI.createSavedAlert({ ...data, type });
     dispatch(setResponseSuccess(response));
     dispatch(getSavedAlerts());
   } catch (e) {

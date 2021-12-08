@@ -1,4 +1,5 @@
 import axios from 'services/axios';
+import { getFormData } from 'utils/helpers';
 
 export const getNotifications = async (params) => {
   return await axios.get('/notifications', { params });
@@ -8,10 +9,10 @@ export const getLatestNotification = async (params) => {
   return await axios.get('/notifications/latest', { params });
 };
 
-export const createNotification = async (formData) => {
+export const createNotification = async (params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
 
-  return await axios.post('/notifications/broadcast', formData);
+  return await axios.post('/notifications/broadcast', getFormData(params));
 };
 
 export const getScheduledNotifications = async (params) => {
@@ -24,7 +25,10 @@ export const getLatestScheduledNotifications = async () => {
 
 export const createScheduledNotification = async (params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.post('/notifications/scheduled-broadcast', params);
+  return await axios.post(
+    '/notifications/scheduled-broadcast',
+    getFormData(params)
+  );
 };
 
 export const editScheduledNotification = async (id, params) => {
@@ -42,7 +46,7 @@ export const getAccelerometerData = async (params) => {
 
 export const createSavedAlert = async (params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.post('/notifications/saved', params);
+  return await axios.post('/notifications/saved', getFormData(params));
 };
 
 export const sendSavedAlert = async (id) => {
@@ -51,7 +55,7 @@ export const sendSavedAlert = async (id) => {
 
 export const updateSavedAlert = async (id, params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.put(`/notifications/saved/${id}`, params);
+  return await axios.put(`/notifications/saved/${id}`, getFormData(params));
 };
 
 export const deleteSavedAlert = async (id) => {
