@@ -25,7 +25,7 @@ const Saved = ({ defaultValues = null, updating = false }) => {
 
   const handleSubmit = async (data) => {
     if (updating) {
-      await dispatch(modifySavedAlert(type, data));
+      await dispatch(modifySavedAlert(defaultValues.id, { ...data, type }));
     } else {
       await dispatch(insertSavedAlert(type, data));
     }

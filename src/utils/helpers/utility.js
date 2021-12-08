@@ -1,6 +1,6 @@
-const isServer = () => typeof window === 'undefined';
+export const isServer = () => typeof window === 'undefined';
 
-const isEmpty = (value) => {
+export const isEmpty = (value) => {
   return (
     value === undefined ||
     value === null ||
@@ -9,4 +9,8 @@ const isEmpty = (value) => {
   );
 };
 
-export { isServer, isEmpty };
+export const getFormData = (obj) =>
+  Object.keys(obj).reduce((formData, key) => {
+    formData.append(key, obj[key]);
+    return formData;
+  }, new FormData());
