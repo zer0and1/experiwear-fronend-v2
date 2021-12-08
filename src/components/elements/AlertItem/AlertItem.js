@@ -7,7 +7,11 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeSavedAlert, sendSavedAlert } from 'redux/actions';
+import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,16 +83,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AlertItem = ({
-  data: { imageUrl, type, title, createdAt },
+  data: { id, imageUrl, type, title, createdAt },
   action = false,
   className,
   ...boxProps
 }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const hanldeOpenActions = (e) => setAnchorEl(e.target);
   const handleCloseActions = () => setAnchorEl(null);
+
+  const handleSend = () => {
+    setAnchorEl(null);
+    dispatch(sendSavedAlert(id));
+  };
+
+  const handleEdit = () => {
+    setAnchorEl(null);
+    router.push(LINKS.savedEdit.path.replace(':id', id));
+  };
+
+  const handleDelete = () => {
+    setAnchorEl(null);
+    dispatch(removeSavedAlert(id));
+  };
 
   return (
     <Box {...boxProps} className={clsx(classes.root, className)}>
@@ -123,9 +144,22 @@ const AlertItem = ({
         classes={{ paper: classes.popover }}
       >
         <div className={classes.actionsContainer}>
-          <Button className={clsx(classes.action, classes.send)}>Send</Button>
-          <Button className={clsx(classes.action, classes.edit)}>Edit</Button>
-          <Button className={clsx(classes.action, classes.delete)}>
+          <Button
+            className={clsx(classes.action, classes.send)}
+            onClick={handleSend}
+          >
+            Send
+          </Button>
+          <Button
+            className={clsx(classes.action, classes.edit)}
+            onClick={handleEdit}
+          >
+            Edit
+          </Button>
+          <Button
+            className={clsx(classes.action, classes.delete)}
+            onClick={handleDelete}
+          >
             Delete
           </Button>
         </div>

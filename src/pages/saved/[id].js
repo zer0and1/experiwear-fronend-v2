@@ -20,7 +20,7 @@ export default function EditSavedAlertPage() {
 
   return (
     <Layout sidebar={<ActiveSavedAlerts />}>
-      {alert && <Saved defaultValues={alert} updating />}
+      {alert && <Saved defaultValues={alert} key={id} updating />}
     </Layout>
   );
 }

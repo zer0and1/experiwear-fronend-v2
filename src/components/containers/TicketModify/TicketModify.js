@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
-import { TicketForm } from 'components';
+import { TicketForm, FHCard, FHCardContent, FHCardHeader } from 'components';
 import { useAsyncAction } from 'hooks';
 import { getTickets, modifyTicket, removeTicket } from 'redux/actions';
 import { useRouter } from 'next/router';
@@ -28,9 +27,9 @@ const TicketModify = ({ ticketId }) => {
   useAsyncAction(getTickets(), !ticketData);
 
   return (
-    <Card>
-      <CardHeader title="Modify Ticket" />
-      <CardContent>
+    <FHCard>
+      <FHCardHeader title="Modify Ticket" />
+      <FHCardContent>
         {ticketData && (
           <TicketForm
             defaultValues={ticketData}
@@ -39,8 +38,8 @@ const TicketModify = ({ ticketId }) => {
             updating
           />
         )}
-      </CardContent>
-    </Card>
+      </FHCardContent>
+    </FHCard>
   );
 };
 
