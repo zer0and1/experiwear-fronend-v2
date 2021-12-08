@@ -1,7 +1,7 @@
 import { memo, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
-import { insertSavedAlert } from 'redux/actions';
+import { insertSavedAlert, modifySavedAlert } from 'redux/actions';
 import {
   ExpSelect,
   NewsForm,
@@ -23,8 +23,12 @@ const Saved = ({ defaultValues = null, updating = false }) => {
     defaultValues ? defaultValues.type : ALERT_PROTO_TYPES.news
   );
 
-  const handleCreate = async (data) => {
-    await dispatch(insertSavedAlert(type, data));
+  const handleSubmit = async (data) => {
+    if (updating) {
+      await dispatch(modifySavedAlert(type, data));
+    } else {
+      await dispatch(insertSavedAlert(type, data));
+    }
   };
 
   const AlertForm = useMemo(() => {
@@ -67,7 +71,7 @@ const Saved = ({ defaultValues = null, updating = false }) => {
             </Grid>
           </Grid>
           <AlertForm
-            onCreate={handleCreate}
+            onSubmit={handleSubmit}
             mode={ALERT_FORM_MODES.saved}
             defaultValues={defaultValues}
             updating={updating}

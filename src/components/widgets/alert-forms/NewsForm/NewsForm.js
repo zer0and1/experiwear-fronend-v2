@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object } from 'yup';
-
+import _ from 'lodash';
 import {
   TITLE_VALID,
   STRING_VALID,
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewsForm = ({
-  onCreate,
+  onSubmit,
   mode = ALERT_FORM_MODES.proto,
   defaultValues = null,
   updating = false,
@@ -47,14 +47,15 @@ const NewsForm = ({
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
   const [alertParams, setAlertParmas] = useState(
-    defaultValues || DEFAULT_ALERT_PARAMS
+    _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
+      DEFAULT_ALERT_PARAMS
   );
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       title: '',
       body: '',
-      ...defaultValues,
+      ..._.pick(defaultValues, ['title', 'body']),
     },
   });
   const bodyText = watch('body');
@@ -63,8 +64,12 @@ const NewsForm = ({
   const handleParamsChange = ({ target: { name, value } }) =>
     setAlertParmas((params) => ({ ...params, [name]: value }));
 
-  const onSubmit = async (data) => {
-    await onCreate({ ...data, ...alertParams, file: image.file });
+  const submitHandler = async (data) => {
+    await onSubmit({
+      ..._.pick(data, ['title', 'body']),
+      ...alertParams,
+      file: image.file,
+    });
     if (!updating) {
       resetForm();
     }
@@ -77,7 +82,11 @@ const NewsForm = ({
   };
 
   return (
-    <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      noValidate
+      className={classes.root}
+      onSubmit={handleSubmit(submitHandler)}
+    >
       <Grid container>
         <Grid container item xs={9} spacing={2}>
           <Grid item xs={12}>
