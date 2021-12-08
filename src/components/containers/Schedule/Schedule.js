@@ -1,6 +1,5 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { createAlert } from 'redux/actions';
 import {
   CalendarIcon,
@@ -11,7 +10,10 @@ import {
   PromoForm,
   QuickPollForm,
   ScoreForm,
-  AlertContainer,
+  LeftContainer,
+  FHCard,
+  FHCardContent,
+  FHCardHeader,
 } from 'components';
 import {
   ALERT_PROTO_TYPES,
@@ -61,9 +63,9 @@ const Schedule = () => {
   );
 
   return (
-    <AlertContainer maxWidth="md">
-      <Card>
-        <CardHeader
+    <LeftContainer maxWidth="md">
+      <FHCard>
+        <FHCardHeader
           title="Create Scheduled Alert"
           subheader={
             <CardHeaderButton
@@ -77,7 +79,7 @@ const Schedule = () => {
             </CardHeaderButton>
           }
         />
-        <CardContent>
+        <FHCardContent>
           <ExpSelect
             name="type"
             label="Alert type"
@@ -98,9 +100,9 @@ const Schedule = () => {
             value={datetime}
             onChange={setDatetime}
           />
-        </CardContent>
-      </Card>
-    </AlertContainer>
+        </FHCardContent>
+      </FHCard>
+    </LeftContainer>
   );
 };
 

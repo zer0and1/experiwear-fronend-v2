@@ -4,6 +4,9 @@ import {
   Typography,
   Button,
   Container,
+  Card,
+  CardHeader,
+  CardContent,
 } from '@material-ui/core';
 
 export const HeaderText = withStyles((theme) => ({
@@ -73,10 +76,41 @@ export const CardHeaderButton = withStyles((theme) => ({
   },
 }))(Button);
 
-export const AlertContainer = withStyles({
+export const LeftContainer = withStyles({
   root: {
     marginLeft: 0,
     paddingLeft: 0,
     paddingRight: 0,
   },
 })(Container);
+
+export const FHCard = withStyles({
+  root: {
+    borderRadius: 8,
+    minHeight: '100%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+})(Card);
+
+export const FHCardHeader = withStyles({
+  root: {
+    padding: '48px 25px 32px 25px',
+  },
+})(CardHeader);
+
+export const FHCardContent = withStyles({
+  root: {
+    height: 0,
+    overflow: 'auto',
+    paddingTop: 0,
+    paddingLeft: 32,
+    paddingRight: 32,
+    paddingBottom: 0,
+    marginBottom: 24,
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
+})(CardContent);

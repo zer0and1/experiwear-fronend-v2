@@ -1,9 +1,9 @@
 import axios from 'services/axios';
 
 export const getFanbandsStatistics = async () => {
-  return await axios.get('/fanbands/statistics');
+  return await axios.get('/users/statistics');
 };
 
 export const readFanbands = async (params) => {
-  return await axios.get('/fanbands', { params });
+  return await axios.get('/users', { params });
 };

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Card, CardContent, CardHeader, makeStyles } from '@material-ui/core';
-import { AccChart, AlertContainer } from 'components';
+import { AccChart, LeftContainer } from 'components';
 import { AccSlider } from './styled';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ const Accelerometer = () => {
   const classes = useStyles();
 
   return (
-    <AlertContainer maxWidth="md">
+    <LeftContainer maxWidth="md">
       <Card>
         <CardHeader title="Chart" />
         <CardContent>
@@ -54,7 +54,7 @@ const Accelerometer = () => {
           />
         </CardContent>
       </Card>
-    </AlertContainer>
+    </LeftContainer>
   );
 };
 

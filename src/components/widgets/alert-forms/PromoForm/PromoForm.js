@@ -72,7 +72,7 @@ const PromoForm = ({
     await onSubmit({
       ..._.pick(data, ['title', 'body']),
       ...alertParams,
-      file: image.file,
+      file: image?.file,
     });
     if (!updating) {
       resetForm();

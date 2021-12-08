@@ -1,4 +1,4 @@
-import { Card, CardContent, makeStyles, Tab, Tabs } from '@material-ui/core';
+import { makeStyles, Tab, Tabs, Card, CardContent } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useState } from 'react';
 import { TicketTable, TicketForm } from 'components';

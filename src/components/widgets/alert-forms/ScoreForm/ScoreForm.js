@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScoreForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
+const ScoreForm = ({ onSubmit, mode = ALERT_FORM_MODES.proto }) => {
   const classes = useStyles();
   const { selectedGame: game } = useSelector((state) => state.games);
   const [alertParams, setAlertParmas] = useState(DEFAULT_ALERT_PARAMS);
@@ -65,8 +65,8 @@ const ScoreForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
   });
   const bodyText = watch('body');
 
-  const onSubmit = async (data) => {
-    await onCreate({ ...data, ...alertParams });
+  const submitHandler = async (data) => {
+    await onSubmit({ ...data, ...alertParams });
     resetForm();
   };
 
@@ -76,7 +76,11 @@ const ScoreForm = ({ onCreate, mode = ALERT_FORM_MODES.proto }) => {
   };
 
   return (
-    <form noValidate className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      noValidate
+      className={classes.root}
+      onSubmit={handleSubmit(submitHandler)}
+    >
       <Grid container>
         <Grid item xs={9} container spacing={4}>
           <Grid item xs={12}>

@@ -1,16 +1,17 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  makeStyles,
-} from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import {
   getSavedAlerts,
   removeSavedAlert,
   sendSavedAlert,
 } from 'redux/actions';
-import { AlertContainer, AlertItem, Title } from 'components';
+import {
+  LeftContainer,
+  AlertItem,
+  Title,
+  FHCard,
+  FHCardContent,
+  FHCardHeader,
+} from 'components';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
@@ -86,13 +87,13 @@ const SavedAlertsAll = () => {
   useAsyncAction(getSavedAlerts(ALERT_MIXED_TYPES.saved), !alerts.length);
 
   return (
-    <AlertContainer maxWidth="md">
-      <Card className={classes.root}>
-        <CardHeader
+    <LeftContainer maxWidth="md">
+      <FHCard className={classes.root}>
+        <FHCardHeader
           title="Active saved alerts"
           subheader={<Title color="#000">Actions</Title>}
         />
-        <CardContent>
+        <FHCardContent>
           <table className={classes.table}>
             <tbody>
               {alerts.map((alert, idx) => (
@@ -131,9 +132,9 @@ const SavedAlertsAll = () => {
               ))}
             </tbody>
           </table>
-        </CardContent>
-      </Card>
-    </AlertContainer>
+        </FHCardContent>
+      </FHCard>
+    </LeftContainer>
   );
 };
 

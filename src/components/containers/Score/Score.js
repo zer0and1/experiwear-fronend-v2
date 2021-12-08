@@ -1,10 +1,15 @@
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { getEnglishDateWithTime } from 'utils/helpers';
 import { ALERT_PROTO_TYPES } from 'utils/constants';
 import { createAlert } from 'redux/actions';
-import { ScoreForm, AlertContainer } from 'components';
+import {
+  ScoreForm,
+  LeftContainer,
+  FHCard,
+  FHCardContent,
+  FHCardHeader,
+} from 'components';
 
 const Score = () => {
   const dispatch = useDispatch();
@@ -14,17 +19,17 @@ const Score = () => {
   };
 
   return (
-    <AlertContainer maxWidth="md">
-      <Card>
-        <CardHeader
+    <LeftContainer maxWidth="md">
+      <FHCard>
+        <FHCardHeader
           title="Create Score Alert"
           subheader={getEnglishDateWithTime(new Date())}
         />
-        <CardContent>
+        <FHCardContent>
           <ScoreForm onCreate={handleCreate} />
-        </CardContent>
-      </Card>
-    </AlertContainer>
+        </FHCardContent>
+      </FHCard>
+    </LeftContainer>
   );
 };
 

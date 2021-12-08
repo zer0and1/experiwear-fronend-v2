@@ -1,6 +1,6 @@
 import { memo, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { insertSavedAlert, modifySavedAlert } from 'redux/actions';
 import {
   ExpSelect,
@@ -8,7 +8,10 @@ import {
   PromoForm,
   QuickPollForm,
   ScoreForm,
-  AlertContainer,
+  LeftContainer,
+  FHCard,
+  FHCardContent,
+  FHCardHeader,
 } from 'components';
 import {
   ALERT_FORM_MODES,
@@ -47,13 +50,13 @@ const Saved = ({ defaultValues = null, updating = false }) => {
   }, [type]);
 
   return (
-    <AlertContainer maxWidth="md">
-      <Card>
-        <CardHeader
+    <LeftContainer maxWidth="md">
+      <FHCard>
+        <FHCardHeader
           title="Save Alert"
           subheader={getEnglishDateWithTime(new Date())}
         />
-        <CardContent>
+        <FHCardContent>
           <Grid container spacing={2}>
             <Grid item xs={9}>
               {updating || (
@@ -76,9 +79,9 @@ const Saved = ({ defaultValues = null, updating = false }) => {
             defaultValues={defaultValues}
             updating={updating}
           />
-        </CardContent>
-      </Card>
-    </AlertContainer>
+        </FHCardContent>
+      </FHCard>
+    </LeftContainer>
   );
 };
 

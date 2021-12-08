@@ -55,7 +55,9 @@ const QuickPollForm = ({
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
   const [responses, setResponses] = useState(
-    defaultValues ? defaultValues.surveyResponses : ['']
+    defaultValues
+      ? defaultValues.surveyResponses.map((res) => res.response || '')
+      : ['']
   );
   const [alertParams, setAlertParmas] = useState(
     _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
@@ -87,7 +89,7 @@ const QuickPollForm = ({
     await onSubmit({
       ..._.pick(data, ['title']),
       ...alertParams,
-      file: image.file,
+      file: image?.file,
       responses,
     });
     if (!updating) {

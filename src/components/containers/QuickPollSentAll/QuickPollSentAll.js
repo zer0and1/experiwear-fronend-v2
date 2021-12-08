@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { getNotifications } from 'redux/actions';
 import clsx from 'clsx';
-import { AlertItem } from 'components';
+import { AlertItem, FHCard, FHCardContent, FHCardHeader } from 'components';
 import { Fragment, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ALERT_PROTO_TYPES } from 'utils/constants';
@@ -88,9 +88,9 @@ const QuickPollAlertsSent = () => {
   useAsyncAction(getNotifications(ALERT_PROTO_TYPES.survey), !alerts.length);
 
   return (
-    <Card className={classes.root}>
-      <CardHeader title="Quick Poll ALERTS SENT" />
-      <CardContent>
+    <FHCard className={classes.root}>
+      <FHCardHeader title="Quick Poll ALERTS SENT" />
+      <FHCardContent>
         <table className={classes.table}>
           <thead>
             <tr>
@@ -147,8 +147,8 @@ const QuickPollAlertsSent = () => {
             ))}
           </tbody>
         </table>
-      </CardContent>
-    </Card>
+      </FHCardContent>
+    </FHCard>
   );
 };
 

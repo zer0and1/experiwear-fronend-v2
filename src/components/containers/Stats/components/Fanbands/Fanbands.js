@@ -60,7 +60,7 @@ const Fanbands = () => {
   const router = useRouter();
   const {
     statistics: { offline = 0, online = 0, inArea = 0 },
-  } = useSelector((state) => state.fanbands);
+  } = useSelector((state) => state.main.fanbands);
   const { selectedGame } = useSelector((state) => state.games);
   const viewListLink = (
     <Link

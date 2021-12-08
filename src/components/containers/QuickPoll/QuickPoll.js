@@ -1,9 +1,14 @@
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { getEnglishDateWithTime } from 'utils/helpers';
 import { ALERT_PROTO_TYPES } from 'utils/constants';
-import { QuickPollForm, AlertContainer } from 'components';
+import {
+  QuickPollForm,
+  LeftContainer,
+  FHCard,
+  FHCardContent,
+  FHCardHeader,
+} from 'components';
 import { createAlert } from 'redux/actions';
 
 const QuickPoll = () => {
@@ -14,17 +19,17 @@ const QuickPoll = () => {
   };
 
   return (
-    <AlertContainer maxWidth="md">
-      <Card>
-        <CardHeader
+    <LeftContainer maxWidth="md">
+      <FHCard>
+        <FHCardHeader
           title="Create Quick Poll Alert"
           subheader={getEnglishDateWithTime(new Date())}
         />
-        <CardContent>
+        <FHCardContent>
           <QuickPollForm onCreate={handleCreate} />
-        </CardContent>
-      </Card>
-    </AlertContainer>
+        </FHCardContent>
+      </FHCard>
+    </LeftContainer>
   );
 };
 

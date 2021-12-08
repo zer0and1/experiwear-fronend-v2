@@ -1,9 +1,14 @@
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
 import { createAlert } from 'redux/actions';
 import { getEnglishDateWithTime } from 'utils/helpers';
-import { NewsForm, AlertContainer } from 'components';
+import {
+  NewsForm,
+  LeftContainer,
+  FHCard,
+  FHCardHeader,
+  FHCardContent,
+} from 'components';
 import { ALERT_PROTO_TYPES } from 'utils/constants';
 
 const News = () => {
@@ -14,17 +19,17 @@ const News = () => {
   };
 
   return (
-    <AlertContainer maxWidth="md">
-      <Card>
-        <CardHeader
+    <LeftContainer maxWidth="md">
+      <FHCard>
+        <FHCardHeader
           title="Create News Alert"
           subheader={getEnglishDateWithTime(new Date())}
         />
-        <CardContent>
+        <FHCardContent>
           <NewsForm onCreate={handleCreate} />
-        </CardContent>
-      </Card>
-    </AlertContainer>
+        </FHCardContent>
+      </FHCard>
+    </LeftContainer>
   );
 };
 
