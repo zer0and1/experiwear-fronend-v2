@@ -26,7 +26,7 @@ const News = () => {
           subheader={getEnglishDateWithTime(new Date())}
         />
         <FHCardContent>
-          <NewsForm onCreate={handleCreate} />
+          <NewsForm onSubmit={handleCreate} />
         </FHCardContent>
       </FHCard>
     </LeftContainer>

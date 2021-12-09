@@ -26,7 +26,7 @@ const Promo = () => {
           subheader={getEnglishDateWithTime(new Date())}
         />
         <FHCardContent>
-          <PromoForm onCreate={handleCreate} />
+          <PromoForm onSubmit={handleCreate} />
         </FHCardContent>
       </FHCard>
     </LeftContainer>

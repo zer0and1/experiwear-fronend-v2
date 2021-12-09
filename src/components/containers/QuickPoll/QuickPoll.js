@@ -26,7 +26,7 @@ const QuickPoll = () => {
           subheader={getEnglishDateWithTime(new Date())}
         />
         <FHCardContent>
-          <QuickPollForm onCreate={handleCreate} />
+          <QuickPollForm onSubmit={handleCreate} />
         </FHCardContent>
       </FHCard>
     </LeftContainer>

@@ -26,7 +26,7 @@ const Score = () => {
           subheader={getEnglishDateWithTime(new Date())}
         />
         <FHCardContent>
-          <ScoreForm onCreate={handleCreate} />
+          <ScoreForm onSubmit={handleCreate} />
         </FHCardContent>
       </FHCard>
     </LeftContainer>

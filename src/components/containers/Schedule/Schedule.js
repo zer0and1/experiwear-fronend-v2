@@ -91,7 +91,7 @@ const Schedule = () => {
             onChange={(e) => setAlertType(e.target.value)}
           />
           <AlertForm
-            onCreate={handleCreate}
+            onSubmit={handleCreate}
             mode={ALERT_FORM_MODES.scheduled}
           />
           <DatetimePicker
