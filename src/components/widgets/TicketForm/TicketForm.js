@@ -104,8 +104,8 @@ export default function TicketForm({
           <Controller
             control={control}
             name="userId"
-            label="Assign to fanband"
-            placeholder="Assign to fanband"
+            label="Assign to Fanband"
+            placeholder="Assign to Fanband"
             error={errors.userId?.message}
             fullWidth
             as={<FanbandSelector />}

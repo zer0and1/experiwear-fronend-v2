@@ -112,5 +112,8 @@ export const FHCardContent = withStyles({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    '&:last-child': {
+      paddingBottom: 0,
+    },
   },
 })(CardContent);

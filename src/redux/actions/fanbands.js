@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import * as ActionTypes from 'redux/action-types';
-import { readFanbands } from 'services/api-fanbands';
+import { readFanbands, readFanbandsStatistics } from 'services/api-fanbands';
 import { FANBAND_TYPES } from 'utils/constants';
 import { setResponseError } from '.';
 
@@ -26,7 +26,7 @@ export const getFanbands =
 
 export const getFanbandsStatistics = () => async (dispatch) => {
   try {
-    const response = await getFanbandsStatistics();
+    const response = await readFanbandsStatistics();
     dispatch(setFanbandsStatistics(response));
   } catch (error) {
     dispatch(setResponseError(error));
