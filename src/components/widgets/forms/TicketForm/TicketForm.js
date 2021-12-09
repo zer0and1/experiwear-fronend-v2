@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -16,12 +16,12 @@ const schema = yup
   })
   .required();
 
-export default function TicketForm({
+const TicketForm = ({
   defaultValues = {},
   onSubmit,
   onDelete,
   updating = false,
-}) {
+}) => {
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -126,4 +126,6 @@ export default function TicketForm({
       </Grid>
     </form>
   );
-}
+};
+
+export default memo(TicketForm);

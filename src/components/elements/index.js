@@ -1,5 +1,4 @@
 export { default as AlertField } from './AlertField';
-export { default as AlertItem } from './AlertItem';
 export { default as BandLogo } from './BandLogo';
 export { default as Calendar } from './Calendar';
 export { default as Checkbox } from './ExpCheckbox';
@@ -21,5 +20,3 @@ export { default as ExpLoading } from './ExpLoading';
 export { default as TeamLogo } from './TeamLogo';
 export { default as Timeline } from './Timeline';
 export { default as Title } from './Title';
-export { default as TimePicker } from './TimePicker';
-export { default as TicketItem } from './TicketItem';
