@@ -17,8 +17,8 @@ import {
   FormButton,
   ExpImageField,
   ExpTextField,
+  QuickPollScreen,
 } from 'components';
-import { QuickPollScreen } from 'components';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -60,8 +60,9 @@ const QuickPollForm = ({
       : ['']
   );
   const [alertParams, setAlertParmas] = useState(
-    _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
-      DEFAULT_ALERT_PARAMS
+    defaultValues
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS))
+      : DEFAULT_ALERT_PARAMS
   );
 
   const addResponse = () => {

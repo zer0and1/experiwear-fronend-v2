@@ -31,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
     },
     flexGrow: 1,
   },
-  action: {
-    width: 120,
-    backgroundColor: theme.palette.info.main,
-    fontSize: 12,
-    fontFamily: theme.custom.fonts.SFProTextSemibold,
-  },
 }));
 
 const FanbandItem = ({ data, className, ...boxProps }) => {

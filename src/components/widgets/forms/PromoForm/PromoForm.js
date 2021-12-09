@@ -17,8 +17,8 @@ import {
   FormButton,
   ExpImageField,
   ExpTextField,
+  ImageScreen,
 } from 'components';
-import { ImageScreen } from 'components';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -44,8 +44,9 @@ const PromoForm = ({
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
   const [alertParams, setAlertParmas] = useState(
-    _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
-      DEFAULT_ALERT_PARAMS
+    defaultValues
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS))
+      : DEFAULT_ALERT_PARAMS
   );
 
   const resetParams = () => {

@@ -17,8 +17,8 @@ import {
   FormButton,
   ExpImageField,
   ExpTextField,
+  ImageScreen,
 } from 'components';
-import { ImageScreen } from 'components';
 
 const schema = object().shape({
   title: TITLE_VALID,
@@ -47,8 +47,9 @@ const NewsForm = ({
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
   const [alertParams, setAlertParmas] = useState(
-    _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS)) ||
-      DEFAULT_ALERT_PARAMS
+    defaultValues
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS))
+      : DEFAULT_ALERT_PARAMS
   );
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),

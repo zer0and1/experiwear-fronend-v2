@@ -17,8 +17,8 @@ import {
   FanbandTerminal,
   FormButton,
   ExpTextField,
+  ScoreScreen,
 } from 'components';
-import { ScoreScreen } from 'components';
 
 const schema = yup.object().shape({
   title: STRING_VALID,
