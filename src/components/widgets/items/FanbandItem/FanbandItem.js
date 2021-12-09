@@ -1,10 +1,6 @@
-import { Box, Button, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
+import { FanbandIcon } from 'components';
 import clsx from 'clsx';
-import { TicketIcon } from 'components';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,40 +39,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TicketItem = ({ data, className, ...boxProps }) => {
+const FanbandItem = ({ data, className, ...boxProps }) => {
   const classes = useStyles();
-  const router = useRouter();
-  const fanbands = useSelector((state) => state.main.fanbands.results);
-  const fanbandName = useMemo(
-    () => fanbands.find((f) => f.id === data.userId)?.name,
-    [fanbands, data]
-  );
-
-  const handleClick = () => {
-    router.push(LINKS.ticketModify.path.replace(':id', data.id));
-  };
 
   return (
     <Box {...boxProps} className={clsx(classes.root, className)}>
       <Box className={classes.icon}>
-        <TicketIcon width="18px" />
+        <FanbandIcon width="48px" />
       </Box>
       <Typography className={classes.content}>
-        Barcode: <span>{data.barcode}</span> <br />
-        Section: <span>{data.section}</span> ∙ Row: <span>{data.row}</span> ∙
-        Seat: <span>{data.seat}</span> <br />
-        Order: <span>{data.order}</span> <br />
-        Fanband: <span>{fanbandName}</span> <br />
+        {data.name} <br />
+        <span>MAC address: {data.mac}</span> <br />
+        <span>PIN code: {data.pin}</span> <br />
+        <span>Mobile phone: {data.phone}</span> <br />
       </Typography>
-      <Button
-        fullWidth={false}
-        className={classes.action}
-        onClick={handleClick}
-      >
-        Modify
-      </Button>
     </Box>
   );
 };
 
-export default TicketItem;
+export default FanbandItem;

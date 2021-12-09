@@ -1,22 +1,17 @@
 import { Grid, Divider } from '@material-ui/core';
-import { TicketItem } from 'components';
-import { useAsyncAction } from 'hooks';
-import { getFanbands } from 'redux/actions';
+import { FanbandItem } from 'components';
 
-const TicketTable = ({ tickets = [] }) => {
-  // fetch fanbands for ticket items
-  useAsyncAction(getFanbands());
-
+const FanbandTable = ({ fanbands = [] }) => {
   return (
     <Grid container spacing={4}>
-      {tickets.map((ticket, idx) => (
+      {fanbands.map((fanband, idx) => (
         <Grid item key={idx} xs={12}>
-          <TicketItem data={ticket} mb="38px" />
-          {idx < tickets.length - 1 && <Divider />}
+          <FanbandItem data={fanband} mb="38px" />
+          {idx < fanbands.length - 1 && <Divider />}
         </Grid>
       ))}
     </Grid>
   );
 };
 
-export default TicketTable;
+export default FanbandTable;
