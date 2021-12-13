@@ -29,6 +29,7 @@ export { default as GameSelector } from './pickers/GameSelector';
 export { default as FanbandSelector } from './pickers/FanbandSelector';
 export { default as TimePicker } from './pickers/TimePicker';
 export { default as DatetimePicker } from './pickers/DatetimePicker';
+export { default as FilePicker } from './pickers/FilePicker';
 
 // items
 export { default as AlertItem } from './items/AlertItem';

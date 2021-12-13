@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     marginBottom: theme.spacing(4),
+    width: '100%',
   },
   button: {
     marginBottom: theme.spacing(2.5),

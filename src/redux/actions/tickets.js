@@ -6,11 +6,22 @@ import {
   deleteTicket,
   readTickets,
   updateTicket,
+  uploadTicketsFromCsv,
 } from 'services/api-tickets';
 import { showSuccessToast } from 'utils/helpers';
 
 export const setTickets = createAction(
   ActionTypes.SET_TICKETS,
+  (payload) => payload
+);
+
+export const setTicketsUploadingProgress = createAction(
+  ActionTypes.SET_TICKETS_UPLOADING_PROGRESS,
+  (payload) => payload
+);
+
+export const setUploadedTickets = createAction(
+  ActionTypes.SET_UPLOADED_TICKETS,
   (payload) => payload
 );
 
@@ -65,4 +76,22 @@ export const removeTicket = (id) => async (dispatch, getState) => {
   }
 
   dispatch(setLoadingStatus(false));
+};
+
+export const uploadTickets = (file) => async (dispatch) => {
+  const onUploadingProgress = (e) => {
+    const prog = !e.total ? 0 : Math.floor((100 * e.loaded) / e.total);
+    dispatch(setTicketsUploadingProgress(prog));
+  };
+
+  try {
+    const uploadedTickets = await uploadTicketsFromCsv(
+      file,
+      onUploadingProgress
+    );
+    dispatch(setUploadedTickets(uploadedTickets));
+  } catch (e) {
+    dispatch(setTicketsUploadingProgress(0));
+    dispatch(setResponseError(e));
+  }
 };

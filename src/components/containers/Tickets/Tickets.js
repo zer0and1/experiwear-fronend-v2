@@ -1,7 +1,7 @@
 import { makeStyles, Tab, Tabs, Card, CardContent } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useState } from 'react';
-import { TicketTable, TicketForm } from 'components';
+import { TicketTable, TicketForm, TicketUpload } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAsyncAction } from 'hooks';
 import { getTickets, insertTicket } from 'redux/actions/tickets';
@@ -56,10 +56,9 @@ const Tickets = () => {
           <TabPanel value={TABS.newTickets.id} className={classes.tabPanel}>
             <TicketForm onSubmit={handleSubmit} />
           </TabPanel>
-          <TabPanel
-            value={TABS.uploadTickets.id}
-            className={classes.tabPanel}
-          ></TabPanel>
+          <TabPanel value={TABS.uploadTickets.id} className={classes.tabPanel}>
+            <TicketUpload />
+          </TabPanel>
         </TabContext>
       </CardContent>
     </Card>

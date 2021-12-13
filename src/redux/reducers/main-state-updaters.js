@@ -9,6 +9,8 @@ export const INITIAL_MAIN_STATE = {
     results: [],
     take: 0,
     total: 0,
+    uploadingProgress: 0,
+    uploadedTickets: [],
   },
 };
 
@@ -17,6 +19,22 @@ export const setTicketsUpdater = (state, { payload }) => ({
   tickets: {
     ...state.tickets,
     ...payload,
+  },
+});
+
+export const setTicketsUploadingProgressUpdater = (state, { payload }) => ({
+  ...state,
+  tickets: {
+    ...state.tickets,
+    uploadingProgress: payload,
+  },
+});
+
+export const setUploadedTicketsUpdater = (state, { payload }) => ({
+  ...state,
+  tickets: {
+    ...state.tickets,
+    uploadedTickets: payload,
   },
 });
 
