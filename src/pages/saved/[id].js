@@ -16,7 +16,7 @@ export default function EditSavedAlertPage() {
   );
 
   usePathIndicator([LINKS.saved, LINKS.savedAll, LINKS.savedEdit]);
-  useAsyncAction(getSavedAlerts(), !alert);
+  useAsyncAction({ action: getSavedAlerts, blocked: !alert });
 
   return (
     <Layout sidebar={<ActiveSavedAlerts />}>

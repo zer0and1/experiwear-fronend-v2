@@ -14,7 +14,6 @@ export { default as SelectedGameSidebar } from './sidebars/SelectedGameSidebar';
 export { default as ActiveSavedAlerts } from './sidebars/ActiveSavedAlerts';
 
 // tables
-export { default as TicketTable } from './tables/TicketTable';
 export { default as FanbandTable } from './tables/FanbandTable';
 
 // forms

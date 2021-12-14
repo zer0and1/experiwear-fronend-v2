@@ -1,0 +1,48 @@
+import React, { useEffect } from 'react';
+import { TablePagination } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { setLoadingStatus } from 'redux/actions';
+
+const usePagination = ({ count = 0, action = null }) => {
+  const dispatch = useDispatch();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const skip = React.useMemo(() => page * rowsPerPage, [page, rowsPerPage]);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  useEffect(() => {
+    if (action) {
+      (async () => {
+        dispatch(setLoadingStatus(true));
+        await dispatch(action({ skip, take: rowsPerPage }));
+        dispatch(setLoadingStatus(false));
+      })();
+    }
+  }, [dispatch, action, skip, rowsPerPage]);
+
+  const paginator = React.useMemo(
+    () => (
+      <TablePagination
+        component="div"
+        count={count}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    ),
+    [page, rowsPerPage, count]
+  );
+
+  return { paginator, page, rowsPerPage, skip, take: rowsPerPage };
+};
+
+export default usePagination;

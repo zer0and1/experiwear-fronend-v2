@@ -17,4 +17,5 @@ export { default as SavedAlertsAll } from './SavedAlertsAll';
 export { default as Tickets } from './Tickets';
 export { default as TicketModify } from './TicketModify';
 export { default as TicketUpload } from './TicketUpload';
+export { default as TicketTable } from './TicketTable';
 export { default as AuthWrapper } from './AuthWrapper';
