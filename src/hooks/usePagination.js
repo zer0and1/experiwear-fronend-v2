@@ -3,11 +3,15 @@ import { TablePagination } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { setLoadingStatus } from 'redux/actions';
 
-const usePagination = ({ count = 0, action = null }) => {
+const usePagination = ({ count = 0, action = null, rows = [] }) => {
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const skip = React.useMemo(() => page * rowsPerPage, [page, rowsPerPage]);
+  const pageRows = React.useMemo(
+    () => rows.slice(skip, skip + rowsPerPage),
+    [skip, rowsPerPage, rows]
+  );
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,7 +46,7 @@ const usePagination = ({ count = 0, action = null }) => {
     [page, rowsPerPage, count]
   );
 
-  return { paginator, page, rowsPerPage, skip, take: rowsPerPage };
+  return { paginator, pageRows, page, rowsPerPage, skip, take: rowsPerPage };
 };
 
 export default usePagination;
