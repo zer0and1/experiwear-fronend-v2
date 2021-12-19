@@ -2,16 +2,19 @@ import React, { useCallback, useState } from 'react';
 import {
   Box,
   Dialog,
+  Divider,
+  Grid,
   IconButton,
   LinearProgress,
   makeStyles,
 } from '@material-ui/core';
-import { FilePicker, TicketTable } from 'components';
+import { FilePicker } from 'components';
 import { useDispatch } from 'react-redux';
 import { uploadTicketsFromCsv } from 'services/api-tickets';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import { setResponseError } from 'redux/actions';
+import { usePagination } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +50,49 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     float: 'right',
   },
+  bold: {
+    fontFamily: theme.custom.fonts.SFProTextSemibold,
+    fontSize: 14,
+    color: '#000',
+  },
+  link: {
+    color: theme.palette.info.main,
+    fontSize: 14,
+  },
 }));
+
+const TicketRow = ({ data }) => {
+  const classes = useStyles();
+
+  return (
+    <Grid container>
+      <Grid item>
+        <p className={classes.bold}>Barcode</p>
+        <p className={classes.link}>{data.barcode}</p>
+      </Grid>
+      <Grid item>
+        <p className={classes.bold}>Section</p>
+        <p>{data.section}</p>
+      </Grid>
+      <Grid item>
+        <p className={classes.bold}>Row</p>
+        <p>{data.row}</p>
+      </Grid>
+      <Grid item>
+        <p className={classes.bold}>Seat</p>
+        <p>{data.seat}</p>
+      </Grid>
+      <Grid item>
+        <p className={classes.bold}>Order</p>
+        <p>{data.order}</p>
+      </Grid>
+      <Grid item>
+        <p className={classes.bold}>Fanband</p>
+        <p>Not assigned</p>
+      </Grid>
+    </Grid>
+  );
+};
 
 const TicketUpload = () => {
   const classes = useStyles();
@@ -57,6 +102,7 @@ const TicketUpload = () => {
   const [file, setFileToUpload] = useState();
   const [uploadedTickets, setUploadedTickets] = useState([]);
   const [cancelToken, setCancelToken] = useState();
+  const { paginator, pageRows } = usePagination({ rows: uploadedTickets });
 
   const handleFiles = useCallback(
     async (files) => {
@@ -92,7 +138,18 @@ const TicketUpload = () => {
   }, [cancelToken]);
 
   return uploadedTickets.length ? (
-    <TicketTable tickets={uploadedTickets} />
+    <div>
+      <p className={classes.label}>Tickets uploaded successfully</p>
+      <Grid container spacing={4}>
+        {pageRows.map((ticket, idx) => (
+          <Grid item key={idx} xs={12}>
+            <TicketRow data={ticket} mb="38px" />
+            {idx < pageRows.length - 1 && <Divider />}
+          </Grid>
+        ))}
+      </Grid>
+      {paginator}
+    </div>
   ) : (
     <div className={classes.root}>
       <p className={classes.label}>Bulk upload tickets from excel file</p>
