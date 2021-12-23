@@ -46,7 +46,7 @@ const Tickets = () => {
           <Tab value={TABS.uploadTickets.id} label={TABS.uploadTickets.label} />
         </Tabs>
         <TabContext value={tab}>
-          <TabPanel value={TABS.tickets.id}>
+          <TabPanel value={TABS.tickets.id} className={classes.tabPanel}>
             <TicketTable />
           </TabPanel>
           <TabPanel value={TABS.newTickets.id} className={classes.tabPanel}>
