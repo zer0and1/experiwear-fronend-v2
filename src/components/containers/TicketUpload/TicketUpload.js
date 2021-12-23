@@ -66,29 +66,31 @@ const TicketRow = ({ data }) => {
 
   return (
     <Grid container justifyContent="space-between">
-      <Grid item>
+      <Grid item xs={3}>
         <p className={classes.bold}>Barcode</p>
         <p className={classes.link}>{data.barcode}</p>
       </Grid>
-      <Grid item>
-        <p className={classes.bold}>Section</p>
-        <p>{data.section}</p>
-      </Grid>
-      <Grid item>
-        <p className={classes.bold}>Row</p>
-        <p>{data.row}</p>
-      </Grid>
-      <Grid item>
-        <p className={classes.bold}>Seat</p>
-        <p>{data.seat}</p>
-      </Grid>
-      <Grid item>
-        <p className={classes.bold}>Order</p>
-        <p>{data.order}</p>
-      </Grid>
-      <Grid item>
-        <p className={classes.bold}>Fanband</p>
-        <p>Not assigned</p>
+      <Grid item xs={9} container>
+        <Grid item xs={2}>
+          <p className={classes.bold}>Section</p>
+          <p>{data.section}</p>
+        </Grid>
+        <Grid item xs={2}>
+          <p className={classes.bold}>Row</p>
+          <p>{data.row}</p>
+        </Grid>
+        <Grid item xs={2}>
+          <p className={classes.bold}>Seat</p>
+          <p>{data.seat}</p>
+        </Grid>
+        <Grid item xs={3}>
+          <p className={classes.bold}>Order</p>
+          <p>{data.order}</p>
+        </Grid>
+        <Grid item xs={3}>
+          <p className={classes.bold}>Fanband</p>
+          <p>Not assigned</p>
+        </Grid>
       </Grid>
     </Grid>
   );
