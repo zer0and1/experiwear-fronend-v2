@@ -5,33 +5,21 @@ import { TicketTable, TicketForm, TicketUpload } from 'components';
 import { useDispatch } from 'react-redux';
 import { insertTicket } from 'redux/actions/tickets';
 
-const TABS = Object.freeze({
-  tickets: {
-    id: 'tickets',
-    label: 'TICKETS',
-  },
-  newTickets: {
-    id: 'newTickets',
-    label: 'NEW TICKETS',
-  },
-  uploadTickets: {
-    id: 'uploadTickets',
-    label: 'UPLOAD TICKETS',
-  },
-});
-
 const useStyles = makeStyles({
   tabPanel: {
     flexGrow: 1,
     height: 0,
-    overflow: 'auto',
+    padding: 0,
+  },
+  tabs: {
+    marginBottom: 16,
   },
 });
 
 const Tickets = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [tab, setTab] = useState(TABS.tickets.id);
+  const [tab, setTab] = useState('tab-table');
 
   const handleSubmit = async (data) => {
     await dispatch(insertTicket(data));
@@ -40,19 +28,23 @@ const Tickets = () => {
   return (
     <Card>
       <CardContent>
-        <Tabs value={tab} onChange={(e, t) => setTab(t)}>
-          <Tab value={TABS.tickets.id} label={TABS.tickets.label} />
-          <Tab value={TABS.newTickets.id} label={TABS.newTickets.label} />
-          <Tab value={TABS.uploadTickets.id} label={TABS.uploadTickets.label} />
+        <Tabs
+          value={tab}
+          onChange={(e, t) => setTab(t)}
+          className={classes.tabs}
+        >
+          <Tab value="tab-table" label="TICKETS" />
+          <Tab value="tab-create" label="NEW TICKETS" />
+          <Tab value="tab-upload" label="UPLOAD TICKETS" />
         </Tabs>
         <TabContext value={tab}>
-          <TabPanel value={TABS.tickets.id} className={classes.tabPanel}>
+          <TabPanel value="tab-table" className={classes.tabPanel}>
             <TicketTable />
           </TabPanel>
-          <TabPanel value={TABS.newTickets.id} className={classes.tabPanel}>
+          <TabPanel value="tab-create" className={classes.tabPanel}>
             <TicketForm onSubmit={handleSubmit} />
           </TabPanel>
-          <TabPanel value={TABS.uploadTickets.id} className={classes.tabPanel}>
+          <TabPanel value="tab-upload" className={classes.tabPanel}>
             <TicketUpload />
           </TabPanel>
         </TabContext>

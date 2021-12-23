@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     color: theme.palette.info.main,
     fontSize: 14,
+    textDecoration: 'underline',
   },
 }));
 
@@ -66,11 +67,11 @@ const TicketRow = ({ data }) => {
 
   return (
     <Grid container justifyContent="space-between">
-      <Grid item xs={3}>
+      <Grid item xs={4}>
         <p className={classes.bold}>Barcode</p>
         <p className={classes.link}>{data.barcode}</p>
       </Grid>
-      <Grid item xs={9} container>
+      <Grid item xs={8} container>
         <Grid item xs={2}>
           <p className={classes.bold}>Section</p>
           <p>{data.section}</p>
@@ -140,18 +141,20 @@ const TicketUpload = () => {
   }, [cancelToken]);
 
   return uploadedTickets.length ? (
-    <div>
+    <Box display="flex" flexDirection="column" height="100%">
       <p className={classes.label}>Tickets uploaded successfully</p>
-      <Grid container spacing={4}>
-        {pageRows.map((ticket, idx) => (
-          <Grid item key={idx} xs={12}>
-            <TicketRow data={ticket} mb="38px" />
-            {idx < pageRows.length - 1 && <Divider />}
-          </Grid>
-        ))}
-      </Grid>
+      <Box flexGrow={1} height="0px" overflow="auto" mb={2}>
+        <Grid container>
+          {pageRows.map((ticket, idx) => (
+            <Grid item key={idx} xs={12}>
+              <TicketRow data={ticket} mb="12px" />
+              {idx < pageRows.length - 1 && <Divider />}
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
       {paginator}
-    </div>
+    </Box>
   ) : (
     <div className={classes.root}>
       <p className={classes.label}>Bulk upload tickets from excel file</p>

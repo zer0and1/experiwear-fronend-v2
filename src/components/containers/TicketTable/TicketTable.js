@@ -18,15 +18,17 @@ const TicketTable = () => {
   useAsyncAction(getFanbands());
 
   return (
-    <Box>
-      <Grid container spacing={4}>
-        {tickets.map((ticket, idx) => (
-          <Grid item key={idx} xs={12}>
-            <TicketItem data={ticket} mb="38px" />
-            {idx < tickets.length - 1 && <Divider />}
-          </Grid>
-        ))}
-      </Grid>
+    <Box display="flex" flexDirection="column" height="100%">
+      <Box flexGrow={1} overflow="auto" height="0">
+        <Grid container>
+          {tickets.map((ticket, idx) => (
+            <Grid item key={idx} xs={12}>
+              <TicketItem data={ticket} py={2} />
+              {idx < tickets.length - 1 && <Divider />}
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
       {paginator}
     </Box>
   );
