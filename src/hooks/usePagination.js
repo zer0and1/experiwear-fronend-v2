@@ -36,14 +36,14 @@ const usePagination = ({ count = 0, action = null, rows = [] }) => {
     () => (
       <TablePagination
         component="div"
-        count={count}
+        count={rows.length || count}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     ),
-    [page, rowsPerPage, count]
+    [page, rowsPerPage, count, rows]
   );
 
   return { paginator, pageRows, page, rowsPerPage, skip, take: rowsPerPage };

@@ -65,7 +65,7 @@ const TicketRow = ({ data }) => {
   const classes = useStyles();
 
   return (
-    <Grid container>
+    <Grid container justifyContent="space-between">
       <Grid item>
         <p className={classes.bold}>Barcode</p>
         <p className={classes.link}>{data.barcode}</p>
