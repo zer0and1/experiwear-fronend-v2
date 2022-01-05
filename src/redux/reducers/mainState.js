@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
-import * as ActionTypes from 'redux/action-types';
-import * as mainStateUpdaters from './main-state-updaters';
+import * as ActionTypes from 'utils/constants/actionTypes';
+import * as mainStateUpdaters from './mainStateUpdaters';
 
 const actionHandler = {
   [ActionTypes.SET_TICKETS]: mainStateUpdaters.setTicketsUpdater,

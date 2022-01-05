@@ -1,7 +1,7 @@
 import Router from 'next/router';
 
 import * as authAPI from 'services/api-auth';
-import * as TYPES from '../action-types';
+import * as TYPES from 'utils/constants/actionTypes';
 import { LINKS } from 'utils/constants';
 
 const setUserToken =

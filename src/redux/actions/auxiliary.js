@@ -1,4 +1,4 @@
-import * as ActionTypes from '../action-types';
+import * as ActionTypes from 'utils/constants/actionTypes';
 import { showSuccessToast, showErrorToast } from 'utils/helpers';
 
 export const setPathTokens = (tokens) => ({

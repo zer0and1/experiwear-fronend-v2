@@ -1,5 +1,5 @@
 import * as alertsAPI from 'services/api-alerts';
-import * as TYPES from '../action-types';
+import * as TYPES from 'utils/constants/actionTypes';
 import { createAction } from 'redux-actions';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 import { isEmpty } from 'utils/helpers/utility';

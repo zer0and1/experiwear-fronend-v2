@@ -32,6 +32,7 @@ const useGameSocket = () => {
     },
     [results, select, dispatch]
   );
+
   useSocket(WS_EVENTS.LIVE_GAME_UPDATE, liveGameHandler);
 };
 

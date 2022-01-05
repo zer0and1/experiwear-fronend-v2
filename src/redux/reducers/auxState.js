@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
-import * as ActionTypes from 'redux/action-types';
-import * as auxStateUpdaters from './aux-state-updaters';
+import * as ActionTypes from 'utils/constants/actionTypes';
+import * as auxStateUpdaters from './auxStateUpdaters';
 
 const actionHandler = {
   [ActionTypes.SET_PATH_TOKENS]: auxStateUpdaters.setPathTokensUpdater,

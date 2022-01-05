@@ -1,4 +1,4 @@
-import * as TYPES from '../action-types';
+import * as TYPES from 'utils/constants/actionTypes';
 import * as gameAPI from 'services/api-game';
 import { isEmpty } from 'utils/helpers/utility';
 import { GAME_STATUS } from 'utils/constants';
