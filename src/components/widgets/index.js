@@ -4,6 +4,7 @@ export { default as Layout } from './layout/Layout';
 export { default as SideBar } from './layout/SideBar';
 export { default as SideMenu } from './layout/SideMenu';
 export { default as PathIndicator } from './layout/PathIndicator';
+export { default as ToastContainer } from './layout/ToastContainer';
 
 // sidebars
 export { default as ActivityTimeline } from './sidebars/ActivityTimeline';

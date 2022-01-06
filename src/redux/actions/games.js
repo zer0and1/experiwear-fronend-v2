@@ -1,7 +1,8 @@
-import * as TYPES from 'utils/constants/actionTypes';
+import * as TYPES from 'redux/actionTypes';
 import * as gameAPI from 'services/api-game';
 import { isEmpty } from 'utils/helpers/utility';
 import { GAME_STATUS } from 'utils/constants';
+import { setResponseError } from '.';
 
 export const getGames =
   (refresh = false) =>
@@ -42,7 +43,7 @@ export const getGames =
       dispatch(setSelectedGame(closestUpcomingGame));
       dispatch(setClosestUpcomingGame(closestUpcomingGame));
     } catch (error) {
-      console.log('[getGames] error => ', error);
+      dispatch(setResponseError(error));
     }
   };
 

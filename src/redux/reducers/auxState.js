@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import * as ActionTypes from 'utils/constants/actionTypes';
+import * as ActionTypes from 'redux/actionTypes';
 import * as auxStateUpdaters from './auxStateUpdaters';
 
 const actionHandler = {

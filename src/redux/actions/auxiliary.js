@@ -1,5 +1,6 @@
-import * as ActionTypes from 'utils/constants/actionTypes';
+import * as ActionTypes from 'redux/actionTypes';
 import { showSuccessToast, showErrorToast } from 'utils/helpers';
+import { setUserAuthStatus } from '.';
 
 export const setPathTokens = (tokens) => ({
   type: ActionTypes.SET_PATH_TOKENS,
@@ -20,16 +21,22 @@ export const setResponseSuccess = (response) => {
   };
 };
 
-export const setResponseError = (error) => {
+export const setResponseError = (error) => (dispatch) => {
+  const statusCode = error?.response?.status;
+
+  if (statusCode === 401) {
+    dispatch(setUserAuthStatus(false));
+  }
+
+  dispatch({
+    type: ActionTypes.SET_RESPONSE_ERROR,
+    payload: error,
+  });
+
   showErrorToast(
     error?.response?.data?.message ||
       error?.response?.data?.message?.[0] ||
       error?.message ||
       'Something went wrong!'
   );
-
-  return {
-    type: ActionTypes.SET_RESPONSE_ERROR,
-    payload: error,
-  };
 };

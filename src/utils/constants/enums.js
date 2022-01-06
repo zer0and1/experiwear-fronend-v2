@@ -91,14 +91,17 @@ export const LINKS = Object.freeze({
   signIn: {
     title: 'Sign In',
     path: '/auth/sign-in',
+    public: true,
   },
   forgotPassword: {
     title: 'Forgot Password',
     path: '/auth/forgot-password',
+    public: true,
   },
   resetPassword: {
     title: 'Reset Password',
     path: '/auth/reset-password',
+    public: true,
   },
   home: {
     title: 'Home',

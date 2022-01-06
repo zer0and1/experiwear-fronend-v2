@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import * as ActionTypes from 'utils/constants/actionTypes';
+import * as ActionTypes from 'redux/actionTypes';
 import { readFanbands, readFanbandsStatistics } from 'services/api-fanbands';
 import { FANBAND_TYPES } from 'utils/constants';
 import { setResponseError } from '.';

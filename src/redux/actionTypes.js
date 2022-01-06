@@ -1,6 +1,6 @@
 // auth actions
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-export const SET_IS_AUTHENTICATED = 'SET_IS_AUTHENTICATED';
+export const SET_USER_AUTH_STATUS = 'SET_USER_AUTH_STATUS';
 
 // alert actions
 export const SET_ALERTS = 'SET_ALERTS';

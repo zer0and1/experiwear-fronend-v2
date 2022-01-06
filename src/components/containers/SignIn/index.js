@@ -4,11 +4,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import * as authAPI from 'services/api-auth';
-import { setUserToken } from 'redux/actions/auth';
+import { signIn } from 'redux/actions';
 import { LinkButton, AuthWrapper } from 'components';
-import { useLoading } from 'hooks';
-import { showErrorToast } from 'utils/helpers';
 import { LINKS, EMAIL_VALID, PASSWORD_VALID } from 'utils/constants';
 import {
   InputAdornment,
@@ -55,37 +52,14 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { changeLoadingStatus } = useLoading();
   const [showPassword, setShowPassword] = useState(false);
 
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(
-    async (data) => {
-      changeLoadingStatus(true);
-      try {
-        const params = {
-          email: data.email,
-          password: data.password,
-        };
-
-        const user = await authAPI.login(params);
-        dispatch(
-          setUserToken({
-            isAuthenticated: true,
-            user,
-          })
-        );
-      } catch (error) {
-        showErrorToast('Your credential is incorrect.');
-      }
-      changeLoadingStatus(false);
-    },
-    [dispatch, changeLoadingStatus]
-  );
-
+  // eslint-disable-next-line
+  const onSubmit = useCallback((data) => dispatch(signIn(data)), []);
   const resetHandler = useCallback(() => {
     reset({
       email: '',

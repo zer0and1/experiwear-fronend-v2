@@ -1,4 +1,4 @@
-import * as ActionTypes from 'utils/constants/actionTypes';
+import * as ActionTypes from 'redux/actionTypes';
 import { createAction } from 'redux-actions';
 import { setResponseError, setLoadingStatus } from '.';
 import {

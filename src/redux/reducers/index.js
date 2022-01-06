@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import authReducer from './authReducer';
+import authReducer from './authState';
 import alertsReducer from './alertsReducer';
 import gamesReducer from './gamesReducer';
 import auxReducer from './auxState';

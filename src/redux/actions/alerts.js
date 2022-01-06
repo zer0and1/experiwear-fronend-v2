@@ -1,5 +1,5 @@
 import * as alertsAPI from 'services/api-alerts';
-import * as TYPES from 'utils/constants/actionTypes';
+import * as TYPES from 'redux/actionTypes';
 import { createAction } from 'redux-actions';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 import { isEmpty } from 'utils/helpers/utility';
@@ -139,7 +139,7 @@ export const getLatestNotification = (type) => async (dispatch) => {
       payload: response,
     });
   } catch (error) {
-    console.log('[getLatestNotification] error => ', error);
+    dispatch(setResponseError(error));
   }
 };
 
@@ -161,7 +161,7 @@ export const setLatestNotification =
         payload: notification,
       });
     } catch (error) {
-      console.log('[setLatestNotification] error => ', error);
+      dispatch(setResponseError(error));
     }
   };
 
@@ -203,7 +203,7 @@ export const getNotifications =
         },
       });
     } catch (error) {
-      console.log('[getNotifications] error => ', error);
+      dispatch(setResponseError(error));
     }
   };
 
@@ -231,7 +231,7 @@ export const getMoreNotifications = (type) => async (dispatch, getState) => {
       },
     });
   } catch (error) {
-    console.log('[getMoreNotifications] error => ', error);
+    dispatch(setResponseError(error));
   }
 };
 
@@ -251,7 +251,7 @@ export const setNotifications =
         },
       });
     } catch (error) {
-      console.log('[setNotifications] error => ', error);
+      dispatch(setResponseError(error));
     }
   };
 

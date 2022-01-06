@@ -1,12 +1,9 @@
+import App from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
-
-import theme from 'theme';
-import store from 'redux/store';
-import InitProvider from 'utils/hocs/InitProvider';
-import ToastProvider from 'utils/hocs/ToastProvider';
+import { ToastContainer } from 'components';
 import {
   BANNER_IMAGE_PATH,
   TITLE,
@@ -14,7 +11,10 @@ import {
   DESCRIPTION,
 } from 'utils/constants';
 
-function MyApp({ Component, pageProps }) {
+import theme from 'theme';
+import store from 'redux/store';
+
+function CustomApp({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -53,9 +53,8 @@ function MyApp({ Component, pageProps }) {
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
       </Head>
       <Provider store={store}>
-        <InitProvider />
         <ThemeProvider theme={theme}>
-          <ToastProvider />
+          <ToastContainer />
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
@@ -64,11 +63,9 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-MyApp.getInitialProps = async ({ Component, ctx }) => {
-  const pageProps = Component.getInitialProps
-    ? await Component.getInitialProps(ctx)
-    : {};
-  return { pageProps };
+CustomApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps };
 };
 
-export default MyApp;
+export default CustomApp;

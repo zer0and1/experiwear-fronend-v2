@@ -1,4 +1,4 @@
-import * as TYPES from 'utils/constants/actionTypes';
+import * as TYPES from 'redux/actionTypes';
 import moment from 'moment';
 import _ from 'lodash';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';

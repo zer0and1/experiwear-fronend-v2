@@ -1,43 +1,36 @@
-import Router from 'next/router';
-
 import * as authAPI from 'services/api-auth';
-import * as TYPES from 'utils/constants/actionTypes';
-import { LINKS } from 'utils/constants';
+import * as ActionTypes from 'redux/actionTypes';
+import { setLoadingStatus, setResponseError } from '.';
 
-const setUserToken =
-  ({ isAuthenticated, user }) =>
-  (dispatch) => {
-    dispatch(setIsAuthenticated(isAuthenticated));
-    dispatch(setCurrentUser(user));
-    Router.push(LINKS.home.path);
-  };
-
-const setIsAuthenticated = (isAuthenticated) => {
+export const setUserAuthStatus = (isAuthenticated, userInfo = {}) => {
   localStorage.setItem('isAuthenticated', isAuthenticated);
+  localStorage.setItem('currentUser', JSON.stringify(userInfo));
+
   return {
-    type: TYPES.SET_IS_AUTHENTICATED,
-    payload: isAuthenticated,
+    type: ActionTypes.SET_USER_AUTH_STATUS,
+    payload: { isAuthenticated, userInfo },
   };
 };
 
-const setCurrentUser = (currentUser) => {
-  localStorage.setItem('currentUser', JSON.stringify(currentUser));
-  return {
-    type: TYPES.SET_CURRENT_USER,
-    payload: currentUser,
-  };
+export const signIn = (params) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    const user = await authAPI.login(params);
+    dispatch(setUserAuthStatus(true, user));
+  } catch (err) {
+    dispatch(setResponseError(err));
+  }
+
+  dispatch(setLoadingStatus(false));
 };
 
-const logoutUser = () => async (dispatch) => {
+export const logoutUser = () => async (dispatch) => {
   try {
     await authAPI.logout();
-  } catch (error) {
-    console.log(error);
+    localStorage.clear();
+    dispatch(setUserAuthStatus(false));
+  } catch (err) {
+    dispatch(setResponseError(err));
   }
-  localStorage.clear();
-  dispatch(setIsAuthenticated(false));
-  dispatch(setCurrentUser({}));
-  Router.push(LINKS.signIn.path);
 };
-
-export { setUserToken, setIsAuthenticated, setCurrentUser, logoutUser };

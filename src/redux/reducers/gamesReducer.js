@@ -1,4 +1,4 @@
-import * as TYPES from 'utils/constants/actionTypes';
+import * as TYPES from 'redux/actionTypes';
 
 const INITIAL_STATE = Object.freeze({
   results: [],
