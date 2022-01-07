@@ -20,6 +20,7 @@ import {
   LockOutlined,
 } from '@material-ui/icons';
 import { ExpTextField, ExpCheckbox } from 'components';
+import { useRouter } from 'next/router';
 
 const schema = yup.object().shape({
   email: EMAIL_VALID,
@@ -51,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -58,8 +60,11 @@ const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  // eslint-disable-next-line
-  const onSubmit = useCallback((data) => dispatch(signIn(data)), []);
+  const onSubmit = useCallback(async (data) => {
+    await dispatch(signIn(data));
+    router.push(router.query.redirect || LINKS.home.path);
+    // eslint-disable-next-line
+  }, []);
   const resetHandler = useCallback(() => {
     reset({
       email: '',

@@ -3,13 +3,16 @@ import { LINKS } from 'utils/constants';
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
-  const publicPages = Object.values(LINKS)
-    .filter((p) => p.public)
+  const protectedPages = Object.values(LINKS)
+    .filter((p) => p.protected && p.path !== LINKS.home.path)
     .map((p) => p.path);
+  const isProtectedPage =
+    pathname === LINKS.home.path ||
+    protectedPages.some((p) => pathname.startsWith(p.replace(/\:[^]*/, '')));
 
-  if (!pathname.startsWith('/assets') && !publicPages.includes(pathname)) {
-    const res = NextResponse.redirect('/auth/sign-in');
-    res.cookie('some', req.cookies.fan_sid);
-    return res;
+  if (isProtectedPage && !req.cookies.fan_id) {
+    return NextResponse.redirect(`${LINKS.signIn.path}?redirect=${pathname}`);
   }
+
+  return NextResponse.next();
 }

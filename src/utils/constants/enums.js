@@ -91,99 +91,119 @@ export const LINKS = Object.freeze({
   signIn: {
     title: 'Sign In',
     path: '/auth/sign-in',
-    public: true,
+    protected: false,
   },
   forgotPassword: {
     title: 'Forgot Password',
     path: '/auth/forgot-password',
-    public: true,
+    protected: false,
   },
   resetPassword: {
     title: 'Reset Password',
     path: '/auth/reset-password',
-    public: true,
+    protected: false,
   },
   home: {
     title: 'Home',
     path: '/',
+    protected: true,
   },
   selectedGame: {
     title: 'Selected Game',
     path: '/selected-game',
+    protected: true,
   },
   stats: {
     title: 'Stats',
     path: '/stats',
+    protected: true,
   },
   statsFanbands: {
     title: 'Fanbands',
     path: '/stats/fanbands',
+    protected: true,
   },
   news: {
     title: 'News',
     path: '/news',
+    protected: true,
   },
   newsSent: {
     title: 'News alerts sent',
     path: '/news/news-sent',
+    protected: true,
   },
   quickPoll: {
     title: 'Quick Poll',
     path: '/quickpoll',
+    protected: true,
   },
   quickPollSent: {
     title: 'All quick polls',
     path: '/quickpoll/quickpoll-sent',
+    protected: true,
   },
   score: {
     title: 'Score',
     path: '/score',
+    protected: true,
   },
   scoreSent: {
     title: 'Score alerts sent',
     path: '/score/score-sent',
+    protected: true,
   },
   promo: {
     title: 'Promo',
     path: '/promo',
+    protected: true,
   },
   promoSent: {
     title: 'Promo alerts sent',
     path: '/promo/promo-sent',
+    protected: true,
   },
   schedule: {
     title: 'Schedule',
     path: '/schedule',
+    protected: true,
   },
   scheduleSent: {
     title: 'Active scheduled alerts',
     path: '/schedule/schedule-sent',
+    protected: true,
   },
   accelerometer: {
     title: 'Accelerometer',
     path: '/accelerometer',
+    protected: true,
   },
   saved: {
     title: 'Saved alerts',
     path: '/saved',
+    protected: true,
   },
   savedAll: {
     title: 'Saved alerts',
     token: 'View all',
     path: '/saved/view-all',
+    protected: true,
   },
   savedEdit: {
     title: 'Edit Saved alert',
     token: 'Edit',
     path: '/saved/:id',
+    protected: true,
   },
   tickets: {
     title: 'Manage Tickets',
     path: '/tickets',
+    protected: true,
   },
   ticketModify: {
     title: 'Manage Tickets',
     token: 'Modify Ticket',
     path: '/tickets/:id',
+    protected: true,
   },
 });

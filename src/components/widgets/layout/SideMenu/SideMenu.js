@@ -7,6 +7,8 @@ import { SIDEBAR_GROUPS } from './constants';
 import { Logo, LogoutIcon } from 'components';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from 'redux/actions/auth';
+import { useRouter } from 'next/router';
+import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,12 +48,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideMenu = () => {
+  const router = useRouter();
   const classes = useStyles();
   const matches = useMediaQuery((theme) => theme.breakpoints.down('md'));
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    router.push(LINKS.signIn.path);
   };
 
   return (
