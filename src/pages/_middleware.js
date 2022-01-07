@@ -10,7 +10,7 @@ export async function middleware(req) {
     pathname === LINKS.home.path ||
     protectedPages.some((p) => pathname.startsWith(p.replace(/\:[^]*/, '')));
 
-  if (isProtectedPage && !req.cookies.fan_id) {
+  if (isProtectedPage && !req.cookies.fan_sid) {
     return NextResponse.redirect(`${LINKS.signIn.path}?redirect=${pathname}`);
   }
 

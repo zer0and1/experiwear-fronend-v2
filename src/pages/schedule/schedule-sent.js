@@ -1,4 +1,4 @@
-import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
+import { LINKS } from 'utils/constants';
 import { useAlertsSent, usePathIndicator } from 'hooks';
 
 const ScheduledSentPage = () => {
