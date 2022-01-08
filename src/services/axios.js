@@ -11,7 +11,6 @@ const apiAxios = axios.create({
 });
 
 apiAxios.interceptors.response.use((response) => {
-  console.log(response);
   return response.data;
 });
 
