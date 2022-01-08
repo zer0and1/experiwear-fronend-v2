@@ -13,7 +13,7 @@ import BellIcon from 'components/icons/BellIcon';
 import { useAsyncAction } from 'hooks';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getNotifications } from 'redux/actions';
+import { getNotifications, getUserInfo } from 'redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +73,7 @@ const UserAccount = () => {
   };
 
   useAsyncAction(getNotifications());
+  useAsyncAction(getUserInfo());
 
   return (
     <div className={classes.root}>

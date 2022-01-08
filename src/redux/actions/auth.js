@@ -25,6 +25,15 @@ export const signIn = (params) => async (dispatch) => {
   dispatch(setLoadingStatus(false));
 };
 
+export const getUserInfo = () => async (dispatch) => {
+  try {
+    const user = await authAPI.isAuthenticated();
+    dispatch(setUserAuthStatus(true, user));
+  } catch (err) {
+    dispatch(setResponseError(err));
+  }
+};
+
 export const logoutUser = () => async (dispatch) => {
   try {
     await authAPI.logout();
