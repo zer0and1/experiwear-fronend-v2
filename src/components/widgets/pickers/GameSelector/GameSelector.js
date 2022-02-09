@@ -1,10 +1,11 @@
 import { Box, makeStyles, MenuItem, Select } from '@material-ui/core';
-import { setSelectedGame } from 'redux/actions/games';
+import { setSelectedGame, getGames } from 'redux/actions/games';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEnglishDateWithTime } from 'utils/helpers';
+import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
 import { TeamLogo } from 'components';
 import { LINKS } from 'utils/constants';
 import { useRouter } from 'next/router';
+import { useAsyncAction } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +55,8 @@ const GameSelector = () => {
         break;
     }
   };
+
+  useAsyncAction(getGames(), isEmpty(games));
 
   return (
     <Select
