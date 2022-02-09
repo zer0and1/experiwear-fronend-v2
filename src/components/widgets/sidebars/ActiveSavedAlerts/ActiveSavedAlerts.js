@@ -8,6 +8,7 @@ import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { useAsyncAction } from 'hooks';
 import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
+import { isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +39,7 @@ const ActiveSavedAlerts = () => {
     router.push(LINKS.savedAll.path);
   }, [router]);
 
-  useAsyncAction(getSavedAlerts(ALERT_MIXED_TYPES.saved));
+  useAsyncAction(getSavedAlerts(ALERT_MIXED_TYPES.saved), isEmpty(alerts));
 
   return (
     <div className={classes.root}>

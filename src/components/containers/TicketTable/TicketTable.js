@@ -4,6 +4,7 @@ import { TicketItem } from 'components';
 import { useAsyncAction, usePagination } from 'hooks';
 import { getFanbands, getTickets } from 'redux/actions';
 import { useSelector } from 'react-redux';
+import { isEmpty } from 'utils/helpers';
 
 const TicketTable = () => {
   const { results: tickets, total } = useSelector(
@@ -15,7 +16,7 @@ const TicketTable = () => {
   });
 
   // fetch fanbands for ticket items
-  useAsyncAction(getFanbands());
+  useAsyncAction(getFanbands(), isEmpty(tickets));
 
   return (
     <Box display="flex" flexDirection="column" height="100%">

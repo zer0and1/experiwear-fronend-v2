@@ -14,6 +14,7 @@ import { useAsyncAction } from 'hooks';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getNotifications, getUserInfo } from 'redux/actions';
+import { isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,8 +73,8 @@ const UserAccount = () => {
     setAnchorEl(e.currentTarget);
   };
 
-  useAsyncAction(getNotifications());
-  useAsyncAction(getUserInfo());
+  useAsyncAction(getNotifications(), isEmpty(latestNotifications));
+  useAsyncAction(getUserInfo(), isEmpty(currentUser));
 
   return (
     <div className={classes.root}>

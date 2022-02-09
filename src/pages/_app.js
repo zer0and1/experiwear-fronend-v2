@@ -1,6 +1,5 @@
 import App from 'next/app';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { ToastContainer } from 'components';
@@ -12,7 +11,8 @@ import {
 } from 'utils/constants';
 
 import theme from 'theme';
-import store from 'redux/store';
+import { wrapper } from 'redux/store';
+import 'normalize.css';
 
 function CustomApp({ Component, pageProps }) {
   return (
@@ -52,13 +52,11 @@ function CustomApp({ Component, pageProps }) {
         />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
       </Head>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ToastContainer />
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <ToastContainer />
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
@@ -68,4 +66,4 @@ CustomApp.getInitialProps = async (appContext) => {
   return { ...appProps };
 };
 
-export default CustomApp;
+export default wrapper.withRedux(CustomApp);

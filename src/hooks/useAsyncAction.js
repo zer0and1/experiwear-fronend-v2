@@ -13,7 +13,7 @@ const useAsyncAction = (action, showLoading = false) => {
         dispatch(setLoadingStatus(false));
       })();
     } else {
-      dispatch(action);
+      // dispatch(action);
     }
     // eslint-disable-next-line
   }, []);

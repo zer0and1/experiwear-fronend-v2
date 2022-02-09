@@ -7,6 +7,7 @@ import { getNotifications } from 'redux/actions';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { useAsyncAction } from 'hooks';
+import { isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,7 @@ const AlertsSent = ({ type, link }) => {
     router.push(link);
   }, [router, link]);
 
-  useAsyncAction(getNotifications(type));
+  useAsyncAction(getNotifications(type), isEmpty(alerts));
 
   return (
     <div className={classes.root}>

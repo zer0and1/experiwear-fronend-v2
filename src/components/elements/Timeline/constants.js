@@ -1,5 +1,5 @@
 export const TIMELINE_OPTIONS_NORMAL = {
-  unit: 60, // minutes
+  unit: 2, // minutes
   step: 72, // pixels
   offset: 8, // pixels
 };
