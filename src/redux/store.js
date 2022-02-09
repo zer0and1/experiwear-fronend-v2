@@ -30,4 +30,4 @@ const reducer = (state, action) => {
 const makeStore = () =>
   createStore(reducer, bindMiddleWares([thunkMiddleware]));
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore, { debug: false });

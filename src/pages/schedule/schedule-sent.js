@@ -1,4 +1,4 @@
-import { LINKS } from 'utils/constants';
+import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
 import { useAlertsSent, usePathIndicator } from 'hooks';
 
 const ScheduledSentPage = () => {

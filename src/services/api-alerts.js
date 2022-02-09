@@ -16,7 +16,7 @@ export const createNotification = async (params) => {
 };
 
 export const getScheduledNotifications = async (params) => {
-  return await axios.get('/notifications/scheduled', { params });
+  return await axios.get('/notifications/schedule/scheduled', { params });
 };
 
 export const getLatestScheduledNotifications = async () => {
@@ -25,19 +25,16 @@ export const getLatestScheduledNotifications = async () => {
 
 export const createScheduledNotification = async (params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.post(
-    '/notifications/scheduled-broadcast',
-    getFormData(params)
-  );
+  return await axios.post('/notifications/schedule', getFormData(params));
 };
 
 export const editScheduledNotification = async (id, params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.put(`/notifications/scheduled-broadcast/${id}`, params);
+  return await axios.put(`/notifications/schedule/${id}`, params);
 };
 
 export const deleteScheduledNotification = async (id) => {
-  return await axios.delete(`/notifications/scheduled-broadcast/${id}`);
+  return await axios.delete(`/notifications/schedule/${id}`);
 };
 
 export const getAccelerometerData = async (params) => {
