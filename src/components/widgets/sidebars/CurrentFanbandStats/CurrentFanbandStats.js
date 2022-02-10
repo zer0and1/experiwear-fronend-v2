@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Title } from 'components';
+import { useAsyncAction } from 'hooks';
+import { getFanbandsStatistics } from 'redux/actions';
+import { isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 const CurrentFanbandStats = () => {
   const classes = useStyles();
   const { statistics = {} } = useSelector((state) => state.main.fanbands);
+
+  useAsyncAction(getFanbandsStatistics(), isEmpty(statistics));
 
   return (
     <div className={classes.root}>
