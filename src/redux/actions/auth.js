@@ -1,6 +1,8 @@
 import * as authAPI from 'services/api-auth';
 import * as ActionTypes from 'redux/actionTypes';
 import { setLoadingStatus, setResponseError } from '.';
+import { isLocalhost } from 'utils/helpers';
+import { COOKIE_MAX_AGE, COOKIE_NAME } from '../../config';
 
 export const setUserAuthStatus = (isAuthenticated, userInfo = {}) => {
   localStorage.setItem('isAuthenticated', isAuthenticated);
@@ -17,6 +19,13 @@ export const signIn = (params) => async (dispatch) => {
 
   try {
     const user = await authAPI.login(params);
+
+    if (!isLocalhost()) {
+      const date = new Date();
+      date.setTime(date.getTime() + COOKIE_MAX_AGE);
+      document.cookie = `${COOKIE_NAME}=valid_cookie; expires=${date.toUTCString()}; path=/`;
+    }
+
     dispatch(setUserAuthStatus(true, user));
   } catch (err) {
     dispatch(setResponseError(err));

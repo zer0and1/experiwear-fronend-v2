@@ -1,5 +1,6 @@
 export const isServer = () => typeof window === 'undefined';
-
+export const isLocalhost = () =>
+  location && location.origin.includes('localhost');
 export const isEmpty = (value) => {
   return (
     value === undefined ||

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { LINKS } from 'utils/constants';
 
 export async function middleware(req) {
-  const { pathname, host } = req.nextUrl;
+  const { pathname } = req.nextUrl;
   const protectedPages = Object.values(LINKS)
     .filter((p) => p.protected && p.path !== LINKS.home.path)
     .map((p) => p.path);
@@ -10,7 +10,7 @@ export async function middleware(req) {
     pathname === LINKS.home.path ||
     protectedPages.some((p) => pathname.startsWith(p.replace(/\:[^]*/, '')));
 
-  if (isProtectedPage && !req.cookies.fan_sid && host) {
+  if (isProtectedPage && !req.cookies.fan_sid) {
     return NextResponse.redirect(`${LINKS.signIn.path}?redirect=${pathname}`);
   }
 

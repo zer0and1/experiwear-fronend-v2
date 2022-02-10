@@ -1,10 +1,9 @@
-const isProd = process.env.CONFIG_ENV === 'production';
+export const IS_PRODUCT = process.env.CONFIG_ENV === 'production';
 
-const PROXY_URL = isProd
+export const PROXY_URL = IS_PRODUCT
   ? 'https://hawks.experiwear.com/api'
   : 'https://hawks-dev.experiwear.com/api';
-const SOCKET_URL = isProd
+export const SOCKET_URL = IS_PRODUCT
   ? 'https://hawks.experiwear.com/api'
   : 'https://hawks-dev.experiwear.com/api';
-
-export { PROXY_URL, SOCKET_URL };
+export const COOKIE_MAX_AGE = 24 * 60 * 60 * 1000;
