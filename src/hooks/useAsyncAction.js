@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLoadingStatus } from 'redux/actions';
 
-const useAsyncAction = (action, showLoading = false) => {
+const useAsyncAction = (action, showLoading = true) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -12,8 +12,6 @@ const useAsyncAction = (action, showLoading = false) => {
         await dispatch(action);
         dispatch(setLoadingStatus(false));
       })();
-    } else {
-      // dispatch(action);
     }
     // eslint-disable-next-line
   }, []);

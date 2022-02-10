@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { LINKS } from 'utils/constants';
+import { useAsyncAction } from 'hooks';
+import { getFanbandsStatistics } from 'redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +74,8 @@ const Fanbands = () => {
       View list
     </Link>
   );
+
+  useAsyncAction(getFanbandsStatistics(), true);
 
   return (
     <Card className={classes.root}>
