@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(7.5, 5),
     borderRadius: '0 !important',
     display: 'flex',
+    margin: 0,
   },
 }));
 
