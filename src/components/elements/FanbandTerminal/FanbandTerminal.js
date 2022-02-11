@@ -40,13 +40,13 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%',
     clipPath: `url(#clip-path)`,
-    filter: 'blur(12px)',
+    filter: 'blur(5px)',
     zIndex: 1,
     background: (
       props
-    ) => `url(${TERMINAL_DISPLAY}) 100% 100%, radial-gradient(ellipse at top 10% left 0, ${props.tColor1}, transparent 50%), radial-gradient(ellipse at bottom 10% left 0, ${props.bColor1}, transparent 50%),
-      radial-gradient(ellipse at top 0px left 40%, ${props.tColor2}, transparent 60%), radial-gradient(ellipse at bottom 0px left 50%, ${props.bColor2}, transparent 60%),
-      radial-gradient(ellipse at top 10% left 80%, ${props.tColor3}, transparent 50%), radial-gradient(ellipse at bottom 10% left 80px, ${props.bColor3}, transparent 50%)`,
+    ) => `radial-gradient(circle at top 0px left 20%, ${props.tColor1}, transparent 10%), radial-gradient(circle at bottom 0px left 20%, ${props.bColor1}, transparent 10%),
+      radial-gradient(circle at top 0px left 50%, ${props.tColor2}, transparent 10%), radial-gradient(circle at bottom 0px left 50%, ${props.bColor2}, transparent 10%),
+      radial-gradient(circle at top 0px left 80%, ${props.tColor3}, transparent 10%), radial-gradient(circle at bottom 0px left 80%, ${props.bColor3}, transparent 10%)`,
   },
   '@keyframes vibrate': {
     '0%': { transform: 'translate(0.5px, 0.5px) rotate(0deg)' },
