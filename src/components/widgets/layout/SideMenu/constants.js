@@ -46,7 +46,7 @@ export const ALERT_ACTIONS_ITEMS = [
   },
   {
     icon: AccelerometerIcon,
-    ...LINKS.accelerometer,
+    ...LINKS.gamedayTheme,
   },
 ];
 

@@ -1,9 +1,9 @@
-export { default as Accelerometer } from './Accelerometer';
 export { default as Home } from './Home';
 export { default as News } from './News';
 export { default as Promo } from './Promo';
 export { default as QuickPoll } from './QuickPoll';
 export { default as QuickPollSentAll } from './QuickPollSentAll';
+export { default as GamedayTheme } from './GamedayTheme';
 export { default as SelectedGame } from './SelectedGame';
 export { default as SignIn } from './SignIn';
 export { default as Stats } from './Stats';

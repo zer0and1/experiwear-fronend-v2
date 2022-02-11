@@ -23,6 +23,7 @@ export { default as NewsForm } from './forms/NewsForm';
 export { default as PromoForm } from './forms/PromoForm';
 export { default as QuickPollForm } from './forms/QuickPollForm';
 export { default as ScoreForm } from './forms/ScoreForm';
+export { default as GamedayThemeForm } from './forms/GamedayThemeForm';
 
 // pickers
 export { default as GameSelector } from './pickers/GameSelector';
