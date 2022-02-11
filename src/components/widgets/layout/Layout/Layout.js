@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: 0,
+    display: 'flex',
   },
 }));
 

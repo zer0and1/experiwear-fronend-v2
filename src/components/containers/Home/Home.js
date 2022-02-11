@@ -23,7 +23,7 @@ const Home = () => {
   const handleCreateNewsAlert = () => {
     router.push(LINKS.news.path);
   };
-  console.log(alertStatus);
+
   useAsyncAction(getNotifications(), isEmpty(alertStatus));
 
   return (
