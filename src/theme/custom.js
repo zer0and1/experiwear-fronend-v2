@@ -16,7 +16,7 @@ export default {
     textGrey: '#959caf',
   },
   layout: {
-    sideMenu: 210,
+    sideMenu: 250,
     sideBar: 420,
   },
   fonts: {

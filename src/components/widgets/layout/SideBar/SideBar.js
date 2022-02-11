@@ -4,8 +4,7 @@ import { Drawer, useMediaQuery } from '@material-ui/core';
 import UserAccount from './UserAccount';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  paper: {
+  root: {
     width: theme.custom.layout.sideBar,
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
@@ -26,8 +25,7 @@ const SideBar = ({ children }) => {
       open={!matches}
       anchor="right"
       variant="persistent"
-      className={classes.root}
-      classes={{ paper: classes.paper }}
+      classes={{ paper: classes.root }}
     >
       <UserAccount />
       {children}
