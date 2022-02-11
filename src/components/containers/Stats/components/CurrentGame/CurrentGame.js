@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import {
   Box,
   Button,
@@ -8,7 +8,7 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import { TeamLogo } from 'components';
+import { TeamLogo, GameSelectDialog } from 'components';
 import { useSelector } from 'react-redux';
 import { getEnglishDateWithTime } from 'utils/helpers';
 
@@ -37,6 +37,16 @@ const useStyles = makeStyles((theme) => ({
 const CurrentGame = () => {
   const classes = useStyles();
   const selectedGame = useSelector((state) => state.games.selectedGame);
+  const [openGamedayDialog, setOpenGamedayDialog] = useState(false);
+
+  const handleSelectGameday = (e) => {
+    e.preventDefault();
+    setOpenGamedayDialog(true);
+  };
+
+  const handleCloseGamedayDialog = () => {
+    setOpenGamedayDialog(false);
+  };
 
   return (
     <Card className={classes.root}>
@@ -76,10 +86,15 @@ const CurrentGame = () => {
             color="primary"
             variant="contained"
             fullWidth
+            onClick={handleSelectGameday}
           >
             Select Gameday
           </Button>
         )}
+        <GameSelectDialog
+          open={openGamedayDialog}
+          onClose={handleCloseGamedayDialog}
+        />
       </CardContent>
     </Card>
   );

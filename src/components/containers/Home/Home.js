@@ -6,7 +6,7 @@ import { Calendar, CardHeaderButton } from 'components';
 import { Add as AddIcon } from '@material-ui/icons';
 import { LINKS } from 'utils/constants';
 import { useRouter } from 'next/router';
-import { useAsyncAction } from 'hooks';
+import { useAsyncAction, usePathIndicator } from 'hooks';
 import { isEmpty } from 'utils/helpers';
 
 const Home = () => {
@@ -25,6 +25,7 @@ const Home = () => {
   };
 
   useAsyncAction(getNotifications(), isEmpty(alertStatus));
+  usePathIndicator(LINKS.home);
 
   return (
     <Card>
