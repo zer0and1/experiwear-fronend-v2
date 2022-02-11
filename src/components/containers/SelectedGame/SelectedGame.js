@@ -57,8 +57,8 @@ const SelectedGame = () => {
     dispatch(getNotifications());
     dispatch(
       setPathTokens([
-        { path: LINKS.home.path, label: LINKS.home.TITLE },
-        { path: LINKS.home.path, label: getEnglishDateWithTime(selectedDate) },
+        LINKS.home,
+        { path: LINKS.home.path, title: getEnglishDateWithTime(selectedDate) },
       ])
     );
   }, [dispatch, selectedDate]);

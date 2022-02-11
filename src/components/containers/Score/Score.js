@@ -15,7 +15,7 @@ const Score = () => {
   const dispatch = useDispatch();
 
   const handleCreate = async (data) => {
-    await dispatch(createAlert(ALERT_PROTO_TYPES.promo, data));
+    await dispatch(createAlert(ALERT_PROTO_TYPES.score, data));
   };
 
   return (

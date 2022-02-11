@@ -1,9 +1,18 @@
-import { Box, makeStyles, MenuItem, Select } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  makeStyles,
+} from '@material-ui/core';
 import { setSelectedGame, getGames } from 'redux/actions/games';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
 import { TeamLogo } from 'components';
 import { useAsyncAction } from 'hooks';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,32 +42,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GameSelector = () => {
+const GameSelectDialog = ({ open = false, onClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { results: games = [], selectedGame } = useSelector(
-    (state) => state.games
-  );
-  const handleGameSelect = (e) => {
-    dispatch(setSelectedGame(games.find((g) => g.id === e.target.value)));
+  const { results: games = [] } = useSelector((state) => state.games);
+  const [game, setGame] = useState(null);
+
+  const handleConfirm = () => {
+    dispatch(setSelectedGame(game));
+    onClose();
   };
 
   useAsyncAction(getGames(), isEmpty(games));
 
   return (
-    <Select
-      variant="outlined"
-      displayEmpty
-      className={classes.root}
-      value={selectedGame?.id || ''}
-      onChange={handleGameSelect}
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="gameday-dialog-title"
+      aria-describedby="gameday-dialog-description"
     >
-      <MenuItem value="" disabled>
-        Select Gameday
-      </MenuItem>
-      {games.map((item) => (
-        <MenuItem key={item.id} value={item.id}>
-          <Box className={classes.menuItem}>
+      <DialogTitle id="gameday-dialog-title">Select Gameday</DialogTitle>
+      <DialogContent>
+        {games.map((item) => (
+          <Box
+            key={item.id}
+            className={classes.menuItem}
+            onClick={() => setGame(item)}
+          >
             <TeamLogo team={item.visitorTeam.abbreviation} />
             <Box>{item.visitorTeam.name}</Box>
             <Box px={1} color="#01a1c3">
@@ -70,10 +81,13 @@ const GameSelector = () => {
               &nbsp;({getEnglishDateWithTime(item.date)})
             </Box>
           </Box>
-        </MenuItem>
-      ))}
-    </Select>
+        ))}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleConfirm}>Select Gameday</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
-export default GameSelector;
+export default GameSelectDialog;
