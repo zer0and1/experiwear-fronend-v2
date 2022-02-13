@@ -46,7 +46,7 @@ const AlertField = ({
   const [settingToggled, toggleSetting] = useState(false);
 
   const paramsLabel = useMemo(() => {
-    const diff = difference(DEFAULT_ALERT_PARAMS, value);
+    const diff = difference(DEFAULT_ALERT_PARAMS(), value);
 
     if (isEmpty(diff)) {
       return 'Default';
@@ -105,6 +105,11 @@ const AlertField = ({
       );
   }, [value, classes]);
 
+  const handleSaveAsDefault = () => {
+    localStorage.setItem('default_alert_params', JSON.stringify(value));
+    toggleSetting(false);
+  };
+
   return (
     <Box className={clsx(classes.root, className)} {...boxProps}>
       <Box display="flex" justifyContent="space-between">
@@ -123,6 +128,7 @@ const AlertField = ({
         params={value}
         onChange={onChange}
         onReset={onReset}
+        onSaveAsDefault={handleSaveAsDefault}
         terminalScreen={terminalScreen}
       />
     </Box>

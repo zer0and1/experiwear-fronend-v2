@@ -35,7 +35,7 @@ const GamedayThemeForm = ({
       title: 'Gameday',
       body: 'Gameday',
       file: image?.file,
-      ...DEFAULT_ALERT_PARAMS,
+      ...DEFAULT_ALERT_PARAMS(),
     });
 
     if (!updating) {

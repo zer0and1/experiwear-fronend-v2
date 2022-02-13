@@ -70,18 +70,28 @@ export const LED_TYPES = Object.freeze({
   stable: 'stable',
 });
 
-export const DEFAULT_ALERT_PARAMS = Object.freeze({
-  topColor1: 'rgb(255,0,0)',
-  topColor2: 'rgb(255,0,0)',
-  topColor3: 'rgb(255,0,0)',
-  bottomColor1: 'rgb(255,0,0)',
-  bottomColor2: 'rgb(255,0,0)',
-  bottomColor3: 'rgb(255,0,0)',
-  vibrationIntensity: VIB_INTENSITIES.medium,
-  vibrationType: VIB_TYPES.quickBursts,
-  duration: 3,
-  ledType: LED_TYPES.flashing,
-});
+export const DEFAULT_ALERT_PARAMS = () => {
+  if (typeof window !== 'undefined') {
+    const localData = localStorage.getItem('default_alert_params');
+
+    if (localData) {
+      return JSON.parse(localData);
+    }
+  }
+
+  return Object.freeze({
+    topColor1: 'rgb(255,0,0)',
+    topColor2: 'rgb(255,0,0)',
+    topColor3: 'rgb(255,0,0)',
+    bottomColor1: 'rgb(255,0,0)',
+    bottomColor2: 'rgb(255,0,0)',
+    bottomColor3: 'rgb(255,0,0)',
+    vibrationIntensity: VIB_INTENSITIES.medium,
+    vibrationType: VIB_TYPES.quickBursts,
+    duration: 3,
+    ledType: LED_TYPES.flashing,
+  });
+};
 
 export const ALERT_FORM_MODES = Object.freeze({
   proto: 'proto',

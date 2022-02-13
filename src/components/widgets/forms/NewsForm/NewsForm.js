@@ -48,8 +48,8 @@ const NewsForm = ({
   );
   const [alertParams, setAlertParmas] = useState(
     defaultValues
-      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS))
-      : DEFAULT_ALERT_PARAMS
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
+      : DEFAULT_ALERT_PARAMS()
   );
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
@@ -61,7 +61,7 @@ const NewsForm = ({
   });
   const bodyText = watch('body');
 
-  const resetParams = () => setAlertParmas(DEFAULT_ALERT_PARAMS);
+  const resetParams = () => setAlertParmas(DEFAULT_ALERT_PARAMS());
   const handleParamsChange = ({ target: { name, value } }) =>
     setAlertParmas((params) => ({ ...params, [name]: value }));
 

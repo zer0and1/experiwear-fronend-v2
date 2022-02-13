@@ -43,6 +43,7 @@ const SettingDialog = ({
   terminalScreen,
   onChange,
   onReset,
+  onSaveAsDefault,
 }) => {
   const classes = useStyles();
 
@@ -219,6 +220,9 @@ const SettingDialog = ({
       <DialogActions>
         <FormButton color="secondary" onClick={onReset}>
           Reset to default
+        </FormButton>
+        <FormButton color="primary" onClick={onSaveAsDefault}>
+          Save as default
         </FormButton>
       </DialogActions>
     </Dialog>

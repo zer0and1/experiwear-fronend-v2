@@ -45,12 +45,12 @@ const PromoForm = ({
   );
   const [alertParams, setAlertParmas] = useState(
     defaultValues
-      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS))
-      : DEFAULT_ALERT_PARAMS
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
+      : DEFAULT_ALERT_PARAMS()
   );
 
   const resetParams = () => {
-    setAlertParmas(DEFAULT_ALERT_PARAMS);
+    setAlertParmas(DEFAULT_ALERT_PARAMS());
   };
 
   const handleParamsChange = useCallback(
