@@ -99,7 +99,10 @@ const AlertField = ({
           </Box>
         );
       })
-      .concat(topChanged && colorsTop, bottomChanged && colorsBottom);
+      .concat(
+        topChanged ? colorsTop : null,
+        bottomChanged ? colorsBottom : null
+      );
   }, [value, classes]);
 
   return (
