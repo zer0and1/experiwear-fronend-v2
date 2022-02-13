@@ -71,12 +71,12 @@ export const LED_TYPES = Object.freeze({
 });
 
 export const DEFAULT_ALERT_PARAMS = Object.freeze({
-  topColor1: 'rgb(130,93,222)',
-  topColor2: 'rgb(158,163,186)',
-  topColor3: 'rgb(1,161,195)',
-  bottomColor1: 'rgb(255,219,60)',
-  bottomColor2: 'rgb(1,161,195)',
-  bottomColor3: 'rgb(130,93,222)',
+  topColor1: 'rgb(255,0,0)',
+  topColor2: 'rgb(255,0,0)',
+  topColor3: 'rgb(255,0,0)',
+  bottomColor1: 'rgb(255,0,0)',
+  bottomColor2: 'rgb(255,0,0)',
+  bottomColor3: 'rgb(255,0,0)',
   vibrationIntensity: VIB_INTENSITIES.medium,
   vibrationType: VIB_TYPES.quickBursts,
   duration: 3,

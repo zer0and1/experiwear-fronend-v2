@@ -1,14 +1,13 @@
 import { Box, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { DEFAULT_ALERT_PARAMS } from 'utils/constants';
+import { difference, isEmpty } from 'utils/helpers';
 import { SettingDialog } from './components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     marginBottom: theme.spacing(2),
   },
   label: {
@@ -26,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: -12,
   },
+  colorPattern: {
+    width: 16,
+    height: 16,
+    borderRadius: 5,
+    marginRight: 4,
+  },
 }));
 
 const AlertField = ({
@@ -40,21 +45,78 @@ const AlertField = ({
   const classes = useStyles();
   const [settingToggled, toggleSetting] = useState(false);
 
-  const handleSettingClose = useCallback(() => toggleSetting(false), []);
-  const handleToggleSetting = useCallback(() => toggleSetting(true), []);
+  const paramsLabel = useMemo(() => {
+    const diff = difference(DEFAULT_ALERT_PARAMS, value);
+
+    if (isEmpty(diff)) {
+      return 'Default';
+    }
+
+    const colorsTop = (
+      <Box display="flex" alignItems="center">
+        <div>Colors Top:&nbsp;</div>
+        <div
+          className={classes.colorPattern}
+          style={{ background: value.topColor1 }}
+        />
+        <div
+          className={classes.colorPattern}
+          style={{ background: value.topColor2 }}
+        />
+        <div
+          className={classes.colorPattern}
+          style={{ background: value.topColor3 }}
+        />
+      </Box>
+    );
+
+    const colorsBottom = (
+      <Box display="flex" alignItems="center">
+        <div>Colors Bottom:&nbsp;</div>
+        <div
+          className={classes.colorPattern}
+          style={{ background: value.bottomColor1 }}
+        />
+        <div
+          className={classes.colorPattern}
+          style={{ background: value.bottomColor2 }}
+        />
+        <div
+          className={classes.colorPattern}
+          style={{ background: value.bottomColor3 }}
+        />
+      </Box>
+    );
+    let topChanged = false,
+      bottomChanged = false;
+    return Object.keys(diff)
+      .map((key) => {
+        topChanged |= key.startsWith('topColor');
+        bottomChanged |= key.startsWith('bottomColor');
+        return key.includes('Color') ? null : (
+          <Box key={key} style={{ textTransform: 'capitalize' }}>
+            {key}: {diff[key]}
+          </Box>
+        );
+      })
+      .concat(topChanged && colorsTop, bottomChanged && colorsBottom);
+  }, [value, classes]);
 
   return (
     <Box className={clsx(classes.root, className)} {...boxProps}>
-      <Box>
+      <Box display="flex" justifyContent="space-between">
         <Typography className={classes.label}>{label}</Typography>
-        <Typography className={classes.value}>Default</Typography>
+        <IconButton
+          className={classes.button}
+          onClick={() => toggleSetting(true)}
+        >
+          <OpenInNew />
+        </IconButton>
       </Box>
-      <IconButton className={classes.button} onClick={handleToggleSetting}>
-        <OpenInNew />
-      </IconButton>
+      <Box className={classes.value}>{paramsLabel}</Box>
       <SettingDialog
         open={settingToggled}
-        onClose={handleSettingClose}
+        onClose={() => toggleSetting(false)}
         params={value}
         onChange={onChange}
         onReset={onReset}
