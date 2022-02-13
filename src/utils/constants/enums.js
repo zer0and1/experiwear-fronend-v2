@@ -39,9 +39,9 @@ export const ANSWER_ENUM = Object.freeze({
 });
 
 export const GAME_STATUS = Object.freeze({
-  finished: 'Finished',
-  scheduled: 'Scheduled',
-  inPlay: 'In Play',
+  scheduled: 1,
+  inProgress: 2,
+  finished: 3,
 });
 
 export const WS_EVENTS = Object.freeze({

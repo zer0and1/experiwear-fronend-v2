@@ -11,10 +11,11 @@ import {
 import { TeamLogo, GameSelectDialog } from 'components';
 import { useSelector } from 'react-redux';
 import { getEnglishDateWithTime } from 'utils/helpers';
+import { GAME_STATUS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 210,
+    height: 220,
   },
   button: {
     borderRadius: theme.spacing(3),
@@ -31,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.info.main,
     fontFamily: theme.custom.fonts.SFProTextMedium,
     fontSize: 18,
+  },
+  score: {
+    fontSize: 20,
+    fontFamily: theme.custom.fonts.SFProTextMedium,
+    fontWeight: 'bold',
   },
 }));
 
@@ -63,21 +69,43 @@ const CurrentGame = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Box display="flex" alignItems="center">
-              <TeamLogo
-                size={80}
-                team={selectedGame.visitorTeam.abbreviation}
-              />
-              <Typography className={classes.teamName}>
-                {selectedGame.visitorTeam.name}
-              </Typography>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-around"
+            >
+              <Box display="flex" alignItems="center" flexDirection="column">
+                <TeamLogo
+                  size={80}
+                  team={selectedGame.visitorTeam.abbreviation}
+                />
+                <Typography className={classes.teamName}>
+                  {selectedGame.visitorTeam.name}
+                </Typography>
+              </Box>
+              {selectedGame.gameStatus === GAME_STATUS.finished && (
+                <Typography className={classes.score}>
+                  {selectedGame.visitorTeamScore}
+                </Typography>
+              )}
             </Box>
             <Typography className={classes.vs}>VS</Typography>
-            <Box display="flex" alignItems="center">
-              <TeamLogo size={80} team={selectedGame.homeTeam.abbreviation} />
-              <Typography className={classes.teamName}>
-                {selectedGame.homeTeam.name}
-              </Typography>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-around"
+            >
+              {selectedGame.gameStatus === GAME_STATUS.finished && (
+                <Typography className={classes.score}>
+                  {selectedGame.visitorTeamScore}
+                </Typography>
+              )}
+              <Box display="flex" alignItems="center" flexDirection="column">
+                <TeamLogo size={80} team={selectedGame.homeTeam.abbreviation} />
+                <Typography className={classes.teamName}>
+                  {selectedGame.homeTeam.name}
+                </Typography>
+              </Box>
             </Box>
           </Box>
         ) : (
