@@ -15,7 +15,7 @@ export const ALERT_PROTO_TYPES = Object.freeze({
   survey: 'survey',
   score: 'score',
   promo: 'promo',
-  gamedayTheme: 'gameday-theme',
+  gameday: 'gameday',
 });
 
 export const ALERT_PROTO_LABELS = Object.freeze({
@@ -23,7 +23,7 @@ export const ALERT_PROTO_LABELS = Object.freeze({
   [ALERT_PROTO_TYPES.survey]: 'QuickPoll',
   [ALERT_PROTO_TYPES.score]: 'Score',
   [ALERT_PROTO_TYPES.promo]: 'Promo',
-  [ALERT_PROTO_TYPES.gamedayTheme]: 'Gameday Theme',
+  [ALERT_PROTO_TYPES.gameday]: 'Gameday',
 });
 
 export const ALERT_MIXED_TYPES = Object.freeze({
@@ -175,7 +175,7 @@ export const LINKS = Object.freeze({
     path: '/schedule/schedule-sent',
     protected: true,
   },
-  gamedayTheme: {
+  gameday: {
     title: 'Gameday Theme',
     path: '/gameday-theme',
     protected: true,

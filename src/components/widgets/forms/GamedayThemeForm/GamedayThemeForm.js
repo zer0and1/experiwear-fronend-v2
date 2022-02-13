@@ -32,7 +32,8 @@ const GamedayThemeForm = ({
     }
 
     await onSubmit({
-      title: 'Gameday Theme',
+      title: 'Gameday',
+      body: 'Gameday',
       file: image?.file,
       ...DEFAULT_ALERT_PARAMS,
     });

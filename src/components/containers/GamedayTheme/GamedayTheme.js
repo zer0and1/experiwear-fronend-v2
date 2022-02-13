@@ -15,7 +15,7 @@ const GamedayTheme = () => {
   const dispatch = useDispatch();
 
   const handleCreate = async (data) => {
-    await dispatch(createAlert(ALERT_PROTO_TYPES.gamedayTheme, data));
+    await dispatch(createAlert(ALERT_PROTO_TYPES.gameday, data));
   };
 
   return (

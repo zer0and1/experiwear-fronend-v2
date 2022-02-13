@@ -3,7 +3,7 @@ import { usePathIndicator } from 'hooks';
 import { LINKS } from 'utils/constants';
 
 export default function GamedayThemePage() {
-  usePathIndicator(LINKS.gamedayTheme);
+  usePathIndicator(LINKS.gameday);
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
