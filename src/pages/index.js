@@ -5,22 +5,34 @@ import {
   SelectedGame,
   SelectedGameSidebar,
 } from 'components';
-import { useSelector } from 'react-redux';
-import { isEmpty } from 'utils/helpers';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { Box, Link } from '@material-ui/core';
 
 export default function HomePage() {
-  const isSelectedGame = useSelector(
-    (state) => !isEmpty(state.games.selectedGame)
-  );
+  const [isMonthlyView, setMonthlyView] = useState(true);
+
   const sidebar = useMemo(
-    () => (isSelectedGame ? <SelectedGameSidebar /> : <HomeSidebar />),
-    [isSelectedGame]
-  );
-  const content = useMemo(
-    () => (isSelectedGame ? <SelectedGame /> : <Home />),
-    [isSelectedGame]
+    () => (isMonthlyView ? <HomeSidebar /> : <SelectedGameSidebar />),
+    [isMonthlyView]
   );
 
-  return <Layout sidebar={sidebar}>{content}</Layout>;
+  const content = useMemo(
+    () => (isMonthlyView ? <Home /> : <SelectedGame />),
+    [isMonthlyView]
+  );
+
+  const handleChangeView = () => {
+    setMonthlyView(!isMonthlyView);
+  };
+
+  return (
+    <Layout sidebar={sidebar} flexDirection="column">
+      <Box display="flex" justifyContent="flex-end" pr={2}>
+        <Link component="button" variant="body2" onClick={handleChangeView}>
+          {isMonthlyView ? 'Switch to daily' : 'Switch to monthly'}
+        </Link>
+      </Box>
+      {content}
+    </Layout>
+  );
 }

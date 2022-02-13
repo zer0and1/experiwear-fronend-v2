@@ -6,6 +6,7 @@ import { ExpLoading } from 'components';
 import AppBar from '../AppBar';
 import SideMenu from '../SideMenu';
 import SideBar from '../SideBar';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Layout = ({ children, sidebar }) => {
+const Layout = ({ children, sidebar, ...boxProps }) => {
   const classes = useStyles();
   const { loadingStatus } = useSelector((state) => state.aux);
 
@@ -50,7 +51,9 @@ const Layout = ({ children, sidebar }) => {
 
       <div className={classes.container}>
         <AppBar />
-        <div className={classes.content}>{children}</div>
+        <Box className={classes.content} {...boxProps}>
+          {children}
+        </Box>
       </div>
 
       <SideBar>{sidebar}</SideBar>
