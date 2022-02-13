@@ -57,7 +57,7 @@ const QuickPollForm = ({
   const [responses, setResponses] = useState(
     defaultValues
       ? defaultValues.surveyResponses.map((res) => res.response || '')
-      : ['']
+      : ['', '']
   );
   const [alertParams, setAlertParmas] = useState(
     defaultValues
@@ -66,7 +66,9 @@ const QuickPollForm = ({
   );
 
   const addResponse = () => {
-    setResponses((prevState) => [...prevState, '']);
+    setResponses((prevState) =>
+      prevState.length < 5 ? [...prevState, ''] : prevState
+    );
   };
 
   const resetParams = () => {
@@ -137,7 +139,7 @@ const QuickPollForm = ({
                     )
                   }
                 />
-                {responses.length > 1 && (
+                {responses.length > 2 && (
                   <Box display="flex" alignItems="center">
                     <IconButton
                       onClick={() =>
@@ -159,6 +161,7 @@ const QuickPollForm = ({
               className={classes.anotherResponseButton}
               fullWidth={false}
               onClick={addResponse}
+              disabled={responses.length >= 5}
             >
               Add another response
             </Button>
