@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState, useMemo } from 'react';
 import {
   Box,
   Button,
@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { TeamLogo, GameSelectDialog } from 'components';
 import { useSelector } from 'react-redux';
-import { getEnglishDateWithTime } from 'utils/helpers';
 import { GAME_STATUS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +43,12 @@ const CurrentGame = () => {
   const classes = useStyles();
   const selectedGame = useSelector((state) => state.games.selectedGame);
   const [openGamedayDialog, setOpenGamedayDialog] = useState(false);
+  const showScore = useMemo(
+    () =>
+      selectedGame?.gameStatus === GAME_STATUS.finished ||
+      selectedGame?.gameStatus === GAME_STATUS.inProgress,
+    [selectedGame]
+  );
 
   const handleSelectGameday = (e) => {
     e.preventDefault();
@@ -58,9 +63,7 @@ const CurrentGame = () => {
     <Card className={classes.root}>
       <CardHeader
         title="Current Game"
-        subheader={
-          selectedGame ? getEnglishDateWithTime(selectedGame.date) : ''
-        }
+        subheader={selectedGame ? selectedGame.gameStatusText : ''}
       />
       <CardContent className={classes.content}>
         {selectedGame ? (
@@ -83,7 +86,7 @@ const CurrentGame = () => {
                   {selectedGame.visitorTeam.name}
                 </Typography>
               </Box>
-              {selectedGame.gameStatus === GAME_STATUS.finished && (
+              {showScore && (
                 <Typography className={classes.score}>
                   {selectedGame.visitorTeamScore}
                 </Typography>
@@ -95,9 +98,9 @@ const CurrentGame = () => {
               alignItems="center"
               justifyContent="space-around"
             >
-              {selectedGame.gameStatus === GAME_STATUS.finished && (
+              {showScore && (
                 <Typography className={classes.score}>
-                  {selectedGame.visitorTeamScore}
+                  {selectedGame.homeTeamScore}
                 </Typography>
               )}
               <Box display="flex" alignItems="center" flexDirection="column">
