@@ -11,6 +11,7 @@ import {
   STRING_VALID,
   DEFAULT_ALERT_PARAMS,
   ALERT_FORM_MODES,
+  GAME_STATUS,
 } from 'utils/constants';
 import {
   AlertField,
@@ -140,7 +141,10 @@ const ScoreForm = ({
         </Grid>
       </Grid>
       <Box mt="auto">
-        <FormButton type="submit">
+        <FormButton
+          type="submit"
+          disabled={!game || game.gameStatus !== GAME_STATUS.inProgress}
+        >
           {mode === ALERT_FORM_MODES.saved ? 'Save' : 'Send'}
         </FormButton>
       </Box>
