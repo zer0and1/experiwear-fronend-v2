@@ -20,7 +20,7 @@ export const signIn = (params) => async (dispatch) => {
   try {
     const user = await authAPI.login(params);
 
-    if (!isLocalhost()) {
+    if (isLocalhost()) {
       const date = new Date();
       date.setTime(date.getTime() + COOKIE_MAX_AGE);
       document.cookie = `${COOKIE_NAME}=valid_cookie; expires=${date.toUTCString()}; path=/`;

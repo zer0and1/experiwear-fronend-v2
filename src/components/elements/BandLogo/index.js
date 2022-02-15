@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { BAND_LOGO_IMAGE_PATH, HAWKS_URL } from 'utils/constants';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   picture: {
     display: 'flex',
   },
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: props.width,
     objectFit: 'contain',
   }),
-}));
+});
 
 const BandLogo = ({ width = 489, className, ...rest }) => {
   const classes = useStyles({ width });

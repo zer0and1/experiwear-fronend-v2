@@ -1,4 +1,4 @@
-import App from 'next/app';
+import React from 'react';
 import Head from 'next/head';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -53,17 +53,12 @@ function CustomApp({ Component, pageProps }) {
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
       </Head>
       <ThemeProvider theme={theme}>
-        <ToastContainer />
         <CssBaseline />
         <Component {...pageProps} />
+        <ToastContainer />
       </ThemeProvider>
     </>
   );
 }
-
-CustomApp.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  return { ...appProps };
-};
 
 export default wrapper.withRedux(CustomApp);
