@@ -7,9 +7,6 @@ import combinedReducer from 'redux/reducers';
 const bindMiddleWares = (middleWares) => {
   if (process.env.NODE_ENV !== 'production') {
     const { composeWithDevTools } = require('redux-devtools-extension');
-    const { logger } = require(`redux-logger`);
-    middleWares.push(logger);
-
     return composeWithDevTools(applyMiddleware(...middleWares));
   }
   return applyMiddleware(...middleWares);
