@@ -5,6 +5,7 @@ import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { CurrentFanbandStats } from 'components';
 import { useAsyncAction } from 'hooks';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,17 +37,18 @@ const useAlertsSent = (type, title) => {
     state.notifications[type].results
       .filter((alert) => alert.isSent)
       .map((alert) => {
-        // TODO: aggregates reponses, sent, open, avg and md
+        const totalCount = alert.sent + alert.received;
+
         return {
           ...alert,
           aggr: {
             sent: {
-              count: 311,
-              percent: 98,
+              count: alert.sent,
+              percent: calcPercent(alert.sent, totalCount),
             },
             open: {
-              count: 1,
-              percent: 2,
+              count: alert.received,
+              percent: calcPercent(alert.received, totalCount),
             },
           },
         };

@@ -6,6 +6,7 @@ import { Fragment, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ALERT_PROTO_TYPES } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   table: {
     tableLayout: 'fixed',
     width: '100%',
-    marginTop: -92,
   },
   cell: {
     fontFamily: theme.custom.fonts.SFProDisplayBlackItalic,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     textTransform: 'uppercase',
     textAlign: 'center',
-    height: 92,
+    padding: theme.spacing(1, 0),
   },
   divider: {
     height: 0,
@@ -43,46 +43,60 @@ const useStyles = makeStyles((theme) => ({
 const QuickPollAlertsSent = () => {
   const classes = useStyles();
   const alerts = useSelector((state) =>
-    state.notifications.survey.results.filter((alert) => alert.isSent)
+    state.notifications.survey.results
+      .filter((alert) => alert.isSent)
+      .map((alert) => ({
+        ...alert,
+        surveyResponses: alert.surveyResponses.slice(0, 5),
+      }))
   );
-  const responses = useMemo(
+
+  const maxResNum = useMemo(
     () =>
       alerts.reduce(
-        (acc, alert) =>
-          acc.find((res) =>
-            alert.surveyResponses.find((sr) => sr.response === res)
-          )
-            ? acc
-            : [...acc, ...alert.surveyResponses.map((sr) => sr.response)],
-        []
+        (maxNum, alert) =>
+          maxNum < alert.surveyResponses.length
+            ? alert.surveyResponses.length
+            : maxNum,
+        0
       ),
     [alerts]
   );
+
   const surveys = useMemo(
     () =>
       alerts.map((alert) => {
-        // TODO: aggregates reponses, sent, open, avg and md
+        // TODO: aggregates avg and md
+        const totalCount = alert.sent + alert.received;
+        const resNum = alert.surveyResponses.reduce(
+          (num, { count = 0 }) => num + count,
+          0
+        );
+
         return {
           ...alert,
           aggr: {
-            ...responses.reduce(
-              (acc, res) => ({ ...acc, [res]: { count: 40, percent: 50 } }),
+            ...alert.surveyResponses.reduce(
+              (acc, { response: res, count = 0 }) => ({
+                ...acc,
+                [res]: { count, percent: calcPercent(count, resNum) },
+              }),
               {}
             ),
             sent: {
-              count: 80,
-              percent: 80,
+              count: alert.sent,
+              percent: calcPercent(alert.sent, totalCount),
             },
             open: {
-              count: 80,
-              percent: 80,
+              count: alert.received,
+              percent: calcPercent(alert.received, totalCount),
             },
             avg: '0.00',
             md: '0.00',
           },
         };
       }),
-    [alerts, responses]
+    [alerts]
   );
 
   useAsyncAction(getNotifications(ALERT_PROTO_TYPES.survey), !alerts.length);
@@ -94,15 +108,8 @@ const QuickPollAlertsSent = () => {
         <table className={classes.table}>
           <thead>
             <tr>
-              <td style={{ width: 300 }}></td>
-              {responses.map((res, idx) => (
-                <td
-                  key={res}
-                  className={clsx(classes.cell, classes[`color${idx}`])}
-                >
-                  {res}
-                </td>
-              ))}
+              <th style={{ width: 200 }}></th>
+              <th colSpan={maxResNum}></th>
               <th className={classes.cell}>sent</th>
               <th className={classes.cell}>open</th>
               <th className={classes.cell}>avg</th>
@@ -110,13 +117,13 @@ const QuickPollAlertsSent = () => {
             </tr>
           </thead>
           <tbody>
-            {surveys.map((alert) => (
+            {surveys.map((alert, rowIdx) => (
               <Fragment key={alert.id}>
                 <tr>
                   <td className={classes.cell}>
                     <AlertItem data={alert} />
                   </td>
-                  {responses.map((res, idx) => (
+                  {alert.surveyResponses.map(({ response: res }, idx) => (
                     <td
                       key={res}
                       className={clsx(
@@ -124,9 +131,15 @@ const QuickPollAlertsSent = () => {
                         classes[`color${Math.min(idx, 2)}`]
                       )}
                     >
+                      {res} <br />
                       {alert.aggr?.[res].count} <br />
                       {alert.aggr?.[res].percent}%
                     </td>
+                  ))}
+                  {Array.from({
+                    length: maxResNum - alert.surveyResponses.length,
+                  }).map((_, idx) => (
+                    <td key={idx} className={classes.cell} />
                   ))}
                   <td className={classes.cell}>
                     {alert.aggr.sent.count} <br /> {alert.aggr.sent.percent}%
@@ -137,12 +150,14 @@ const QuickPollAlertsSent = () => {
                   <td className={classes.cell}>{alert.aggr.avg}</td>
                   <td className={classes.cell}>{alert.aggr.md}</td>
                 </tr>
-                <tr>
-                  <td
-                    className={classes.divider}
-                    colSpan={responses.length + 5}
-                  ></td>
-                </tr>
+                {rowIdx < surveys.length - 1 && (
+                  <tr>
+                    <td
+                      className={classes.divider}
+                      colSpan={maxResNum + 5}
+                    ></td>
+                  </tr>
+                )}
               </Fragment>
             ))}
           </tbody>

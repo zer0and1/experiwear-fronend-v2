@@ -3,7 +3,7 @@ import { LINKS } from 'utils/constants';
 import { usePathIndicator } from 'hooks';
 
 const QuickPollAlertsSent = () => {
-  usePathIndicator([LINKS.promo, LINKS.promoSent]);
+  usePathIndicator([LINKS.quickPoll, LINKS.quickPollSent]);
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
