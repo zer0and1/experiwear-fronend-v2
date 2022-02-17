@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { AlertItem, FHCard, FHCardContent, FHCardHeader } from 'components';
 import { Fragment, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { ALERT_PROTO_TYPES } from 'utils/constants';
+import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
 import { calcPercent } from 'utils/helpers';
 
@@ -121,7 +121,7 @@ const QuickPollAlertsSent = () => {
               <Fragment key={alert.id}>
                 <tr>
                   <td className={classes.cell}>
-                    <AlertItem data={alert} />
+                    <AlertItem data={alert} href={LINKS.quickPollSample.path} />
                   </td>
                   {alert.surveyResponses.map(({ response: res }, idx) => (
                     <td

@@ -44,6 +44,7 @@ const PromoForm = ({
   const [image, setImage] = useState(
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
+  const [sendTo, setSendTo] = useState(defaultValues?.sendTo || []);
   const [alertParams, setAlertParmas] = useState(
     defaultValues
       ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
@@ -65,16 +66,16 @@ const PromoForm = ({
     defaultValues: {
       title: '',
       body: '',
-      userId: '',
-      ..._.pick(defaultValues, ['title', 'body', 'userId']),
+      ..._.pick(defaultValues, ['title', 'body']),
     },
   });
   const bodyText = watch('body');
 
   const submitHandler = async (data) => {
     await onSubmit({
-      ..._.pick(data, ['title', 'body', 'userId']),
+      ..._.pick(data, ['title', 'body']),
       ...alertParams,
+      sendTo,
       file: image?.file,
     });
     if (!updating) {
@@ -85,6 +86,7 @@ const PromoForm = ({
   const resetForm = () => {
     reset();
     setImage(null);
+    setSendTo([]);
     resetParams();
   };
 
@@ -140,14 +142,14 @@ const PromoForm = ({
             />
           </Grid>
           <Grid item xs={12}>
-            <Controller
-              control={control}
-              name="userId"
+            <PhonePicker
               label="Send alert to"
               placeholder="Everyone"
               error={errors.userId?.message}
+              value={sendTo}
+              onChange={(ev, value) => setSendTo(value)}
               fullWidth
-              as={<PhonePicker />}
+              mb={3}
             />
           </Grid>
         </Grid>

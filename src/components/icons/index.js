@@ -26,3 +26,4 @@ export { default as StatsIcon } from './StatsIcon';
 export { default as TicketIcon } from './TicketIcon';
 export { default as FanbandIcon } from './FanbandIcon';
 export { default as CloudIcon } from './CloudIcon';
+export { default as UserIcon } from './UserIcon';

@@ -155,6 +155,11 @@ export const LINKS = Object.freeze({
     path: '/quickpoll/quickpoll-sent',
     protected: true,
   },
+  quickPollSample: {
+    title: 'All quick polls',
+    path: '/quickpoll/quickpoll-sent/:id',
+    protected: true,
+  },
   score: {
     title: 'Score',
     path: '/score',

@@ -20,7 +20,7 @@ export const CONFIRM_PASSWORD_VALID = yup
 export const TITLE_VALID = yup
   .string()
   .required('Please enter in this field.')
-  .matches(/^[A-Za-z0-9 ?!]*$/, 'Please do not input special character');
+  .matches(/^[A-Za-z0-9' ?!]*$/, 'Please do not input special character');
 
 export const STRING_VALID = yup
   .string()

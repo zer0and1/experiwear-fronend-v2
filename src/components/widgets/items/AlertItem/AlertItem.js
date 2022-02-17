@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Link,
   makeStyles,
   Popover,
   Typography,
@@ -34,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     color: '#333',
     textTransform: 'capitalize',
+  },
+  link: {
+    fontFamily: theme.custom.fonts.SFUITextMedium,
+    fontSize: 14,
+    textTransform: 'capitalize',
+    cursor: 'pointer',
   },
   description: {
     fontSize: 12,
@@ -85,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
 const AlertItem = ({
   data: { id, imageUrl, type, title, createdAt },
   action = false,
+  href = '',
   className,
   ...boxProps
 }) => {
@@ -111,12 +119,22 @@ const AlertItem = ({
     dispatch(removeSavedAlert(id));
   };
 
+  const handleClickLink = () => {
+    href && router.push(href.replace(':id', id));
+  };
+
   return (
     <Box {...boxProps} className={clsx(classes.root, className)}>
       <Box display="flex" alignItems="center">
         <img className={classes.icon} src={imageUrl} />
         <div>
-          <Typography className={classes.title}>{`${type} alert`}</Typography>
+          {href ? (
+            <Link onClick={handleClickLink} className={classes.link}>
+              {`${type} alert`}
+            </Link>
+          ) : (
+            <Typography className={classes.title}>{`${type} alert`}</Typography>
+          )}
           <Typography className={classes.description}>{title}</Typography>
           <Typography className={classes.description}>
             {moment(createdAt).format('MMM D @ hh:mm A')}

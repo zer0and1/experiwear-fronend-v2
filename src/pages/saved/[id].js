@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { getSavedAlerts } from 'redux/actions';
 import { ALERT_MIXED_TYPES, LINKS } from 'utils/constants';
+import { isEmpty } from 'utils/helpers';
 
 export default function EditSavedAlertPage() {
   const {
@@ -16,7 +17,7 @@ export default function EditSavedAlertPage() {
   );
 
   usePathIndicator([LINKS.saved, LINKS.savedAll, LINKS.savedEdit]);
-  useAsyncAction({ action: getSavedAlerts, blocked: !alert });
+  useAsyncAction(getSavedAlerts(), isEmpty(alert));
 
   return (
     <Layout sidebar={<ActiveSavedAlerts />}>
