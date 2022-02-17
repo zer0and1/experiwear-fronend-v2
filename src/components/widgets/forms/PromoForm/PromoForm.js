@@ -18,6 +18,7 @@ import {
   ExpImageField,
   ExpTextField,
   ImageScreen,
+  PhonePicker,
 } from 'components';
 
 const schema = yup.object().shape({
@@ -64,14 +65,15 @@ const PromoForm = ({
     defaultValues: {
       title: '',
       body: '',
-      ..._.pick(defaultValues, ['title', 'body']),
+      userId: '',
+      ..._.pick(defaultValues, ['title', 'body', 'userId']),
     },
   });
   const bodyText = watch('body');
 
   const submitHandler = async (data) => {
     await onSubmit({
-      ..._.pick(data, ['title', 'body']),
+      ..._.pick(data, ['title', 'body', 'userId']),
       ...alertParams,
       file: image?.file,
     });
@@ -135,6 +137,17 @@ const PromoForm = ({
               terminalScreen={
                 <ImageScreen imageUrl={image?.url} text={bodyText} />
               }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              control={control}
+              name="userId"
+              label="Send alert to"
+              placeholder="Everyone"
+              error={errors.userId?.message}
+              fullWidth
+              as={<PhonePicker />}
             />
           </Grid>
         </Grid>
