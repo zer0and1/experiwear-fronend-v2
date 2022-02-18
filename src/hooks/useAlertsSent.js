@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, makeStyles } from '@material-ui/core';
-import { getNotifications } from 'redux/actions';
+import { getFanbandsStatistics, getNotifications } from 'redux/actions';
 import { Layout, AlertItem } from 'components';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { CurrentFanbandStats } from 'components';
 import { useAsyncAction } from 'hooks';
-import { calcPercent } from 'utils/helpers';
+import { calcPercent, isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,29 +33,30 @@ const useStyles = makeStyles((theme) => ({
 
 const useAlertsSent = (type, title) => {
   const classes = useStyles();
+  const totalCount = useSelector(
+    (state) => state.main.fanbands.statistics.total
+  );
+
   const alerts = useSelector((state) =>
     state.notifications[type].results
       .filter((alert) => alert.isSent)
-      .map((alert) => {
-        const totalCount = alert.sent + alert.received;
-
-        return {
-          ...alert,
-          aggr: {
-            sent: {
-              count: alert.sent,
-              percent: calcPercent(alert.sent, totalCount),
-            },
-            open: {
-              count: alert.received,
-              percent: calcPercent(alert.received, totalCount),
-            },
+      .map((alert) => ({
+        ...alert,
+        aggr: {
+          sent: {
+            count: alert.sent,
+            percent: calcPercent(alert.sent, totalCount),
           },
-        };
-      })
+          open: {
+            count: alert.opened,
+            percent: calcPercent(alert.opened, totalCount),
+          },
+        },
+      }))
   );
 
-  useAsyncAction(getNotifications(type), !alerts.length);
+  useAsyncAction(getNotifications(type), isEmpty(alerts));
+  useAsyncAction(getFanbandsStatistics(), !totalCount);
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
@@ -65,13 +66,13 @@ const useAlertsSent = (type, title) => {
           <table className={classes.table}>
             <thead>
               <tr>
-                <td style={{ width: 500 }}></td>
+                <td style={{ width: 300 }}></td>
                 <th className={classes.cell}>sent</th>
                 <th className={classes.cell}>open</th>
               </tr>
             </thead>
             <tbody>
-              {alerts.map((alert) => (
+              {alerts.map((alert, idx) => (
                 <Fragment key={alert.id}>
                   <tr>
                     <td className={classes.cell}>
@@ -84,9 +85,11 @@ const useAlertsSent = (type, title) => {
                       {alert.aggr.open.count} <br /> {alert.aggr.open.percent}%
                     </td>
                   </tr>
-                  <tr>
-                    <td className={classes.divider} colSpan={3}></td>
-                  </tr>
+                  {idx < alerts.length - 1 && (
+                    <tr>
+                      <td className={classes.divider} colSpan={3}></td>
+                    </tr>
+                  )}
                 </Fragment>
               ))}
             </tbody>
