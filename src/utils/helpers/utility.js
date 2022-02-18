@@ -14,7 +14,11 @@ export const isEmpty = (value) => {
 
 export const getFormData = (obj) =>
   Object.keys(obj).reduce((formData, key) => {
-    formData.append(key, obj[key]);
+    if (Array.isArray(obj[key])) {
+      obj[key].forEach((el) => formData.append(`${key}[]`, el));
+    } else {
+      formData.append(key, obj[key]);
+    }
     return formData;
   }, new FormData());
 
