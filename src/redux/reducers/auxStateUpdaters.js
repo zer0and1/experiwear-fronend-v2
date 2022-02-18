@@ -2,6 +2,7 @@ export const INITIAL_AUX_STATE = {
   pathTokens: [],
   loadingStatus: false,
   error: null,
+  loadingCount: 0,
 };
 
 export const setPathTokensUpdater = (state, { payload }) => ({
@@ -9,7 +10,17 @@ export const setPathTokensUpdater = (state, { payload }) => ({
   pathTokens: [{ path: '/', title: 'Experiwear' }, ...payload],
 });
 
-export const setLoadingStatusUpdater = (state, { payload }) => ({
-  ...state,
-  loadingStatus: payload,
-});
+export const setLoadingStatusUpdater = (state, { payload }) => {
+  let { loadingCount } = state;
+  loadingCount = payload
+    ? ++loadingCount
+    : loadingCount > 0
+    ? --loadingCount
+    : 0;
+
+  return {
+    ...state,
+    loadingCount,
+    loadingStatus: loadingCount > 0,
+  };
+};

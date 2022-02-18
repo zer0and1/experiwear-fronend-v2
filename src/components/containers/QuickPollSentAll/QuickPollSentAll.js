@@ -1,12 +1,12 @@
 import { makeStyles } from '@material-ui/core';
-import { getNotifications } from 'redux/actions';
+import { getFanbandsStatistics, getNotifications } from 'redux/actions';
 import clsx from 'clsx';
 import { AlertItem, FHCard, FHCardContent, FHCardHeader } from 'components';
 import { Fragment, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
 import { useAsyncAction } from 'hooks';
-import { calcPercent } from 'utils/helpers';
+import { calcPercent, isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +50,9 @@ const QuickPollAlertsSent = () => {
         surveyResponses: alert.surveyResponses.slice(0, 5),
       }))
   );
+  const totalCount = useSelector(
+    (state) => state.main.fanbands.statistics.total
+  );
 
   const maxResNum = useMemo(
     () =>
@@ -66,8 +69,6 @@ const QuickPollAlertsSent = () => {
   const surveys = useMemo(
     () =>
       alerts.map((alert) => {
-        // TODO: aggregates avg and md
-        const totalCount = alert.sent + alert.received;
         const resNum = alert.surveyResponses.reduce(
           (num, { count = 0 }) => num + count,
           0
@@ -88,18 +89,17 @@ const QuickPollAlertsSent = () => {
               percent: calcPercent(alert.sent, totalCount),
             },
             open: {
-              count: alert.received,
-              percent: calcPercent(alert.received, totalCount),
+              count: alert.opened,
+              percent: calcPercent(alert.opened, totalCount),
             },
-            avg: '0.00',
-            md: '0.00',
           },
         };
       }),
-    [alerts]
+    [alerts, totalCount]
   );
 
-  useAsyncAction(getNotifications(ALERT_PROTO_TYPES.survey), !alerts.length);
+  useAsyncAction(getNotifications(ALERT_PROTO_TYPES.survey), isEmpty(alerts));
+  useAsyncAction(getFanbandsStatistics(), !totalCount);
 
   return (
     <FHCard className={classes.root}>
@@ -112,8 +112,6 @@ const QuickPollAlertsSent = () => {
               <th colSpan={maxResNum}></th>
               <th className={classes.cell}>sent</th>
               <th className={classes.cell}>open</th>
-              <th className={classes.cell}>avg</th>
-              <th className={classes.cell}>md</th>
             </tr>
           </thead>
           <tbody>
@@ -147,14 +145,12 @@ const QuickPollAlertsSent = () => {
                   <td className={classes.cell}>
                     {alert.aggr.open.count} <br /> {alert.aggr.open.percent}%
                   </td>
-                  <td className={classes.cell}>{alert.aggr.avg}</td>
-                  <td className={classes.cell}>{alert.aggr.md}</td>
                 </tr>
                 {rowIdx < surveys.length - 1 && (
                   <tr>
                     <td
                       className={classes.divider}
-                      colSpan={maxResNum + 5}
+                      colSpan={maxResNum + 3}
                     ></td>
                   </tr>
                 )}
