@@ -91,7 +91,7 @@ export const removeSavedAlert = (id) => async (dispatch) => {
   dispatch(setLoadingStatus(false));
 };
 
-const PAGE_COUNT = 5;
+const PAGE_COUNT = 500;
 export const getLatestNewsNotifications =
   (refresh = false) =>
   async (dispatch, getState) => {
