@@ -11,6 +11,7 @@ import {
 import { TeamLogo, GameSelectDialog } from 'components';
 import { useSelector } from 'react-redux';
 import { GAME_STATUS } from 'utils/constants';
+import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,17 @@ const CurrentGame = () => {
       selectedGame?.gameStatus === GAME_STATUS.inProgress,
     [selectedGame]
   );
+  const statusText = useMemo(() => {
+    if (isEmpty(selectedGame)) {
+      return '';
+    }
+
+    if (selectedGame.gameStatus === GAME_STATUS.scheduled) {
+      return getEnglishDateWithTime(selectedGame.startTime);
+    } else {
+      return selectedGame.gameStatusText;
+    }
+  }, [selectedGame]);
 
   const handleSelectGameday = (e) => {
     e.preventDefault();
@@ -61,12 +73,19 @@ const CurrentGame = () => {
 
   return (
     <Card className={classes.root}>
-      <CardHeader
-        title="Current Game"
-        subheader={selectedGame ? selectedGame.gameStatusText : ''}
-      />
+      <CardHeader title="Current Game" subheader={statusText} />
       <CardContent className={classes.content}>
-        {selectedGame ? (
+        {isEmpty(selectedGame) ? (
+          <Button
+            className={classes.button}
+            color="primary"
+            variant="contained"
+            fullWidth
+            onClick={handleSelectGameday}
+          >
+            Select Gameday
+          </Button>
+        ) : (
           <Box
             display="flex"
             alignItems="center"
@@ -111,16 +130,6 @@ const CurrentGame = () => {
               </Box>
             </Box>
           </Box>
-        ) : (
-          <Button
-            className={classes.button}
-            color="primary"
-            variant="contained"
-            fullWidth
-            onClick={handleSelectGameday}
-          >
-            Select Gameday
-          </Button>
         )}
         <GameSelectDialog
           open={openGamedayDialog}
