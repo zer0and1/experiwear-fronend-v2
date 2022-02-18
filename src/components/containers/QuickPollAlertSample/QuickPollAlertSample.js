@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 5,
     },
     '& .MuiSelect-selectMenu': {
-      fontFamily: theme.custom.fonts.SFUITextRegular,
+      fontFamily: theme.custom.fonts.SFProTextMedium,
       fontSize: 14,
-      color: theme.custom.palette.textGrey,
+      color: '#000',
     },
     '& .MuiSelect-select:focus': {
       backgroundColor: 'unset',

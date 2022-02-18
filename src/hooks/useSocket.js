@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import io from 'socket.io-client';
 
-import { SOCKET_URL } from 'config';
-
-const socket = io(`${SOCKET_URL}/fanbands`, {
+const socket = io(`https://hawks.api.experiwear.com/`, {
+  path: '/users',
   reconnectionAttempts: 2,
   timeout: 10000,
   transports: ['websocket'],

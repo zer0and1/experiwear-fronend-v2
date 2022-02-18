@@ -8,11 +8,7 @@ const QuickPollAlertSamplePage = () => {
     query: { id },
   } = useRouter();
 
-  usePathIndicator([
-    LINKS.quickPoll,
-    LINKS.quickPollSent,
-    LINKS.quickPollSample,
-  ]);
+  usePathIndicator([LINKS.quickPoll, LINKS.quickPollSent]);
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>

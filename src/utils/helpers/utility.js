@@ -46,7 +46,7 @@ export const difference = (origObj, newObj) => {
 
 /**
  * Format phone number only with numbers beginning with `+` symbol
- * @param {string} phone  - phone number string to format
+ * @param  {string} phone - Phone number string to format
  * @return {string} foramtted phone number string
  */
 export const formatPhone = (phone) => {
