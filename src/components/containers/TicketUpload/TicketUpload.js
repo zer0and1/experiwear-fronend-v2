@@ -127,7 +127,7 @@ const TicketUpload = () => {
         );
         setUploadedTickets(uploadedTickets);
       } catch (e) {
-        dispatch(setResponseError(e));
+        dispatch(setResponseError(e.response));
       }
 
       setUploadingProgress(0);

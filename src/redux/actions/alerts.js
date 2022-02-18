@@ -30,7 +30,7 @@ export const createAlert =
 
       dispatch(setResponseSuccess(response));
     } catch (e) {
-      dispatch(setResponseError(e));
+      dispatch(setResponseError(e.response));
     }
 
     dispatch(setLoadingStatus(false));
@@ -44,7 +44,7 @@ export const insertSavedAlert = (type, data) => async (dispatch) => {
     dispatch(setResponseSuccess(response));
     dispatch(getSavedAlerts());
   } catch (e) {
-    dispatch(setResponseError(e));
+    dispatch(setResponseError(e.response));
   }
 
   dispatch(setLoadingStatus(false));
@@ -57,7 +57,7 @@ export const sendSavedAlert = (id) => async (dispatch) => {
     const response = await alertsAPI.sendSavedAlert(id);
     dispatch(setResponseSuccess(response));
   } catch (e) {
-    dispatch(setResponseError(e));
+    dispatch(setResponseError(e.response));
   }
 
   dispatch(setLoadingStatus(false));
@@ -71,7 +71,7 @@ export const modifySavedAlert = (id, params) => async (dispatch) => {
     dispatch(setResponseSuccess(response));
     dispatch(getSavedAlerts());
   } catch (e) {
-    dispatch(setResponseError(e));
+    dispatch(setResponseError(e.response));
   }
 
   dispatch(setLoadingStatus(false));
@@ -85,7 +85,7 @@ export const removeSavedAlert = (id) => async (dispatch) => {
     await dispatch(getSavedAlerts());
     dispatch(setResponseSuccess(response));
   } catch (e) {
-    dispatch(setResponseError(e));
+    dispatch(setResponseError(e.response));
   }
 
   dispatch(setLoadingStatus(false));
@@ -172,7 +172,7 @@ export const getSavedAlerts = (params) => async (dispatch) => {
     const res = await alertsAPI.getNotifications({ ...params, isSaved: true });
     dispatch(setAlerts({ ...res, type: ALERT_MIXED_TYPES.saved }));
   } catch (e) {
-    dispatch(setResponseError(e));
+    dispatch(setResponseError(e.response));
   }
 };
 

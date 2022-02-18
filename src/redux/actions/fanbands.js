@@ -20,7 +20,7 @@ export const getFanbands =
       const fanbands = await readFanbands({ pageType });
       dispatch(setFanbands(fanbands));
     } catch (e) {
-      dispatch(setResponseError(e));
+      dispatch(setResponseError(e.response));
     }
   };
 

@@ -20,6 +20,7 @@ import {
   ALERT_PROTO_LABELS,
   ALERT_FORM_MODES,
 } from 'utils/constants';
+import { showWarningToast } from 'utils/helpers';
 import moment from 'moment';
 
 const Schedule = () => {
@@ -32,6 +33,8 @@ const Schedule = () => {
     async (data) => {
       if (datetime) {
         await dispatch(createAlert(type, data, datetime));
+      } else {
+        showWarningToast('Please set schedule date over current time exactly!');
       }
     },
     [type, datetime, dispatch]

@@ -22,9 +22,7 @@ export const setResponseSuccess = (response) => {
 };
 
 export const setResponseError = (error) => (dispatch) => {
-  const statusCode = error?.response?.status;
-
-  if (statusCode === 401) {
+  if (error.status === 401) {
     dispatch(setUserAuthStatus(false));
   }
 
@@ -34,9 +32,6 @@ export const setResponseError = (error) => (dispatch) => {
   });
 
   showErrorToast(
-    error?.response?.data?.message ||
-      error?.response?.data?.message?.[0] ||
-      error?.message ||
-      'Something went wrong!'
+    error.data.message?.toString() || error.message || 'Something went wrong!'
   );
 };
