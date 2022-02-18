@@ -16,7 +16,7 @@ const QuickPollAlertSamplePage = () => {
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
-      <QuickPollAlertSample />
+      <QuickPollAlertSample alertId={id} />
     </Layout>
   );
 };

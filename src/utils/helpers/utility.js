@@ -43,3 +43,12 @@ export const difference = (origObj, newObj) => {
   };
   return changes(newObj, origObj);
 };
+
+/**
+ * Format phone number only with numbers beginning with `+` symbol
+ * @param {string} phone  - phone number string to format
+ * @return {string} foramtted phone number string
+ */
+export const formatPhone = (phone) => {
+  return phone && phone.match(/\d+/g).reduce((acc, t) => acc + t, '+');
+};

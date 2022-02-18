@@ -98,6 +98,12 @@ export const FHCardHeader = withStyles({
   root: {
     padding: '48px 25px 32px 25px',
   },
+  action: {
+    margin: 0,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
 })(CardHeader);
 
 export const FHCardContent = withStyles({

@@ -4,7 +4,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { useAsyncAction } from 'hooks';
 import { getFanbands } from 'redux/actions';
 import { useSelector } from 'react-redux';
-import { isEmpty } from 'utils/helpers';
+import { formatPhone, isEmpty } from 'utils/helpers';
 
 const PhonePicker = ({
   error,
@@ -18,7 +18,7 @@ const PhonePicker = ({
   const phones = useSelector((state) =>
     state.main.fanbands.results
       .filter((f) => f.phone)
-      .map((f) => f.phone.match(/\d+/g).reduce((acc, t) => acc + t, '+'))
+      .map((f) => formatPhone(f.phone))
   );
 
   useAsyncAction(getFanbands(), !phones.length);

@@ -38,6 +38,7 @@ export { default as PhonePicker } from './pickers/PhonePicker';
 export { default as AlertItem } from './items/AlertItem';
 export { default as TicketItem } from './items/TicketItem';
 export { default as FanbandItem } from './items/FanbandItem';
+export { default as QuickPollSampleItem } from './items/QuickPollSampleItem';
 
 // charts.
 export { default as AccChart } from './charts/AccChart';
