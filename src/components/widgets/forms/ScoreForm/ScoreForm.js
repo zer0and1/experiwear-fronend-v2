@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ScoreForm = ({
   onSubmit,
-  mode = ALERT_FORM_MODES.proto,
+  mode = ALERT_FORM_MODES.create,
   defaultValues = null,
   updating = false,
 }) => {
@@ -75,7 +75,7 @@ const ScoreForm = ({
     resolver: yupResolver(schema),
     defaultValues: {
       title:
-        mode === ALERT_FORM_MODES.saved ? defaultValues?.title : alertTitle,
+        mode === ALERT_FORM_MODES.update ? defaultValues?.title : alertTitle,
       body: '',
       ..._.pick(defaultValues, ['body']),
     },
@@ -110,7 +110,7 @@ const ScoreForm = ({
               error={errors.title?.message}
               control={control}
               fullWidth
-              inputProps={{ readOnly: mode !== ALERT_FORM_MODES.saved }}
+              inputProps={{ readOnly: mode !== ALERT_FORM_MODES.update }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -145,7 +145,7 @@ const ScoreForm = ({
           type="submit"
           disabled={!game || game.gameStatus !== GAME_STATUS.inProgress}
         >
-          {mode === ALERT_FORM_MODES.saved ? 'Save' : 'Send'}
+          {mode === ALERT_FORM_MODES.update ? 'Save' : 'Send'}
         </FormButton>
       </Box>
     </form>

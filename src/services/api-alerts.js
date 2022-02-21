@@ -28,9 +28,9 @@ export const createScheduledNotification = async (params) => {
   return await axios.post('/notifications/schedule', getFormData(params));
 };
 
-export const editScheduledNotification = async (id, params) => {
+export const updateScheduledAlert = async (id, params) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.put(`/notifications/schedule/${id}`, params);
+  return await axios.put(`/notifications/schedule/${id}`, getFormData(params));
 };
 
 export const deleteScheduledNotification = async (id) => {

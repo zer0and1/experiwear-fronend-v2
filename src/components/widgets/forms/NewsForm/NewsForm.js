@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NewsForm = ({
   onSubmit,
-  mode = ALERT_FORM_MODES.proto,
+  mode = ALERT_FORM_MODES.create,
   defaultValues = null,
   updating = false,
 }) => {
@@ -142,7 +142,7 @@ const NewsForm = ({
       </Grid>
       <Box mt="auto">
         <FormButton type="submit">
-          {mode === ALERT_FORM_MODES.saved ? 'Save' : 'Send'}
+          {mode === ALERT_FORM_MODES.update ? 'Save' : 'Send'}
         </FormButton>
       </Box>
     </form>

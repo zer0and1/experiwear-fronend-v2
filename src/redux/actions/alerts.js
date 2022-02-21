@@ -91,6 +91,20 @@ export const removeSavedAlert = (id) => async (dispatch) => {
   dispatch(setLoadingStatus(false));
 };
 
+export const modifyScheduledAlert = (id, params) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    const response = await alertsAPI.updateScheduledAlert(id, params);
+    dispatch(setResponseSuccess(response));
+    dispatch(getNotifications(ALERT_MIXED_TYPES.scheduled));
+  } catch (e) {
+    dispatch(setResponseError(e.response));
+  }
+
+  dispatch(setLoadingStatus(false));
+};
+
 const PAGE_COUNT = 500;
 export const getLatestNewsNotifications =
   (refresh = false) =>

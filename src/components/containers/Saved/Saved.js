@@ -75,7 +75,7 @@ const Saved = ({ defaultValues = null, updating = false }) => {
           </Grid>
           <AlertForm
             onSubmit={handleSubmit}
-            mode={ALERT_FORM_MODES.saved}
+            mode={ALERT_FORM_MODES.update}
             defaultValues={defaultValues}
             updating={updating}
           />

@@ -93,9 +93,19 @@ export const DEFAULT_ALERT_PARAMS = () => {
 };
 
 export const ALERT_FORM_MODES = Object.freeze({
-  proto: 'proto',
-  scheduled: 'scheduled',
-  saved: 'saved',
+  create: 'create',
+  update: 'update',
+  updateAndDelete: 'updateAndDelete',
+});
+
+export const ALERT_STATUS = Object.freeze({
+  pending: 'pending',
+  sent: 'sent',
+});
+
+export const ALERT_STATUS_LABELS = Object.freeze({
+  [ALERT_STATUS.pending]: 'Pending',
+  [ALERT_STATUS.sent]: 'Sent',
 });
 
 export const LINKS = Object.freeze({
@@ -187,6 +197,12 @@ export const LINKS = Object.freeze({
   scheduleSent: {
     title: 'Active scheduled alerts',
     path: '/schedule/schedule-sent',
+    protected: true,
+  },
+  scheduledEdit: {
+    title: 'Edit Scheduled alert',
+    token: 'Edit',
+    path: '/schedule/:id',
     protected: true,
   },
   gameday: {

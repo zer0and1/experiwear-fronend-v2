@@ -8,6 +8,7 @@ import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { useAsyncAction } from 'hooks';
 import { isEmpty } from 'utils/helpers';
+import { ALERT_STATUS, ALERT_STATUS_LABELS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,11 +30,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AlertsSent = ({ type, link }) => {
+const AlertsSent = ({
+  type,
+  link = null,
+  alertLink = null,
+  status = ALERT_STATUS.sent,
+}) => {
   const router = useRouter();
   const classes = useStyles();
   const alerts = useSelector((state) =>
-    state.notifications[type].results.filter((n) => n.isSent)
+    state.notifications[type].results.filter((n) =>
+      status === ALERT_STATUS.sent ? n.isSent : !n.isSent
+    )
   );
 
   const handleViewAll = useCallback(() => {
@@ -44,23 +52,27 @@ const AlertsSent = ({ type, link }) => {
 
   return (
     <div className={classes.root}>
-      <Title mb={4}>{type} Alerts Sent</Title>
+      <Title mb={4}>
+        {type} Alerts {ALERT_STATUS_LABELS[status]}
+      </Title>
 
       <div className={classes.items}>
         {alerts.map((item) => (
-          <AlertItem key={item.id} data={item} mb={2} />
+          <AlertItem key={item.id} data={item} mb={2} href={alertLink} />
         ))}
       </div>
 
-      <Button
-        color="primary"
-        variant="contained"
-        fullWidth
-        className={classes.button}
-        onClick={handleViewAll}
-      >
-        View all
-      </Button>
+      {link && (
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          className={classes.button}
+          onClick={handleViewAll}
+        >
+          View all
+        </Button>
+      )}
     </div>
   );
 };
