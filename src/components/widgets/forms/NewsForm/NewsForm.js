@@ -59,7 +59,7 @@ const NewsForm = ({
       ..._.pick(defaultValues, ['title', 'body']),
     },
   });
-  const bodyText = watch('body');
+  const titleText = watch('title');
 
   const resetParams = () => setAlertParmas(DEFAULT_ALERT_PARAMS());
   const handleParamsChange = ({ target: { name, value } }) =>
@@ -129,14 +129,14 @@ const NewsForm = ({
               width="100%"
               mt={3}
               terminalScreen={
-                <ImageScreen imageUrl={image?.url} text={bodyText} />
+                <ImageScreen imageUrl={image?.url} text={titleText} />
               }
             />
           </Grid>
         </Grid>
         <Grid item xs={3} container justifyContent="flex-end">
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <ImageScreen imageUrl={image?.url} text={bodyText} />
+            <ImageScreen imageUrl={image?.url} text={titleText} />
           </FanbandTerminal>
         </Grid>
       </Grid>

@@ -69,7 +69,7 @@ const PromoForm = ({
       ..._.pick(defaultValues, ['title', 'body']),
     },
   });
-  const bodyText = watch('body');
+  const titleText = watch('title');
 
   const submitHandler = async (data) => {
     await onSubmit({
@@ -137,7 +137,7 @@ const PromoForm = ({
               width="100%"
               mt={3}
               terminalScreen={
-                <ImageScreen imageUrl={image?.url} text={bodyText} />
+                <ImageScreen imageUrl={image?.url} text={titleText} />
               }
             />
           </Grid>
@@ -155,7 +155,7 @@ const PromoForm = ({
         </Grid>
         <Grid container item xs={3} justifyContent="flex-end">
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <ImageScreen imageUrl={image?.url} text={bodyText} />
+            <ImageScreen imageUrl={image?.url} text={titleText} />
           </FanbandTerminal>
         </Grid>
       </Grid>

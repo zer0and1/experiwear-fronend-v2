@@ -1,5 +1,5 @@
-import { memo, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Card,
@@ -16,6 +16,7 @@ import { DOUGHNUT_OPTIONS } from './constants';
 import { ALERT_PROTO_TYPES } from 'utils/constants';
 import { CircleIcon } from 'components/icons';
 import { calcPercent } from 'utils/helpers';
+import { useAsyncAction } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -64,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 
 const LatestAlert = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const theme = useTheme();
   const {
     latestSurvey: { yes = 0, no = 0, sent = 0 },
@@ -96,9 +96,7 @@ const LatestAlert = () => {
     [yes, no, noResponse, chartColors]
   );
 
-  useEffect(() => {
-    dispatch(getLatestNotification(ALERT_PROTO_TYPES.survey));
-  }, [dispatch]);
+  useAsyncAction(getLatestNotification(ALERT_PROTO_TYPES.survey));
 
   return (
     <Card className={classes.root}>

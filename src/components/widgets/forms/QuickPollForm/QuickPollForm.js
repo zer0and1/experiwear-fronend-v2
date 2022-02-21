@@ -86,7 +86,7 @@ const QuickPollForm = ({
       ..._.pick(defaultValues, ['title']),
     },
   });
-  const watchTitle = watch('title');
+  const titleText = watch('title');
 
   const submitHandler = async (data) => {
     await onSubmit({
@@ -183,14 +183,14 @@ const QuickPollForm = ({
               width="90%"
               mt={3}
               terminalScreen={
-                <QuickPollScreen text={watchTitle} responses={responses} />
+                <QuickPollScreen text={titleText} responses={responses} />
               }
             />
           </Grid>
         </Grid>
         <Grid container item xs={3} justifyContent="flex-end">
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <QuickPollScreen text={watchTitle} responses={responses} />
+            <QuickPollScreen text={titleText} responses={responses} />
           </FanbandTerminal>
         </Grid>
       </Grid>
