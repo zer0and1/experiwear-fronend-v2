@@ -67,42 +67,50 @@ const LatestAlert = () => {
   const classes = useStyles();
   const theme = useTheme();
   const {
-    latestSurvey: { yes = 0, no = 0, sent = 0 },
+    latestSurvey: { surveyResponses: responses = [], sent = 0 },
   } = useSelector((state) => state.notifications);
-  const { selectedGame } = useSelector((state) => state.games);
-  const totalAnswer = yes + no;
-  const noResponse = sent - totalAnswer;
-  const yesPercent = calcPercent(yes, sent);
-  const noPercent = calcPercent(no, sent);
-  const noResponsePercent = calcPercent(noResponse, sent);
+  const totalCount = useMemo(
+    () => responses.reduce((acc, { count = 0 }) => acc + count, 0),
+    [responses]
+  );
+  const responsePercent = useMemo(
+    () =>
+      responses
+        .map(({ count = 0 }) => calcPercent(count, totalCount))
+        .concat(calcPercent(sent - totalCount, sent)),
+    [responses, totalCount, sent]
+  );
+  const labels = useMemo(
+    () => responses.map(({ response }) => response).concat('No Response'),
+    [responses]
+  );
+
   const chartColors = useMemo(
     () => [
       theme.palette.info.main,
+      theme.palette.promo.main,
       theme.palette.score.main,
-      theme.palette.survey.main,
     ],
     [theme]
   );
   const chartData = useMemo(
     () => ({
-      labels: ['Yes', 'No', 'No Response'],
+      labels,
       datasets: [
         {
-          data: [yes, no, noResponse],
+          data: responsePercent,
           backgroundColor: chartColors,
         },
       ],
     }),
-    [yes, no, noResponse, chartColors]
+    [labels, responsePercent, chartColors]
   );
 
   useAsyncAction(getLatestNotification(ALERT_PROTO_TYPES.survey));
 
   return (
     <Card className={classes.root}>
-      <CardHeader
-        title={selectedGame ? 'Latest Quick Poll' : 'Latest Survey'}
-      />
+      <CardHeader title={'Latest Quick Poll'} />
       <CardContent>
         <div className={classes.container}>
           <div className={classes.chart}>
@@ -130,24 +138,20 @@ const LatestAlert = () => {
             />
           </div>
           <div className={classes.footer}>
-            <Box display="flex" alignItems="center" mb={2}>
-              <CircleIcon color={theme.palette.info.main} />
-              <Typography className={classes.label}>
-                Yes ({yesPercent}%)
-              </Typography>
-            </Box>
-            <Box display="flex" alignItems="center" mb={2}>
-              <CircleIcon color={theme.palette.score.main} />
-              <Typography className={classes.label}>
-                No ({noPercent}%)
-              </Typography>
-            </Box>
-            <Box display="flex" alignItems="center" mb={2}>
-              <CircleIcon color={theme.palette.survey.main} />
-              <Typography className={classes.label}>
-                No response ({noResponsePercent}%)
-              </Typography>
-            </Box>
+            {labels.map((label, idx) => (
+              <Box key={idx} display="flex" alignItems="center" mb={1}>
+                <CircleIcon
+                  color={
+                    idx < label.length - 1
+                      ? chartColors[idx % chartColors.length]
+                      : theme.palette.survey.main
+                  }
+                />
+                <Typography className={classes.label}>
+                  {label} ({responsePercent[idx]}%)
+                </Typography>
+              </Box>
+            ))}
           </div>
         </div>
       </CardContent>
