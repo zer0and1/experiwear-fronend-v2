@@ -138,7 +138,7 @@ const Schedule = ({
             onDelete={() => setConfirmDialogOpen(true)}
             mode={mode}
             defaultValues={defaultValues}
-            deleting={true}
+            deleting={mode === ALERT_FORM_MODES.updating}
           />
           <DatetimePicker
             anchorEl={anchorEl}
