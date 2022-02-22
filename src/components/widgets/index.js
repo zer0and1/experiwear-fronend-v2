@@ -42,3 +42,6 @@ export { default as QuickPollSampleItem } from './items/QuickPollSampleItem';
 
 // charts.
 export { default as AccChart } from './charts/AccChart';
+
+// dialogs
+export { default as ConfirmDialog } from './dialogs/ConfirmDialog';

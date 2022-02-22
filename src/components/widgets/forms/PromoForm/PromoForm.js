@@ -36,9 +36,10 @@ const useStyles = makeStyles({
 
 const PromoForm = ({
   onSubmit,
-  mode = ALERT_FORM_MODES.create,
+  onDelete,
+  mode = ALERT_FORM_MODES.creating,
   defaultValues = null,
-  updating = false,
+  deleting = false,
 }) => {
   const classes = useStyles();
   const [image, setImage] = useState(
@@ -78,7 +79,7 @@ const PromoForm = ({
       sendTo,
       file: image?.file,
     });
-    if (!updating) {
+    if (mode === ALERT_FORM_MODES.creating) {
       resetForm();
     }
   };
@@ -159,10 +160,17 @@ const PromoForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box mt="auto">
+      <Box mt="auto" display="flex">
         <FormButton type="submit">
-          {mode === ALERT_FORM_MODES.update ? 'Save' : 'Send'}
+          {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
         </FormButton>
+        {deleting && (
+          <Box ml={2} width="100%">
+            <FormButton color="secondary" onClick={onDelete}>
+              Delete
+            </FormButton>
+          </Box>
+        )}
       </Box>
     </form>
   );

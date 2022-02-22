@@ -1,6 +1,11 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createAlert, modifyScheduledAlert } from 'redux/actions';
+import { useRouter } from 'next/router';
+import {
+  createAlert,
+  modifyScheduledAlert,
+  removeScheduledAlert,
+} from 'redux/actions';
 import {
   CalendarIcon,
   CardHeaderButton,
@@ -14,17 +19,24 @@ import {
   FHCard,
   FHCardContent,
   FHCardHeader,
+  ConfirmDialog,
 } from 'components';
 import {
   ALERT_PROTO_TYPES,
   ALERT_PROTO_LABELS,
   ALERT_FORM_MODES,
+  LINKS,
 } from 'utils/constants';
 import { showWarningToast } from 'utils/helpers';
 import moment from 'moment';
 
-const Schedule = ({ defaultValues = null, updating = false }) => {
+const Schedule = ({
+  defaultValues = null,
+  mode = ALERT_FORM_MODES.creating,
+}) => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const [type, setAlertType] = useState(
     defaultValues ? defaultValues.type : ALERT_PROTO_TYPES.news
   );
@@ -32,6 +44,7 @@ const Schedule = ({ defaultValues = null, updating = false }) => {
   const [datetime, setDatetime] = useState(
     defaultValues ? new Date(defaultValues.scheduledTime) : null
   );
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
   const handleSubmit = useCallback(
     async (data) => {
@@ -41,7 +54,7 @@ const Schedule = ({ defaultValues = null, updating = false }) => {
         );
       }
 
-      if (updating) {
+      if (mode === ALERT_FORM_MODES.updating) {
         await dispatch(
           modifyScheduledAlert(defaultValues.id, {
             ...data,
@@ -53,8 +66,13 @@ const Schedule = ({ defaultValues = null, updating = false }) => {
         await dispatch(createAlert(type, data, datetime));
       }
     },
-    [type, datetime, defaultValues, updating, dispatch]
+    [type, datetime, defaultValues, mode, dispatch]
   );
+
+  const handleDelete = async () => {
+    await dispatch(removeScheduledAlert(defaultValues.id));
+    router.push(LINKS.schedule.path);
+  };
 
   const AlertForm = useMemo(() => {
     switch (type) {
@@ -85,7 +103,11 @@ const Schedule = ({ defaultValues = null, updating = false }) => {
     <LeftContainer maxWidth="md">
       <FHCard>
         <FHCardHeader
-          title={updating ? 'Update Scheduled Alert' : 'Create Scheduled Alert'}
+          title={
+            mode === ALERT_FORM_MODES.updating
+              ? 'Update Scheduled Alert'
+              : 'Create Scheduled Alert'
+          }
           subheader={
             <CardHeaderButton
               startIcon={<CalendarIcon />}
@@ -99,7 +121,7 @@ const Schedule = ({ defaultValues = null, updating = false }) => {
           }
         />
         <FHCardContent>
-          {updating === false && (
+          {mode === ALERT_FORM_MODES.creating && (
             <ExpSelect
               name="type"
               label="Alert type"
@@ -113,15 +135,23 @@ const Schedule = ({ defaultValues = null, updating = false }) => {
           )}
           <AlertForm
             onSubmit={handleSubmit}
-            mode={ALERT_FORM_MODES.update}
+            onDelete={() => setConfirmDialogOpen(true)}
+            mode={mode}
             defaultValues={defaultValues}
-            updating={updating}
+            deleting={true}
           />
           <DatetimePicker
             anchorEl={anchorEl}
             onClose={() => setAnchorEl(null)}
             value={datetime}
             onChange={setDatetime}
+          />
+          <ConfirmDialog
+            open={confirmDialogOpen}
+            title="Delete scheduled alert"
+            contentText="Do you really want to delete this pending alert?"
+            onClose={() => setConfirmDialogOpen(false)}
+            onConfirm={handleDelete}
           />
         </FHCardContent>
       </FHCard>

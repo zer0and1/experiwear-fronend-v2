@@ -3,7 +3,12 @@ import { useAsyncAction, usePathIndicator } from 'hooks';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { getNotifications } from 'redux/actions';
-import { ALERT_MIXED_TYPES, ALERT_STATUS, LINKS } from 'utils/constants';
+import {
+  ALERT_MIXED_TYPES,
+  ALERT_STATUS,
+  ALERT_FORM_MODES,
+  LINKS,
+} from 'utils/constants';
 import { isEmpty } from 'utils/helpers';
 
 export default function EditScheduledAlertPage() {
@@ -32,7 +37,13 @@ export default function EditScheduledAlertPage() {
         </>
       }
     >
-      {alert && <Schedule defaultValues={alert} key={id} updating />}
+      {alert && (
+        <Schedule
+          defaultValues={alert}
+          key={id}
+          mode={ALERT_FORM_MODES.updating}
+        />
+      )}
     </Layout>
   );
 }

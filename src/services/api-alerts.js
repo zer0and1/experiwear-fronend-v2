@@ -33,7 +33,7 @@ export const updateScheduledAlert = async (id, params) => {
   return await axios.put(`/notifications/schedule/${id}`, getFormData(params));
 };
 
-export const deleteScheduledNotification = async (id) => {
+export const deleteScheduledAlert = async (id) => {
   return await axios.delete(`/notifications/schedule/${id}`);
 };
 

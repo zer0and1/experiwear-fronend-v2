@@ -39,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ScoreForm = ({
   onSubmit,
-  mode = ALERT_FORM_MODES.create,
+  onDelete,
+  mode = ALERT_FORM_MODES.creating,
   defaultValues = null,
-  updating = false,
+  deleting = false,
 }) => {
   const classes = useStyles();
   const { selectedGame: game } = useSelector((state) => state.games);
@@ -75,7 +76,7 @@ const ScoreForm = ({
     resolver: yupResolver(schema),
     defaultValues: {
       title:
-        mode === ALERT_FORM_MODES.update ? defaultValues?.title : alertTitle,
+        mode === ALERT_FORM_MODES.updating ? defaultValues?.title : alertTitle,
       body: '',
       ..._.pick(defaultValues, ['body']),
     },
@@ -84,7 +85,7 @@ const ScoreForm = ({
 
   const submitHandler = async (data) => {
     await onSubmit({ ..._.pick(data, ['title', 'body']), ...alertParams });
-    if (!updating) {
+    if (mode === ALERT_FORM_MODES.creating) {
       resetForm();
     }
   };
@@ -110,7 +111,7 @@ const ScoreForm = ({
               error={errors.title?.message}
               control={control}
               fullWidth
-              inputProps={{ readOnly: mode !== ALERT_FORM_MODES.update }}
+              inputProps={{ readOnly: mode !== ALERT_FORM_MODES.updating }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -140,13 +141,24 @@ const ScoreForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box mt="auto">
-        <FormButton
-          type="submit"
-          disabled={!game || game.gameStatus !== GAME_STATUS.inProgress}
-        >
-          {mode === ALERT_FORM_MODES.update ? 'Save' : 'Send'}
-        </FormButton>
+      <Box mt="auto" display="flex">
+        {mode === ALERT_FORM_MODES.creating ? (
+          <FormButton
+            type="submit"
+            disabled={!game || game.gameStatus !== GAME_STATUS.inProgress}
+          >
+            Send
+          </FormButton>
+        ) : (
+          <FormButton type="submit">Save</FormButton>
+        )}
+        {deleting && (
+          <Box ml={2} width="100%">
+            <FormButton color="secondary" onClick={onDelete}>
+              Delete
+            </FormButton>
+          </Box>
+        )}
       </Box>
     </form>
   );

@@ -93,9 +93,8 @@ export const DEFAULT_ALERT_PARAMS = () => {
 };
 
 export const ALERT_FORM_MODES = Object.freeze({
-  create: 'create',
-  update: 'update',
-  updateAndDelete: 'updateAndDelete',
+  creating: 'creating',
+  updating: 'updating',
 });
 
 export const ALERT_STATUS = Object.freeze({

@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 
 const GamedayThemeForm = ({
   onSubmit,
-  mode = ALERT_FORM_MODES.create,
+  mode = ALERT_FORM_MODES.creating,
   defaultValues = null,
   updating = false,
 }) => {
@@ -61,7 +61,7 @@ const GamedayThemeForm = ({
       </Grid>
       <Box mt="auto">
         <FormButton onClick={handleSubmit}>
-          {mode === ALERT_FORM_MODES.update ? 'Save' : 'Send'}
+          {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
         </FormButton>
       </Box>
     </div>

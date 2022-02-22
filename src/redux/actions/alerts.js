@@ -42,7 +42,7 @@ export const insertSavedAlert = (type, data) => async (dispatch) => {
   try {
     const response = await alertsAPI.createSavedAlert({ ...data, type });
     dispatch(setResponseSuccess(response));
-    dispatch(getSavedAlerts());
+    await dispatch(getSavedAlerts());
   } catch (e) {
     dispatch(setResponseError(e.response));
   }
@@ -69,7 +69,7 @@ export const modifySavedAlert = (id, params) => async (dispatch) => {
   try {
     const response = await alertsAPI.updateSavedAlert(id, params);
     dispatch(setResponseSuccess(response));
-    dispatch(getSavedAlerts());
+    await dispatch(getSavedAlerts());
   } catch (e) {
     dispatch(setResponseError(e.response));
   }
@@ -96,6 +96,20 @@ export const modifyScheduledAlert = (id, params) => async (dispatch) => {
 
   try {
     const response = await alertsAPI.updateScheduledAlert(id, params);
+    dispatch(setResponseSuccess(response));
+    dispatch(getNotifications(ALERT_MIXED_TYPES.scheduled));
+  } catch (e) {
+    dispatch(setResponseError(e.response));
+  }
+
+  dispatch(setLoadingStatus(false));
+};
+
+export const removeScheduledAlert = (id) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
+  try {
+    const response = await alertsAPI.deleteScheduledAlert(id);
     dispatch(setResponseSuccess(response));
     dispatch(getNotifications(ALERT_MIXED_TYPES.scheduled));
   } catch (e) {
