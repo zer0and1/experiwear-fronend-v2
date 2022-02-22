@@ -3,10 +3,10 @@ import { QuickPollSampleItem } from 'components';
 
 const QuickPollSampleTable = ({ answers = [] }) => {
   return (
-    <Grid container spacing={4}>
+    <Grid container>
       {answers.map((answer, idx) => (
         <Grid item key={idx} xs={12}>
-          <QuickPollSampleItem data={answer} mb={16} />
+          <QuickPollSampleItem data={answer} my={2} />
           {idx < answers.length - 1 && <Divider />}
         </Grid>
       ))}
