@@ -58,6 +58,7 @@ const QuickPollAlertSample = ({ alertId }) => {
     }
     return quickPoll.surveyAnswers
       .filter((ans) => filter < 0 || ans.answer === filter)
+      .filter((ans) => ans.answer >= 0)
       .map((ans) => ({
         ...ans,
         phone: formatPhone(fanbands.find((f) => f.id === ans.userId)?.phone),
