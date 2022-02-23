@@ -9,6 +9,7 @@ import {
   SITE_URL,
   DESCRIPTION,
 } from 'utils/constants';
+import { useGameSocket, useFanbandSocket } from 'hooks';
 
 import theme from 'theme';
 import { wrapper } from 'redux/store';
@@ -22,6 +23,9 @@ function CustomApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+  useGameSocket();
+  useFanbandSocket();
 
   return (
     <>
