@@ -32,6 +32,6 @@ export const setResponseError = (error) => (dispatch) => {
   });
 
   showErrorToast(
-    error.data.message?.toString() || error.message || 'Something went wrong!'
+    error.data?.message?.toString() || error.message || 'Something went wrong!'
   );
 };
