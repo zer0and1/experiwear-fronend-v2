@@ -75,6 +75,12 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
+
+        if (isEmpty(results)) {
+          setTimeout(() => answerHandler({ id, type, answer, userId }));
+          return;
+        }
+
         const {
           latestSurvey: { id: latestSurveyId = null },
         } = notifications;
@@ -83,7 +89,6 @@ const useFanbandSocket = () => {
 
         const newNotifications = results.map((item) => {
           if (item.id === id) {
-            console.log(item);
             const createdAt = new Date().toISOString();
             const surveyResponses = item.surveyResponses.map((r, idx) =>
               idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
