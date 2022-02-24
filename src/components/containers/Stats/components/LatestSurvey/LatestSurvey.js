@@ -7,7 +7,6 @@ import {
   CardHeader,
   makeStyles,
   Typography,
-  useTheme,
 } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -63,16 +62,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const chartColors = [
+  '#00748c',
+  '#f24024',
+  '#01a1c3',
+  '#ffc659',
+  '#825dde',
+  '#392902',
+];
+
 const LatestAlert = () => {
   const classes = useStyles();
-  const theme = useTheme();
+
   const {
     latestSurvey: { surveyResponses: responses = [], sent = 0 },
   } = useSelector((state) => state.notifications);
+
   const totalCount = useMemo(
     () => responses.reduce((acc, { count = 0 }) => acc + count, 0),
     [responses]
   );
+
   const responsePercent = useMemo(
     () =>
       responses
@@ -80,19 +90,12 @@ const LatestAlert = () => {
         .concat(calcPercent(sent - totalCount, sent)),
     [responses, totalCount, sent]
   );
+
   const labels = useMemo(
     () => responses.map(({ response }) => response).concat('No Response'),
     [responses]
   );
 
-  const chartColors = useMemo(
-    () => [
-      theme.palette.info.main,
-      theme.palette.promo.main,
-      theme.palette.score.main,
-    ],
-    [theme]
-  );
   const chartData = useMemo(
     () => ({
       labels,
@@ -103,7 +106,7 @@ const LatestAlert = () => {
         },
       ],
     }),
-    [labels, responsePercent, chartColors]
+    [labels, responsePercent]
   );
 
   useAsyncAction(getLatestNotification(ALERT_PROTO_TYPES.survey));
@@ -140,13 +143,7 @@ const LatestAlert = () => {
           <div className={classes.footer}>
             {labels.map((label, idx) => (
               <Box key={idx} display="flex" alignItems="center" mb={1}>
-                <CircleIcon
-                  color={
-                    idx < label.length - 1
-                      ? chartColors[idx % chartColors.length]
-                      : theme.palette.survey.main
-                  }
-                />
+                <CircleIcon color={chartColors[idx % chartColors.length]} />
                 <Typography className={classes.label}>
                   {label} ({responsePercent[idx]}%)
                 </Typography>

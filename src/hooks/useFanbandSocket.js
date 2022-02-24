@@ -78,28 +78,31 @@ const useFanbandSocket = () => {
         const {
           latestSurvey: { id: latestSurveyId = null },
         } = notifications;
+
         let updatedSurveyAlert;
 
         const newNotifications = results.map((item) => {
-          // if (item.id === id) {
-          //   const createdAt = new Date().toISOString();
-          //   const surveyResponses = item.surveyResponses.map((r, idx) =>
-          //     idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
-          //   );
-          //   const answerItem = { userId, answer, createdAt };
-          //   const surveyAnswers = isEmpty(item.surveyAnswers)
-          //     ? [answerItem]
-          //     : item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
-          //     ? item.surveyAnswers.concat(answerItem)
-          //     : item.surveyAnswers;
-          //   updatedSurveyAlert = {
-          //     ...item,
-          //     surveyResponses,
-          //     surveyAnswers,
-          //   };
+          if (item.id === id) {
+            console.log(item);
+            const createdAt = new Date().toISOString();
+            const surveyResponses = item.surveyResponses.map((r, idx) =>
+              idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
+            );
+            const answerItem = { userId, answer, createdAt };
+            const surveyAnswers = isEmpty(item.surveyAnswers)
+              ? [answerItem]
+              : item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
+              ? item.surveyAnswers.concat(answerItem)
+              : item.surveyAnswers;
 
-          //   return updatedSurveyAlert;
-          // }
+            updatedSurveyAlert = {
+              ...item,
+              surveyResponses,
+              surveyAnswers,
+            };
+
+            return updatedSurveyAlert;
+          }
           return item;
         });
 
