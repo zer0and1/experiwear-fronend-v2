@@ -39,7 +39,7 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
-        const { latest = { id: latestId } } = notifications;
+        const { latest = { id: (latestId = null) } } = notifications;
         let updatedAlert;
 
         const newNotifications = results.map((item) => {
@@ -75,7 +75,7 @@ const useFanbandSocket = () => {
 
         const { results = [] } = notifications[type];
         const {
-          latestSurvey: { id: latestSurveyId },
+          latestSurvey: { id: latestSurveyId = null },
         } = notifications;
         let updatedSurveyAlert;
 
@@ -85,10 +85,12 @@ const useFanbandSocket = () => {
             const surveyResponses = item.surveyResponses.map((r, idx) =>
               idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
             );
-            const surveyAnswers =
-              item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
-                ? item.surveyAnswers.concat({ userId, answer, createdAt })
-                : item.surveyAnswers;
+            const answerItem = { userId, answer, createdAt };
+            const surveyAnswers = isEmpty(item.surveyAnswers)
+              ? [answerItem]
+              : item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
+              ? item.surveyAnswers.concat(answerItem)
+              : item.surveyAnswers;
             updatedSurveyAlert = {
               ...item,
               surveyResponses,
