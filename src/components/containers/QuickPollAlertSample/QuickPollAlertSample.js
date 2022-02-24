@@ -82,7 +82,7 @@ const QuickPollAlertSample = ({ alertId }) => {
             <IconButton onClick={handleGoBack}>
               <ArrowBack />
             </IconButton>
-            <Title>Quick Poll Alert Sample</Title>
+            <Title>{quickPoll?.title || 'Quick Poll'} Responses</Title>
           </Box>
         }
         action={
