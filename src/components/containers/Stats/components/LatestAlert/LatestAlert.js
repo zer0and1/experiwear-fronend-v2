@@ -1,5 +1,5 @@
-import { memo, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Card,
@@ -13,6 +13,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { getLatestNotification } from 'redux/actions';
 import { Title, CircleIcon } from 'components';
 import { DOUGHNUT_OPTIONS } from './constants';
+import { useAsyncAction } from 'hooks';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -61,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
 
 const LatestAlert = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const theme = useTheme();
   const {
     latest: { received = 0, sent = 0 },
@@ -83,9 +83,7 @@ const LatestAlert = () => {
     [received, sent, chartColors]
   );
 
-  useEffect(() => {
-    dispatch(getLatestNotification());
-  }, [dispatch]);
+  useAsyncAction(getLatestNotification());
 
   return (
     <Card className={classes.root}>

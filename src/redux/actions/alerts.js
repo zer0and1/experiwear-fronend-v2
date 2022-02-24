@@ -1,6 +1,6 @@
+import { createAction } from 'redux-actions';
 import * as alertsAPI from 'services/api-alerts';
 import * as TYPES from 'redux/actionTypes';
-import { createAction } from 'redux-actions';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 import { isEmpty } from 'utils/helpers/utility';
 import { setLoadingStatus } from './auxiliary';

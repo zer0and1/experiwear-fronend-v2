@@ -76,7 +76,7 @@ const LatestAlert = () => {
   const responsePercent = useMemo(
     () =>
       responses
-        .map(({ count = 0 }) => calcPercent(count, totalCount))
+        .map(({ count = 0 }) => calcPercent(count, sent))
         .concat(calcPercent(sent - totalCount, sent)),
     [responses, totalCount, sent]
   );

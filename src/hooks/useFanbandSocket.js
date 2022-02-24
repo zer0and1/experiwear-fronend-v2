@@ -34,19 +34,30 @@ const useFanbandSocket = () => {
   const reactHandler = useCallback(
     ({ id, type }) => {
       try {
+        if (!Object.values(ALERT_PROTO_TYPES).includes(type)) {
+          return;
+        }
+
         const { results = [] } = notifications[type];
+        const { latest = { id: latestId } } = notifications;
+        let updatedAlert;
 
         const newNotifications = results.map((item) => {
           if (item.id === id) {
-            return {
+            updatedAlert = {
               ...item,
               opened: (item?.opened || 0) + 1,
             };
+            return updatedAlert;
           }
           return item;
         });
 
         dispatch(setNotifications(type, newNotifications));
+
+        if (latestId === id) {
+          dispatch(setLatestNotification(type, updatedAlert));
+        }
       } catch (error) {
         console.log(error);
       }
@@ -63,6 +74,10 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
+        const {
+          latestSurvey: { id: latestSurveyId },
+        } = notifications;
+        let updatedSurveyAlert;
 
         const newNotifications = results.map((item) => {
           if (item.id === id) {
@@ -74,15 +89,22 @@ const useFanbandSocket = () => {
               item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
                 ? item.surveyAnswers.concat({ userId, answer, createdAt })
                 : item.surveyAnswers;
-            return {
+            updatedSurveyAlert = {
               ...item,
               surveyResponses,
               surveyAnswers,
             };
+
+            return updatedSurveyAlert;
           }
           return item;
         });
+
         dispatch(setNotifications(type, newNotifications));
+
+        if (id === latestSurveyId) {
+          dispatch(setLatestNotification(type, updatedSurveyAlert));
+        }
       } catch (error) {
         console.log(error);
       }
