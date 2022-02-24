@@ -40,7 +40,9 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
-        const { latest = { id: (latestId = null) } } = notifications;
+        const {
+          latest: { id: latestId = null },
+        } = notifications;
         let updatedAlert;
 
         const newNotifications = results.map((item) => {
@@ -75,12 +77,6 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
-
-        if (isEmpty(results)) {
-          setTimeout(() => answerHandler({ id, type, answer, userId }), 100);
-          return;
-        }
-
         const {
           latestSurvey: { id: latestSurveyId = null },
         } = notifications;
