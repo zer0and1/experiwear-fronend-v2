@@ -8,6 +8,7 @@ import {
 } from 'redux/actions';
 import { useSocket } from 'hooks';
 import { WS_EVENTS, ALERT_PROTO_TYPES } from 'utils/constants';
+import { isEmpty } from 'utils/helpers';
 
 const useFanbandSocket = () => {
   const dispatch = useDispatch();
