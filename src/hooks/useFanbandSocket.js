@@ -7,7 +7,7 @@ import {
   setFanbandsStatistics,
 } from 'redux/actions';
 import { useSocket } from 'hooks';
-import { WS_EVENTS } from 'utils/constants';
+import { WS_EVENTS, ALERT_PROTO_TYPES } from 'utils/constants';
 
 const useFanbandSocket = () => {
   const dispatch = useDispatch();
