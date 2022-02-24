@@ -103,7 +103,7 @@ const QuickPollForm = ({
 
   const resetForm = () => {
     setImage(null);
-    setResponses(['']);
+    setResponses(['', '']);
     resetParams();
     reset();
   };

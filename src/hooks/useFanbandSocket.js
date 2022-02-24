@@ -40,26 +40,20 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
-        const {
-          latest: { id: latestId = null },
-        } = notifications;
-        let updatedAlert;
+        const { latest = {} } = notifications;
 
-        const newNotifications = results.map((item) => {
-          if (item.id === id) {
-            updatedAlert = {
-              ...item,
-              opened: (item?.opened || 0) + 1,
-            };
-            return updatedAlert;
-          }
-          return item;
+        const updateAlert = (item) => ({
+          ...item,
+          opened: (item?.opened || 0) + 1,
         });
 
+        const newNotifications = results.map((item) =>
+          item.id === id ? updateAlert(item) : item
+        );
         dispatch(setNotifications(type, newNotifications));
 
-        if (latestId === id) {
-          dispatch(setLatestNotification(type, updatedAlert));
+        if (latestId === id && !isEmpty(latest)) {
+          dispatch(setLatestNotification(type, updateAlert(latest)));
         }
       } catch (error) {
         console.log(error);
@@ -77,40 +71,36 @@ const useFanbandSocket = () => {
         }
 
         const { results = [] } = notifications[type];
-        const {
-          latestSurvey: { id: latestSurveyId = null },
-        } = notifications;
+        const { latestSurvey = {} } = notifications;
 
-        let updatedSurveyAlert;
+        const updateSurveryAlert = (item) => {
+          const createdAt = new Date().toISOString();
+          const surveyResponses = item.surveyResponses.map((r, idx) =>
+            idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
+          );
+          const answerItem = { userId, answer, createdAt };
+          const surveyAnswers = isEmpty(item.surveyAnswers)
+            ? [answerItem]
+            : item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
+            ? item.surveyAnswers.concat(answerItem)
+            : item.surveyAnswers;
 
-        const newNotifications = results.map((item) => {
-          if (item.id === id) {
-            const createdAt = new Date().toISOString();
-            const surveyResponses = item.surveyResponses.map((r, idx) =>
-              idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
-            );
-            const answerItem = { userId, answer, createdAt };
-            const surveyAnswers = isEmpty(item.surveyAnswers)
-              ? [answerItem]
-              : item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
-              ? item.surveyAnswers.concat(answerItem)
-              : item.surveyAnswers;
+          return {
+            ...item,
+            surveyResponses,
+            surveyAnswers,
+          };
+        };
 
-            updatedSurveyAlert = {
-              ...item,
-              surveyResponses,
-              surveyAnswers,
-            };
-
-            return updatedSurveyAlert;
-          }
-          return item;
-        });
-
+        const newNotifications = results.map((item) =>
+          item.id === id ? updateSurveryAlert(item) : item
+        );
         dispatch(setNotifications(type, newNotifications));
 
-        if (id === latestSurveyId) {
-          dispatch(setLatestNotification(type, updatedSurveyAlert));
+        if (id === latestSurvey.id && !isEmpty(latestSurvey)) {
+          dispatch(
+            setLatestNotification(type, updateSurveryAlert(latestSurvey))
+          );
         }
       } catch (error) {
         console.log(error);
