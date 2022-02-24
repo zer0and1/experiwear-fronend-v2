@@ -6,7 +6,6 @@ import {
   setLatestNotification,
   setFanbandsStatistics,
 } from 'redux/actions';
-import { ANSWER_ENUM } from 'utils/constants';
 import { useSocket } from 'hooks';
 import { WS_EVENTS } from 'utils/constants';
 
@@ -23,8 +22,10 @@ const useFanbandSocket = () => {
   useSocket(WS_EVENTS.FANBAND_IN_AREA, inAreaHandler);
 
   const statusHandler = useCallback(
-    (statistics) => {
-      dispatch(setFanbandsStatistics(statistics));
+    ({ online = 0, offline = 0 }) => {
+      dispatch(
+        setFanbandsStatistics({ online, offline, total: online + offline })
+      );
     },
     [dispatch]
   );
@@ -34,7 +35,6 @@ const useFanbandSocket = () => {
     ({ id, type }) => {
       try {
         const { results = [] } = notifications[type];
-        const { latest = {} } = notifications;
 
         const newNotifications = results.map((item) => {
           if (item.id === id) {
@@ -45,15 +45,8 @@ const useFanbandSocket = () => {
           }
           return item;
         });
-        dispatch(setNotifications(type, newNotifications));
 
-        if (latest.id === id) {
-          const newLatest = {
-            ...latest,
-            opened: (latest?.opened || 0) + 1,
-          };
-          dispatch(setLatestNotification('', newLatest));
-        }
+        dispatch(setNotifications(type, newNotifications));
       } catch (error) {
         console.log(error);
       }
@@ -63,34 +56,33 @@ const useFanbandSocket = () => {
   useSocket(WS_EVENTS.FANBAND_REACT, reactHandler);
 
   const answerHandler = useCallback(
-    ({ id, type, answer }) => {
+    ({ id, type, answer, userId }) => {
       try {
+        if (!Object.values(ALERT_PROTO_TYPES).includes(type) || answer < 0) {
+          return;
+        }
+
         const { results = [] } = notifications[type];
-        const { latestSurvey = {} } = notifications;
 
         const newNotifications = results.map((item) => {
           if (item.id === id) {
-            switch (answer) {
-              case ANSWER_ENUM.NO:
-                return { ...item, no: (item?.no || 0) + 1 };
-              case ANSWER_ENUM.YES:
-                return { ...item, yes: (item?.yes || 0) + 1 };
-            }
+            const createdAt = new Date().toISOString();
+            const surveyResponses = item.surveyResponses.map((r, idx) =>
+              idx === answer ? { ...r, count: (r.count || 0) + 1 } : r
+            );
+            const surveyAnswers =
+              item.surveyAnswers.findIndex((ans) => ans.userId === userId) < 0
+                ? item.surveyAnswers.concat({ userId, answer, createdAt })
+                : item.surveyAnswers;
+            return {
+              ...item,
+              surveyResponses,
+              surveyAnswers,
+            };
           }
           return item;
         });
         dispatch(setNotifications(type, newNotifications));
-
-        if (latestSurvey.id === id) {
-          let newLatestSurvey = {};
-          switch (answer) {
-            case ANSWER_ENUM.NO:
-              return { ...latestSurvey, no: (latestSurvey?.no || 0) + 1 };
-            case ANSWER_ENUM.YES:
-              return { ...latestSurvey, yes: (latestSurvey?.yes || 0) + 1 };
-          }
-          dispatch(setLatestNotification(type, newLatestSurvey));
-        }
       } catch (error) {
         console.log(error);
       }

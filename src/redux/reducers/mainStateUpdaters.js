@@ -50,6 +50,9 @@ export const setFanbandsStatisticsUpdater = (state, { payload }) => ({
   ...state,
   fanbands: {
     ...state.fanbands,
-    statistics: payload,
+    statistics: {
+      ...state.fanbands.statistics,
+      ...payload,
+    },
   },
 });

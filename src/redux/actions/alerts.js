@@ -235,34 +235,6 @@ export const getNotifications =
     }
   };
 
-export const getMoreNotifications = (type) => async (dispatch, getState) => {
-  try {
-    const { notifications } = getState();
-    const { results: preResults = [] } = notifications[type];
-
-    const params = {
-      type,
-      isSent: true,
-      skip: preResults.length,
-      take: PAGE_COUNT,
-    };
-    const { results = [], total = 0 } = await alertsAPI.getNotifications(
-      params
-    );
-
-    await dispatch({
-      type: TYPES.SET_ALERTS,
-      payload: {
-        results: [...preResults, ...results],
-        total,
-        type,
-      },
-    });
-  } catch (error) {
-    dispatch(setResponseError(error));
-  }
-};
-
 export const setNotifications =
   (type = '', results = []) =>
   async (dispatch, getState) => {
