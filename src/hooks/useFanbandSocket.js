@@ -77,7 +77,7 @@ const useFanbandSocket = () => {
         const { results = [] } = notifications[type];
 
         if (isEmpty(results)) {
-          setTimeout(() => answerHandler({ id, type, answer, userId }));
+          setTimeout(() => answerHandler({ id, type, answer, userId }), 100);
           return;
         }
 
