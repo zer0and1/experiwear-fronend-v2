@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AlertItem = ({
-  data: { id, imageUrl, type, title, createdAt },
+  data: { id, imageUrl, type, title, createdAt, scheduledTime = null },
   action = false,
   href = '',
   className,
@@ -137,7 +137,7 @@ const AlertItem = ({
           )}
           <Typography className={classes.description}>{title}</Typography>
           <Typography className={classes.description}>
-            {moment(createdAt).format('MMM D @ hh:mm A')}
+            {moment(scheduledTime || createdAt).format('MMM D @ hh:mm A')}
           </Typography>
         </div>
       </Box>
