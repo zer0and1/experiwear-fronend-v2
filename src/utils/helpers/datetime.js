@@ -67,7 +67,7 @@ export const lastDayOfMonth = (date) => {
 };
 
 export const layoutDaysOfMonth = (year, month) => {
-  const date = `${year}-${month}-01`;
+  const date = new Date(year, month - 1, 1);
   const firstDay = firstDayOfMonth(date);
   const lastDay = lastDayOfMonth(date);
 
