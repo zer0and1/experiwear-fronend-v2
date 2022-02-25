@@ -1,10 +1,12 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Box, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { TeamLogo } from 'components';
 import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
+import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -32,11 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 const CurrentGame = () => {
   const classes = useStyles();
+  const router = useRouter();
+
   const selectedGame = useSelector((state) => state.games.selectedGame);
 
   if (isEmpty(selectedGame)) {
     return null;
   }
+
+  const handleClick = () => {
+    router.push(LINKS.stats.path);
+  };
 
   return (
     <div className={classes.root}>
@@ -49,7 +57,7 @@ const CurrentGame = () => {
         <Typography className={classes.date}>
           {getEnglishDateWithTime(selectedGame.date)}
         </Typography>
-        <Link component="button" variant="body2">
+        <Link component="button" variant="body2" onClick={handleClick}>
           More info
         </Link>
       </Box>
