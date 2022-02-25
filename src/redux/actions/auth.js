@@ -48,6 +48,12 @@ export const logoutUser = () => async (dispatch) => {
   try {
     await authAPI.logout();
     localStorage.clear();
+
+    // Clear fake cookie for middleware authenticated routing if api proxy has cors.
+    if (extractHostAddr(location.origin) !== extractHostAddr(PROXY_URL)) {
+      document.cookie = `${COOKIE_NAME}=fake_cookie; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/`;
+    }
+
     dispatch(setUserAuthStatus(false));
   } catch (err) {
     dispatch(setResponseError(err));
