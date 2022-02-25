@@ -2,7 +2,7 @@ import axios from 'services/axios';
 import { getFormData } from 'utils/helpers';
 
 export const createTicket = async (params) => {
-  return await axios.post('/tickets', { ...params, row: parseInt(params.row) });
+  return await axios.post('/tickets', { ...params });
 };
 
 export const updateTicket = async (id, params) => {
