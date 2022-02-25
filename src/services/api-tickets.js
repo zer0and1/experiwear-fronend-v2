@@ -6,10 +6,7 @@ export const createTicket = async (params) => {
 };
 
 export const updateTicket = async (id, params) => {
-  return await axios.put(`/tickets/${id}`, {
-    ...params,
-    row: parseInt(params.row),
-  });
+  return await axios.put(`/tickets/${id}`, { ...params });
 };
 
 export const readTickets = async (params) => {

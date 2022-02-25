@@ -27,8 +27,8 @@ const schema = yup
     seat: yup
       .string()
       .required()
-      .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
-      .max(5, '5 chars max'),
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .max(5, '5 digits max'),
     order: yup
       .string()
       .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
