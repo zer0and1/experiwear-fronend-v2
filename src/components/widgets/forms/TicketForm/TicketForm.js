@@ -7,11 +7,31 @@ import { Grid } from '@material-ui/core';
 
 const schema = yup
   .object({
-    barcode: yup.string().required(),
-    section: yup.string().required(),
-    row: yup.string().required(),
-    seat: yup.string().required(),
-    order: yup.string().required(),
+    barcode: yup
+      .number()
+      .required()
+      .test('len', 'Must be exactly 12, 14, 16 or 20 digit barcode', (val) =>
+        [12, 14, 16, 20].includes(val.length)
+      ),
+    section: yup
+      .string()
+      .required()
+      .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
+      .max(6, '6 chars max'),
+    row: yup
+      .string()
+      .required()
+      .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
+      .max(4, '4 chars max'),
+    seat: yup
+      .string()
+      .required()
+      .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
+      .max(5, '5 chars max'),
+    order: yup
+      .string()
+      .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
+      .max(12, '12 chars max'),
     userId: yup.string(),
   })
   .required();

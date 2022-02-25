@@ -23,7 +23,7 @@
       "path": "/home/exp/frontend",
       "pre-setup": "",
       "post-setup": "git status; ls -la",
-      "post-deploy": "npm install; npm run pm2:restart:dev"
+      "post-deploy": "yarn install; yarn run pm2:restart:dev"
     },
     "prod": {
       "key": "~/.ssh/experiwear",
@@ -36,7 +36,7 @@
       "path": "/home/exp/frontend",
       "pre-setup": "",
       "post-setup": "git status; ls -la",
-      "post-deploy": "npm install; npm run pm2:restart:prod"
+      "post-deploy": "yarn install; yarn run pm2:restart:prod"
     }
   }
 }
