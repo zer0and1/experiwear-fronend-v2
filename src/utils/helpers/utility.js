@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 export const isServer = () => typeof window === 'undefined';
-
+export const isLocalhost = () =>
+  location && location.origin.includes('localhost');
 export const isEmpty = (value) => {
   return (
     value === undefined ||
@@ -11,13 +12,8 @@ export const isEmpty = (value) => {
   );
 };
 
-/**
- * Make form data from ordinary object
- * @param {object} data - source object to make FormData
- * @return {FormData} formdata
- */
-export const getFormData = (obj) => {
-  return Object.keys(obj).reduce((formData, key) => {
+export const getFormData = (obj) =>
+  Object.keys(obj).reduce((formData, key) => {
     if (Array.isArray(obj[key])) {
       obj[key].forEach((el) => formData.append(`${key}[]`, el));
     } else {
@@ -25,7 +21,6 @@ export const getFormData = (obj) => {
     }
     return formData;
   }, new FormData());
-};
 
 /**
  * Find difference between two objects
@@ -56,13 +51,4 @@ export const difference = (origObj, newObj) => {
  */
 export const formatPhone = (phone) => {
   return phone && phone.match(/\d+/g).reduce((acc, t) => acc + t, '+');
-};
-
-/**
- * Extract host address from url
- * @param  {string} url - url string to extract host address
- * @return {string} host address
- */
-export const extractHostAddr = (url) => {
-  return url && url.split('://')[1].split('/')[0];
 };
