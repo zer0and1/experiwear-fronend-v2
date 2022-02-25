@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { LINKS } from 'utils/constants';
+import { LINKS } from 'utils/constants/enums';
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;

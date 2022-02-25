@@ -10,7 +10,7 @@ const schema = yup
     barcode: yup.string().required(),
     section: yup.string().required(),
     row: yup.string().required(),
-    seat: yup.number().required(),
+    seat: yup.string().required(),
     order: yup.string().required(),
     userId: yup.string(),
   })
