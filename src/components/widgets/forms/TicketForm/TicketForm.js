@@ -8,8 +8,9 @@ import { Grid } from '@material-ui/core';
 const schema = yup
   .object({
     barcode: yup
-      .number()
+      .string()
       .required()
+      .matches(/^[0-9]+$/, 'Must be only digits')
       .test('len', 'Must be exactly 12, 14, 16 or 20 digit barcode', (val) =>
         [12, 14, 16, 20].includes(val.length)
       ),
