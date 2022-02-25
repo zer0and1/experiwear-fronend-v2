@@ -13,7 +13,7 @@ export const FANBAND_LABELS = Object.freeze({
 export const ALERT_PROTO_TYPES = Object.freeze({
   news: 'news',
   survey: 'survey',
-  score: 'score',
+  score: 'scoreAlert',
   promo: 'promo',
 });
 
