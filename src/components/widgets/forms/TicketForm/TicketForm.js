@@ -29,7 +29,6 @@ const schema = yup
       .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
       .max(5, '5 chars max'),
     order: yup
-      .required()
       .string()
       .matches(/^[0-9A-Za-z]+$/, 'Must be only symbols')
       .max(12, '12 chars max'),
