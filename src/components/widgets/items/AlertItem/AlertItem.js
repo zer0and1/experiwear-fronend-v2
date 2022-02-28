@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#9ea3ba',
     },
-    width: 120,
+    maxWidth: 86,
     height: 35,
     fontSize: 12,
   },
