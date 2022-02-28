@@ -45,7 +45,9 @@ const PromoForm = ({
   const [image, setImage] = useState(
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
-  const [sendTo, setSendTo] = useState(defaultValues?.sendTo || []);
+  const [sendTo, setSendTo] = useState([]);
+  const enabledSending =
+    mode === ALERT_FORM_MODES.updating && deleting === false;
   const [alertParams, setAlertParmas] = useState(
     defaultValues
       ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
@@ -71,6 +73,18 @@ const PromoForm = ({
     },
   });
   const titleText = watch('title');
+  const bodyText = watch('body');
+
+  const handleSend = async () => {
+    await onSubmit({
+      title: titleText,
+      body: bodyText,
+      ...alertParams,
+      sendTo,
+      file: image?.file,
+      sending: true,
+    });
+  };
 
   const submitHandler = async (data) => {
     await onSubmit({
@@ -160,7 +174,18 @@ const PromoForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box mt="auto" display="flex">
+      <Box
+        mt="auto"
+        display="flex"
+        flexDirection={enabledSending ? 'column' : 'row'}
+      >
+        {enabledSending && (
+          <Box mb={2}>
+            <FormButton variant="outlined" onClick={handleSend}>
+              Send
+            </FormButton>
+          </Box>
+        )}
         <FormButton type="submit">
           {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
         </FormButton>
