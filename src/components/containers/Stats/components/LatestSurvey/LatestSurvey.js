@@ -60,6 +60,11 @@ const useStyles = makeStyles((theme) => ({
     color: '#333',
     marginLeft: theme.spacing(3),
   },
+  title: {
+    fontFamily: theme.custom.fonts.SFUITextMedium,
+    fontSize: 16,
+    color: '#333',
+  },
 }));
 
 const chartColors = [
@@ -75,7 +80,7 @@ const LatestAlert = () => {
   const classes = useStyles();
 
   const {
-    latestSurvey: { surveyResponses: responses = [], sent = 0 },
+    latestSurvey: { surveyResponses: responses = [], sent = 0, title = '' },
   } = useSelector((state) => state.notifications);
 
   const totalCount = useMemo(
@@ -130,7 +135,7 @@ const LatestAlert = () => {
                 color="textPrimary"
                 className={classes.total}
               >
-                Total
+                Sent
               </Typography>
             </div>
             <Doughnut
@@ -141,6 +146,9 @@ const LatestAlert = () => {
             />
           </div>
           <div className={classes.footer}>
+            <Box mb={2}>
+              <Typography className={classes.title}>{title}</Typography>
+            </Box>
             {labels.map((label, idx) => (
               <Box key={idx} display="flex" alignItems="center" mb={1}>
                 <CircleIcon color={chartColors[idx % chartColors.length]} />

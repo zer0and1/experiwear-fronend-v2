@@ -7,7 +7,7 @@ import {
   ExpImageField,
   AlertField,
   FanbandTerminal,
-  ImageScreen,
+  FullScreen,
 } from 'components';
 import { showErrorToast } from 'utils/helpers';
 
@@ -85,15 +85,13 @@ const GamedayThemeForm = ({
               onReset={resetParams}
               width="100%"
               mt={3}
-              terminalScreen={
-                <ImageScreen imageUrl={image?.url} text="Gameday" />
-              }
+              terminalScreen={<FullScreen imageUrl={image?.url} />}
             />
           </Grid>
         </Grid>
         <Grid item xs={3} container justifyContent="flex-end">
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <ImageScreen imageUrl={image?.url} text="Gameday" />
+            <FullScreen imageUrl={image?.url} />
           </FanbandTerminal>
         </Grid>
       </Grid>

@@ -58,13 +58,18 @@ const useStyles = makeStyles((theme) => ({
     color: '#333',
     marginLeft: theme.spacing(3),
   },
+  title: {
+    fontFamily: theme.custom.fonts.SFUITextMedium,
+    fontSize: 16,
+    color: '#333',
+  },
 }));
 
 const LatestAlert = () => {
   const classes = useStyles();
   const theme = useTheme();
   const {
-    latest: { received = 0, sent = 0 },
+    latest: { received = 0, sent = 0, title = '' },
   } = useSelector((state) => state.notifications);
   const chartColors = useMemo(
     () => [theme.palette.promo.main, theme.palette.survey.main],
@@ -104,7 +109,7 @@ const LatestAlert = () => {
                 color="textPrimary"
                 className={classes.total}
               >
-                Total
+                Sent
               </Typography>
             </div>
             <Doughnut
@@ -115,6 +120,9 @@ const LatestAlert = () => {
             />
           </div>
           <div className={classes.footer}>
+            <Box mb={2}>
+              <Typography className={classes.title}>{title}</Typography>
+            </Box>
             <Box display="flex" alignItems="center" mb={2}>
               <CircleIcon color={theme.palette.promo.main} />
               <Typography className={classes.label}>Received</Typography>
