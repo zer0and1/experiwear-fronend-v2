@@ -95,7 +95,7 @@ const ExpImageField = ({
                   <span>Drop file here.</span>
                 ) : (
                   <span>
-                    Drag a file here of
+                    Drag a file here or
                     <span className={classes.browse}>&nbsp;browse&nbsp;</span>
                     for a file to upload.
                   </span>
