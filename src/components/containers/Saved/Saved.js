@@ -8,6 +8,7 @@ import {
   PromoForm,
   QuickPollForm,
   ScoreForm,
+  GamedayThemeForm,
   LeftContainer,
   FHCard,
   FHCardContent,
@@ -48,6 +49,8 @@ const Saved = ({ defaultValues = null, updating = false }) => {
         return ScoreForm;
       case ALERT_PROTO_TYPES.promo:
         return PromoForm;
+      case ALERT_PROTO_TYPES.gameday:
+        return GamedayThemeForm;
       default:
         return NewsForm;
     }
