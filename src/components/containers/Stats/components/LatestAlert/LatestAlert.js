@@ -125,11 +125,15 @@ const LatestAlert = () => {
             </Box>
             <Box display="flex" alignItems="center" mb={2}>
               <CircleIcon color={theme.palette.promo.main} />
-              <Typography className={classes.label}>Received</Typography>
+              <Typography className={classes.label}>
+                Received&nbsp;({calcPercent(received, sent)}%)
+              </Typography>
             </Box>
             <Box display="flex" alignItems="center" mb={2}>
               <CircleIcon color={theme.palette.survey.main} />
-              <Typography className={classes.label}>Not Received</Typography>
+              <Typography className={classes.label}>
+                Not Received&nbsp;({calcPercent(sent - received, sent)}%)
+              </Typography>
             </Box>
           </div>
         </div>
