@@ -16,16 +16,16 @@ const Stats = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item lg={6} md={12}>
+      <Grid item lg={6} xs={12}>
         <CurrentGame />
       </Grid>
-      <Grid item lg={6} md={12}>
+      <Grid item lg={6} xs={12}>
         <Fanbands />
       </Grid>
-      <Grid item lg={6} md={12}>
+      <Grid item lg={6} xs={12}>
         <LatestAlert />
       </Grid>
-      <Grid item lg={6} md={12}>
+      <Grid item lg={6} xs={12}>
         <LatestSurvey />
       </Grid>
     </Grid>

@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
       }),
       marginLeft: 0,
       marginRight: 0,
+      padding: theme.spacing(2),
     },
   },
   content: {
