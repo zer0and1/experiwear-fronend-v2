@@ -20,6 +20,10 @@ const INITIAL_STATE = Object.freeze({
     results: [],
     total: 0,
   },
+  [ALERT_PROTO_TYPES.gameday]: {
+    results: [],
+    total: 0,
+  },
   [ALERT_MIXED_TYPES.all]: {
     results: [],
     total: 0,

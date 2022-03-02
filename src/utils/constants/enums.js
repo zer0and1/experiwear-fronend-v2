@@ -15,6 +15,7 @@ export const ALERT_PROTO_TYPES = Object.freeze({
   survey: 'survey',
   score: 'scoreAlert',
   promo: 'promo',
+  gameday: 'gameday',
 });
 
 export const ALERT_PROTO_LABELS = Object.freeze({
@@ -22,13 +23,13 @@ export const ALERT_PROTO_LABELS = Object.freeze({
   [ALERT_PROTO_TYPES.survey]: 'QuickPoll',
   [ALERT_PROTO_TYPES.score]: 'Score',
   [ALERT_PROTO_TYPES.promo]: 'Promo',
+  [ALERT_PROTO_TYPES.gameday]: 'Gameday',
 });
 
 export const ALERT_MIXED_TYPES = Object.freeze({
   all: 'all',
   scheduled: 'scheduled',
   saved: 'saved',
-  gameday: 'gameday',
 });
 
 export const ANSWER_ENUM = Object.freeze({

@@ -9,13 +9,13 @@ import {
   FHCardHeader,
   FHCardContent,
 } from 'components';
-import { ALERT_MIXED_TYPES } from 'utils/constants';
+import { ALERT_PROTO_TYPES } from 'utils/constants';
 
 const GamedayTheme = () => {
   const dispatch = useDispatch();
 
   const handleCreate = async (data) => {
-    await dispatch(createAlert(ALERT_MIXED_TYPES.gameday, data));
+    await dispatch(createAlert(ALERT_PROTO_TYPES.gameday, data));
   };
 
   return (
