@@ -9,9 +9,14 @@ import {
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { MOBILE_BREAKPOINT } from 'utils/constants/theme';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    [theme.breakpoints.down(MOBILE_BREAKPOINT)]: {
+      marginBottom: theme.spacing(2),
+    },
+  },
   token: {
     color: '#79869f',
     fontSize: 12,

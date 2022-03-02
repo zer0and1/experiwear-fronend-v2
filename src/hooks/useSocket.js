@@ -9,14 +9,6 @@ const socket = io(SOCKET_URL, {
   withCredentials: true,
 });
 
-socket.on('connect', () => {
-  console.log('connection established');
-});
-
-socket.on('disconnect', function (error) {
-  console.log('Disconnected => ', error);
-});
-
 const useSocket = (eventName, callback) => {
   useEffect(() => {
     socket.on(eventName, callback);

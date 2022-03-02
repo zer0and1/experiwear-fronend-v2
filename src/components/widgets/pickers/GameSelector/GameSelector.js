@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
 import { TeamLogo } from 'components';
 import { useAsyncAction } from 'hooks';
+import { MOBILE_BREAKPOINT } from 'utils/constants/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiSelect-select:focus': {
       backgroundColor: 'unset',
+    },
+    [theme.breakpoints.down(MOBILE_BREAKPOINT)]: {
+      width: '100%',
     },
   },
   menuItem: {

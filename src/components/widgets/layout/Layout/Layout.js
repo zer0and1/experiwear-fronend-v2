@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -6,7 +6,8 @@ import { ExpLoading } from 'components';
 import AppBar from '../AppBar';
 import SideMenu from '../SideMenu';
 import SideBar from '../SideBar';
-import { Box } from '@material-ui/core';
+import { Box, useMediaQuery } from '@material-ui/core';
+import { MOBILE_BREAKPOINT } from 'utils/constants/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -32,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 0,
       marginRight: 0,
       padding: theme.spacing(2),
+    },
+    [theme.breakpoints.down('md')]: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginRight: 0,
     },
   },
   content: {
@@ -44,14 +52,26 @@ const useStyles = makeStyles((theme) => ({
 const Layout = ({ children, sidebar, ...boxProps }) => {
   const classes = useStyles();
   const { loadingStatus } = useSelector((state) => state.aux);
+  const mobileView = useMediaQuery((theme) =>
+    theme.breakpoints.down(MOBILE_BREAKPOINT)
+  );
+  const [menuToggled, setMenuToggled] = useState(mobileView);
+
+  const handleToggleMenu = () => {
+    setMenuToggled(true);
+  };
+
+  const handleCloseMenu = () => {
+    setMenuToggled(false);
+  };
 
   return (
     <main className={classes.root}>
       <ExpLoading loading={loadingStatus} />
-      <SideMenu />
+      <SideMenu toggled={menuToggled} onClose={handleCloseMenu} />
 
       <div className={classes.container}>
-        <AppBar />
+        <AppBar onToggleMenu={handleToggleMenu} />
         <Box className={classes.content} {...boxProps}>
           {children}
         </Box>

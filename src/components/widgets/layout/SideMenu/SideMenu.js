@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Drawer, useMediaQuery } from '@material-ui/core';
+import { Box, Button, Drawer, useMediaQuery } from '@material-ui/core';
 
 import { SubMenu } from './components';
 import { SIDEBAR_GROUPS } from './constants';
@@ -9,13 +9,13 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from 'redux/actions/auth';
 import { useRouter } from 'next/router';
 import { LINKS } from 'utils/constants';
+import { MOBILE_BREAKPOINT } from 'utils/constants/theme';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
     [theme.breakpoints.up('sm')]: {
       visible: 'visible',
     },
@@ -23,18 +23,12 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   paper: {
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
     width: theme.custom.layout.sideMenu,
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
     boxShadow: '0 2px 10px 0 rgba(0, 0, 0, 0.17)',
     paddingTop: theme.spacing(7),
     border: 'none !important',
-  },
-  logo: {
-    marginBottom: theme.spacing(2),
   },
   logoutButton: {
     marginTop: 'auto',
@@ -47,10 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideMenu = () => {
+const SideMenu = ({ toggled = false, onClose }) => {
   const router = useRouter();
   const classes = useStyles();
-  const matches = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const mobileView = useMediaQuery((theme) =>
+    theme.breakpoints.down(MOBILE_BREAKPOINT)
+  );
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -60,18 +56,33 @@ const SideMenu = () => {
 
   return (
     <Drawer
-      open={!matches}
+      open={!mobileView || toggled}
       anchor="left"
-      variant="persistent"
+      variant={toggled ? 'temporary' : 'persistent'}
       className={classes.root}
       classes={{
         paper: classes.paper,
       }}
     >
-      <Logo className={classes.logo} />
-      {SIDEBAR_GROUPS.map(({ title, items }) => (
-        <SubMenu key={title} title={title} items={items} />
-      ))}
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        px={2}
+        mb={2}
+      >
+        <Logo />
+        {toggled && (
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        )}
+      </Box>
+      <Box>
+        {SIDEBAR_GROUPS.map(({ title, items }) => (
+          <SubMenu key={title} title={title} items={items} />
+        ))}
+      </Box>
       <Button
         startIcon={<LogoutIcon />}
         className={classes.logoutButton}

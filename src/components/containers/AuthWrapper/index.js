@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { BandLogo, ExpLoading } from 'components';
 import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants';
+import { MOBILE_BREAKPOINT } from 'utils/constants/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: '50% 100%',
     backgroundPosition: 'left',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down(MOBILE_BREAKPOINT)]: {
       padding: theme.spacing(2),
       background: 'none',
     },
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6, 6),
   },
   imgSection: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down(MOBILE_BREAKPOINT)]: {
       display: 'none',
     },
   },
