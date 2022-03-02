@@ -14,6 +14,7 @@ import { getLatestNotification } from 'redux/actions';
 import { Title, CircleIcon } from 'components';
 import { DOUGHNUT_OPTIONS } from './constants';
 import { useAsyncAction } from 'hooks';
+import { calcPercent } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   container: {
