@@ -1,7 +1,7 @@
 export const IS_PRODUCT = process.env.CONFIG_ENV === 'production';
 export const PROXY_URL = IS_PRODUCT
   ? 'https://hawks.api.experiwear.com/'
-  : 'https://hawks-dev.experiwear.com/api/';
+  : 'https://hawks-dev.experiwear.com/api';
 
 export const SOCKET_URL = IS_PRODUCT
   ? 'https://hawks.api.experiwear.com/users'

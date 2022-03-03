@@ -42,11 +42,6 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 0,
     },
   },
-  content: {
-    flexGrow: 1,
-    height: 0,
-    display: 'flex',
-  },
 }));
 
 const Layout = ({ children, sidebar, ...boxProps }) => {
@@ -72,9 +67,7 @@ const Layout = ({ children, sidebar, ...boxProps }) => {
 
       <div className={classes.container}>
         <AppBar onToggleMenu={handleToggleMenu} />
-        <Box className={classes.content} {...boxProps}>
-          {children}
-        </Box>
+        <Box {...boxProps}>{children}</Box>
       </div>
 
       <SideBar>{sidebar}</SideBar>

@@ -1,18 +1,11 @@
 import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-} from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
   header: {
     fontFamily: theme.custom.fonts.SFProTextBold,
     fontSize: 14,
@@ -53,12 +46,7 @@ const SubMenu = ({ title, items }) => {
   };
 
   return (
-    <List
-      className={classes.root}
-      subheader={
-        <ListSubheader className={classes.header}>{title}</ListSubheader>
-      }
-    >
+    <List subheader={<div className={classes.header}>{title}</div>}>
       {items.map(({ title, path, icon: MenuIcon }, idx) => (
         <ListItem
           key={idx}

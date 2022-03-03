@@ -40,9 +40,6 @@ export default {
   MuiCardContent: {
     root: {
       padding: 32,
-      display: 'flex',
-      flexDirection: 'column',
-      flexGrow: 1,
     },
   },
   MuiPaper: {
@@ -95,7 +92,6 @@ export default {
     root: {
       minHeight: '100%',
       display: 'flex',
-      marginBottom: '38px',
     },
   },
   MuiTabs: {

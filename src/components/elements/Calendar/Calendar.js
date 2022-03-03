@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { CalendarHeader } from './components';
 import moment from 'moment';
 import CalendarBody from './components/CalendarBody';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles, useMediaQuery } from '@material-ui/core';
 import CalendarPicker from './components/CalendarPicker';
+import { MOBILE_BREAKPOINT } from 'utils/constants/theme';
 
 const useStyles = makeStyles(() => ({
   table: {
@@ -19,7 +20,11 @@ const Calendar = ({
   minimized = false,
   ...boxProps
 }) => {
-  const classes = useStyles({ minimized });
+  const mobileView = useMediaQuery((theme) =>
+    theme.breakpoints.down(MOBILE_BREAKPOINT)
+  );
+  const tinyMode = minimized || mobileView;
+  const classes = useStyles({ minimized: tinyMode });
   const [year, setYear] = useState(parseInt(moment(value).format('YYYY')));
   const [month, setMonth] = useState(parseInt(moment(value).format('MM')));
 
@@ -33,18 +38,18 @@ const Calendar = ({
       <CalendarPicker
         year={year}
         month={month}
-        actions={actions}
-        minimized={minimized}
+        actions={tinyMode ? null : actions}
+        minimized={tinyMode}
         onChange={handlePickerChange}
       />
       <table className={classes.table}>
-        <CalendarHeader minimized={minimized} />
+        <CalendarHeader minimized={tinyMode} />
         <CalendarBody
           year={year}
           month={month}
           date={value}
           cellData={cellData}
-          minimized={minimized}
+          minimized={tinyMode}
           onChange={onChange}
         />
       </table>

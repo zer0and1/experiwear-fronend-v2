@@ -86,11 +86,7 @@ export const LeftContainer = withStyles({
 
 export const FHCard = withStyles({
   root: {
-    borderRadius: 8,
-    minHeight: '100%',
     width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
   },
 })(Card);
 
@@ -108,16 +104,11 @@ export const FHCardHeader = withStyles({
 
 export const FHCardContent = withStyles({
   root: {
-    height: 0,
-    overflow: 'auto',
     paddingTop: 0,
     paddingLeft: 32,
     paddingRight: 32,
     paddingBottom: 0,
     marginBottom: 24,
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
     '&:last-child': {
       paddingBottom: 0,
     },

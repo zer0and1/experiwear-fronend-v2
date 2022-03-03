@@ -6,11 +6,6 @@ import { useDispatch } from 'react-redux';
 import { insertTicket } from 'redux/actions/tickets';
 
 const useStyles = makeStyles({
-  tabPanel: {
-    flexGrow: 1,
-    height: 0,
-    padding: 0,
-  },
   tabs: {
     marginBottom: 16,
   },
@@ -38,13 +33,13 @@ const Tickets = () => {
           <Tab value="tab-upload" label="UPLOAD TICKETS" />
         </Tabs>
         <TabContext value={tab}>
-          <TabPanel value="tab-table" className={classes.tabPanel}>
+          <TabPanel value="tab-table">
             <TicketTable />
           </TabPanel>
-          <TabPanel value="tab-create" className={classes.tabPanel}>
+          <TabPanel value="tab-create">
             <TicketForm onSubmit={handleSubmit} />
           </TabPanel>
-          <TabPanel value="tab-upload" className={classes.tabPanel}>
+          <TabPanel value="tab-upload">
             <TicketUpload />
           </TabPanel>
         </TabContext>
