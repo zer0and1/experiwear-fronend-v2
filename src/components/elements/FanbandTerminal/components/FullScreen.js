@@ -1,5 +1,11 @@
-import { makeStyles } from '@material-ui/core';
-import { TERMINAL_BATTERY, TERMINAL_LINK } from 'utils/constants';
+import { makeStyles, Box } from '@material-ui/core';
+import {
+  TERMINAL_ATL,
+  TERMINAL_BATTERY,
+  TERMINAL_HAWKS,
+  TERMINAL_HAWKS_LOGO,
+  TERMINAL_LINK,
+} from 'utils/constants';
 
 const useStyles = makeStyles({
   root: {
@@ -17,6 +23,10 @@ const useStyles = makeStyles({
     background: (props) => `url(${props.imageUrl})`,
     backgroundSize: 'cover !important',
   },
+  hawksIcon: {
+    height: '30%',
+    marginBottom: '15%',
+  },
 });
 
 const FullScreen = ({ imageUrl }) => {
@@ -24,8 +34,27 @@ const FullScreen = ({ imageUrl }) => {
 
   return (
     <div className={classes.root}>
-      <img src={TERMINAL_LINK} height={12} />
-      <img src={TERMINAL_BATTERY} height={12} />
+      {imageUrl ? (
+        <>
+          <img src={TERMINAL_LINK} height={12} />
+          <img src={TERMINAL_BATTERY} height={12} />
+        </>
+      ) : (
+        <>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            flexDirection="column"
+            mt="30%"
+            height="40%"
+          >
+            <img src={TERMINAL_ATL} width="100%" />
+            <img src={TERMINAL_HAWKS} width="100%" />
+          </Box>
+          <img src={TERMINAL_HAWKS_LOGO} className={classes.hawksIcon} />
+        </>
+      )}
     </div>
   );
 };

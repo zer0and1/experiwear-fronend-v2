@@ -115,7 +115,7 @@ const QuickPollForm = ({
       onSubmit={handleSubmit(submitHandler)}
     >
       <Grid container>
-        <Grid item xs={9} container spacing={2}>
+        <Grid item lg={9} xs={12} container spacing={2}>
           <Grid item xs={12}>
             <Controller
               as={<ExpTextField />}
@@ -167,7 +167,7 @@ const QuickPollForm = ({
               Add another response
             </Button>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <ExpImageField
               label="Image"
               image={image}
@@ -175,7 +175,7 @@ const QuickPollForm = ({
               width="100%"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <AlertField
               label="Alert Parameters"
               value={alertParams}
@@ -189,7 +189,7 @@ const QuickPollForm = ({
             />
           </Grid>
         </Grid>
-        <Grid container item xs={3} justifyContent="flex-end">
+        <Grid container item lg={3} xs={12} justifyContent="center">
           <FanbandTerminal params={alertParams} disabledAnimation>
             <QuickPollScreen text={titleText} responses={responses} />
           </FanbandTerminal>

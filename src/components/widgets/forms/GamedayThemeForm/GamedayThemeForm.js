@@ -68,8 +68,8 @@ const GamedayThemeForm = ({
   return (
     <div className={classes.root}>
       <Grid container>
-        <Grid item container xs={9} spacing={2}>
-          <Grid item xs={6}>
+        <Grid item container lg={9} xs={12} spacing={2}>
+          <Grid item lg={6} xs={12}>
             <ExpImageField
               label="Image"
               image={image}
@@ -77,7 +77,7 @@ const GamedayThemeForm = ({
               width="100%"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <AlertField
               label="Alert Parameters"
               value={alertParams}
@@ -89,7 +89,7 @@ const GamedayThemeForm = ({
             />
           </Grid>
         </Grid>
-        <Grid item xs={3} container justifyContent="flex-end">
+        <Grid item lg={3} xs={12} container justifyContent="center">
           <FanbandTerminal params={alertParams} disabledAnimation>
             <FullScreen imageUrl={image?.url} />
           </FanbandTerminal>

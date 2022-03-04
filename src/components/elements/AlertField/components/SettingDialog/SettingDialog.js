@@ -70,10 +70,10 @@ const SettingDialog = ({
       </DialogTitle>
       <DialogContent>
         <Grid container>
-          <Grid item xs={9}>
+          <Grid item lg={9} xs={12}>
             <SubHeaderText>Duration</SubHeaderText>
             <Grid container spacing={2}>
-              <Grid item xs={8}>
+              <Grid item lg={8} xs={12}>
                 <PrettoSlider
                   name="duration"
                   min={1}
@@ -108,7 +108,7 @@ const SettingDialog = ({
             </Box>
             <SubHeaderText>Color palette</SubHeaderText>
             <Grid container spacing={2}>
-              <Grid item xs={4}>
+              <Grid item lg={4} xs={6}>
                 <ColorField
                   name="topColor1"
                   label="Top light #1"
@@ -116,7 +116,7 @@ const SettingDialog = ({
                   onChange={onChange}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} xs={6}>
                 <ColorField
                   name="topColor2"
                   label="Top light #2"
@@ -124,7 +124,7 @@ const SettingDialog = ({
                   onChange={onChange}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} xs={6}>
                 <ColorField
                   name="topColor3"
                   label="Top light #3"
@@ -132,7 +132,7 @@ const SettingDialog = ({
                   onChange={onChange}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} xs={6}>
                 <ColorField
                   name="bottomColor1"
                   label="Bottom light #1"
@@ -140,7 +140,7 @@ const SettingDialog = ({
                   onChange={onChange}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} xs={6}>
                 <ColorField
                   name="bottomColor2"
                   label="Bottom light #2"
@@ -148,7 +148,7 @@ const SettingDialog = ({
                   onChange={onChange}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item lg={4} xs={6}>
                 <ColorField
                   name="bottomColor3"
                   label="Bottom light #3"
@@ -212,18 +212,24 @@ const SettingDialog = ({
               </RadioGroup>
             </Box>
           </Grid>
-          <Grid item xs={3} container justifyContent="flex-end">
+          <Grid item lg={3} xs={12} container justifyContent="center">
             <FanbandTerminal params={params}>{terminalScreen}</FanbandTerminal>
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
-        <FormButton color="secondary" onClick={onReset}>
-          Reset to default
-        </FormButton>
-        <FormButton color="primary" onClick={onSaveAsDefault}>
-          Save as default
-        </FormButton>
+        <Grid container spacing={2}>
+          <Grid item lg={6} xs={12}>
+            <FormButton color="secondary" onClick={onReset}>
+              Reset to default
+            </FormButton>
+          </Grid>
+          <Grid item lg={6} xs={12}>
+            <FormButton color="primary" onClick={onSaveAsDefault}>
+              Save as default
+            </FormButton>
+          </Grid>
+        </Grid>
       </DialogActions>
     </Dialog>
   );

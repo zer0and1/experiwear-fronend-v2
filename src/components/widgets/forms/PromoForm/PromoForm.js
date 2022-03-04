@@ -112,7 +112,7 @@ const PromoForm = ({
       onSubmit={handleSubmit(submitHandler)}
     >
       <Grid container>
-        <Grid item container xs={9} spacing={2}>
+        <Grid item container lg={9} xs={12} spacing={2}>
           <Grid item xs={12}>
             <Controller
               as={<ExpTextField />}
@@ -135,7 +135,7 @@ const PromoForm = ({
               fullWidth
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <ExpImageField
               label="Image"
               image={image}
@@ -143,7 +143,7 @@ const PromoForm = ({
               width="100%"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <AlertField
               label="Alert Parameters"
               value={alertParams}
@@ -168,7 +168,7 @@ const PromoForm = ({
             />
           </Grid>
         </Grid>
-        <Grid container item xs={3} justifyContent="flex-end">
+        <Grid container item lg={3} xs={12} justifyContent="center">
           <FanbandTerminal params={alertParams} disabledAnimation>
             <ImageScreen imageUrl={image?.url} text={titleText} />
           </FanbandTerminal>

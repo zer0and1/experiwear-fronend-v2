@@ -102,7 +102,7 @@ const ScoreForm = ({
       onSubmit={handleSubmit(submitHandler)}
     >
       <Grid container>
-        <Grid item xs={9} container spacing={4}>
+        <Grid item lg={9} xs={12} container spacing={4}>
           <Grid item xs={12}>
             <Controller
               as={<ExpTextField />}
@@ -135,7 +135,7 @@ const ScoreForm = ({
             />
           </Grid>
         </Grid>
-        <Grid container item xs={3} justifyContent="flex-end">
+        <Grid container item lg={3} xs={12} justifyContent="flex-end">
           <FanbandTerminal params={alertParams} disabledAnimation>
             <ScoreScreen game={game} text={bodyText} />
           </FanbandTerminal>

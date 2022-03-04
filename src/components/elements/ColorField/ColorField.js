@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     fontFamily: theme.custom.fonts.SFUITextRegular,
     fontSize: 12,
+    lineHeight: 1.15,
     height: 35,
     '&:hover': {
       backgroundColor: alpha(color, 0.6),

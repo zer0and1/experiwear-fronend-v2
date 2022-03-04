@@ -90,7 +90,7 @@ const NewsForm = ({
       onSubmit={handleSubmit(submitHandler)}
     >
       <Grid container>
-        <Grid container item xs={9} spacing={2}>
+        <Grid container item lg={9} xs={12} spacing={2}>
           <Grid item xs={12}>
             <Controller
               as={<ExpTextField />}
@@ -113,7 +113,7 @@ const NewsForm = ({
               fullWidth
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <ExpImageField
               label="Image"
               image={image}
@@ -121,7 +121,7 @@ const NewsForm = ({
               width="100%"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             <AlertField
               label="Alert Parameters"
               value={alertParams}
@@ -135,10 +135,12 @@ const NewsForm = ({
             />
           </Grid>
         </Grid>
-        <Grid item xs={3} container justifyContent="flex-end">
-          <FanbandTerminal params={alertParams} disabledAnimation>
-            <ImageScreen imageUrl={image?.url} text={titleText} />
-          </FanbandTerminal>
+        <Grid item lg={3} xs={12} container justifyContent="center">
+          <Grid item>
+            <FanbandTerminal params={alertParams} disabledAnimation>
+              <ImageScreen imageUrl={image?.url} text={titleText} />
+            </FanbandTerminal>
+          </Grid>
         </Grid>
       </Grid>
       <Box mt="auto" display="flex">
