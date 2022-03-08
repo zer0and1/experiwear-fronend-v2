@@ -207,7 +207,12 @@ export const LINKS = Object.freeze({
   },
   gameday: {
     title: 'Gameday Theme',
-    path: '/gameday-theme',
+    path: '/gameday',
+    protected: true,
+  },
+  gamedaySent: {
+    title: 'Gameday alerts sent',
+    path: '/gameday/gameday-sent',
     protected: true,
   },
   saved: {
