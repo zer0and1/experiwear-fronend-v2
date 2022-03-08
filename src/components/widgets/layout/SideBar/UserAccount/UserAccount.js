@@ -86,7 +86,7 @@ const UserAccount = () => {
           className={classes.avatar}
         />
         <Typography className={classes.username}>
-          {`${currentUser.firstName} ${currentUser.lastName}`}
+          {`${currentUser.firstName || ''} ${currentUser.lastName || ''}`}
         </Typography>
       </Box>
       <IconButton onClick={toggleNotification}>
