@@ -141,7 +141,7 @@ const ScoreForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box mt="auto" display="flex">
+      <Box display="flex">
         {mode === ALERT_FORM_MODES.creating ? (
           <FormButton
             type="submit"

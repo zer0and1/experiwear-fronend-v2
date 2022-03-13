@@ -195,7 +195,7 @@ const QuickPollForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box mt="auto" display="flex">
+      <Box display="flex">
         <FormButton type="submit">
           {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
         </FormButton>

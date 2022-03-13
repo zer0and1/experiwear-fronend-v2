@@ -95,11 +95,9 @@ const GamedayThemeForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box mt="auto">
-        <FormButton onClick={handleSubmit}>
-          {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
-        </FormButton>
-      </Box>
+      <FormButton onClick={handleSubmit}>
+        {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
+      </FormButton>
     </div>
   );
 };

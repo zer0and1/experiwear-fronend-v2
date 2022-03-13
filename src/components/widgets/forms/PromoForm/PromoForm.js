@@ -174,11 +174,7 @@ const PromoForm = ({
           </FanbandTerminal>
         </Grid>
       </Grid>
-      <Box
-        mt="auto"
-        display="flex"
-        flexDirection={enabledSending ? 'column' : 'row'}
-      >
+      <Box display="flex" flexDirection={enabledSending ? 'column' : 'row'}>
         {enabledSending && (
           <Box mb={2}>
             <FormButton variant="outlined" onClick={handleSend}>
