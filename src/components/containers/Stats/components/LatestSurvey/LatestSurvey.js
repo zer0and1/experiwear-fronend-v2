@@ -73,6 +73,7 @@ const chartColors = [
   '#01a1c3',
   '#ffc659',
   '#825dde',
+  '#2eb100',
   '#392902',
 ];
 

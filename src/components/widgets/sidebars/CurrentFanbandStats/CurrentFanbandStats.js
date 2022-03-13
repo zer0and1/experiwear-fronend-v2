@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   green: {
-    color: theme.palette.news.main,
+    color: theme.palette.info.main,
   },
   red: {
-    color: theme.palette.score.main,
+    color: theme.palette.danger.main,
   },
 }));
 

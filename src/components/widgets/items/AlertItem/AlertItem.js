@@ -70,9 +70,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
   },
   send: {
-    backgroundColor: theme.palette.promo.main,
+    backgroundColor: theme.palette.alert.main,
     '&:hover': {
-      backgroundColor: theme.palette.promo.dark,
+      backgroundColor: theme.palette.alert.dark,
     },
   },
   edit: {
@@ -82,9 +82,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   delete: {
-    backgroundColor: theme.palette.score.main,
+    backgroundColor: theme.palette.danger.main,
     '&:hover': {
-      backgroundColor: theme.palette.score.dark,
+      backgroundColor: theme.palette.danger.dark,
     },
   },
 }));

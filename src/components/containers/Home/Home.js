@@ -24,7 +24,7 @@ const Home = () => {
     router.push(LINKS.news.path);
   };
 
-  useAsyncAction(getNotifications(), isEmpty(alertStatus));
+  useAsyncAction(getNotifications());
   usePathIndicator(LINKS.home);
 
   return (

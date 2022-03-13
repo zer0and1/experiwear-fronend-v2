@@ -4,49 +4,23 @@ import _ from 'lodash';
 import { ALERT_MIXED_TYPES, ALERT_PROTO_TYPES } from 'utils/constants';
 
 const INITIAL_STATE = Object.freeze({
-  [ALERT_PROTO_TYPES.news]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_PROTO_TYPES.survey]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_PROTO_TYPES.score]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_PROTO_TYPES.promo]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_PROTO_TYPES.gameday]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_MIXED_TYPES.all]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_MIXED_TYPES.scheduled]: {
-    results: [],
-    total: 0,
-  },
-  [ALERT_MIXED_TYPES.saved]: {
-    results: [],
-    total: 0,
-  },
+  ...Object.values(ALERT_PROTO_TYPES).reduce(
+    (acc, type) => ({ ...acc, [type]: { results: [], total: 0 } }),
+    {}
+  ),
+  ...Object.values(ALERT_MIXED_TYPES).reduce(
+    (acc, type) => ({ ...acc, [type]: { results: [], total: 0 } }),
+    {}
+  ),
   latest: {},
   latestSurvey: {},
   latestNews: [],
   selectedDate: new Date(),
   alertStatus: {},
-  alertsToShow: {
-    news: true,
-    survey: true,
-    score: true,
-    promo: true,
-  },
+  alertsToShow: Object.values(ALERT_PROTO_TYPES).reduce(
+    (acc, type) => ({ ...acc, [type]: true }),
+    {}
+  ),
   acc: {
     results: [],
     total: 0,

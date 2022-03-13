@@ -1,3 +1,5 @@
+import { ALERT_PROTO_TYPES } from 'utils/constants';
+
 export default {
   primary: {
     main: '#00748c',
@@ -11,8 +13,16 @@ export default {
     main: '#01a1c3',
     contrastText: '#fff',
   },
+  warning: {
+    main: '#ffc659',
+    contrastText: '#fff',
+  },
   danger: {
     main: '#f24024',
+    contrastText: '#fff',
+  },
+  alert: {
+    main: '#825dde',
     contrastText: '#fff',
   },
   background: {
@@ -24,16 +34,19 @@ export default {
     primary: '#161616',
     secondary: '#2c2c2c',
   },
-  news: {
+  [ALERT_PROTO_TYPES.news]: {
     main: '#01a1c3',
   },
-  survey: {
+  [ALERT_PROTO_TYPES.survey]: {
     main: '#ffc659',
   },
-  score: {
+  [ALERT_PROTO_TYPES.score]: {
     main: '#f24024',
   },
-  promo: {
+  [ALERT_PROTO_TYPES.promo]: {
     main: '#825dde',
+  },
+  [ALERT_PROTO_TYPES.gameday]: {
+    main: '#2eb100',
   },
 };

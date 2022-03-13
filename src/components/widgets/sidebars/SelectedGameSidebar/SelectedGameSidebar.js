@@ -3,7 +3,7 @@ import { Calendar, ExpCheckbox, Title } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertToShow, setSelectedDate } from 'redux/actions';
 import { useRouter } from 'next/router';
-import { LINKS } from 'utils/constants';
+import { LINKS, ALERT_PROTO_TYPES, ALERT_PROTO_LABELS } from 'utils/constants';
 
 const SelectedGameSidebar = () => {
   const dispatch = useDispatch();
@@ -35,37 +35,19 @@ const SelectedGameSidebar = () => {
         minimized={true}
         cellData={cellData}
         onChange={handleDateChange}
-        mb={8}
+        mb={4}
       />
       <Title mb={3}>Alerts to show</Title>
-      <ExpCheckbox
-        label="News"
-        color="news"
-        name="news"
-        checked={alertsToShow.news}
-        onChange={handleVisibilityChange}
-      />
-      <ExpCheckbox
-        label="Survey"
-        color="survey"
-        name="survey"
-        checked={alertsToShow.survey}
-        onChange={handleVisibilityChange}
-      />
-      <ExpCheckbox
-        label="Score"
-        color="score"
-        name="score"
-        checked={alertsToShow.score}
-        onChange={handleVisibilityChange}
-      />
-      <ExpCheckbox
-        label="Promo"
-        color="promo"
-        name="promo"
-        checked={alertsToShow.promo}
-        onChange={handleVisibilityChange}
-      />
+      {Object.values(ALERT_PROTO_TYPES).map((type) => (
+        <ExpCheckbox
+          key={type}
+          label={ALERT_PROTO_LABELS[type]}
+          color={type}
+          name={type}
+          checked={alertsToShow[type]}
+          onChange={handleVisibilityChange}
+        />
+      ))}
     </Fragment>
   );
 };

@@ -1,5 +1,6 @@
 import { Box, IconButton, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
+import { ALERT_PROTO_TYPES } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: ({ minimized }) => ({
@@ -38,23 +39,19 @@ const useStyles = makeStyles((theme) => ({
     width: minimized ? 4 : 7,
     margin: '0 2px',
   }),
-  news: {
-    backgroundColor: `${theme.palette.news.main} !important`,
-  },
-  survey: {
-    backgroundColor: `${theme.palette.survey.main} !important`,
-  },
-  score: {
-    backgroundColor: `${theme.palette.score.main} !important`,
-  },
-  promo: {
-    backgroundColor: `${theme.palette.promo.main} !important`,
-  },
+  ...Object.values(ALERT_PROTO_TYPES).reduce(
+    (acc, type) => ({
+      ...acc,
+      [type]: {
+        backgroundColor: `${theme.palette[type].main} !important`,
+      },
+    }),
+    {}
+  ),
 }));
 
 const CalendarCell = ({ day, selected, data = {}, onSelect, minimized }) => {
   const classes = useStyles({ minimized });
-  const { news, survey, score, promo } = data;
 
   const handleClick = () => {
     onSelect(day);
@@ -85,30 +82,15 @@ const CalendarCell = ({ day, selected, data = {}, onSelect, minimized }) => {
             </IconButton>
           </Box>
           <Box className={classes.infoSection}>
-            <Box
-              className={clsx(classes.infoBox, {
-                [classes.news]: news,
-                [classes.infoBoxActive]: news,
-              })}
-            />
-            <Box
-              className={clsx(classes.infoBox, {
-                [classes.survey]: survey,
-                [classes.infoBoxActive]: survey,
-              })}
-            />
-            <Box
-              className={clsx(classes.infoBox, {
-                [classes.score]: score,
-                [classes.infoBoxActive]: score,
-              })}
-            />
-            <Box
-              className={clsx(classes.infoBox, {
-                [classes.promo]: promo,
-                [classes.infoBoxActive]: promo,
-              })}
-            />
+            {Object.values(ALERT_PROTO_TYPES).map((type) => (
+              <Box
+                key={type}
+                className={clsx(classes.infoBox, {
+                  [classes[type]]: data[type],
+                  [classes.infoBoxActive]: data[type],
+                })}
+              />
+            ))}
           </Box>
         </Box>
       )}
