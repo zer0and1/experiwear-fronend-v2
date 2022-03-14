@@ -23,7 +23,6 @@ const GamedayThemeForm = ({
   onSubmit,
   mode = ALERT_FORM_MODES.creating,
   defaultValues = null,
-  updating = false,
 }) => {
   const classes = useStyles();
   const [image, setImage] = useState(
@@ -55,7 +54,7 @@ const GamedayThemeForm = ({
       ...alertParams,
     });
 
-    if (!updating) {
+    if (mode === ALERT_FORM_MODES.creating) {
       resetForm();
     }
   };

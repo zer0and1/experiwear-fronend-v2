@@ -1,8 +1,10 @@
 import { memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { getNotifications } from 'redux/actions';
 import { AlertItem, Title } from 'components';
+import { useAsyncAction } from 'hooks';
+import { ALERT_MIXED_TYPES } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,20 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ActivityTimeline = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const {
-    all: { results },
-  } = useSelector((state) => state.notifications);
+  const alerts = useSelector((state) =>
+    state.notifications[ALERT_MIXED_TYPES.all].results.filter((al) => al.isSent)
+  );
 
-  useEffect(() => {
-    dispatch(getNotifications());
-  }, [dispatch]);
+  useAsyncAction(getNotifications());
 
   return (
     <div className={classes.root}>
       <Title mb={4}>Activity Timeline</Title>
       <div className={classes.container}>
-        {results.map((item) => (
+        {alerts.map((item) => (
           <AlertItem key={item.id} data={item} mb={2} />
         ))}
       </div>

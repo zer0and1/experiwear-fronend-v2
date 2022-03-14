@@ -7,7 +7,6 @@ import { Add as AddIcon } from '@material-ui/icons';
 import { LINKS } from 'utils/constants';
 import { useRouter } from 'next/router';
 import { useAsyncAction, usePathIndicator } from 'hooks';
-import { isEmpty } from 'utils/helpers';
 
 const Home = () => {
   const dispatch = useDispatch();
