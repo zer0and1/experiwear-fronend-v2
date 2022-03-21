@@ -5,7 +5,7 @@ import { Box, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { TeamLogo } from 'components';
-import { getEnglishDateWithTime, isEmpty } from 'utils/helpers';
+import { getEnglishDate, isEmpty } from 'utils/helpers';
 import { LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +36,8 @@ const CurrentGame = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const selectedGame = useSelector((state) => state.games.selectedGame);
+  const { selectedGame } = useSelector((state) => state.games);
+  const { selectedDate } = useSelector((state) => state.notifications);
 
   if (isEmpty(selectedGame)) {
     return null;
@@ -55,7 +56,7 @@ const CurrentGame = () => {
         mb="19px"
       >
         <Typography className={classes.date}>
-          {getEnglishDateWithTime(selectedGame.date)}
+          {getEnglishDate(selectedDate || selectedGame?.date)}
         </Typography>
         <Link component="button" variant="body2" onClick={handleClick}>
           More info
