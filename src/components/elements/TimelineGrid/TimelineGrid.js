@@ -44,14 +44,17 @@ const TimelineGrid = ({
   detailView,
 }) => {
   const classes = useStyles({ offset, detailView });
+
   const period = useMemo(() => {
-    const diff = moment(endTime).diff(moment(beginTime), 'minutes', true);
-    if (diff / unit < 9) {
-      return unit * 9;
+    const diff =
+      (moment(endTime).valueOf() - moment(beginTime).valueOf()) / (1000 * 60);
+    if (diff / unit < 7) {
+      return unit * 7;
     } else {
       return diff + unit * 2;
     }
   }, [beginTime, endTime, unit]);
+
   const labels = useMemo(
     () =>
       Array.from({ length: period / unit + 1 }).map((_, idx) =>

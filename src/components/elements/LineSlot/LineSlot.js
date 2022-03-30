@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { conv2time } from 'utils/helpers';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,18 +34,18 @@ const LineSlot = ({
   step = 72,
 }) => {
   const minutes = useMemo(() => {
-    const time = conv2time(datetime);
+    const unixTime = moment(datetime).valueOf();
     if (offsetTime) {
-      return time.diff(conv2time(offsetTime), 'minutes', true);
+      return (unixTime - moment(offsetTime).valueOf()) / (1000 * 60);
     } else {
-      return time.minutes() + time.hours() * 60;
+      return unixTime / (1000 * 60);
     }
   }, [datetime, offsetTime]);
   const top = useMemo(
-    () => Math.floor(step * (minutes / unit) + offset),
+    () => step * (minutes / unit) + offset,
     [minutes, unit, offset, step]
   );
-  const classes = useStyles({ top });
+  const classes = useStyles({ top: `${top - 4}px` });
 
   return (
     <div className={classes.root}>

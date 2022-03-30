@@ -41,39 +41,33 @@ const Timeline = ({ date = null, slots = [] }) => {
 
   const beginTime = useMemo(() => {
     if (slots.length === 0) {
-      const ctime = conv2time(currentTime);
-      if (ctime.hours() < 3) {
-        return ctime.minutes(0);
-      } else {
-        return ctime.subtract(3, 'hours').minutes(0);
-      }
+      const ctime = moment(currentTime);
+      return ctime
+        .subtract(
+          (ctime.minutes() % options.unit) + options.unit * 3,
+          'minutes'
+        )
+        .seconds(0);
     } else {
-      const minTime = moment.min(slots.map((s) => conv2time(s.createdAt)));
+      const minTime = moment.min(slots.map((s) => moment(s.createdAt)));
       const mins = minTime.minutes() - (minTime.minutes() % options.unit);
-      return minTime.minutes(mins);
+      return minTime.minutes(mins).seconds(0);
     }
   }, [slots, currentTime, options]);
 
   const endTime = useMemo(() => {
     if (slots.length === 0) {
-      const ctime = conv2time(currentTime);
-      const boundMax = 60 - (60 % options.unit);
-      if (ctime.hours() > 20) {
-        return ctime.minutes(boundMax);
-      } else {
-        return ctime.add(3, 'hours').minutes(boundMax);
-      }
+      const ctime = moment(currentTime);
+      return ctime.add(ctime.minutes() % options.unit, 'minutes').seconds(0);
     } else {
-      const maxTime = moment.max(
-        slots.map((s) => conv2time(s.createdAt)).concat(conv2time(currentTime))
-      );
+      const maxTime = moment.max(slots.map((s) => moment(s.createdAt)));
       const mins = maxTime.minutes() - (maxTime.minutes() % options.unit);
       return maxTime.minutes(mins);
     }
   }, [slots, currentTime, options]);
 
   useEffect(() => {
-    const loopId = setInterval(() => setCurrentTime(new Date()), 60000);
+    const loopId = setInterval(() => setCurrentTime(new Date()), 10000);
     return () => clearInterval(loopId);
   }, []);
 

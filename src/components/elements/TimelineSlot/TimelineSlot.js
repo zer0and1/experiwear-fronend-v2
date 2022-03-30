@@ -44,11 +44,12 @@ const TimelineSlot = ({
   step = 72,
 }) => {
   const minutes = useMemo(() => {
-    const time = conv2time(datetime);
+    const unixTime = moment(datetime).valueOf();
     if (offsetTime) {
-      return time.diff(conv2time(offsetTime), 'minutes', true);
+      const diff = unixTime - moment(offsetTime).valueOf();
+      return diff / (1000 * 60);
     } else {
-      return time.minutes() + time.hours() * 60;
+      return unixTime / (1000 * 60);
     }
   }, [datetime, offsetTime]);
   const top = useMemo(
@@ -61,7 +62,9 @@ const TimelineSlot = ({
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.title}>{title}</div>
-        <div className={classes.time}>({moment(datetime).format('HH:mm')})</div>
+        <div className={classes.time}>
+          ({moment(datetime).format('HH:mm:ss')})
+        </div>
       </div>
     </div>
   );
