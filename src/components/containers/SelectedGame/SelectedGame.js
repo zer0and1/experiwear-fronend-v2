@@ -8,7 +8,7 @@ import {
   CardHeader,
   makeStyles,
 } from '@material-ui/core';
-import { Timeline } from 'components';
+import TimelineDetailed from 'components/elements/TimelineDetailed';
 import moment from 'moment';
 import { Add } from '@material-ui/icons';
 import { useRouter } from 'next/router';
@@ -80,7 +80,7 @@ const SelectedGame = () => {
         }
       />
       <CardContent className={classes.cardContent}>
-        <Timeline detailView={true} slots={slots} />
+        <TimelineDetailed slots={slots} />
       </CardContent>
     </Card>
   );

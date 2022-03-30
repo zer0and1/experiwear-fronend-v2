@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { TimelineSlot, TimelineGrid, LineSlot } from 'components/elements';
+import { TimelineGrid, TimelineSlotDetailed } from 'components/elements';
 import moment from 'moment';
 import { conv2time } from 'utils/helpers';
 import { DEFAULT_OPTIONS } from './constants';
@@ -24,18 +24,14 @@ const useStyles = makeStyles(() => ({
   },
   slotContainer: {
     position: 'absolute',
-    left: 0,
-    width: '100%',
+    left: 45,
+    width: 'calc(100% - 146px - 45px)',
     height: '100%',
   },
 }));
 
-const Timeline = ({ date = null, slots = [] }) => {
+const TimelineDetailed = ({ slots = [] }) => {
   const classes = useStyles();
-  const checkToday = useMemo(
-    () => moment().isSame(moment(date), 'day'),
-    [date]
-  );
   const [currentTime, setCurrentTime] = useState(new Date());
   const options = DEFAULT_OPTIONS;
 
@@ -85,11 +81,11 @@ const Timeline = ({ date = null, slots = [] }) => {
         unit={options.unit}
         beginTime={beginTime}
         endTime={endTime}
-        detailView={false}
+        detailView={true}
       />
       <div className={classes.slotContainer}>
         {slots.map(({ id, type, title, createdAt, imageUrl }) => (
-          <TimelineSlot
+          <TimelineSlotDetailed
             key={id}
             type={type}
             title={title}
@@ -102,17 +98,8 @@ const Timeline = ({ date = null, slots = [] }) => {
           />
         ))}
       </div>
-      {checkToday && (
-        <LineSlot
-          time={currentTime}
-          offsetTime={beginTime}
-          offset={options.offset}
-          unit={options.unit}
-          step={options.step}
-        />
-      )}
     </div>
   );
 };
 
-export default Timeline;
+export default TimelineDetailed;

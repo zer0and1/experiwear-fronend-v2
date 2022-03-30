@@ -18,5 +18,11 @@ export { default as ExpImageField } from './ExpImageField';
 export { default as ExpLoading } from './ExpLoading';
 
 export { default as TeamLogo } from './TeamLogo';
-export { default as Timeline } from './Timeline';
 export { default as Title } from './Title';
+
+export { default as LineSlot } from './LineSlot';
+export { default as Timeline } from './Timeline';
+export { default as TimelineDetailed } from './TimelineDetailed';
+export { default as TimelineGrid } from './TimelineGrid';
+export { default as TimelineSlot } from './TimelineSlot';
+export { default as TimelineSlotDetailed } from './TimelineSlotDetailed';

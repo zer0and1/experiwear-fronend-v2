@@ -1,5 +1,6 @@
 import { Fragment, useMemo } from 'react';
-import { Timeline, CurrentGame } from 'components';
+import { CurrentGame } from 'components';
+import { Timeline } from 'components/elements';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
