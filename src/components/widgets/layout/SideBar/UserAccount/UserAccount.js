@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: theme.spacing(8),
+    marginBottom: theme.spacing(4),
     width: '100%',
   },
   avatar: {

@@ -23,20 +23,23 @@ export const getGames =
       const playGame = games.find(
         (item) => item.gameStatus === GAME_STATUS.inProgress
       );
+
       let closestUpcomingGame = null;
-      if (!isEmpty(playGame)) {
+      const currentDate = new Date();
+
+      if (!isEmpty(playGame) && new Date(playGame.date) >= currentDate) {
         closestUpcomingGame = playGame;
       } else {
-        const currentDate = new Date();
-        let minDiffTime = 0;
-
-        for (const game of games) {
-          const diffTime = new Date(game.date) - currentDate;
-          if (diffTime > 0 && (minDiffTime === 0 || diffTime < minDiffTime)) {
-            minDiffTime = diffTime;
-            closestUpcomingGame = game;
-          }
-        }
+        closestUpcomingGame = games.reduce(
+          (acc, game) => {
+            const diff = new Date(game.date) - currentDate;
+            if (diff > 0 && diff < acc.minDiff) {
+              return { nextGame: game, minDiff: diff };
+            }
+            return acc;
+          },
+          { nextGame: null, minDiff: Infinity }
+        ).nextGame;
       }
 
       await dispatch(setGames(games));

@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TeamLogo } from 'components';
 import { getEnglishDate, isEmpty } from 'utils/helpers';
 import { LINKS } from 'utils/constants';
+import Title from '../Title';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -36,10 +37,9 @@ const CurrentGame = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const { selectedGame } = useSelector((state) => state.games);
-  const { selectedDate } = useSelector((state) => state.notifications);
+  const { closestUpcoming } = useSelector((state) => state.games);
 
-  if (isEmpty(selectedGame)) {
+  if (isEmpty(closestUpcoming)) {
     return null;
   }
 
@@ -49,14 +49,16 @@ const CurrentGame = () => {
 
   return (
     <div className={classes.root}>
+      <Title mb={2}>Today is {getEnglishDate(new Date())}</Title>
       <Box
         display="flex"
-        alignItems="center"
+        alignItems="flex-end"
         justifyContent="space-between"
         mb="19px"
       >
         <Typography className={classes.date}>
-          {getEnglishDate(selectedDate || selectedGame?.date)}
+          Next game: <br />
+          {getEnglishDate(closestUpcoming.date)}
         </Typography>
         <Link component="button" variant="body2" onClick={handleClick}>
           More info
@@ -69,13 +71,13 @@ const CurrentGame = () => {
         mb="26px"
       >
         <Box display="flex" alignItems="center">
-          <TeamLogo size={28} team={selectedGame.visitorTeam.abbreviation} />
+          <TeamLogo size={28} team={closestUpcoming.visitorTeam.abbreviation} />
           <Typography className={classes.teamName}>
-            {selectedGame.visitorTeam.name}
+            {closestUpcoming.visitorTeam.name}
           </Typography>
         </Box>
         <Typography color="textPrimary" className={classes.score}>
-          {selectedGame.visitorTeamScore}
+          {closestUpcoming.visitorTeamScore}
         </Typography>
       </Box>
       <Box
@@ -85,13 +87,13 @@ const CurrentGame = () => {
         mb="26px"
       >
         <Box display="flex" alignItems="center">
-          <TeamLogo size={28} team={selectedGame.homeTeam.abbreviation} />
+          <TeamLogo size={28} team={closestUpcoming.homeTeam.abbreviation} />
           <Typography className={classes.teamName}>
-            {selectedGame.homeTeam.name}
+            {closestUpcoming.homeTeam.name}
           </Typography>
         </Box>
         <Typography color="textPrimary" className={classes.score}>
-          {selectedGame.homeTeamScore}
+          {closestUpcoming.homeTeamScore}
         </Typography>
       </Box>
     </div>

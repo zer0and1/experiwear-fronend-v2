@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { TimelineSlot, TimelineGrid, LineSlot } from 'components/elements';
 import moment from 'moment';
-import { conv2time } from 'utils/helpers';
 import { DEFAULT_OPTIONS } from './constants';
 
 const useStyles = makeStyles(() => ({
