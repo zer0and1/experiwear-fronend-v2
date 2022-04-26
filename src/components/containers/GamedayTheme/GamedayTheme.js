@@ -22,7 +22,7 @@ const GamedayTheme = () => {
     <LeftContainer maxWidth="md">
       <FHCard>
         <FHCardHeader
-          title="Create Gameday Theme"
+          title="Prepare Gameday Themes"
           subheader={getEnglishDateWithTime(new Date())}
         />
         <FHCardContent>

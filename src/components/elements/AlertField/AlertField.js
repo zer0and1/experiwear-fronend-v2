@@ -7,9 +7,7 @@ import { difference, isEmpty } from 'utils/helpers';
 import { SettingDialog } from './components';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: theme.spacing(2),
-  },
+  root: {},
   label: {
     fontFamily: theme.custom.fonts.SFUITextRegular,
     fontSize: theme.spacing(2),
