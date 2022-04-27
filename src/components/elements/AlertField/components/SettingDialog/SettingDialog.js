@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
@@ -23,6 +23,9 @@ import {
 import { VIBRATION_MARKS } from './constants';
 import CloseIcon from '@material-ui/icons/Close';
 import { LED_TYPES, VIB_INTENSITIES, VIB_TYPES } from 'utils/constants';
+import clsx from 'clsx';
+import { PRESET_PATTERNS } from 'utils/constants/enums';
+import _ from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +36,37 @@ const useStyles = makeStyles((theme) => ({
     right: 8,
     top: 8,
     color: theme.palette.grey[500],
+  },
+  presetPanel: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    width: '100%',
+  },
+  presetButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 32,
+    height: 32,
+    marginLeft: 8,
+    marginBottom: 8,
+    color: '#c8c8c8',
+    fontSize: 14,
+    fontFamily: theme.custom.fonts.SFUITextMedium,
+    border: 'solid 1px #c8c8c8',
+    borderRadius: 12,
+    cursor: 'pointer',
+    '&:hover': {
+      color: theme.palette.grey,
+      border: 'solid 2px #a2a2a2',
+      color: '#a2a2a2',
+    },
+  },
+  presetSelected: {
+    background: theme.palette.primary.main,
+    color: 'white !important',
+    border: 'none !important',
   },
 }));
 
@@ -46,12 +80,23 @@ const SettingDialog = ({
   onSaveAsDefault,
 }) => {
   const classes = useStyles();
+  const [selectedPreset, selectPreset] = useState(
+    PRESET_PATTERNS.findIndex((pp) => _.isEqual(pp, params))
+  );
 
   const handleDurationChange = useCallback(
     (e, value) => {
       onChange({ target: { value, name: 'duration', type: 'slider' } });
     },
     [onChange]
+  );
+
+  const handleSelectPreset = useCallback(
+    (presetIdx) => {
+      selectPreset(presetIdx);
+      onReset(PRESET_PATTERNS[presetIdx]);
+    },
+    [onReset]
   );
 
   return (
@@ -71,6 +116,20 @@ const SettingDialog = ({
       <DialogContent>
         <Grid container>
           <Grid item lg={9} xs={12}>
+            <HeaderText>IOS PRESETS</HeaderText>
+            <div className={classes.presetPanel}>
+              {PRESET_PATTERNS.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={clsx(classes.presetButton, {
+                    [classes.presetSelected]: selectedPreset === idx,
+                  })}
+                  onClick={() => handleSelectPreset(idx)}
+                >
+                  {idx}
+                </div>
+              ))}
+            </div>
             <SubHeaderText>Duration</SubHeaderText>
             <Grid container spacing={2}>
               <Grid item lg={8} xs={12}>

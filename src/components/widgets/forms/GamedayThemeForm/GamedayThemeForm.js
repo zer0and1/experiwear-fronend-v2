@@ -9,7 +9,7 @@ import {
   FanbandTerminal,
   FullScreen,
 } from 'components';
-import { showErrorToast } from 'utils/helpers';
+import { isEmpty, showErrorToast } from 'utils/helpers';
 import ImageList from 'components/elements/ImageList';
 import { Title } from 'components/elements';
 
@@ -50,7 +50,9 @@ const GamedayThemeForm = ({
       : DEFAULT_ALERT_PARAMS()
   );
 
-  const resetParams = () => setAlertParmas(DEFAULT_ALERT_PARAMS());
+  const resetParams = (params) => {
+    setAlertParmas(isEmpty(params) ? DEFAULT_ALERT_PARAMS() : params);
+  };
 
   const handleParamsChange = ({ target: { name, value } }) =>
     setAlertParmas((params) => ({ ...params, [name]: value }));
