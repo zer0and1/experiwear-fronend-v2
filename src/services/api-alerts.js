@@ -64,6 +64,7 @@ export const getGamedayPresets = async () => {
 };
 
 export const uploadGamedayPresets = async (files) => {
+  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
   return await axios.post(
     '/api/notifications/gameday-theme',
     getFormData({ files })
