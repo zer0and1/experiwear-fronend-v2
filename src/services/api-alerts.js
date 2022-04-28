@@ -58,3 +58,14 @@ export const updateSavedAlert = async (id, params) => {
 export const deleteSavedAlert = async (id) => {
   return await axios.delete(`/notifications/saved/${id}`);
 };
+
+export const getGamedayPresets = async () => {
+  return await axios.get('/api/notifications/gameday-theme/admin-panel');
+};
+
+export const uploadGamedayPresets = async (files) => {
+  return await axios.post(
+    '/api/notifications/gameday-theme',
+    getFormData({ files })
+  );
+};
