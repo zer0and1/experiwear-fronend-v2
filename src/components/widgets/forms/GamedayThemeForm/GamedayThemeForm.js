@@ -15,6 +15,7 @@ import { Title } from 'components/elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAsyncAction } from 'hooks';
 import { getGamedayPresets, uploadGamedayPresets } from 'redux/actions';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageListLabel: {
     fontSize: 14,
-    marginBottom: 52,
+    marginBottom: 32,
   },
   uploadButton: {
     width: 252,
@@ -39,6 +40,37 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.custom.fonts.SFUITextBoldItalic,
     color: '#b0b0b0',
   },
+  presetPanel: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  presetItem: {
+    borderRadius: 14,
+    padding: '5px 10px 15px 10px',
+    marginRight: 8,
+    '&:hover': {
+      border: `solid 2px #c3c3c3`,
+      padding: '3px 8px 13px 8px',
+    },
+  },
+  presetItemLabel: {
+    fontFamily: theme.custom.fonts.SFUIText,
+    fontSize: 12,
+    lineHeight: 1.83,
+    color: '#c3c3c3',
+  },
+  presetItemSelected: {
+    padding: '2px 7px 12px 7px !important',
+    border: `solid 3px ${theme.palette.primary.main} !important`,
+    '& > p': {
+      color: '#000',
+    },
+  },
+  presetImage: {
+    width: 80,
+    height: 160,
+    objectFit: 'contain',
+  },
 }));
 
 const GamedayThemeForm = ({
@@ -49,9 +81,6 @@ const GamedayThemeForm = ({
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [image, setImage] = useState(
-    defaultValues ? { url: defaultValues.imageUrl } : null
-  );
   const [imageList, setImageList] = useState([]);
   const { gamedayPresets } = useSelector((state) => state.notifications);
 
@@ -59,7 +88,10 @@ const GamedayThemeForm = ({
 
   const [alertParams, setAlertParmas] = useState(
     defaultValues
-      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
+      ? _.pick(
+          defaultValues,
+          Object.keys(DEFAULT_ALERT_PARAMS()).concat('imageIndex')
+        )
       : DEFAULT_ALERT_PARAMS()
   );
 
@@ -73,14 +105,13 @@ const GamedayThemeForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!image?.file) {
+    if (alertParams.imageIndex < 0 || alertParams.imageIndex > 8) {
       showErrorToast('Please choose gameday theme image!');
     }
 
     await onSubmit({
       title: 'Gameday',
       body: 'Gameday',
-      file: image?.file,
       ...alertParams,
     });
 
@@ -98,27 +129,29 @@ const GamedayThemeForm = ({
     dispatch(uploadGamedayPresets(imageList.map((img) => img.file)));
   };
 
+  const handleSelectImage = (idx) => {
+    setAlertParmas((params) => ({ ...params, imageIndex: idx }));
+  };
+
   return (
     <div className={classes.root}>
       <Grid container>
-        <Grid item container xs={12}>
-          <Grid item xs={12}>
-            <Typography className={classes.imageListLabel}>
-              Select Gameday Images for Preloading
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <ImageList images={imageList} onChange={setImageList} mb="33px" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormButton
-              className={classes.uploadButton}
-              disabled={!imageList.length}
-              onClick={handleUploadPresets}
-            >
-              Upload
-            </FormButton>
-          </Grid>
+        <Grid item xs={12}>
+          <Typography className={classes.imageListLabel}>
+            Select Gameday Images for Preloading
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <ImageList images={imageList} onChange={setImageList} mb="33px" />
+        </Grid>
+        <Grid item xs={12}>
+          <FormButton
+            className={classes.uploadButton}
+            disabled={!imageList.length}
+            onClick={handleUploadPresets}
+          >
+            Upload
+          </FormButton>
         </Grid>
         <Grid item container lg={9} xs={12} spacing={2}>
           <Grid item xs={12}>
@@ -131,20 +164,28 @@ const GamedayThemeForm = ({
           </Grid>
           <Grid item xs={12}>
             {gamedayPresets.length ? (
-              gamedayPresets.map((img) => <img src={img} key={img} />)
+              <div className={classes.presetPanel}>
+                {gamedayPresets.map((img, idx) => (
+                  <div
+                    key={img}
+                    className={clsx(classes.presetItem, {
+                      [classes.presetItemSelected]:
+                        idx === alertParams.imageIndex,
+                    })}
+                    onClick={() => handleSelectImage(idx)}
+                  >
+                    <Typography className={classes.presetItemLabel}>
+                      Image {idx}
+                    </Typography>
+                    <img src={img} className={classes.presetImage} />
+                  </div>
+                ))}
+              </div>
             ) : (
               <Typography className={classes.emptyPresetLabel}>
                 Please upload Gameday Images above first
               </Typography>
             )}
-          </Grid>
-          <Grid item xs={12}>
-            <ExpImageField
-              label="Image"
-              image={image}
-              onChange={setImage}
-              width="100%"
-            />
           </Grid>
           <Grid item xs={12}>
             <AlertField
@@ -155,7 +196,11 @@ const GamedayThemeForm = ({
               width="252px"
               mt={3}
               mb="96px"
-              terminalScreen={<FullScreen imageUrl={image?.url} />}
+              terminalScreen={
+                <FullScreen
+                  imageUrl={gamedayPresets?.[alertParams.imageIndex]}
+                />
+              }
             />
           </Grid>
         </Grid>
@@ -168,7 +213,7 @@ const GamedayThemeForm = ({
           alignItems="center"
         >
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <FullScreen imageUrl={image?.url} />
+            <FullScreen imageUrl={gamedayPresets?.[alertParams.imageIndex]} />
           </FanbandTerminal>
         </Grid>
         <Grid item xs={12}>

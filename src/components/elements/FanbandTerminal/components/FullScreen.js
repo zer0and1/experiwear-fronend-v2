@@ -1,10 +1,8 @@
 import { makeStyles, Box } from '@material-ui/core';
 import {
   TERMINAL_ATL,
-  TERMINAL_BATTERY,
   TERMINAL_HAWKS,
   TERMINAL_HAWKS_LOGO,
-  TERMINAL_LINK,
 } from 'utils/constants';
 
 const useStyles = makeStyles({
@@ -34,12 +32,7 @@ const FullScreen = ({ imageUrl }) => {
 
   return (
     <div className={classes.root}>
-      {imageUrl ? (
-        <>
-          <img src={TERMINAL_LINK} height={12} />
-          <img src={TERMINAL_BATTERY} height={12} />
-        </>
-      ) : (
+      {imageUrl ? null : (
         <>
           <Box
             display="flex"
