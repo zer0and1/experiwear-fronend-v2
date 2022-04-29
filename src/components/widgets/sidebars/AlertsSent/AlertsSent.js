@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
-import { getNotifications } from 'redux/actions';
+import { getGamedayPresets, getNotifications } from 'redux/actions';
 import { AlertItem, Title } from 'components';
 import { Button } from '@material-ui/core';
 import { useAsyncAction } from 'hooks';
@@ -49,6 +49,7 @@ const AlertsSent = ({
   }, [router, link]);
 
   useAsyncAction(getNotifications(type), isEmpty(alerts));
+  useAsyncAction(getGamedayPresets());
 
   return (
     <div className={classes.root}>
