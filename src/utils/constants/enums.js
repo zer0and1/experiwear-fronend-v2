@@ -73,6 +73,7 @@ export const LED_TYPES = Object.freeze({
 export const PRESET_PATTERNS = [
   {
     // label: 'All Red',
+    presetPatternIndex: 0,
     topColor1: 'rgb(255,0,0)',
     topColor2: 'rgb(255,0,0)',
     topColor3: 'rgb(255,0,0)',
@@ -86,6 +87,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All Green',
+    presetPatternIndex: 1,
     topColor1: 'rgb(0,255,0)',
     topColor2: 'rgb(0,255,0)',
     topColor3: 'rgb(0,255,0)',
@@ -99,6 +101,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All Blue',
+    presetPatternIndex: 2,
     topColor1: 'rgb(0,0,255)',
     topColor2: 'rgb(0,0,255)',
     topColor3: 'rgb(0,0,255)',
@@ -112,6 +115,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All Yellow',
+    presetPatternIndex: 3,
     topColor1: 'rgb(255,233,0)',
     topColor2: 'rgb(255,233,0)',
     topColor3: 'rgb(255,233,0)',
@@ -125,6 +129,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All Orange',
+    presetPatternIndex: 4,
     topColor1: 'rgb(255,164,0)',
     topColor2: 'rgb(255,164,0)',
     topColor3: 'rgb(255,164,0)',
@@ -138,6 +143,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All Purple',
+    presetPatternIndex: 5,
     topColor1: 'rgb(172,79,198)',
     topColor2: 'rgb(172,79,198)',
     topColor3: 'rgb(172,79,198)',
@@ -151,6 +157,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'Half Red/Blue',
+    presetPatternIndex: 6,
     topColor1: 'rgb(255,0,0)',
     topColor2: 'rgb(255,0,0)',
     topColor3: 'rgb(255,0,0)',
@@ -164,6 +171,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'Half Green/Orange',
+    presetPatternIndex: 7,
     topColor1: 'rgb(0,255,0)',
     topColor2: 'rgb(0,255,0)',
     topColor3: 'rgb(0,255,0)',
@@ -177,6 +185,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'Half Red/Green',
+    presetPatternIndex: 8,
     topColor1: 'rgb(255,0,0)',
     topColor2: 'rgb(255,0,0)',
     topColor3: 'rgb(255,0,0)',
@@ -190,6 +199,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All American',
+    presetPatternIndex: 9,
     topColor1: 'rgb(255,0,0)',
     topColor2: 'rgb(0,0,0)',
     topColor3: 'rgb(0,0,255)',

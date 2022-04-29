@@ -62,8 +62,8 @@ const ScoreForm = ({
     return `${game.visitorTeamScore} - ${game.homeTeamScore}`;
   }, [game]);
 
-  const resetParams = () => {
-    setAlertParmas(DEFAULT_ALERT_PARAMS());
+  const resetParams = (params) => {
+    setAlertParmas(params || DEFAULT_ALERT_PARAMS());
   };
 
   const handleParamsChange = useCallback(

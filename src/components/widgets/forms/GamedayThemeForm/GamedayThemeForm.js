@@ -55,7 +55,6 @@ const GamedayThemeForm = ({
   const [imageList, setImageList] = useState([]);
   const { gamedayPresets } = useSelector((state) => state.notifications);
 
-  console.log(gamedayPresets);
   useAsyncAction(getGamedayPresets(), !gamedayPresets.length);
 
   const [alertParams, setAlertParmas] = useState(

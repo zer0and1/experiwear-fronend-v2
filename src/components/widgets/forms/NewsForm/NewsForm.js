@@ -62,7 +62,8 @@ const NewsForm = ({
   });
   const titleText = watch('title');
 
-  const resetParams = () => setAlertParmas(DEFAULT_ALERT_PARAMS());
+  const resetParams = (params) =>
+    setAlertParmas(params || DEFAULT_ALERT_PARAMS());
   const handleParamsChange = ({ target: { name, value } }) =>
     setAlertParmas((params) => ({ ...params, [name]: value }));
 
