@@ -1,5 +1,9 @@
 import { Card, CardContent, CardHeader, makeStyles } from '@material-ui/core';
-import { getFanbandsStatistics, getNotifications } from 'redux/actions';
+import {
+  getFanbandsStatistics,
+  getGamedayPresets,
+  getNotifications,
+} from 'redux/actions';
 import { Layout, AlertItem } from 'components';
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
@@ -57,6 +61,7 @@ const useAlertsSent = (type, title) => {
 
   useAsyncAction(getNotifications(type), isEmpty(alerts));
   useAsyncAction(getFanbandsStatistics(), !totalCount);
+  useAsyncAction(getGamedayPresets());
 
   return (
     <Layout sidebar={<CurrentFanbandStats />}>
