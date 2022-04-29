@@ -7,12 +7,17 @@ import {
   Typography,
 } from '@material-ui/core';
 import clsx from 'clsx';
+import { useAsyncAction } from 'hooks';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { removeSavedAlert, sendSavedAlert } from 'redux/actions';
-import { LINKS } from 'utils/constants';
+import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getGamedayPresets,
+  removeSavedAlert,
+  sendSavedAlert,
+} from 'redux/actions';
+import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +95,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AlertItem = ({
-  data: { id, imageUrl, type, title, createdAt, scheduledTime = null },
+  data: {
+    id,
+    imageUrl,
+    imageIndex,
+    type,
+    title,
+    createdAt,
+    scheduledTime = null,
+  },
   action = false,
   href = '',
   className,
@@ -100,6 +113,16 @@ const AlertItem = ({
   const router = useRouter();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const { gamedayPresets } = useSelector((state) => state.notifications);
+
+  const imageLink = useMemo(() => {
+    if (type === ALERT_PROTO_TYPES.gameday) {
+      return gamedayPresets?.[imageIndex] || imageUrl;
+    }
+    return imageUrl;
+  }, [imageUrl, gamedayPresets, imageIndex, type]);
+
+  useAsyncAction(getGamedayPresets(false), !gamedayPresets.length);
 
   const hanldeOpenActions = (e) => setAnchorEl(e.target);
   const handleCloseActions = () => setAnchorEl(null);
@@ -126,7 +149,7 @@ const AlertItem = ({
   return (
     <Box {...boxProps} className={clsx(classes.root, className)}>
       <Box display="flex" alignItems="center">
-        <img className={classes.icon} src={imageUrl} />
+        <img className={classes.icon} src={imageLink} />
         <div>
           {href ? (
             <Link onClick={handleClickLink} className={classes.link}>

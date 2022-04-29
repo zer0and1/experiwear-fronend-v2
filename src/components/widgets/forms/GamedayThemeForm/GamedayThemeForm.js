@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ALERT_FORM_MODES, DEFAULT_ALERT_PARAMS } from 'utils/constants';
 import {
   FormButton,
-  ExpImageField,
   AlertField,
   FanbandTerminal,
   FullScreen,

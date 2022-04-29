@@ -265,14 +265,24 @@ export const setAlertToShow = (alert, visibility) => ({
   payload: { alert, visibility },
 });
 
-export const getGamedayPresets = () => async (dispatch) => {
-  try {
-    const { images: presets } = await alertsAPI.readGamedayPresets();
-    dispatch(setGamedayPresets(presets));
-  } catch (err) {
-    dispatch(setResponseError(err));
-  }
-};
+export const getGamedayPresets =
+  (reloading = false) =>
+  async (dispatch, getState) => {
+    try {
+      const {
+        notifications: { gamedayPresets },
+      } = getState();
+
+      if (gamedayPresets.length && !reloading) {
+        return;
+      }
+
+      const { images: presets } = await alertsAPI.readGamedayPresets();
+      dispatch(setGamedayPresets(presets));
+    } catch (err) {
+      dispatch(setResponseError(err));
+    }
+  };
 
 export const setGamedayPresets = (presets) => ({
   type: TYPES.SET_GAMEDAY_PRESETS,
