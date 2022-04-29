@@ -19,7 +19,7 @@ export const isEmpty = (value) => {
 export const getFormData = (obj) => {
   return Object.keys(obj).reduce((formData, key) => {
     if (Array.isArray(obj[key])) {
-      obj[key].forEach((el) => formData.append(`${key}[]`, el));
+      obj[key].forEach((el) => formData.append(`${key}`, el));
     } else {
       formData.append(key, obj[key]);
     }

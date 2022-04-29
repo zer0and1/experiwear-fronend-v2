@@ -25,6 +25,7 @@ const INITIAL_STATE = Object.freeze({
     results: [],
     total: 0,
   },
+  gamedayPresets: [],
 });
 
 const alertsReducer = (state = INITIAL_STATE, action) => {
@@ -69,6 +70,11 @@ const alertsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         alertsToShow: { ...alertsToShow, [alert]: visibility },
+      };
+    case TYPES.SET_GAMEDAY_PRESETS:
+      return {
+        ...state,
+        gamedayPresets: action.payload,
       };
     default:
       return state;

@@ -12,8 +12,11 @@ import {
 import { isEmpty, showErrorToast } from 'utils/helpers';
 import ImageList from 'components/elements/ImageList';
 import { Title } from 'components/elements';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAsyncAction } from 'hooks';
+import { getGamedayPresets, uploadGamedayPresets } from 'redux/actions';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -31,6 +34,11 @@ const useStyles = makeStyles(() => ({
     fontSize: 14,
     marginBottom: 33,
   },
+  emptyPresetLabel: {
+    fontSize: 20,
+    fontFamily: theme.custom.fonts.SFUITextBoldItalic,
+    color: '#b0b0b0',
+  },
 }));
 
 const GamedayThemeForm = ({
@@ -39,10 +47,16 @@ const GamedayThemeForm = ({
   defaultValues = null,
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [image, setImage] = useState(
     defaultValues ? { url: defaultValues.imageUrl } : null
   );
   const [imageList, setImageList] = useState([]);
+  const { gamedayPresets } = useSelector((state) => state.notifications);
+
+  console.log(gamedayPresets);
+  useAsyncAction(getGamedayPresets(), !gamedayPresets.length);
 
   const [alertParams, setAlertParmas] = useState(
     defaultValues
@@ -81,6 +95,10 @@ const GamedayThemeForm = ({
     resetParams();
   };
 
+  const handleUploadPresets = () => {
+    dispatch(uploadGamedayPresets(imageList.map((img) => img.file)));
+  };
+
   return (
     <div className={classes.root}>
       <Grid container>
@@ -97,6 +115,7 @@ const GamedayThemeForm = ({
             <FormButton
               className={classes.uploadButton}
               disabled={!imageList.length}
+              onClick={handleUploadPresets}
             >
               Upload
             </FormButton>
@@ -110,6 +129,15 @@ const GamedayThemeForm = ({
             <Typography className={classes.imageListLabel}>
               Select Gameday Images for Preloading
             </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            {gamedayPresets.length ? (
+              gamedayPresets.map((img) => <img src={img} key={img} />)
+            ) : (
+              <Typography className={classes.emptyPresetLabel}>
+                Please upload Gameday Images above first
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <ExpImageField

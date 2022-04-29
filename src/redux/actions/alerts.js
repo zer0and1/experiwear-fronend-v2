@@ -264,3 +264,26 @@ export const setAlertToShow = (alert, visibility) => ({
   type: TYPES.SET_ALERT_TO_SHOW,
   payload: { alert, visibility },
 });
+
+export const getGamedayPresets = () => async (dispatch) => {
+  try {
+    const { images: presets } = await alertsAPI.readGamedayPresets();
+    dispatch(setGamedayPresets(presets));
+  } catch (err) {
+    dispatch(setResponseError(err));
+  }
+};
+
+export const setGamedayPresets = (presets) => ({
+  type: TYPES.SET_GAMEDAY_PRESETS,
+  payload: presets,
+});
+
+export const uploadGamedayPresets = (files) => async (dispatch) => {
+  try {
+    const res = await alertsAPI.uploadGamedayPresets(files);
+    dispatch(setResponseSuccess(res));
+  } catch (err) {
+    dispatch(setResponseError(err));
+  }
+};

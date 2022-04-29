@@ -59,14 +59,14 @@ export const deleteSavedAlert = async (id) => {
   return await axios.delete(`/notifications/saved/${id}`);
 };
 
-export const getGamedayPresets = async () => {
-  return await axios.get('/api/notifications/gameday-theme/admin-panel');
+export const readGamedayPresets = async () => {
+  return await axios.get('/notifications/gameday-theme/admin-panel');
 };
 
 export const uploadGamedayPresets = async (files) => {
   axios.defaults.headers['Content-Type'] = 'multipart/form-data';
   return await axios.post(
-    '/api/notifications/gameday-theme',
+    '/notifications/gameday-theme',
     getFormData({ files })
   );
 };
