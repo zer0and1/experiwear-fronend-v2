@@ -7,16 +7,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import { useAsyncAction } from 'hooks';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getGamedayPresets,
-  removeSavedAlert,
-  sendSavedAlert,
-} from 'redux/actions';
+import { removeSavedAlert, sendSavedAlert } from 'redux/actions';
 import { ALERT_PROTO_TYPES, LINKS } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -121,8 +116,6 @@ const AlertItem = ({
     }
     return imageUrl;
   }, [imageUrl, gamedayPresets, imageIndex, type]);
-
-  useAsyncAction(getGamedayPresets(false), !gamedayPresets.length);
 
   const hanldeOpenActions = (e) => setAnchorEl(e.target);
   const handleCloseActions = () => setAnchorEl(null);

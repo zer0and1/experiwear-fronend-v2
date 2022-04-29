@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { getNotifications } from 'redux/actions';
+import { getGamedayPresets, getNotifications } from 'redux/actions';
 import { AlertItem, Title } from 'components';
 import { useAsyncAction } from 'hooks';
 import { ALERT_MIXED_TYPES } from 'utils/constants';
@@ -39,6 +39,7 @@ const ActivityTimeline = () => {
   );
 
   useAsyncAction(getNotifications());
+  useAsyncAction(getGamedayPresets());
 
   return (
     <div className={classes.root}>
