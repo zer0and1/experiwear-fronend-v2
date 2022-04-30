@@ -82,15 +82,13 @@ const GamedayThemeForm = ({
 
   const [imageList, setImageList] = useState([]);
   const { gamedayPresets } = useSelector((state) => state.notifications);
+  const [imageIndex, setImageIndex] = useState(defaultValues?.imageIndex || -1);
 
   useAsyncAction(getGamedayPresets(), !gamedayPresets.length);
 
   const [alertParams, setAlertParmas] = useState(
     defaultValues
-      ? _.pick(
-          defaultValues,
-          Object.keys(DEFAULT_ALERT_PARAMS()).concat('imageIndex')
-        )
+      ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
       : DEFAULT_ALERT_PARAMS()
   );
 
@@ -104,13 +102,14 @@ const GamedayThemeForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (alertParams.imageIndex < 0 || alertParams.imageIndex > 8) {
+    if (imageIndex < 0 || imageIndex > 8) {
       showErrorToast('Please choose gameday theme image!');
     }
 
     await onSubmit({
       title: 'Gameday',
       body: 'Gameday',
+      imageIndex,
       ...alertParams,
     });
 
@@ -129,7 +128,7 @@ const GamedayThemeForm = ({
   };
 
   const handleSelectImage = (idx) => {
-    setAlertParmas((params) => ({ ...params, imageIndex: idx }));
+    setImageIndex(idx);
   };
 
   return (
@@ -168,8 +167,7 @@ const GamedayThemeForm = ({
                   <div
                     key={img}
                     className={clsx(classes.presetItem, {
-                      [classes.presetItemSelected]:
-                        idx === alertParams.imageIndex,
+                      [classes.presetItemSelected]: idx === imageIndex,
                     })}
                     onClick={() => handleSelectImage(idx)}
                   >
@@ -196,9 +194,7 @@ const GamedayThemeForm = ({
               mt={3}
               mb="96px"
               terminalScreen={
-                <FullScreen
-                  imageUrl={gamedayPresets?.[alertParams.imageIndex]}
-                />
+                <FullScreen imageUrl={gamedayPresets?.[imageIndex]} />
               }
             />
           </Grid>
@@ -212,7 +208,7 @@ const GamedayThemeForm = ({
           alignItems="center"
         >
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <FullScreen imageUrl={gamedayPresets?.[alertParams.imageIndex]} />
+            <FullScreen imageUrl={gamedayPresets?.[imageIndex]} />
           </FanbandTerminal>
         </Grid>
         <Grid item xs={12}>
