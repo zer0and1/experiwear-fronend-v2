@@ -192,7 +192,7 @@ const GamedayThemeForm = ({
               onReset={resetParams}
               width="252px"
               mt={3}
-              mb="96px"
+              mb={5}
               terminalScreen={
                 <FullScreen imageUrl={gamedayPresets?.[imageIndex]} />
               }
@@ -207,7 +207,7 @@ const GamedayThemeForm = ({
           justifyContent="center"
           alignItems="center"
         >
-          <FanbandTerminal params={alertParams} disabledAnimation>
+          <FanbandTerminal params={alertParams} disabledAnimation mb={5}>
             <FullScreen imageUrl={gamedayPresets?.[imageIndex]} />
           </FanbandTerminal>
         </Grid>
