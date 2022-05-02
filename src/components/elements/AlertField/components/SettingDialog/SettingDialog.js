@@ -135,9 +135,11 @@ const SettingDialog = ({
               <Grid item lg={8} xs={12}>
                 <PrettoSlider
                   name="duration"
+                  valueLabelDisplay="on"
                   min={1}
                   max={20}
                   step={1}
+                  valueLabelFormat={(value) => `${value}s`}
                   marks={VIBRATION_MARKS}
                   value={params.duration}
                   onChange={handleDurationChange}
