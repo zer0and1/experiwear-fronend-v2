@@ -290,10 +290,15 @@ export const setGamedayPresets = (presets) => ({
 });
 
 export const uploadGamedayPresets = (files) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
+
   try {
     const res = await alertsAPI.uploadGamedayPresets(files);
     dispatch(setResponseSuccess(res));
+    dispatch(getGamedayPresets(true));
   } catch (err) {
     dispatch(setResponseError(err));
   }
+
+  dispatch(setLoadingStatus(false));
 };
