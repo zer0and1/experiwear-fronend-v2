@@ -139,7 +139,7 @@ const ImageList = ({
               <DnDPanel
                 onImageUpload={onImageUpload}
                 isDragging={isDragging}
-                dragProp={dragProps}
+                dragProps={dragProps}
               />
             )}
             {imageList.length < maxNumber && (
