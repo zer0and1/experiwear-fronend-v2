@@ -123,8 +123,9 @@ const GamedayThemeForm = ({
     resetParams();
   };
 
-  const handleUploadPresets = () => {
-    dispatch(uploadGamedayPresets(imageList.map((img) => img.file)));
+  const handleUploadPresets = async () => {
+    await dispatch(uploadGamedayPresets(imageList.map((img) => img.file)));
+    setImageList([]);
   };
 
   const handleSelectImage = (idx) => {
