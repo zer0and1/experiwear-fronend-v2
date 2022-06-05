@@ -118,7 +118,7 @@ const SettingDialog = ({
           <Grid item lg={9} xs={12}>
             <HeaderText>IOS PRESETS</HeaderText>
             <div className={classes.presetPanel}>
-              {PRESET_PATTERNS.map((_, idx) => (
+              {PRESET_PATTERNS.map(({ presetPatternIndex: idx }) => (
                 <div
                   key={idx}
                   className={clsx(classes.presetButton, {

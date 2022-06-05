@@ -51,7 +51,7 @@ const AlertField = ({
     }
 
     const colorsTop = (
-      <Box display="flex" alignItems="center">
+      <Box key="colors-top" display="flex" alignItems="center">
         <div>Colors Top:&nbsp;</div>
         <div
           className={classes.colorPattern}
@@ -69,7 +69,7 @@ const AlertField = ({
     );
 
     const colorsBottom = (
-      <Box display="flex" alignItems="center">
+      <Box key="colors-bottom" display="flex" alignItems="center">
         <div>Colors Bottom:&nbsp;</div>
         <div
           className={classes.colorPattern}
