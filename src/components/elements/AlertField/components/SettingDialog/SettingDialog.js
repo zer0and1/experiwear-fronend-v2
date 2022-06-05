@@ -99,6 +99,15 @@ const SettingDialog = ({
     [onReset]
   );
 
+  const handleReset = useCallback(
+    (e) => {
+      e.preventDefault();
+      selectPreset(0);
+      onReset(PRESET_PATTERNS[0]);
+    },
+    [onReset]
+  );
+
   return (
     <Dialog
       open={open}
@@ -281,7 +290,7 @@ const SettingDialog = ({
       <DialogActions>
         <Grid container spacing={2}>
           <Grid item lg={6} xs={12}>
-            <FormButton color="secondary" onClick={onReset}>
+            <FormButton color="secondary" onClick={handleReset}>
               Reset to default
             </FormButton>
           </Grid>
