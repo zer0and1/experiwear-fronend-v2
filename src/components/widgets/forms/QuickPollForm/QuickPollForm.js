@@ -10,6 +10,7 @@ import {
   TITLE_VALID,
   DEFAULT_ALERT_PARAMS,
   ALERT_FORM_MODES,
+  STRING_VALID,
 } from 'utils/constants';
 import {
   AlertField,
@@ -22,6 +23,7 @@ import {
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
+  body: STRING_VALID,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -84,14 +86,15 @@ const QuickPollForm = ({
     resolver: yupResolver(schema),
     defaultValues: {
       title: '',
-      ..._.pick(defaultValues, ['title']),
+      body: '',
+      ..._.pick(defaultValues, ['title', 'body']),
     },
   });
-  const titleText = watch('title');
+  const questionTxt = watch('body');
 
   const submitHandler = async (data) => {
     await onSubmit({
-      ..._.pick(data, ['title']),
+      ..._.pick(data, ['title', 'body']),
       ...alertParams,
       file: image?.file,
       responses,
@@ -120,8 +123,18 @@ const QuickPollForm = ({
             <Controller
               as={<ExpTextField />}
               name="title"
-              label="Quick Poll question"
+              label="Quick Poll title"
               error={errors.response?.title}
+              control={control}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              as={<ExpTextField />}
+              name="body"
+              label="Quick Poll question"
+              error={errors.response?.body}
               control={control}
               fullWidth
             />
@@ -184,14 +197,14 @@ const QuickPollForm = ({
               width="90%"
               mt={3}
               terminalScreen={
-                <QuickPollScreen text={titleText} responses={responses} />
+                <QuickPollScreen text={questionTxt} responses={responses} />
               }
             />
           </Grid>
         </Grid>
         <Grid container item lg={3} xs={12} justifyContent="center">
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <QuickPollScreen text={titleText} responses={responses} />
+            <QuickPollScreen text={questionTxt} responses={responses} />
           </FanbandTerminal>
         </Grid>
       </Grid>
