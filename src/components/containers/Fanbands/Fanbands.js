@@ -1,4 +1,4 @@
-import { makeStyles, Tab, Tabs } from '@material-ui/core';
+import { Tab, Tabs } from '@material-ui/core';
 import { TabPanel, TabContext } from '@material-ui/lab';
 import { useMemo, useState } from 'react';
 import { FHCard, FHCardHeader, FHCardContent, FanbandTable } from 'components';
@@ -7,16 +7,7 @@ import { useAsyncAction } from 'hooks';
 import { getFanbands } from 'redux/actions';
 import { useSelector } from 'react-redux';
 
-const useStyles = makeStyles({
-  tabPanel: {
-    flexGrow: 1,
-    height: 0,
-    overflow: 'auto',
-  },
-});
-
 const Fanbands = () => {
-  const classes = useStyles();
   const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
   const fanbands = useSelector((state) => state.main.fanbands.results);
   const provisionedFanbands = useMemo(
@@ -52,19 +43,13 @@ const Fanbands = () => {
       />
       <FHCardContent>
         <TabContext value={tab}>
-          <TabPanel
-            className={classes.tabPanel}
-            value={FANBAND_TYPES.provisioned}
-          >
+          <TabPanel value={FANBAND_TYPES.provisioned}>
             <FanbandTable fanbands={provisionedFanbands} />
           </TabPanel>
-          <TabPanel
-            className={classes.tabPanel}
-            value={FANBAND_TYPES.nonProvisioned}
-          >
+          <TabPanel value={FANBAND_TYPES.nonProvisioned}>
             <FanbandTable fanbands={nonProvisionedFanbands} />
           </TabPanel>
-          <TabPanel className={classes.tabPanel} value={FANBAND_TYPES.all}>
+          <TabPanel value={FANBAND_TYPES.all}>
             <FanbandTable fanbands={fanbands} />
           </TabPanel>
         </TabContext>

@@ -42,7 +42,11 @@ const FanbandItem = ({ data, className, ...boxProps }) => {
         <FanbandIcon width="48px" />
       </Box>
       <Typography className={classes.content}>
-        {data.name} <br />
+        {data.name && (
+          <>
+            <span>{data.name}</span> <br />
+          </>
+        )}
         <span>MAC address: {data.mac}</span> <br />
         <span>PIN code: {data.pin}</span> <br />
         <span>Mobile phone: {data.phone}</span> <br />
