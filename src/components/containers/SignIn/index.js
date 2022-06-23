@@ -60,11 +60,14 @@ const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data) => {
-    await dispatch(signIn(data));
-    router.push(router.query.redirect || LINKS.home.path);
-    // eslint-disable-next-line
-  }, []);
+  const onSubmit = useCallback(
+    async (data) => {
+      await dispatch(signIn(data));
+      router.push(router.query.redirect || LINKS.home.path);
+    },
+    [router, dispatch]
+  );
+
   const resetHandler = useCallback(() => {
     reset({
       email: '',
