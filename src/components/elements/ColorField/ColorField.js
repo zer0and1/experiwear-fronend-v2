@@ -35,14 +35,30 @@ const ColorField = ({
 }) => {
   const classes = useStyles({ color: value });
   const [pickerToggled, togglePicker] = useState(false);
+  const [errValue, setErrValue] = useState();
   const handleTogglePicker = useCallback(() => togglePicker(true), []);
   const handleColorChange = useCallback(
-    (val) =>
-      onChange({ target: { name, value: `rgb(${val.rgb.toString()})` } }),
+    (val) => {
+      const isInvalidHex =
+        typeof val.raw === 'string' &&
+        !/^\#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(val.raw);
+      if (isInvalidHex) {
+        setErrValue(val.raw);
+      } else {
+        if (val.format === 'rgb') {
+        }
+        onChange({
+          target: {
+            name,
+            value: `rgb(${val.rgb.map((v) => v || 0).toString()})`,
+          },
+        });
+        setErrValue(null);
+      }
+    },
     [name, onChange]
   );
   const handleClosePicker = useCallback((open) => togglePicker(open), []);
-
   return (
     <Box className={classes.root}>
       <Button onClick={handleTogglePicker} className={classes.button}>
@@ -51,8 +67,9 @@ const ColorField = ({
       {pickerToggled && (
         <ColorPicker
           openAtStart
+          disableAlpha
           hideTextfield
-          value={value}
+          value={errValue || value}
           onChange={handleColorChange}
           onOpen={handleClosePicker}
         />
