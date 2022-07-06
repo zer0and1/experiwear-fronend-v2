@@ -18,12 +18,12 @@ export async function middleware(req) {
     let redirect = false;
 
     if (cookie && cookie !== FAKE_COOKIE) {
-      const authStatus = await fetch(`${PROXY_URL}/auth/is-authenticated`, {
-        headers: {
-          cookie,
-        },
-      });
-      redirect = !authStatus.id;
+      // const authStatus = await fetch(`${PROXY_URL}/auth/is-authenticated`, {
+      //   headers: {
+      //     cookie,
+      //   },
+      // });
+      // redirect = !authStatus.id;
     } else {
       redirect = !cookie;
     }
