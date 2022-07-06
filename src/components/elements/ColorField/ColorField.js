@@ -45,8 +45,6 @@ const ColorField = ({
       if (isInvalidHex) {
         setErrValue(val.raw);
       } else {
-        if (val.format === 'rgb') {
-        }
         onChange({
           target: {
             name,
