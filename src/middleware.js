@@ -1,5 +1,5 @@
 import { COOKIE_NAME } from 'config';
-import { IS_PRODUCT } from 'config';
+import { FAKE_COOKIE } from 'config';
 import { PROXY_URL } from 'config';
 import { NextResponse } from 'next/server';
 import { LINKS } from 'utils/constants/enums';
@@ -15,14 +15,20 @@ export async function middleware(req) {
 
   if (isProtectedPage) {
     const cookie = req.cookies.get(COOKIE_NAME);
-    const authStatus =
-      cookie &&
-      (await fetch(`${PROXY_URL}/auth/is-authenticated`, {
+    let redirect = false;
+
+    if (cookie && cookie !== FAKE_COOKIE) {
+      const authStatus = await fetch(`${PROXY_URL}/auth/is-authenticated`, {
         headers: {
           cookie,
         },
-      }));
-    if (!cookie || (IS_PRODUCT && !authStatus.id)) {
+      });
+      redirect = !authStatus.id;
+    } else {
+      redirect = !cookie;
+    }
+
+    if (redirect) {
       const url = req.nextUrl.clone();
       url.pathname = LINKS.signIn.path;
       url.search = `redirect=${pathname}`;

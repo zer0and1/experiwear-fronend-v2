@@ -2,7 +2,12 @@ import * as authAPI from 'services/api-auth';
 import * as ActionTypes from 'redux/actionTypes';
 import { setLoadingStatus, setResponseError } from '.';
 import { extractHostAddr } from 'utils/helpers';
-import { PROXY_URL, COOKIE_MAX_AGE, COOKIE_NAME } from '../../config';
+import {
+  PROXY_URL,
+  COOKIE_MAX_AGE,
+  COOKIE_NAME,
+  FAKE_COOKIE,
+} from '../../config';
 
 export const setUserAuthStatus = (isAuthenticated, userInfo = {}) => {
   localStorage.setItem('isAuthenticated', isAuthenticated);
@@ -51,7 +56,7 @@ export const logoutUser = () => async (dispatch) => {
 
     // Clear fake cookie for middleware authenticated routing if api proxy has cors.
     if (extractHostAddr(location.origin) !== extractHostAddr(PROXY_URL)) {
-      document.cookie = `${COOKIE_NAME}=fake_cookie; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/`;
+      document.cookie = `${COOKIE_NAME}=${FAKE_COOKIE}; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/`;
     }
 
     dispatch(setUserAuthStatus(false));
