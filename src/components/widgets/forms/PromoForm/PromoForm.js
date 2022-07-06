@@ -19,6 +19,7 @@ import {
   ExpTextField,
   ImageScreen,
   PhonePicker,
+  TextScreen,
 } from 'components';
 
 const schema = yup.object().shape({
@@ -170,7 +171,7 @@ const PromoForm = ({
         </Grid>
         <Grid container item lg={3} xs={12} justifyContent="center">
           <FanbandTerminal params={alertParams} disabledAnimation>
-            <ImageScreen imageUrl={image?.url} text={titleText} />
+            <TextScreen text={titleText} />
           </FanbandTerminal>
         </Grid>
       </Grid>

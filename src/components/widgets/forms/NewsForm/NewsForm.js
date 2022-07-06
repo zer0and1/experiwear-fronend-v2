@@ -18,6 +18,7 @@ import {
   ExpImageField,
   ExpTextField,
   ImageScreen,
+  TextScreen,
 } from 'components';
 
 const schema = object().shape({
@@ -139,7 +140,7 @@ const NewsForm = ({
         <Grid item lg={3} xs={12} container justifyContent="center">
           <Grid item>
             <FanbandTerminal params={alertParams} disabledAnimation>
-              <ImageScreen imageUrl={image?.url} text={titleText} />
+              <TextScreen text={titleText} />
             </FanbandTerminal>
           </Grid>
         </Grid>
