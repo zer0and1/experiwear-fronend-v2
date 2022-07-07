@@ -28,7 +28,6 @@ export async function middleware(req) {
         const authStatus = await axiosInstance.get(
           `${PROXY_URL}/auth/is-authenticated`,
           {
-            withCredentials: true,
             headers: {
               cookie: `${COOKIE_NAME}=${cookie}`,
             },
@@ -46,7 +45,11 @@ export async function middleware(req) {
       const url = req.nextUrl.clone();
       url.pathname = LINKS.signIn.path;
       url.search = `redirect=${pathname}`;
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(url, {
+        headers: {
+          cookie: '',
+        },
+      });
     }
   }
 
