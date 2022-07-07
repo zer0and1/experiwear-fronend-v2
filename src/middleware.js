@@ -45,11 +45,7 @@ export async function middleware(req) {
       const url = req.nextUrl.clone();
       url.pathname = LINKS.signIn.path;
       url.search = `redirect=${pathname}`;
-      return NextResponse.redirect(url, {
-        headers: {
-          cookie: '',
-        },
-      });
+      return NextResponse.redirect(url);
     }
   }
 
