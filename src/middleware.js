@@ -3,6 +3,8 @@ import { FAKE_COOKIE } from 'config';
 import { PROXY_URL } from 'config';
 import { NextResponse } from 'next/server';
 import { LINKS } from 'utils/constants/enums';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+import axios from 'axios';
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
@@ -18,12 +20,24 @@ export async function middleware(req) {
     let redirect = false;
 
     if (cookie && cookie !== FAKE_COOKIE) {
-      // const authStatus = await fetch(`${PROXY_URL}/auth/is-authenticated`, {
-      //   headers: {
-      //     cookie,
-      //   },
-      // });
-      // redirect = !authStatus.id;
+      const axiosInstance = axios.create({
+        adapter: fetchAdapter,
+      });
+
+      try {
+        const authStatus = await axiosInstance.get(
+          `${PROXY_URL}/auth/is-authenticated`,
+          {
+            withCredentials: true,
+            headers: {
+              cookie: `${COOKIE_NAME}=${cookie}`,
+            },
+          }
+        );
+        redirect = !authStatus.data.id;
+      } catch (err) {
+        redirect = true;
+      }
     } else {
       redirect = !cookie;
     }
