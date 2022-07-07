@@ -63,8 +63,8 @@ const SignIn = () => {
   const onSubmit = useCallback(
     async (data) => {
       await dispatch(signIn(data));
-      router.push(router.query.redirect || LINKS.home.path);
-      window.location.reload();
+      window.location.pathname = router.query.redirect || LINKS.home.path;
+      window.location.search = '';
     },
     [router, dispatch]
   );
