@@ -60,13 +60,10 @@ const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(
-    async (data) => {
-      await dispatch(signIn(data));
-      router.push(router.query.redirect || LINKS.home.path);
-    },
-    [router, dispatch]
-  );
+  const onSubmit = async (data) => {
+    await dispatch(signIn(data));
+    router.push(router.query.redirect || LINKS.home.path);
+  };
 
   const resetHandler = useCallback(() => {
     reset({
