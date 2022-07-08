@@ -22,7 +22,7 @@ export default function HomePage() {
   );
 
   const handleChangeView = () => {
-    setMonthlyView(!isMonthlyView);
+    setMonthlyView((view) => !view);
   };
 
   return (

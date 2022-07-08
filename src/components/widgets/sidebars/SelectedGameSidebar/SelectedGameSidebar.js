@@ -1,19 +1,16 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Calendar, ExpCheckbox, Title } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertToShow, setSelectedDate } from 'redux/actions';
-import { useRouter } from 'next/router';
-import { LINKS, ALERT_PROTO_TYPES, ALERT_PROTO_LABELS } from 'utils/constants';
+import { ALERT_PROTO_TYPES, ALERT_PROTO_LABELS } from 'utils/constants';
 
 const SelectedGameSidebar = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const {
     selectedDate,
     alertStatus: cellData,
     alertsToShow,
   } = useSelector((state) => state.notifications);
-  const { selectedGame } = useSelector((state) => state.games);
 
   const handleDateChange = (date) => {
     dispatch(setSelectedDate(date));
@@ -22,10 +19,6 @@ const SelectedGameSidebar = () => {
   const handleVisibilityChange = (e) => {
     dispatch(setAlertToShow(e.target.name, e.target.checked));
   };
-
-  useEffect(() => {
-    selectedGame || router.push(LINKS.home.path);
-  }, [selectedGame, router]);
 
   return (
     <Fragment>
