@@ -62,7 +62,7 @@ const SignIn = () => {
 
   const onSubmit = async (data) => {
     await dispatch(signIn(data));
-    window.location.uter.pathname = router.query.redirect || LINKS.home.path;
+    window.location.pathname = router.query.redirect || LINKS.home.path;
     window.location.search = '';
   };
 
