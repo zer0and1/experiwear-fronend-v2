@@ -66,3 +66,14 @@ export const formatPhone = (phone) => {
 export const extractHostAddr = (url) => {
   return url && url.split('://')[1].split('/')[0];
 };
+
+/**
+ * Navigate to path using location of browser window
+ * @param {string} pathname - Pathname to navigate to
+ */
+export const navigateTo = (pathname) => {
+  const { protocol, hostname, port } = window.location;
+  window.location.href = `${protocol}//${hostname}${
+    port && ':' + port
+  }/${pathname}`;
+};

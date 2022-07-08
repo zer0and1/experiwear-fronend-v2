@@ -21,6 +21,7 @@ import {
 } from '@material-ui/icons';
 import { ExpTextField, ExpCheckbox } from 'components';
 import { useRouter } from 'next/router';
+import { navigateTo } from 'utils/helpers';
 
 const schema = yup.object().shape({
   email: EMAIL_VALID,
@@ -62,8 +63,7 @@ const SignIn = () => {
 
   const onSubmit = async (data) => {
     await dispatch(signIn(data));
-    window.location.search = '';
-    window.location.pathname = router.query.redirect || LINKS.home.path;
+    navigateTo(router.query.redirect || LINKS.home.path);
   };
 
   const resetHandler = useCallback(() => {
