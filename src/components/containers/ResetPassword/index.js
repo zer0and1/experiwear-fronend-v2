@@ -46,6 +46,7 @@ const ResetPassword = () => {
 
   const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
   const onSubmit = useCallback(

@@ -74,6 +74,7 @@ const ScoreForm = ({
 
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
     defaultValues: {
       title:
         mode === ALERT_FORM_MODES.updating ? defaultValues?.title : alertTitle,

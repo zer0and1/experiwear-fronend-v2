@@ -45,6 +45,7 @@ const TicketForm = ({
 }) => {
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
     defaultValues: {
       barcode: '',
       section: '',

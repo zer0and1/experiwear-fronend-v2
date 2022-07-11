@@ -59,6 +59,7 @@ const SignIn = () => {
 
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
   const onSubmit = async (data) => {

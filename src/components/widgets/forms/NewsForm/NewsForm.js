@@ -55,6 +55,7 @@ const NewsForm = ({
   );
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
     defaultValues: {
       title: '',
       body: '',
