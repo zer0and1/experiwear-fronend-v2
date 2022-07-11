@@ -26,4 +26,5 @@ export const TITLE_VALID = yup
 export const STRING_VALID = yup
   .string()
   .trim('This field cannot include leading and trailing spaces')
-  .required('Please enter in this field.');
+  .required('Please enter in this field.')
+  .matches(/^[A-Za-z0-9' ?!]*$/, 'Please do not input special character');
