@@ -61,20 +61,22 @@ const FanbandSelector = React.forwardRef(
     const [anchorEl, setAnchorEl] = useState(null);
     const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
     const [search, setSearch] = useState();
-    const fanbands = useSelector((state) =>
-      state.main.fanbands.results.filter(
-        (fb) => !search || fb.phone.includes(search)
-      )
-    );
+
+    const fanbands = useSelector((state) => state.main.fanbands.results);
+
     const fanbandLabel = useMemo(() => {
       const { name, phone } = fanbands.find((f) => f.id === value) || {};
       return `${name || ''} ∙ Phone: ${phone || ''}`;
     }, [fanbands, value]);
 
     const provisionedFanbands = useMemo(
-      () => fanbands.filter((f) => f.phone),
-      [fanbands]
+      () =>
+        fanbands.filter(
+          (f) => f.phone && (!search || fb.phone.includes(search))
+        ),
+      [fanbands, search]
     );
+
     const nonProvisionedFanbands = useMemo(
       () => fanbands.filter((f) => !f.phone),
       [fanbands]
