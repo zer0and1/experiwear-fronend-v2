@@ -9,7 +9,6 @@ import {
   MenuItem,
   makeStyles,
   InputBase,
-  Box,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { TabContext, TabPanel } from '@material-ui/lab';
@@ -72,7 +71,7 @@ const FanbandSelector = React.forwardRef(
     const provisionedFanbands = useMemo(
       () =>
         fanbands.filter(
-          (f) => f.phone && (!search || fb.phone.includes(search))
+          (f) => f.phone && (!search || f.phone.includes(search))
         ),
       [fanbands, search]
     );
@@ -145,18 +144,16 @@ const FanbandSelector = React.forwardRef(
             />
             <Tab value={FANBAND_TYPES.all} label={FANBAND_LABELS.all} />
           </Tabs>
-          <Box px={3}>
-            <InputBase
-              placeholder="Search by phone number"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </Box>
           <TabContext value={tab}>
             <TabPanel
               value={FANBAND_TYPES.provisioned}
               className={classes.tabPanel}
             >
+              <InputBase
+                placeholder="Search by phone number"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
               <FanbandTabPanel
                 fanbands={provisionedFanbands}
                 onClick={handleClick}
