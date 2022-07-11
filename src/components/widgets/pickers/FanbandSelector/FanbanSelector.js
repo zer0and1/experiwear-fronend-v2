@@ -8,6 +8,8 @@ import {
   MenuList,
   MenuItem,
   makeStyles,
+  InputBase,
+  Box,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { TabContext, TabPanel } from '@material-ui/lab';
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   item: {
     fontFamily: theme.custom.fonts.SFProTextBold,
     fontSize: 14,
+    paddingLeft: 0,
     color: '#000',
     '&>span': {
       fontFamily: theme.custom.fonts.SFProTextRegular,
@@ -28,14 +31,41 @@ const useStyles = makeStyles((theme) => ({
   hidden: {
     display: 'none',
   },
+  tabPanel: {
+    paddingTop: 0,
+  },
 }));
+
+const FanbandTabPanel = ({ value, fanbands = [], onClick }) => {
+  const classes = useStyles();
+  return (
+    <MenuList>
+      {fanbands.map(({ id, name, phone }) => (
+        <MenuItem
+          key={id}
+          className={classes.item}
+          onClick={() => onClick(id)}
+          selected={id === value}
+        >
+          {name}
+          <span>&nbsp;{` ∙ Phone: ${phone}`}</span>
+        </MenuItem>
+      ))}
+    </MenuList>
+  );
+};
 
 const FanbandSelector = React.forwardRef(
   ({ error, label, value, ...rest }, ref) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
     const [tab, setTab] = useState(FANBAND_TYPES.provisioned);
-    const fanbands = useSelector((state) => state.main.fanbands.results);
+    const [search, setSearch] = useState();
+    const fanbands = useSelector((state) =>
+      state.main.fanbands.results.filter(
+        (fb) => !search || fb.phone.includes(search)
+      )
+    );
     const fanbandLabel = useMemo(() => {
       const { name, phone } = fanbands.find((f) => f.id === value) || {};
       return `${name || ''} ∙ Phone: ${phone || ''}`;
@@ -60,22 +90,6 @@ const FanbandSelector = React.forwardRef(
       ref.current.dispatchEvent(ev1);
       setAnchorEl(null);
     };
-
-    const FanbandTabPanel = ({ fanbands = [] }) => (
-      <MenuList>
-        {fanbands.map(({ id, name, phone }) => (
-          <MenuItem
-            key={id}
-            className={classes.item}
-            onClick={() => handleClick(id)}
-            selected={id === value}
-          >
-            {name}
-            <span>&nbsp;{` ∙ Phone: ${phone}`}</span>
-          </MenuItem>
-        ))}
-      </MenuList>
-    );
 
     useAsyncAction(getFanbands(), !fanbands.length);
 
@@ -129,15 +143,40 @@ const FanbandSelector = React.forwardRef(
             />
             <Tab value={FANBAND_TYPES.all} label={FANBAND_LABELS.all} />
           </Tabs>
+          <Box px={3}>
+            <InputBase
+              placeholder="Search by phone number"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Box>
           <TabContext value={tab}>
-            <TabPanel value={FANBAND_TYPES.provisioned}>
-              <FanbandTabPanel fanbands={provisionedFanbands} />
+            <TabPanel
+              value={FANBAND_TYPES.provisioned}
+              className={classes.tabPanel}
+            >
+              <FanbandTabPanel
+                fanbands={provisionedFanbands}
+                onClick={handleClick}
+                value={value}
+              />
             </TabPanel>
-            <TabPanel value={FANBAND_TYPES.nonProvisioned}>
-              <FanbandTabPanel fanbands={nonProvisionedFanbands} />
+            <TabPanel
+              value={FANBAND_TYPES.nonProvisioned}
+              className={classes.tabPanel}
+            >
+              <FanbandTabPanel
+                fanbands={nonProvisionedFanbands}
+                onClick={handleClick}
+                value={value}
+              />
             </TabPanel>
-            <TabPanel value={FANBAND_TYPES.all}>
-              <FanbandTabPanel fanbands={fanbands} />
+            <TabPanel value={FANBAND_TYPES.all} className={classes.tabPanel}>
+              <FanbandTabPanel
+                fanbands={fanbands}
+                onClick={handleClick}
+                value={value}
+              />
             </TabPanel>
           </TabContext>
         </Popover>
