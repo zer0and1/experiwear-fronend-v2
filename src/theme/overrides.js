@@ -66,6 +66,12 @@ export default {
       },
     },
   },
+  MuiOutlinedInput: {
+    input: {
+      paddingTop: 12,
+      paddingBottom: 12,
+    },
+  },
   MuiButton: {
     root: {
       textTransform: 'none',
