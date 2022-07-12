@@ -82,7 +82,9 @@ const Saved = ({ defaultValues = null, updating = false }) => {
           </Grid>
           <AlertForm
             onSubmit={handleSubmit}
-            mode={ALERT_FORM_MODES.creating}
+            mode={
+              updating ? ALERT_FORM_MODES.updating : ALERT_FORM_MODES.creating
+            }
             defaultValues={defaultValues}
           />
         </FHCardContent>
