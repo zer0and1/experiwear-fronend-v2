@@ -222,7 +222,7 @@ export const getNotifications =
         ? alertsAPI.getScheduledNotifications
         : alertsAPI.getNotifications)(params);
 
-      await dispatch({
+      dispatch({
         type: TYPES.SET_ALERTS,
         payload: {
           results,

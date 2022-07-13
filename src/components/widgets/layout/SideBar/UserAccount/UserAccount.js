@@ -14,7 +14,6 @@ import { useAsyncAction } from 'hooks';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getNotifications, getUserInfo } from 'redux/actions';
-import { isEmpty } from 'utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'capitalize',
   },
   image: {
-    backgroundImage: (props) => `url(${props.imageUrl})`,
     backgroundSize: 'cover',
     width: 46,
     height: 46,
@@ -74,8 +72,8 @@ const UserAccount = () => {
     setAnchorEl(e.currentTarget);
   };
 
-  useAsyncAction(getNotifications(), isEmpty(latestNotifications));
-  useAsyncAction(getUserInfo(), isEmpty(currentUser));
+  useAsyncAction(getNotifications());
+  useAsyncAction(getUserInfo());
 
   return (
     <div className={classes.root}>
