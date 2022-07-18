@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     padding: '10%',
     clipPath: `url(#clip-path)`,
     overflow: 'hidden',
-    background: (props) => `url(${props.imageUrl})`,
+    background: (props) => `url(${props.imageUrl || '#'})`,
     backgroundSize: 'cover !important',
   },
   hawksIcon: {
