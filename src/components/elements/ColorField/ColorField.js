@@ -40,10 +40,18 @@ const ColorField = ({
   const handleColorChange = useCallback(
     (val) => {
       const isInvalidHex =
-        typeof val.raw === 'string' &&
-        !/^\#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(val.raw);
+        typeof val.raw === 'string' && !/^\#[0-9a-fA-F]{6}$/.test(val.raw);
       if (isInvalidHex) {
         setErrValue(val.raw);
+
+        if (/^\#[0-9a-fA-F]{3}$/.test(val.raw)) {
+          onChange({
+            target: {
+              name,
+              value: `rgb(${val.rgb.map((v) => v || 0).toString()})`,
+            },
+          });
+        }
       } else {
         onChange({
           target: {
