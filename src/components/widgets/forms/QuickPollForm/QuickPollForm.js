@@ -62,6 +62,8 @@ const QuickPollForm = ({
       ? defaultValues.surveyResponses.map((res) => res.response || '')
       : ['', '']
   );
+  const [responseErrors, setResponseErrors] = useState({});
+
   const [alertParams, setAlertParmas] = useState(
     defaultValues
       ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
@@ -125,7 +127,7 @@ const QuickPollForm = ({
               as={<ExpTextField />}
               name="title"
               label="Quick Poll title"
-              error={errors.response?.title}
+              error={errors.title?.message}
               control={control}
               fullWidth
             />
@@ -135,7 +137,7 @@ const QuickPollForm = ({
               as={<ExpTextField />}
               name="body"
               label="Quick Poll question"
-              error={errors.response?.body}
+              error={errors.body?.message}
               control={control}
               fullWidth
             />
@@ -147,12 +149,23 @@ const QuickPollForm = ({
                   name={`response${idx}`}
                   label={`Response #${idx + 1}`}
                   value={res}
+                  error={responseErrors[idx]}
                   fullWidth
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    try {
+                      STRING_VALID.validateSync(e.target.value);
+                      setResponseErrors((errs) => ({ ...errs, [idx]: null }));
+                    } catch (err) {
+                      setResponseErrors((errs) => ({
+                        ...errs,
+                        [idx]: err.message,
+                      }));
+                    }
+
                     setResponses((res) =>
                       res.map((r, i) => (i === idx ? e.target.value : r))
-                    )
-                  }
+                    );
+                  }}
                 />
                 {responses.length > 2 && (
                   <Box display="flex" alignItems="center">
