@@ -22,7 +22,7 @@ import {
 } from 'components';
 
 const schema = yup.object().shape({
-  title: STRING_VALID,
+  title: yup.string().required(),
   body: STRING_VALID,
 });
 
@@ -51,7 +51,12 @@ const ScoreForm = ({
       ? _.pick(defaultValues, Object.keys(DEFAULT_ALERT_PARAMS()))
       : DEFAULT_ALERT_PARAMS()
   );
-
+  const disabledSending = useMemo(
+    () =>
+      (!game || game.gameStatus !== GAME_STATUS.inProgress) &&
+      mode !== ALERT_FORM_MODES.saving,
+    [game, mode]
+  );
   const alertTitle = useMemo(() => {
     if (isEmpty(game)) {
       return '0 - 0';
@@ -86,7 +91,10 @@ const ScoreForm = ({
 
   const submitHandler = async (data) => {
     await onSubmit({ ..._.pick(data, ['title', 'body']), ...alertParams });
-    if (mode === ALERT_FORM_MODES.creating) {
+    if (
+      mode === ALERT_FORM_MODES.creating ||
+      mode === ALERT_FORM_MODES.saving
+    ) {
       resetForm();
     }
   };
@@ -112,7 +120,7 @@ const ScoreForm = ({
               error={errors.title?.message}
               control={control}
               fullWidth
-              inputProps={{ readOnly: mode !== ALERT_FORM_MODES.updating }}
+              inputProps={{ readOnly: mode === ALERT_FORM_MODES.creating }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -144,10 +152,7 @@ const ScoreForm = ({
       </Grid>
       <Box mt={2} display="flex">
         {mode === ALERT_FORM_MODES.creating ? (
-          <FormButton
-            type="submit"
-            disabled={!game || game.gameStatus !== GAME_STATUS.inProgress}
-          >
+          <FormButton type="submit" disabled={disabledSending}>
             Send
           </FormButton>
         ) : (

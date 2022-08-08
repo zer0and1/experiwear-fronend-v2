@@ -75,7 +75,10 @@ const NewsForm = ({
       ...alertParams,
       file: image?.file,
     });
-    if (mode === ALERT_FORM_MODES.creating) {
+    if (
+      mode === ALERT_FORM_MODES.creating ||
+      mode === ALERT_FORM_MODES.saving
+    ) {
       resetForm();
     }
   };
@@ -148,7 +151,10 @@ const NewsForm = ({
       </Grid>
       <Box mt={2} display="flex">
         <FormButton type="submit">
-          {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
+          {mode === ALERT_FORM_MODES.updating ||
+          mode === ALERT_FORM_MODES.saving
+            ? 'Save'
+            : 'Send'}
         </FormButton>
         {deleting && (
           <Box ml={2} width="100%">

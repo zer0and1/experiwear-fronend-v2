@@ -113,7 +113,10 @@ const GamedayThemeForm = ({
       ...alertParams,
     });
 
-    if (mode === ALERT_FORM_MODES.creating) {
+    if (
+      mode === ALERT_FORM_MODES.creating ||
+      mode === ALERT_FORM_MODES.saving
+    ) {
       resetForm();
     }
   };
@@ -214,7 +217,10 @@ const GamedayThemeForm = ({
         </Grid>
         <Grid item xs={12}>
           <FormButton onClick={handleSubmit}>
-            {mode === ALERT_FORM_MODES.updating ? 'Save' : 'Send'}
+            {mode === ALERT_FORM_MODES.updating ||
+            mode === ALERT_FORM_MODES.saving
+              ? 'Save'
+              : 'Send'}
           </FormButton>
         </Grid>
       </Grid>

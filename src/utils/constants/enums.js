@@ -228,6 +228,7 @@ export const DEFAULT_ALERT_PARAMS = () => {
 export const ALERT_FORM_MODES = Object.freeze({
   creating: 'creating',
   updating: 'updating',
+  saving: 'saving',
 });
 
 export const ALERT_STATUS = Object.freeze({

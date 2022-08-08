@@ -83,7 +83,7 @@ const Saved = ({ defaultValues = null, updating = false }) => {
           <AlertForm
             onSubmit={handleSubmit}
             mode={
-              updating ? ALERT_FORM_MODES.updating : ALERT_FORM_MODES.creating
+              updating ? ALERT_FORM_MODES.updating : ALERT_FORM_MODES.saving
             }
             defaultValues={defaultValues}
           />
