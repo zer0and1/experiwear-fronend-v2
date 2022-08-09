@@ -21,17 +21,24 @@ export const setResponseSuccess = (response) => {
   };
 };
 
-export const setResponseError = (error) => (dispatch) => {
-  if (error.status === 401) {
-    dispatch(setUserAuthStatus(false));
-  }
+export const setResponseError =
+  (error, showAlert = true, message = '') =>
+  (dispatch) => {
+    if (error.status === 401) {
+      dispatch(setUserAuthStatus(false));
+    }
 
-  dispatch({
-    type: ActionTypes.SET_RESPONSE_ERROR,
-    payload: error,
-  });
+    dispatch({
+      type: ActionTypes.SET_RESPONSE_ERROR,
+      payload: { ...error, message },
+    });
 
-  showErrorToast(
-    error.data?.message?.toString() || error.message || 'Something went wrong!'
-  );
-};
+    if (showAlert) {
+      showErrorToast(
+        message ||
+          error.data?.message?.toString() ||
+          error.message ||
+          'Something went wrong!'
+      );
+    }
+  };

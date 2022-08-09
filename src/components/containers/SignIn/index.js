@@ -1,5 +1,5 @@
-import { memo, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -56,15 +56,20 @@ const SignIn = () => {
   const router = useRouter();
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
-
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigateTo(router.query.redirect || LINKS.home.path);
+    }
+  }, [isAuthenticated, router.query]);
+
   const onSubmit = async (data) => {
     await dispatch(signIn(data));
-    navigateTo(router.query.redirect || LINKS.home.path);
   };
 
   const resetHandler = useCallback(() => {

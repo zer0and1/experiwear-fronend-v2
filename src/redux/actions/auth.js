@@ -34,7 +34,7 @@ export const signIn = (params) => async (dispatch) => {
 
     dispatch(setUserAuthStatus(true, user));
   } catch (err) {
-    dispatch(setResponseError(err));
+    dispatch(setResponseError(err, true, 'Invalid email or password!'));
   }
 
   dispatch(setLoadingStatus(false));

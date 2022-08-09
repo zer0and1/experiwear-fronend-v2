@@ -24,3 +24,8 @@ export const setLoadingStatusUpdater = (state, { payload }) => {
     loadingStatus: loadingCount > 0,
   };
 };
+
+export const setResponseErrorUpdater = (state, { payload }) => ({
+  ...state,
+  error: payload,
+});
