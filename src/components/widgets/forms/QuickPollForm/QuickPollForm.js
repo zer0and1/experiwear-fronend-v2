@@ -11,6 +11,7 @@ import {
   DEFAULT_ALERT_PARAMS,
   ALERT_FORM_MODES,
   STRING_VALID,
+  MAX_FIRMWARE_STRING_WIDTH,
 } from 'utils/constants';
 import {
   AlertField,
@@ -20,6 +21,7 @@ import {
   ExpTextField,
   QuickPollScreen,
 } from 'components';
+import { calcStringWidthForFirmware } from 'utils/helpers';
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -83,6 +85,30 @@ const QuickPollForm = ({
   const handleParamsChange = useCallback(({ target: { name, value } }) => {
     setAlertParmas((params) => ({ ...params, [name]: value }));
   }, []);
+
+  const handleResponseChange = (idx) => (e) => {
+    try {
+      STRING_VALID.validateSync(e.target.value);
+
+      if (
+        calcStringWidthForFirmware(e.target.value) > MAX_FIRMWARE_STRING_WIDTH
+      ) {
+        setResponseErrors((errs) => ({
+          ...errs,
+          [idx]: 'Text length is too long',
+        }));
+      } else {
+        setResponseErrors((errs) => ({ ...errs, [idx]: null }));
+      }
+    } catch (err) {
+      setResponseErrors((errs) => ({
+        ...errs,
+        [idx]: err.message,
+      }));
+    }
+
+    setResponses((res) => res.map((r, i) => (i === idx ? e.target.value : r)));
+  };
 
   const { control, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(schema),
@@ -154,21 +180,7 @@ const QuickPollForm = ({
                   value={res}
                   error={responseErrors[idx]}
                   fullWidth
-                  onChange={(e) => {
-                    try {
-                      STRING_VALID.validateSync(e.target.value);
-                      setResponseErrors((errs) => ({ ...errs, [idx]: null }));
-                    } catch (err) {
-                      setResponseErrors((errs) => ({
-                        ...errs,
-                        [idx]: err.message,
-                      }));
-                    }
-
-                    setResponses((res) =>
-                      res.map((r, i) => (i === idx ? e.target.value : r))
-                    );
-                  }}
+                  onChange={handleResponseChange(idx)}
                 />
                 {responses.length > 2 && (
                   <Box display="flex" alignItems="center">

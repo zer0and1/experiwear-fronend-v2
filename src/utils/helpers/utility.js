@@ -77,3 +77,47 @@ export const navigateTo = (pathname) => {
     port && ':' + port
   }/${pathname}`;
 };
+
+export const calcStringWidthForFirmware = (text) => {
+  // Widths of each character in pixels, in ascii order
+  const chWidthMap = [
+    1, 2, 11, 4, 4, 3, 6, 2, 7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 2, 3, 7, 7, 7, 7, 7,
+    6, 6, 7, 7, 2, 7, 7, 6, 10, 8, 7, 7, 7, 7, 7, 8, 7, 7, 10, 7, 7, 7, 8, 7, 7,
+    7, 7, 6, 7, 7, 2, 6, 7, 2, 10, 6, 7, 7, 7, 6, 7, 5, 7, 7, 10, 7, 7, 7,
+  ];
+
+  const asciiToIdx = (ascii) => {
+    if (ascii < 32 || ascii > 122) return 0xff;
+
+    if (ascii <= 33) {
+      return ascii - 32 + 0;
+    }
+    if (ascii <= 38) {
+      return ascii - 38 + 2;
+    }
+    if (ascii <= 41) {
+      return ascii - 40 + 3;
+    }
+    if (ascii <= 46) {
+      return ascii - 44 + 5;
+    }
+    if (ascii <= 59) {
+      return ascii - 48 + 8;
+    }
+    if (ascii <= 63) {
+      return ascii - 63 + 20;
+    }
+    if (ascii <= 90) {
+      return ascii - 65 + 21;
+    }
+    if (ascii <= 122) {
+      return ascii - 97 + 47;
+    }
+
+    return 0xff;
+  };
+
+  return text
+    .split('')
+    .reduce((acc, ch) => acc + chWidthMap[asciiToIdx(ch.charCodeAt(0))] + 2, 0);
+};

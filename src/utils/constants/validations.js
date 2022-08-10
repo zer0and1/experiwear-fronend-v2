@@ -28,3 +28,5 @@ export const STRING_VALID = yup
   .trim('This field cannot include leading and trailing spaces')
   .required('Please enter in this field.')
   .matches(/^[A-Za-z0-9' ?!]*$/, 'Please do not input special character');
+
+export const MAX_FIRMWARE_STRING_WIDTH = 80;
