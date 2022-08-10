@@ -59,7 +59,9 @@ const Timeline = ({ date = null, slots = [] }) => {
       const ctime = moment(currentTime);
       return ctime.add(ctime.minutes() % options.unit, 'minutes').seconds(0);
     } else {
-      const maxTime = moment.max(slots.map((s) => moment(s.createdAt)));
+      const maxTime = moment.max(
+        slots.map((s) => moment(s.createdAt)).concat(moment(currentTime))
+      );
       const mins = maxTime.minutes() - (maxTime.minutes() % options.unit);
       return maxTime.minutes(mins);
     }
