@@ -38,10 +38,12 @@ const alertsReducer = (state = INITIAL_STATE, action) => {
       }
 
       const grouped = _.groupBy(
-        results.map((n) => ({
-          ...n,
-          date: moment(n.createdAt).format('YYYY-MM-DD'),
-        })),
+        results
+          .filter((n) => n.isSent)
+          .map((n) => ({
+            ...n,
+            date: moment(n.createdAt).format('YYYY-MM-DD'),
+          })),
         'date'
       );
 
