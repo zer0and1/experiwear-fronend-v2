@@ -124,7 +124,10 @@ export const calcStringWidthForFirmware = (text) => {
 };
 
 export const getMobileOS = () => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  let userAgent;
+  if (typeof window !== 'undefined') {
+    userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  }
 
   // Windows Phone must come first because its UA also contains "Android"
   if (/windows phone/i.test(userAgent)) {
