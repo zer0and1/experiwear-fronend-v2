@@ -241,6 +241,13 @@ export const ALERT_STATUS_LABELS = Object.freeze({
   [ALERT_STATUS.sent]: 'Sent',
 });
 
+export const MOBILE_OS = Object.freeze({
+  android: 'android',
+  iOS: 'iOS',
+  windowsPhone: 'windowsPhone',
+  unknown: 'unknown',
+});
+
 export const LINKS = Object.freeze({
   signIn: {
     title: 'Sign In',

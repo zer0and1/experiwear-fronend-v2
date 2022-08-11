@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { MOBILE_OS } from 'utils/constants';
 
 export const isServer = () => typeof window === 'undefined';
 
@@ -120,4 +121,23 @@ export const calcStringWidthForFirmware = (text) => {
   return text
     .split('')
     .reduce((acc, ch) => acc + chWidthMap[asciiToIdx(ch.charCodeAt(0))] + 2, 0);
+};
+
+export const getMobileOS = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  // Windows Phone must come first because its UA also contains "Android"
+  if (/windows phone/i.test(userAgent)) {
+    return MOBILE_OS.windowsPhone;
+  }
+
+  if (/android/i.test(userAgent)) {
+    return MOBILE_OS.android;
+  }
+
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return MOBILE_OS.iOS;
+  }
+
+  return MOBILE_OS.unknown;
 };

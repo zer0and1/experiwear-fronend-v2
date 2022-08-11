@@ -2,8 +2,8 @@ import { Box, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useMemo, useState } from 'react';
-import { DEFAULT_ALERT_PARAMS } from 'utils/constants';
-import { difference, isEmpty } from 'utils/helpers';
+import { DEFAULT_ALERT_PARAMS, MOBILE_OS } from 'utils/constants';
+import { difference, getMobileOS, isEmpty } from 'utils/helpers';
 import { SettingDialog } from './components';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,10 @@ const AlertField = ({
   const [settingToggled, toggleSetting] = useState(false);
 
   const paramsLabel = useMemo(() => {
-    const diff = difference(DEFAULT_ALERT_PARAMS(), value);
+    const diff = difference(
+      getMobileOS() !== MOBILE_OS.unknown ? {} : DEFAULT_ALERT_PARAMS(),
+      value
+    );
 
     if (isEmpty(diff)) {
       return 'Default';
