@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
@@ -80,9 +80,11 @@ const SettingDialog = ({
   onSaveAsDefault,
 }) => {
   const classes = useStyles();
-  const [selectedPreset, selectPreset] = useState(
-    PRESET_PATTERNS.findIndex((pp) => _.isEqual(pp, params))
-  );
+  const [selectedPreset, selectPreset] = useState(-1);
+
+  useEffect(() => {
+    selectPreset(PRESET_PATTERNS.findIndex((pp) => _.isEqual(pp, params)));
+  }, [params]);
 
   const handleDurationChange = useCallback(
     (e, value) => {
