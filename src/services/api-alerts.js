@@ -10,9 +10,9 @@ export const getLatestNotification = async (params) => {
 };
 
 export const createNotification = async (params) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-
-  return await axios.post('/notifications/broadcast', getFormData(params));
+  return await axios.post('/notifications/broadcast', getFormData(params), {
+    header: { 'Content-Type': 'multipart/form-data' },
+  });
 };
 
 export const getScheduledNotifications = async (params) => {
@@ -24,13 +24,15 @@ export const getLatestScheduledNotifications = async () => {
 };
 
 export const createScheduledNotification = async (params) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.post('/notifications/schedule', getFormData(params));
+  return await axios.post('/notifications/schedule', getFormData(params), {
+    header: { 'Content-Type': 'multipart/form-data' },
+  });
 };
 
 export const updateScheduledAlert = async (id, params) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.put(`/notifications/schedule/${id}`, getFormData(params));
+  return await axios.put(`/notifications/schedule/${id}`, getFormData(params), {
+    header: { 'Content-Type': 'multipart/form-data' },
+  });
 };
 
 export const deleteScheduledAlert = async (id) => {
@@ -42,8 +44,9 @@ export const getAccelerometerData = async (params) => {
 };
 
 export const createSavedAlert = async (params) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.post('/notifications/saved', getFormData(params));
+  return await axios.post('/notifications/saved', getFormData(params), {
+    header: { 'Content-Type': 'multipart/form-data' },
+  });
 };
 
 export const sendSavedAlert = async (id) => {
@@ -51,8 +54,9 @@ export const sendSavedAlert = async (id) => {
 };
 
 export const updateSavedAlert = async (id, params) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
-  return await axios.put(`/notifications/saved/${id}`, getFormData(params));
+  return await axios.put(`/notifications/saved/${id}`, getFormData(params), {
+    header: { 'Content-Type': 'multipart/form-data' },
+  });
 };
 
 export const deleteSavedAlert = async (id) => {
@@ -64,9 +68,9 @@ export const readGamedayPresets = async () => {
 };
 
 export const uploadGamedayPresets = async (files) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
   return await axios.post(
     '/notifications/gameday-theme',
-    getFormData({ files })
+    getFormData({ files }),
+    { header: { 'Content-Type': 'multipart/form-data' } }
   );
 };

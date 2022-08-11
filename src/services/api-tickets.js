@@ -22,9 +22,9 @@ export const uploadTicketsFromCsv = async (
   onUploadProgress,
   cancelToken
 ) => {
-  axios.defaults.headers['Content-Type'] = 'multipart/form-data';
   return await axios.post('/tickets/upload-csv', getFormData({ file }), {
     onUploadProgress,
     cancelToken,
+    header: { 'Content-Type': 'multipart/form-data' },
   });
 };
