@@ -60,12 +60,14 @@ const Timeline = ({ date = null, slots = [] }) => {
       return ctime.add(ctime.minutes() % options.unit, 'minutes').seconds(0);
     } else {
       const maxTime = moment.max(
-        slots.map((s) => moment(s.createdAt)).concat(moment(currentTime))
+        slots
+          .map((s) => moment(s.createdAt))
+          .concat(checkToday ? moment(currentTime) : [])
       );
       const mins = maxTime.minutes() - (maxTime.minutes() % options.unit);
       return maxTime.minutes(mins);
     }
-  }, [slots, currentTime, options]);
+  }, [slots, currentTime, options, checkToday]);
 
   useEffect(() => {
     const loopId = setInterval(() => setCurrentTime(new Date()), 10000);
