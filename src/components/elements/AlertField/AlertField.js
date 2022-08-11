@@ -50,57 +50,53 @@ const AlertField = ({
       return 'Default';
     }
 
-    const colorsTop = (
-      <Box key="colors-top" display="flex" alignItems="center">
-        <div>Colors Top:&nbsp;</div>
-        <div
-          className={classes.colorPattern}
-          style={{ background: value.topColor1 }}
-        />
-        <div
-          className={classes.colorPattern}
-          style={{ background: value.topColor2 }}
-        />
-        <div
-          className={classes.colorPattern}
-          style={{ background: value.topColor3 }}
-        />
-      </Box>
+    const colors = (
+      <>
+        <Box display="flex" alignItems="center">
+          <div>Colors Top:&nbsp;</div>
+          <div
+            className={classes.colorPattern}
+            style={{ background: value.topColor1 }}
+          />
+          <div
+            className={classes.colorPattern}
+            style={{ background: value.topColor2 }}
+          />
+          <div
+            className={classes.colorPattern}
+            style={{ background: value.topColor3 }}
+          />
+        </Box>
+        <Box display="flex" alignItems="center">
+          <div>Colors Bottom:&nbsp;</div>
+          <div
+            className={classes.colorPattern}
+            style={{ background: value.bottomColor1 }}
+          />
+          <div
+            className={classes.colorPattern}
+            style={{ background: value.bottomColor2 }}
+          />
+          <div
+            className={classes.colorPattern}
+            style={{ background: value.bottomColor3 }}
+          />
+        </Box>
+      </>
     );
 
-    const colorsBottom = (
-      <Box key="colors-bottom" display="flex" alignItems="center">
-        <div>Colors Bottom:&nbsp;</div>
-        <div
-          className={classes.colorPattern}
-          style={{ background: value.bottomColor1 }}
-        />
-        <div
-          className={classes.colorPattern}
-          style={{ background: value.bottomColor2 }}
-        />
-        <div
-          className={classes.colorPattern}
-          style={{ background: value.bottomColor3 }}
-        />
-      </Box>
-    );
-    let topChanged = false,
-      bottomChanged = false;
+    let colorChanged = false;
     return Object.keys(diff)
       .map((key) => {
-        topChanged |= key.startsWith('topColor');
-        bottomChanged |= key.startsWith('bottomColor');
+        colorChanged |= key.startsWith('topColor');
+        colorChanged |= key.startsWith('bottomColor');
         return key.includes('Color') ? null : (
           <Box key={key} style={{ textTransform: 'capitalize' }}>
             {key}: {diff[key]}
           </Box>
         );
       })
-      .concat(
-        topChanged ? colorsTop : null,
-        bottomChanged ? colorsBottom : null
-      );
+      .concat(colorChanged ? colors : null);
   }, [value, classes]);
 
   const handleSaveAsDefault = () => {
