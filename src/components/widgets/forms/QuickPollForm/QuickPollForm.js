@@ -126,7 +126,7 @@ const QuickPollForm = ({
       ..._.pick(data, ['title', 'body']),
       ...alertParams,
       file: image?.file,
-      responses,
+      responses: responses.map((resp) => resp.replace(',', ':&')),
     });
     if (
       mode === ALERT_FORM_MODES.creating ||
