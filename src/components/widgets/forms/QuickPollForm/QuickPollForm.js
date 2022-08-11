@@ -133,6 +133,8 @@ const QuickPollForm = ({
       mode === ALERT_FORM_MODES.saving
     ) {
       resetForm();
+    } else {
+      setResponses((res) => res.map((r) => r.replace(':&', ',')));
     }
   };
 
