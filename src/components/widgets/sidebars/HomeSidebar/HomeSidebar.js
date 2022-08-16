@@ -14,7 +14,10 @@ const HomeSidebar = () => {
     () =>
       notifications.filter(
         (n) =>
-          moment(n.createdAt).isSame(moment(selectedDate), 'day') &&
+          moment(n.createdAt).isSame(
+            moment(selectedDate || new Date()),
+            'day'
+          ) &&
           alertsToShow[n.type] &&
           n.isSent
       ),
@@ -24,7 +27,7 @@ const HomeSidebar = () => {
   return (
     <Fragment>
       <CurrentGame />
-      <Timeline date={selectedDate} slots={slots} />
+      <Timeline date={selectedDate || new Date()} slots={slots} />
     </Fragment>
   );
 };
