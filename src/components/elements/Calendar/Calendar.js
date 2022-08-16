@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Calendar = ({
-  value = new Date(),
+  value = null,
   cellData = {},
   actions = null,
   onChange = () => {},

@@ -15,7 +15,7 @@ const INITIAL_STATE = Object.freeze({
   latest: {},
   latestSurvey: {},
   latestNews: [],
-  selectedDate: new Date(),
+  selectedDate: null,
   alertStatus: {},
   alertsToShow: Object.values(ALERT_PROTO_TYPES).reduce(
     (acc, type) => ({ ...acc, [type]: true }),

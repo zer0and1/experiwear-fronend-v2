@@ -30,7 +30,7 @@ const Home = () => {
     <Card>
       <CardContent>
         <Calendar
-          value={selectedDate}
+          value={selectedDate || new Date()}
           cellData={alertStatus}
           actions={
             <CardHeaderButton
