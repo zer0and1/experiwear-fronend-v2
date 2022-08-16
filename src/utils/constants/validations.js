@@ -29,4 +29,4 @@ export const STRING_VALID = yup
   .required('Please enter in this field.')
   .matches(/^[A-Za-z0-9' ?!]*$/, 'Please do not input special character');
 
-export const MAX_FIRMWARE_STRING_WIDTH = 80;
+export const MAX_FIRMWARE_STRING_WIDTH = 75;

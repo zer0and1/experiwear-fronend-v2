@@ -118,9 +118,14 @@ export const calcStringWidthForFirmware = (text) => {
     return 0xff;
   };
 
-  return text
-    .split('')
-    .reduce((acc, ch) => acc + chWidthMap[asciiToIdx(ch.charCodeAt(0))] + 2, 0);
+  return (
+    text
+      .split('')
+      .reduce(
+        (acc, ch) => acc + chWidthMap[asciiToIdx(ch.charCodeAt(0))] + 2,
+        0
+      ) - 2
+  );
 };
 
 export const getMobileOS = () => {
