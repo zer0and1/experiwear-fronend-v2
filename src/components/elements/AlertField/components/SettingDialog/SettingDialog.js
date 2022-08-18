@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
@@ -24,8 +24,7 @@ import { VIBRATION_MARKS } from './constants';
 import CloseIcon from '@material-ui/icons/Close';
 import { LED_TYPES, VIB_INTENSITIES, VIB_TYPES } from 'utils/constants';
 import clsx from 'clsx';
-import { PRESET_PATTERNS } from 'utils/constants/enums';
-import _ from 'lodash';
+import { DEFAULT_ALERT_PARAMS, PRESET_PATTERNS } from 'utils/constants/enums';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,11 +79,9 @@ const SettingDialog = ({
   onSaveAsDefault,
 }) => {
   const classes = useStyles();
-  const [selectedPreset, selectPreset] = useState(-1);
-
-  useEffect(() => {
-    selectPreset(PRESET_PATTERNS.findIndex((pp) => _.isEqual(pp, params)));
-  }, [params]);
+  const [selectedPreset, selectPreset] = useState(
+    DEFAULT_ALERT_PARAMS().presetPatternIndex
+  );
 
   const handleDurationChange = useCallback(
     (e, value) => {

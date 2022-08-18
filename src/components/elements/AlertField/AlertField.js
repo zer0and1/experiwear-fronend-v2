@@ -2,8 +2,8 @@ import { Box, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useMemo, useState } from 'react';
-import { DEFAULT_ALERT_PARAMS, MOBILE_OS } from 'utils/constants';
-import { difference, getMobileOS, isEmpty } from 'utils/helpers';
+import { PRESET_PATTERNS } from 'utils/constants';
+import { difference, isEmpty } from 'utils/helpers';
 import { SettingDialog } from './components';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 15,
     letterSpacing: -0.24,
     color: 'rgba(60, 60, 67, 0.6)',
+    '&>.os': {
+      fontSize: 12,
+      color: 'rgba(60, 60, 67, 0.8)',
+      borderBottom: 'dotted',
+      marginBottom: 3,
+    },
   },
   button: {
     margin: -12,
@@ -44,62 +50,75 @@ const AlertField = ({
   const [settingToggled, toggleSetting] = useState(false);
 
   const paramsLabel = useMemo(() => {
-    const diff = difference(
-      getMobileOS() !== MOBILE_OS.unknown ? {} : DEFAULT_ALERT_PARAMS(),
-      value
-    );
+    const iOSValue = PRESET_PATTERNS[value.presetPatternIndex];
+    const diff = difference(iOSValue, value);
 
     if (isEmpty(diff)) {
       return 'Default';
     }
 
-    const colors = (
+    const ColorPattern = (val) => (
       <>
         <Box display="flex" alignItems="center">
           <div>Colors Top:&nbsp;</div>
           <div
             className={classes.colorPattern}
-            style={{ background: value.topColor1 }}
+            style={{ background: val.topColor1 }}
           />
           <div
             className={classes.colorPattern}
-            style={{ background: value.topColor2 }}
+            style={{ background: val.topColor2 }}
           />
           <div
             className={classes.colorPattern}
-            style={{ background: value.topColor3 }}
+            style={{ background: val.topColor3 }}
           />
         </Box>
         <Box display="flex" alignItems="center">
           <div>Colors Bottom:&nbsp;</div>
           <div
             className={classes.colorPattern}
-            style={{ background: value.bottomColor1 }}
+            style={{ background: val.bottomColor1 }}
           />
           <div
             className={classes.colorPattern}
-            style={{ background: value.bottomColor2 }}
+            style={{ background: val.bottomColor2 }}
           />
           <div
             className={classes.colorPattern}
-            style={{ background: value.bottomColor3 }}
+            style={{ background: val.bottomColor3 }}
           />
         </Box>
       </>
     );
 
     let colorChanged = false;
-    return Object.keys(diff)
-      .map((key) => {
-        colorChanged |= key.startsWith('topColor');
-        colorChanged |= key.startsWith('bottomColor');
-        return key.includes('Color') ? null : (
-          <Box key={key} style={{ textTransform: 'capitalize' }}>
-            {key}: {diff[key]}
-          </Box>
-        );
-      })
-      .concat(colorChanged ? colors : null);
+    return (
+      <>
+        <Box className="os">Android</Box>
+        {Object.keys(diff)
+          .map((key) => {
+            colorChanged |= key.startsWith('topColor');
+            colorChanged |= key.startsWith('bottomColor');
+            return key.includes('Color') ? null : (
+              <Box key={key} style={{ textTransform: 'capitalize' }}>
+                {key}: {diff[key]}
+              </Box>
+            );
+          })
+          .concat(colorChanged ? ColorPattern(value) : null)}
+        <Box className="os">iOS</Box>
+        {Object.keys(diff)
+          .map((key) =>
+            key.includes('Color') ? null : (
+              <Box key={key} style={{ textTransform: 'capitalize' }}>
+                {key}: {iOSValue[key]}
+              </Box>
+            )
+          )
+          .concat(colorChanged ? ColorPattern(iOSValue) : null)}
+      </>
+    );
   }, [value, classes]);
 
   const handleSaveAsDefault = () => {
