@@ -26,12 +26,14 @@ export const setUploadedTickets = createAction(
 );
 
 export const getTickets = (params) => async (dispatch) => {
+  dispatch(setLoadingStatus(true));
   try {
     const fanbands = await readTickets(params);
     dispatch(setTickets(fanbands));
   } catch (e) {
     dispatch(setResponseError(e.response));
   }
+  dispatch(setLoadingStatus(false));
 };
 
 export const insertTicket = (params) => async (dispatch) => {

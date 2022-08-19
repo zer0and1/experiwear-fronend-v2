@@ -27,7 +27,7 @@ const TicketTable = () => {
   });
 
   const handleSearch = useCallback(() => {
-    dispatch(getTickets({ phone: search, skip, take }));
+    dispatch(getTickets({ phoneNumber: search, skip, take }));
   }, [search, skip, take, dispatch]);
 
   const handleKeyDown = useCallback(
