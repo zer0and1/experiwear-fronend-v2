@@ -53,10 +53,6 @@ const AlertField = ({
     const iOSValue = PRESET_PATTERNS[value.presetPatternIndex];
     const diff = difference(iOSValue, value);
 
-    if (isEmpty(diff)) {
-      return 'Default';
-    }
-
     const ColorPattern = (val) => (
       <>
         <Box display="flex" alignItems="center">
@@ -91,6 +87,10 @@ const AlertField = ({
         </Box>
       </>
     );
+
+    if (isEmpty(diff)) {
+      return ColorPattern(value);
+    }
 
     let colorChanged = false;
     return (
