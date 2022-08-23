@@ -5,10 +5,13 @@ import {
   SelectedGame,
   SelectedGameSidebar,
 } from 'components';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, Link } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { setSelectedDate } from 'redux/actions';
 
 export default function HomePage() {
+  const dispatch = useDispatch();
   const [isMonthlyView, setMonthlyView] = useState(true);
 
   const sidebar = useMemo(
@@ -20,6 +23,11 @@ export default function HomePage() {
     () => (isMonthlyView ? <Home /> : <SelectedGame />),
     [isMonthlyView]
   );
+
+  useEffect(() => {
+    dispatch(setSelectedDate(new Date()));
+    // eslint-disable-next-line
+  }, []);
 
   const handleChangeView = () => {
     setMonthlyView((view) => !view);

@@ -24,7 +24,7 @@ const SelectedGameSidebar = () => {
     <Fragment>
       <Title mb={3}>Calendar</Title>
       <Calendar
-        value={selectedDate || new Date()}
+        value={selectedDate}
         minimized={true}
         cellData={cellData}
         onChange={handleDateChange}
