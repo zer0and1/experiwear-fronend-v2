@@ -5,6 +5,10 @@ export const getNotifications = async (params) => {
   return await axios.get('/notifications', { params });
 };
 
+export const getAlertsByDateRange = async (params) => {
+  return await axios.get('/notifications/by-date', { params });
+};
+
 export const getLatestNotification = async (params) => {
   return await axios.get('/notifications/latest', { params });
 };
