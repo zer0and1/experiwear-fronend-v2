@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
@@ -24,7 +24,7 @@ import { VIBRATION_MARKS } from './constants';
 import CloseIcon from '@material-ui/icons/Close';
 import { LED_TYPES, VIB_INTENSITIES, VIB_TYPES } from 'utils/constants';
 import clsx from 'clsx';
-import { DEFAULT_ALERT_PARAMS, PRESET_PATTERNS } from 'utils/constants/enums';
+import { PRESET_PATTERNS } from 'utils/constants/enums';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,9 +79,6 @@ const SettingDialog = ({
   onSaveAsDefault,
 }) => {
   const classes = useStyles();
-  const [selectedPreset, selectPreset] = useState(
-    DEFAULT_ALERT_PARAMS().presetPatternIndex
-  );
 
   const handleDurationChange = useCallback(
     (e, value) => {
@@ -92,7 +89,6 @@ const SettingDialog = ({
 
   const handleSelectPreset = useCallback(
     (presetIdx) => {
-      selectPreset(presetIdx);
       onReset(PRESET_PATTERNS[presetIdx]);
     },
     [onReset]
@@ -101,7 +97,6 @@ const SettingDialog = ({
   const handleReset = useCallback(
     (e) => {
       e.preventDefault();
-      selectPreset(0);
       onReset(PRESET_PATTERNS[0]);
     },
     [onReset]
@@ -130,7 +125,7 @@ const SettingDialog = ({
                 <div
                   key={idx}
                   className={clsx(classes.presetButton, {
-                    [classes.presetSelected]: selectedPreset === idx,
+                    [classes.presetSelected]: params.presetPatternIndex === idx,
                   })}
                   onClick={() => handleSelectPreset(idx)}
                 >
