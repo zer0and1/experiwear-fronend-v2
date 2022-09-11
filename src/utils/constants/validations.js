@@ -30,3 +30,5 @@ export const STRING_VALID = yup
   .matches(/^[A-Za-z0-9' ?!]*$/, 'Please do not input special character');
 
 export const MAX_FIRMWARE_STRING_WIDTH = 75;
+
+export const MAX_RESPONSE_NUMBER = 4;

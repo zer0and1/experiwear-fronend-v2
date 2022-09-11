@@ -12,6 +12,7 @@ import {
   ALERT_FORM_MODES,
   STRING_VALID,
   MAX_FIRMWARE_STRING_WIDTH,
+  MAX_RESPONSE_NUMBER,
 } from 'utils/constants';
 import {
   AlertField,
@@ -74,7 +75,7 @@ const QuickPollForm = ({
 
   const addResponse = () => {
     setResponses((prevState) =>
-      prevState.length < 5 ? [...prevState, ''] : prevState
+      prevState.length < MAX_RESPONSE_NUMBER ? [...prevState, ''] : prevState
     );
   };
 
@@ -206,7 +207,7 @@ const QuickPollForm = ({
               className={classes.anotherResponseButton}
               fullWidth={false}
               onClick={addResponse}
-              disabled={responses.length >= 5}
+              disabled={responses.length >= MAX_RESPONSE_NUMBER}
             >
               Add another response
             </Button>
