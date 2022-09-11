@@ -6,7 +6,7 @@ import { Calendar, CardHeaderButton } from 'components';
 import { Add as AddIcon } from '@material-ui/icons';
 import { LINKS } from 'utils/constants';
 import { useRouter } from 'next/router';
-import { useAsyncAction, usePathIndicator } from 'hooks';
+import { usePathIndicator } from 'hooks';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,12 @@ const Home = () => {
     router.push(LINKS.news.path);
   };
 
-  useAsyncAction(getNotifications());
+  const handlePickerChange = (year, month) => {
+    dispatch(
+      getNotifications(null, null, `${year}-${month}-01`, `${year}-${month}-31`)
+    );
+  };
+
   usePathIndicator(LINKS.home);
 
   return (
@@ -41,6 +46,7 @@ const Home = () => {
             </CardHeaderButton>
           }
           onChange={handleDateChange}
+          onPickerChange={handlePickerChange}
         />
       </CardContent>
     </Card>

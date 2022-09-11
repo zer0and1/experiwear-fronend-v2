@@ -205,8 +205,9 @@ export const getSavedAlerts = (params) => async (dispatch) => {
 };
 
 export const getNotifications =
-  (type = '', take = PAGE_COUNT) =>
+  (type = '', take = PAGE_COUNT, startDate = null, endDate = null) =>
   async (dispatch) => {
+    dispatch(setLoadingStatus(true));
     try {
       let params = {};
       if (!!type) {
@@ -215,11 +216,18 @@ export const getNotifications =
           isSent: true,
           skip: 0,
           take,
+          startDate,
+          endDate,
         };
       }
+      if (startDate) params.startDate = startDate;
+      if (endDate) params.endDate = endDate;
+
       const { results = [], total = 0 } = await (type ===
         ALERT_MIXED_TYPES.scheduled
         ? alertsAPI.getScheduledNotifications
+        : startDate
+        ? alertsAPI.getAlertsByDateRange
         : alertsAPI.getNotifications)(params);
 
       dispatch({
@@ -233,6 +241,8 @@ export const getNotifications =
     } catch (error) {
       dispatch(setResponseError(error));
     }
+
+    dispatch(setLoadingStatus(false));
   };
 
 export const setNotifications =

@@ -4,6 +4,7 @@ import {
   ArrowForwardIosOutlined,
 } from '@material-ui/icons';
 import moment from 'moment';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CalendarPicker = ({ year, month, onChange, actions, minimized }) => {
   const classes = useStyles({ minimized });
+
+  // eslint-disable-next-line
+  useEffect(() => onChange(year, month), []);
 
   const handleArrowBackClick = () => {
     if (month === 1) {

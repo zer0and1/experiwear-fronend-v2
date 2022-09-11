@@ -13,7 +13,7 @@ import BellIcon from 'components/icons/BellIcon';
 import { useAsyncAction } from 'hooks';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getNotifications, getUserInfo } from 'redux/actions';
+import { getUserInfo } from 'redux/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +72,6 @@ const UserAccount = () => {
     setAnchorEl(e.currentTarget);
   };
 
-  useAsyncAction(getNotifications());
   useAsyncAction(getUserInfo());
 
   return (

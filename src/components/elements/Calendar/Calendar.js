@@ -17,6 +17,7 @@ const Calendar = ({
   cellData = {},
   actions = null,
   onChange = () => {},
+  onPickerChange = () => {},
   minimized = false,
   ...boxProps
 }) => {
@@ -31,6 +32,7 @@ const Calendar = ({
   const handlePickerChange = (year, month) => {
     setYear(year);
     setMonth(month);
+    onPickerChange(year, month);
   };
 
   return (

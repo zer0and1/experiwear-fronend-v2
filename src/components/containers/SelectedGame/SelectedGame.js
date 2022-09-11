@@ -44,7 +44,8 @@ const SelectedGame = () => {
       notifications.filter(
         (n) =>
           moment(n.createdAt).isSame(moment(selectedDate), 'day') &&
-          alertsToShow[n.type]
+          alertsToShow[n.type] &&
+          n.isSent
       ),
     [notifications, selectedDate, alertsToShow]
   );
