@@ -56,6 +56,7 @@ export const WS_EVENTS = Object.freeze({
 export const VIB_TYPES = Object.freeze({
   quickBursts: 'quickBursts',
   longVibrate: 'longVibrate',
+  none: 'none',
 });
 
 export const VIB_INTENSITIES = Object.freeze({
@@ -68,6 +69,7 @@ export const VIB_INTENSITIES = Object.freeze({
 export const LED_TYPES = Object.freeze({
   flashing: 'flashing',
   stable: 'stable',
+  none: 'none',
 });
 
 export const PRESET_PATTERNS = [
@@ -170,22 +172,8 @@ export const PRESET_PATTERNS = [
     ledType: LED_TYPES.flashing,
   },
   {
-    // label: 'Half Green/Orange',
-    presetPatternIndex: 7,
-    topColor1: 'rgb(0,255,0)',
-    topColor2: 'rgb(0,255,0)',
-    topColor3: 'rgb(0,255,0)',
-    bottomColor1: 'rgb(255,164,0)',
-    bottomColor2: 'rgb(255,164,0)',
-    bottomColor3: 'rgb(255,164,0)',
-    vibrationIntensity: VIB_INTENSITIES.high,
-    vibrationType: VIB_TYPES.quickBursts,
-    duration: 10,
-    ledType: LED_TYPES.flashing,
-  },
-  {
     // label: 'Half Red/Green',
-    presetPatternIndex: 8,
+    presetPatternIndex: 7,
     topColor1: 'rgb(255,0,0)',
     topColor2: 'rgb(255,0,0)',
     topColor3: 'rgb(255,0,0)',
@@ -199,7 +187,7 @@ export const PRESET_PATTERNS = [
   },
   {
     // label: 'All American',
-    presetPatternIndex: 9,
+    presetPatternIndex: 8,
     topColor1: 'rgb(255,0,0)',
     topColor2: 'rgb(0,0,0)',
     topColor3: 'rgb(0,0,255)',
@@ -210,6 +198,20 @@ export const PRESET_PATTERNS = [
     vibrationType: VIB_TYPES.quickBursts,
     duration: 10,
     ledType: LED_TYPES.flashing,
+  },
+  {
+    // label: 'None',
+    presetPatternIndex: 9,
+    topColor1: 'rgb(0,0,0)',
+    topColor2: 'rgb(0,0,0)',
+    topColor3: 'rgb(0,0,0)',
+    bottomColor1: 'rgb(0,0,0)',
+    bottomColor2: 'rgb(0,0,0)',
+    bottomColor3: 'rgb(0,0,0)',
+    vibrationIntensity: VIB_INTENSITIES.no,
+    vibrationType: VIB_TYPES.none,
+    duration: 0,
+    ledType: LED_TYPES.none,
   },
 ];
 
